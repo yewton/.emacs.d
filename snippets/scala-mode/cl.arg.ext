@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: class name extends T { .. }
+# key: cl
+# --
+class ${1:name}(${2:args}) extends ${3:type} {
+  $0
+}
