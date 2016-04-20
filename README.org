@@ -3,17 +3,33 @@
 
 yewton の ~.emacs.d~ です。
 
-#+BEGIN_SRC emacs-lisp :padline no
-;;; -*- coding: utf-8; lexical-binding: t -*-
-#+END_SRC
+[[./images/screenshot.png]]
+
 
 ** 定数定義
 
+今のところ各種データファイルのベースディレクトリの定義のみです。
+
 #+BEGIN_SRC emacs-lisp
+;;; -*- coding: utf-8; lexical-binding: t -*-
 (defconst my-data-directory (expand-file-name "data/" user-emacs-directory))
+(unless (file-directory-p my-data-directory)
+  (make-directory my-data-directory))
+#+END_SRC
+
+** 各種ディレクトリの設定
+
+一部のディレクトリの設定は全ての設定に先んじて設定しておかないと、
+パッケージのインストール中に予期せぬディレクトリを作成してしまうため、ここで設定しておきます。
+
+#+BEGIN_SRC emacs-lisp
+  (setq url-configuration-directory (expand-file-name "url/" my-data-directory)
+        pcache-directory (expand-file-name "pcache" my-data-directory))
 #+END_SRC
 
 ** el-get
+
+パッケージの管理には el-get を使います。
 
 *** インストールするパッケージ
 
@@ -102,6 +118,8 @@ yewton の ~.emacs.d~ です。
 
 *** 独自レシピの定義
 
+el-get の公式にないレシピや、一部自分用にカスタムしたものをここに列挙します:
+
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref recipes :noweb yes
   (require 'url-expand)
   (setq el-get-sources
@@ -110,7 +128,6 @@ yewton の ~.emacs.d~ です。
           (:name fancy-battery :type github :pkgname "lunaryorn/fancy-battery.el")
           (:name eyebrowse :type github :pkgname "wasamasa/eyebrowse")
           (:name org-reveal :depends nil)
-          (:name wakatime-mode :pkgname "yewton/wakatime-mode" :branch "brew-pyenv-friendly")
           (:name powerline :pkgname "yewton/powerline" :branch "string-width")
           (:name hugo :type github :pkgname "yewton/hugo.el" :depends (dash f ht s))
           (:name markdown-mode :prepare nil) ; markdown-modeじゃなくgfm-modeで開きたいから
@@ -126,6 +143,8 @@ yewton の ~.emacs.d~ です。
 #+END_SRC
 
 **** ddskk のビルド定義
+
+DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来るだけ忠実に再現しています:
 
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref ddskk-build
   (let* ((prefix (el-get-package-directory "ddskk"))
@@ -157,6 +176,8 @@ yewton の ~.emacs.d~ です。
       ("make" "-C" ,dic-dir "cdb")))
 #+END_SRC
 
+**** インストール
+
 何か失敗したときにデバッグ情報が欲しい場合は、 ~debug-on-error~ を Non-nil に設定します。
 パッケージによってはカジュアルに ~error~ を出してきて煩いかもしれません。
 
@@ -186,6 +207,8 @@ yewton の ~.emacs.d~ です。
              (error "el-get failed with: %s" err-var)))))))
 #+END_SRC
 
+公式のガイド通りに el-get 本体をインストールします:
+
 #+BEGIN_SRC emacs-lisp :noweb yes
   (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
   (setq el-get-verbose t)
@@ -196,35 +219,49 @@ yewton の ~.emacs.d~ です。
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (setq el-get-verbose t)
+#+END_SRC
 
+レシピやパッケージの定義は先述の通りです:
+
+#+BEGIN_SRC emacs-lisp
   <<recipes>>
-
   <<packages>>
+#+END_SRC
 
+MELPA 等で配布されているパッケージをそのまま el-get から利用することもあるので、
+標準のパッケージシステムも設定しておきます:
+
+#+BEGIN_SRC emacs-lisp
   (require 'package)
   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                            ("gnu" . "http://elpa.gnu.org/packages/")
                            ("ELPA" . "http://tromey.com/elpa/")))
   (package-initialize)
+#+END_SRC
 
+パッケージの初期化処理には use-package を使うため、まずインストールします:
+
+#+BEGIN_SRC emacs-lisp
   (my-el-get-sync '(use-package))
-
   (eval-when-compile
     (require 'use-package))
   (require 'bind-key)
+#+END_SRC
 
+Mac OS X の場合、ビルド時に正しいパスが設定されていないと失敗する場合があるため、
+exec-path-from-shell でパスの設定を行ないます:
+
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (my-el-get-sync '(exec-path-from-shell))
     (use-package exec-path-from-shell
       :config (exec-path-from-shell-initialize)))
-
-  (my-el-get-sync my-packages)
 #+END_SRC
 
-** init
+最後に、その他のパッケージをインストールします:
+
 #+BEGIN_SRC emacs-lisp
-(unless (file-directory-p my-data-directory)
-  (make-directory my-data-directory))
+  (my-el-get-sync my-packages)
 #+END_SRC
 
 ** 基本的な設定
@@ -916,13 +953,6 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
   (add-hook 'before-make-frame-hook #'ccc-setup)
 #+END_SRC
 
-*** pcache
-#+BEGIN_SRC emacs-lisp
-(use-package pcache
-             :defer t
-             :init (setq pcache-directory (expand-file-name "pcache" my-data-directory)))
-#+END_SRC
-
 *** migemo
 
 #+BEGIN_SRC emacs-lisp
@@ -953,6 +983,32 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
                          migemo-pattern-alist-file (expand-file-name "pattern-alist" migemo-dir)
                          migemo-frequent-pattern-alist-file (expand-file-name "frequent-alist" migemo-dir))
                    (migemo-init))))
+#+END_SRC
+
+*** auto-complete
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-complete
+    :diminish ""
+    :init
+    (setq ac-auto-start 0
+          ac-candidate-limit nil
+          ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory)
+          ac-delay 0.2
+          ac-dwim t
+          ac-fuzzy-enable t
+          ac-quick-help-delay 1.
+          ac-use-comphist t
+          ac-use-fuzzy t
+          ac-use-menu-map t
+          ac-use-quick-help t
+          tab-always-indent 'complete)
+    :bind (:map ac-menu-map
+                ("C-n" . ac-next)
+                ("C-p" . ac-previous))
+    :config
+    (ac-flyspell-workaround)
+    (global-auto-complete-mode 1))
 #+END_SRC
 
 *** helm
@@ -1027,32 +1083,6 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
   (use-package magit-autorevert
     :defer t
     :config (setq magit-auto-revert-mode-ligter ""))
-#+END_SRC
-
-*** auto-complete
-
-#+BEGIN_SRC emacs-lisp
-  (use-package auto-complete
-    :diminish ""
-    :init
-    (setq ac-auto-start 0
-          ac-candidate-limit nil
-          ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory)
-          ac-delay 0.2
-          ac-dwim t
-          ac-fuzzy-enable t
-          ac-quick-help-delay 1.
-          ac-use-comphist t
-          ac-use-fuzzy t
-          ac-use-menu-map t
-          ac-use-quick-help t
-          tab-always-indent 'complete)
-    :bind (:map ac-menu-map
-                ("C-n" . ac-next)
-                ("C-p" . ac-previous))
-    :config
-    (ac-flyspell-workaround)
-    (global-auto-complete-mode 1))
 #+END_SRC
 
 *** persp
@@ -1338,7 +1368,6 @@ projectile とキープレフィクスが被っているので、
   (use-package url
     :defer t
     :config
-    (setq url-configuration-directory (expand-file-name "url/" my-data-directory))
     (unless (file-directory-p url-configuration-directory)
       (make-directory url-configuration-directory t))
     ;; cf. https://github.com/punchagan/org2blog/issues/176#issuecomment-67693847
@@ -1525,7 +1554,7 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
 
   (use-package org-id
     :defer t
-    :config
+    :init
     (setq org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory)))
 
   (use-package org-capture
