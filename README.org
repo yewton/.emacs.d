@@ -24,7 +24,9 @@ yewton の ~.emacs.d~ です。
 
 #+BEGIN_SRC emacs-lisp
   (setq url-configuration-directory (expand-file-name "url/" my-data-directory)
-        pcache-directory (expand-file-name "pcache" my-data-directory))
+        pcache-directory (expand-file-name "pcache" my-data-directory)
+        org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory)
+        ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory))
 #+END_SRC
 
 ** el-get
@@ -182,7 +184,7 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
 パッケージによってはカジュアルに ~error~ を出してきて煩いかもしれません。
 
 #+BEGIN_SRC emacs-lisp
-  (setq debug-on-error t)
+  (setq debug-on-error nil)
 #+END_SRC
 
 ~el-get~ は大量の通信を行うため、結構な頻度で失敗します。
@@ -209,7 +211,7 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
 
 公式のガイド通りに el-get 本体をインストールします:
 
-#+BEGIN_SRC emacs-lisp :noweb yes
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
   (setq el-get-verbose t)
   (unless (require 'el-get nil 'noerror)
@@ -223,7 +225,7 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
 
 レシピやパッケージの定義は先述の通りです:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb yes
   <<recipes>>
   <<packages>>
 #+END_SRC
@@ -993,7 +995,6 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
     :init
     (setq ac-auto-start 0
           ac-candidate-limit nil
-          ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory)
           ac-delay 0.2
           ac-dwim t
           ac-fuzzy-enable t
@@ -1551,11 +1552,6 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
       (set (make-local-variable 'system-time-locale) "C")
       (org-display-inline-images))
     (add-hook 'org-mode-hook #'my-org-mode-hook))
-
-  (use-package org-id
-    :defer t
-    :init
-    (setq org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory)))
 
   (use-package org-capture
     :defer t
