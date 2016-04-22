@@ -25,13 +25,13 @@ yewton の ~.emacs.d~ です。
 #+BEGIN_SRC emacs-lisp
   (setq url-configuration-directory (expand-file-name "url/" my-data-directory)
         pcache-directory (expand-file-name "pcache" my-data-directory)
-        org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory)
         ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory))
 #+END_SRC
 
 ** el-get
 
-パッケージの管理には el-get を使います。
+パッケージの管理には el-get を使います。 el-get 自体のインストールは [[file:init.el][init.el]] で
+行なっています。
 
 *** インストールするパッケージ
 
@@ -207,20 +207,6 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
            (if trial
                (sleep-for (car trial))
              (error "el-get failed with: %s" err-var)))))))
-#+END_SRC
-
-公式のガイド通りに el-get 本体をインストールします:
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
-  (setq el-get-verbose t)
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (setq el-get-verbose t)
 #+END_SRC
 
 レシピやパッケージの定義は先述の通りです:
