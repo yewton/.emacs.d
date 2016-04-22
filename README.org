@@ -706,6 +706,9 @@ exec-path-from-shell でパスの設定を行ないます:
   (prefer-coding-system 'utf-8-unix)
   (set-default-coding-systems 'utf-8-unix)
 
+  (setq user-full-name "Yuto SASAKI")
+  (setq user-mail-address "yewton@gmail.com")
+
   (use-package which-key
     :diminish "")
   ;; 現在いる関数名をモードラインに表示
