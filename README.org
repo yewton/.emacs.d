@@ -1627,6 +1627,64 @@ org-mode 内で図を確認しながら plantuml を書くことが出来ます�
     (add-hook 'org-babel-after-execute-hook #'org-display-inline-images))
 #+END_SRC
 
+**** ox-taskjuggler
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-taskjuggler
+    :init
+    (add-to-list 'org-export-backends 'taskjuggler)
+    :defer t
+    :config
+    ;; http://www.taskjuggler.org/tj3/manual/resource.html
+    (setq org-taskjuggler-valid-resource-attributes '(
+                                                      booking
+                                                      chargeset
+                                                      efficiency
+                                                      email
+                                                      fail
+                                                      flags
+                                                      journalentry
+                                                      leaveallowance
+                                                      leaves
+                                                      limits
+                                                      managers
+                                                      purge
+                                                      rate
+                                                      resource
+                                                      shifts
+                                                      supplement
+                                                      vacation
+                                                      warn
+                                                      workinghours
+                                                      )
+          org-taskjuggler-valid-report-attributes '(
+                                                    balance
+                                                    caption
+                                                    columns
+                                                    definitions
+                                                    footer
+                                                    formats
+                                                    header
+                                                    headline
+                                                    hideresource
+                                                    hidetask
+                                                    loadunit
+                                                    period
+                                                    sorttasks
+                                                    timeformat
+                                                    timeformat
+                                                    )
+          org-taskjuggler-target-version 3.6))
+#+END_SRC
+
+**** org-ac
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-ac
+    :config
+    (org-ac/config-default))
+#+END_SRC
+
 *** ElDoc
 
 https://www.emacswiki.org/emacs/ElDoc
