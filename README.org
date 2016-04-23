@@ -1,190 +1,62 @@
-#+STARTUP: showall
+#+STARTUP: content
 * .emacs.d
 
 yewton の ~.emacs.d~ です。
 
 [[./images/screenshot.png]]
+** ヘッダー
 
+tangle されたファイルに付与されるヘッダです。
 
-** 定数定義
-
-今のところ各種データファイルのベースディレクトリの定義のみです。
-
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :padline no
 ;;; -*- coding: utf-8; lexical-binding: t -*-
-(defconst my-data-directory (expand-file-name "data/" user-emacs-directory))
-(unless (file-directory-p my-data-directory)
-  (make-directory my-data-directory))
 #+END_SRC
 
-** 各種ディレクトリの設定
+ここでは、 ~:padline no~ を付けないとファイルの先頭に空行が入ってしまいます。
 
-一部のディレクトリの設定は全ての設定に先んじて設定しておかないと、
-パッケージのインストール中に予期せぬディレクトリを作成してしまうため、ここで設定しておきます。
+** 基本的なセットアップ
+
+設定に使用する定数を定義します:
 
 #+BEGIN_SRC emacs-lisp
-  (setq url-configuration-directory (expand-file-name "url/" my-data-directory)
-        pcache-directory (expand-file-name "pcache" my-data-directory)
-        ac-comphist-file (expand-file-name "ac-comphist.dat" my-data-directory))
+  (defconst my-personal-directory (expand-file-name "personal/" user-emacs-directory)
+    "バージョン管理外の個人用設定ファイルを配置するためのディレクトリ.
+
+  その他の設定が全て完了した時に読み込まれます.")
+  (defconst my-personal-preload-directory (expand-file-name "preload/" my-personal-directory)
+    "バージョン管理外の個人用設定ファイルを配置するためのディレクトリ.
+
+  一番最初に読み込まれます.")
 #+END_SRC
 
-** el-get
+この他に ~my-data-directory~ という、バージョン管理外の様々なファイルを配置するためのディレクトリが
+[[file:init.el][init.el]] で定義されています。
 
-パッケージの管理には el-get を使います。 el-get 自体のインストールは [[file:init.el][init.el]] で
-行なっています。
-
-*** インストールするパッケージ
-
-#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref packages
-  (setq my-packages
-        '(
-          ace-isearch
-          ace-link
-          ag
-          anzu
-          apache-mode
-          auto-complete
-          bm
-          bookmark+
-          buffer-move
-          color-theme-zenburn
-          crontab-mode
-          ddskk
-          diminish
-          dired+
-          dired-hacks
-          dockerfile-mode
-          eldoc-eval
-          elisp-slime-nav
-          enh-ruby-mode
-          ensime
-          eyebrowse
-          fancy-battery
-          flycheck
-          flycheck-pos-tip
-          flyspell
-          git-gutter
-          git-gutter-fringe
-          golden-ratio
-          google-c-style
-          helm
-          helm-ag
-          helm-c-yasnippet
-          helm-descbinds
-          helm-gtags
-          helm-projectile
-          helm-swoop
-          htmlize
-          hugo
-          imenu-anywhere
-          info+
-          japanese-holidays
-          js2-mode
-          lispxmp
-          magit
-          magit-gh-pulls
-          markdown-mode
-          migemo
-          multiple-cursors
-          nginx-mode
-          open-junk-file
-          operate-on-number
-          org-ac
-          org-present
-          org-reveal
-          persp-mode
-          plantuml-mode
-          projectile
-          quickrun
-          rainbow-delimiters
-          rainbow-identifiers
-          rainbow-mode
-          ruby-block
-          ruby-electric
-          ruby-end
-          ruby-mode
-          sbt-mode
-          scala-mode2
-          smartrep
-          spaceline
-          wakatime-mode
-          web-mode
-          wgrep
-          which-key
-          window-numbering
-          yaml-mode
-          yard-mode
-          yasnippet
-          ))
-#+END_SRC
-
-*** 独自レシピの定義
-
-el-get の公式にないレシピや、一部自分用にカスタムしたものをここに列挙します:
-
-#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref recipes :noweb yes
-  (require 'url-expand)
-  (setq el-get-sources
-        '((:name spaceline :type github :pkgname "TheBB/spaceline" :depends (powerline dash s))
-          (:name persp-mode :type github :pkgname "Bad-ptr/persp-mode.el")
-          (:name fancy-battery :type github :pkgname "lunaryorn/fancy-battery.el")
-          (:name eyebrowse :type github :pkgname "wasamasa/eyebrowse")
-          (:name org-reveal :depends nil)
-          (:name powerline :pkgname "yewton/powerline" :branch "string-width")
-          (:name hugo :type github :pkgname "yewton/hugo.el" :depends (dash f ht s))
-          (:name markdown-mode :prepare nil) ; markdown-modeじゃなくgfm-modeで開きたいから
-          (:name ensime :prepare nil) ; auto-load の定義が間違ってる気がする
-          (:name ddskk :pkgname "skk-dev/ddskk" :autoloads nil :load-path "share/emacs/site-lisp/skk"
-                 :info "share/info/skk.info" :features ("skk-setup")
-                 :build
-                 <<ddskk-build>>
-                 )
-          (:name open-junk-file
-                 :features nil
-                 :before (autoload 'open-junk-file "open-junk-file" "" t))))
-#+END_SRC
-
-**** ddskk のビルド定義
-
-DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来るだけ忠実に再現しています:
-
-#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref ddskk-build
-  (let* ((prefix (el-get-package-directory "ddskk"))
-         (dic-dir (expand-file-name "dic/" prefix))
-         (tools-dir (expand-file-name "tools/" prefix))
-         (info-dir (expand-file-name "share/info/" prefix))
-         (base-url "http://openlab.ring.gr.jp/skk/skk/")
-         (dic-base-url (url-expand-file-name "dic/" base-url))
-         (tools-base-url (url-expand-file-name "tools/" base-url))
-         (dic-name "SKK-JISYO.L")
-         (dic-url (url-expand-file-name dic-name dic-base-url))
-         (dic-path (expand-file-name dic-name dic-dir))
-         (dic-makefile-url (url-expand-file-name "Makefile" dic-base-url))
-         (dic-makefile-path (expand-file-name "Makefile" dic-dir))
-         (skk2cdb "skk2cdb.py")
-         (skk2cdb-url (url-expand-file-name skk2cdb tools-base-url))
-         (skk2cdb-path (expand-file-name skk2cdb tools-dir))
-         (emacs-options '("--batch" "--no-site-file" "--eval")))
-    `(,@(mapcar (lambda (cmd) `(,el-get-emacs ,@emacs-options ,cmd))
-                `(,@(mapcar (lambda (dir) (format "(make-directory \"%s\" t)" dir))
-                            (list dic-dir info-dir tools-dir))
-                  ,@(mapcar (lambda (p) (format "(url-copy-file \"%s\" \"%s\")" (car p) (cdr p)))
-                            (list `(,dic-url . ,dic-path)
-                                  `(,dic-makefile-url . ,dic-makefile-path)
-                                  `(,skk2cdb-url . ,skk2cdb-path)))))
-      (,el-get-emacs ,@emacs-options
-                     ,(format "(setq PREFIX \"%s\")" prefix)
-                     "-l" "SKK-MK" "-f" "SKK-MK-install")
-      ("make" "-C" ,dic-dir "cdb")))
-#+END_SRC
-
-**** インストール
-
-何か失敗したときにデバッグ情報が欲しい場合は、 ~debug-on-error~ を Non-nil に設定します。
-パッケージによってはカジュアルに ~error~ を出してきて煩いかもしれません。
+続いて、 ~my-personal-preload-directory~ 個人設定を読み込みます:
 
 #+BEGIN_SRC emacs-lisp
-  (setq debug-on-error nil)
+  (mapc #'load (directory-files my-personal-preload-directory 't "^[^#].*el\\'"))
+#+END_SRC
+
+個人情報を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Yuto SASAKI")
+  (setq user-mail-address "yewton@gmail.com")
+#+END_SRC
+
+ロケール関係の環境変数を設定します。
+
+これらは明示的に設定しない場合は環境変数から自動で設定されますが、
+Mac OS X の Application として動かす場合はシェルの環境変数が引き継がれないため、すべて明示的に指定します:
+
+#+BEGIN_SRC emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq locale-coding-system 'utf-8)
+    (setq system-time-locale "ja_JP.UTF-8")
+    (setenv "LANG" "ja_JP.UTF-8")
+    (setenv "LC_ALL" "ja_JP.UTF-8")
+    (setenv "LC_MESSAGES" "ja_JP.UTF-8"))
 #+END_SRC
 
 ~el-get~ は大量の通信を行うため、結構な頻度で失敗します。
@@ -192,8 +64,9 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
 失敗時に一定回数リトライするような関数を定義して使うことにします:
 
 #+BEGIN_SRC emacs-lisp
+  (require 'el-get)
   (defun my-el-get-sync (packages &optional num)
-    "(el-get 'sync PACKAGES) 失敗時に `NUM' 回までリトライする"
+    "(el-get 'sync PACKAGES) 失敗時に NUM 回までリトライする"
     (let* ((num (or num 5))
            (trial (number-sequence 1 num)))
       (while trial
@@ -209,143 +82,427 @@ DDSKK のビルドはかなり頑張って、実際の ~Makefile~ を出来る�
              (error "el-get failed with: %s" err-var)))))))
 #+END_SRC
 
-レシピやパッケージの定義は先述の通りです:
+なお、el-get 自体のインストールは [[file:init.el][init.el]] で行っています。
 
-#+BEGIN_SRC emacs-lisp :noweb yes
-  <<recipes>>
-  <<packages>>
-#+END_SRC
-
-MELPA 等で配布されているパッケージをそのまま el-get から利用することもあるので、
-標準のパッケージシステムも設定しておきます:
+続いて基本的なパッケージをインストール・設定しておきます:
 
 #+BEGIN_SRC emacs-lisp
-  (require 'package)
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")
-                           ("ELPA" . "http://tromey.com/elpa/")))
-  (package-initialize)
-#+END_SRC
-
-パッケージの初期化処理には use-package を使うため、まずインストールします:
-
-#+BEGIN_SRC emacs-lisp
-  (my-el-get-sync '(use-package))
+  (my-el-get-sync '(dash diminish f s use-package))
   (eval-when-compile
     (require 'use-package))
   (require 'bind-key)
+  (use-package f)
+  (use-package dash
+    :config
+    (dash-enable-font-lock))
+  (use-package s)
 #+END_SRC
 
-Mac OS X の場合、ビルド時に正しいパスが設定されていないと失敗する場合があるため、
-exec-path-from-shell でパスの設定を行ないます:
+ディレクトリ関連の関数を定義します:
 
 #+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (my-el-get-sync '(exec-path-from-shell))
-    (use-package exec-path-from-shell
-      :config (exec-path-from-shell-initialize)))
+  (defun my-directory! (name default-directory)
+    "DEFAULT-DIRECTORY に NAME というディレクトリを作成し、その絶対パスを返します."
+    (let ((path (file-name-as-directory (f-expand name default-directory))))
+      (unless (file-directory-p path)
+        (make-directory path t))
+      path))
+
+  (defun my-user-emacs-directory! (name)
+    "`user-emacs-directory' に NAME というディレクトリを作成し、その絶対パスを返します."
+    (my-directory! name user-emacs-directory))
+
+  (defun my-data-directory! (name)
+    "`my-data-directory' に NAME というディレクトリを作成し、その絶対パスを返します."
+    (my-directory! name my-data-directory))
+
+  (defun my-data-file (name)
+    "`my-data-directory' 以下の NAME というファイル名の絶対パスを返します."
+    (f-expand name my-data-directory))
 #+END_SRC
 
-最後に、その他のパッケージをインストールします:
+一部のファイルやディレクトリの設定はパッケージのインストール前に設定しておかないと、
+予期せぬディレクトリを作成してしまう場合があるため、ここで設定しておきます:
 
 #+BEGIN_SRC emacs-lisp
-  (my-el-get-sync my-packages)
+  (setq url-configuration-directory (my-data-directory! "url")
+        pcache-directory (my-data-directory! "pcache")
+        ac-comphist-file (my-data-file "ac-comphist.dat"))
 #+END_SRC
 
-** 基本的な設定
-*** Navigation
+** 特定のパッケージに依存しない設定
+*** ナビゲーション系
 
-~goto-address-prog-mode~ .. ~C-c RET~ でリンクを開けるようになるよ。
+カーソルやバッファ、ウインドウなどの移動関連の設定です。
+
+~dired~ で、もう片方のウインドウに表示された ~dired~ のディレクトリに対して
+コピーなどの操作が行われるようにするなど、
+~dired~ に対象ディレクトリを〈推測〉させます:
 
 #+BEGIN_SRC emacs-lisp
-  (require 'autorevert)
-  ;; Auto refresh
-  (global-auto-revert-mode 1)
-  (diminish 'auto-revert-mode)
-  ;; Also auto refresh dired, but be quiet about it
-  (setq global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil)
+(setq dired-dwim-target t)
+#+END_SRC
 
-  ;; Make dired "guess" target directory for some operations, like copy to
-  ;; directory visited in other split buffer.
-  (setq dired-dwim-target t)
+いちいち音を鳴らしたり画面を点滅させたりさせないようにします:
 
-  ;; no beep pleeeeeease ! (and no visual blinking too please)
+#+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore
         visible-bell nil)
+#+END_SRC
 
+リンクっぽい文字列をハイライトして、 ~C-c RET~ でリンクを開けるようにします:
 
-  ;; Highlight and allow to open http link at point in programming buffers
-  ;; goto-address-prog-mode only highlights links in strings and comments
-  (add-hook 'prog-mode-hook #'goto-address-prog-mode)
-  ;; Highlight and follow bug references in comments and strings
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook #'goto-address-prog-mode)
+#+END_SRC
+
+同じようにバグや不具合に対する参照にリンクを設定します:
+
+#+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
+#+END_SRC
 
+~*Help*~ ウインドウにフォーカスを当てたままにします:
 
-  ;; Keep focus while navigating help buffers
-  (setq help-window-select 't)
+#+BEGIN_SRC emacs-lisp
+(setq help-window-select t)
+#+END_SRC
 
-  ;; Scroll compilation to first error or end
+~*compilation*~ バッファを、最初のエラーまたは最後までスクロールさせます:
+
+#+BEGIN_SRC emacs-lisp
   (setq compilation-scroll-output 'first-error)
 #+END_SRC
 
-*** Edit
+
+行頭移動の挙動を改善します。
+
+参考リンク: [[http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Smarter navigation to the beginning of a line - Emacs Redux]]
 
 #+BEGIN_SRC emacs-lisp
-  ;; start scratch in text mode (usefull to get a faster Emacs load time
-  ;; because it avoids autoloads of elisp modes)
-  (setq initial-major-mode 'text-mode)
+  (defun smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
 
-  ;; use only spaces and no tabs
-  (setq-default indent-tabs-mode nil
-                tab-width 2)
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
 
-  ;; Use system trash for file deletion
-  ;; should work on Windows and Linux distros
-  ;; on OS X, see contrib/osx layer
-  (setq delete-by-moving-to-trash t)
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
 
-  ;; auto fill breaks line beyond buffer's fill-column
-  (setq-default fill-column 80)
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
 
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
 
-  ;; persistent abbreviation file
-  (setq abbrev-file-name (expand-file-name "abbrev_defs" my-data-directory))
-
-  ;; Save clipboard contents into kill-ring before replace them
-  (setq save-interprogram-paste-before-kill t)
-
-  ;; Single space between sentences is more widespread than double
-  (setq-default sentence-end-double-space nil)
-
-  ;; The C-d rebinding that most shell-like buffers inherit from
-  ;; comint-mode assumes non-evil configuration with its
-  ;; `comint-delchar-or-maybe-eof' function, so we disable it
-  (use-package comint
-    :defer t
-    :bind (:map comint-mode-map
-                ("C-d" . ignore))
-    :config
-    (setq comint-process-echoes t))
-
-
-  ;; electric-pair 勝手に閉じカッコとかを入れてくれるやつ
-  (electric-pair-mode 1)
-
-  (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-  (bind-key "C-c h" #'help-command)
-
-  (bind-key*  "M-/" #'hippie-expand)
-
-  (diminish 'abbrev-mode)
-  (diminish 'auto-fill-function)
+  ;; remap C-a to `smarter-move-beginning-of-line'
+  (global-set-key [remap move-beginning-of-line]
+                  #'smarter-move-beginning-of-line)
 #+END_SRC
 
-**** Camel
+ファイルの再読み込みを行うヘルパー関数を定義します:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Emacsで単語単位の移動をキャメルケースの途中で区切るには: 小ネタ帳
-  ;; http://smallsteps.seesaa.net/article/123661899.html
+  (defun my-revert-buffer (&optional force) (interactive "P") (revert-buffer t force))
+  (bind-key* "C-c C-x j"  #'my-revert-buffer)
+#+END_SRC
+
+*** 編集系
+
+編集作業に関連する設定を行います。
+
+言語環境を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (set-language-environment 'Japanese)
+  (prefer-coding-system 'utf-8-unix)
+  (set-default-coding-systems 'utf-8-unix)
+#+END_SRC
+
+外部の変更を自動的に反映するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'autorevert)
+  (global-auto-revert-mode 1)
+#+END_SRC
+
+~dired~ も自動反映させます。
+また、自動反映時のメッセージを表示しないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
+#+END_SRC
+
+~*scratch*~ バッファを ~text-mode~ で開くようにします。
+デフォルトでは ~emacs-lisp-mode~ で開かれるため
+emacs-lisp 用の設定がロードされてしまい、起動に時間がかかってしまうためです。
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-major-mode 'text-mode)
+#+END_SRC
+
+インデントにハードタブではなくスペースを使うようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil
+                tab-width 2)
+#+END_SRC
+
+ファイル削除時にシステムのごみ箱を使うようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+END_SRC
+
+自動折り返しする文字数を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 120)
+#+END_SRC
+
+略称展開(abbrev)に関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq abbrev-file-name (my-data-file "abbrev_defs")
+        save-abbrevs t)
+  (setq-default abbrev-mode t)
+#+END_SRC
+
+クリップボードの内容を kill-ring に保存するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+Single space between sentences is more widespread than double:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default sentence-end-double-space nil)
+#+END_SRC
+
+coming  (command interpreter) に関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+(setq comint-process-echoes t)
+#+END_SRC
+
+Electric-Pair mode(自動で対応する閉じカッコを挿入してくれるモード)を有効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (electric-pair-mode +1)
+#+END_SRC
+
+~C-h~ をバックスペースキーにします。
+また、それに伴って ~help-command~ のキー割り当てを変更しています:
+
+#+BEGIN_SRC emacs-lisp
+  (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+  (bind-key "C-c h" #'help-command)
+#+END_SRC
+
+~hippie-expand~ (様々な補完や展開を行なう)にキーを割り当てます:
+
+#+BEGIN_SRC emacs-lisp
+(bind-key*  "M-/" #'hippie-expand)
+#+END_SRC
+
+CUA(Common User Access style editing) mode から必要な関数だけキーを割り当てます。
+
+矩形選択モードだけ使っています:
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-x SPC" #'cua-rectangle-mark-mode)
+#+END_SRC
+
+バックアップファイルを一箇所に保存するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `((".*" . ,(my-data-directory! "backup"))))
+#+END_SRC
+
+編集の競合を防ぐためのロックファイルを作成しないようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq create-lockfiles nil)
+#+END_SRC
+
+式の評価時に省略せずに結果を出力するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq eval-expression-print-length nil
+        eval-expression-print-level nil)
+#+END_SRC
+
+TRAMPのキャッシュファイルの場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tramp-cache
+    :defer t
+    :config (setq tramp-persistency-file-name (my-data-directory! "tramp")))
+#+END_SRC
+
+以下の関数は [[https://www.emacswiki.org/emacs/DisabledCommands][Disabled Commands]] の対象外にします:
+
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+  (put 'erase-buffer 'disabled nil)
+  (put 'scroll-left 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil)
+#+END_SRC
+
+ファイルの最後に必ず改行を入れるようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq require-final-newline t)
+#+END_SRC
+
+リージョン内でキー入力をしたときに、普通の選択範囲と同じように削除するようにします:
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode +1)
+#+END_SRC
+
+スクロールの挙動を調整します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-margin 0
+        scroll-conservatively 100000
+        scroll-preserve-screen-position 1)
+#+END_SRC
+
+マウスホイールによるスクロールの挙動を調整します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse t) ;; scroll window under mouse
+#+END_SRC
+
+現在いる関数名をモードラインに表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (eval-when-compile (require 'which-func))
+  (which-function-mode 1)
+  (setq which-func-unknown "")
+#+END_SRC
+
+キーストロークをすぐにエコーエリアに表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.2)
+#+END_SRC
+
+リージョンをハイライトします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default transient-mark-mode t)
+#+END_SRC
+
+対応するカッコを強調表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+#+END_SRC
+
+サーバーの設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'server)
+  (defun server-remove-kill-buffer-hook ()
+    (remove-hook 'kill-buffer-query-functions #'server-kill-buffer-query-function))
+  (add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
+  (when (and (>= emacs-major-version 23)
+             (equal window-system 'w32))
+    (defun server-ensure-safe-dir (dir) "Noop" t))
+  (unless (server-running-p) (server-start))
+#+END_SRC
+
+**** Auto-save
+
+自動保存ファイルを保存するディレクトリを宣言します:
+
+#+BEGIN_SRC emacs-lisp
+  (defconst my-auto-save-directory (my-data-directory! "auto-save"))
+#+END_SRC
+
+全てのファイルについて自動保存を有効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-default t)
+#+END_SRC
+
+自動保存ファイルのプレフィクスを設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-list-file-prefix my-auto-save-directory)
+#+END_SRC
+
+TRAMP経由の自動保存ファイルの置き場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-file-name-transforms
+        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,(my-directory! "dist" my-auto-save-directory) t)))
+#+END_SRC
+
+ローカルの自動保存ファイルの置き場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-save-file-name-transforms
+               `(".*" ,(my-directory! "site" my-auto-save-directory) t) 'append)
+#+END_SRC
+
+**** uniquify
+
+バッファ名が被らないように、ファイル名に加えてディレクトリ名をバッファ名に付与するようにします。
+
+#+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+#+END_SRC
+
+=bar/mumble/name= のようにディレクトリ名を先頭に付与するスタイルを採用します:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+セパレータを設定します:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-separator "/")
+#+END_SRC
+
+バッファを削除した際に再度 uniquify を行うようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-after-kill-buffer-p t)
+#+END_SRC
+
+特殊なバッファは uniquify の対象外にします:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-ignore-buffers-re "^\\*")
+#+END_SRC
+
+**** キャメルケースへの対応
+
+キャメルケースに関連する設定を行います。
+
+まず、単語の区切りをキャメルケースを考慮して判定するように設定します。
+
+参考リンク: [[http://smallsteps.seesaa.net/article/123661899.html][Emacsで単語単位の移動をキャメルケースの途中で区切るには: 小ネタ帳]] 
+
+#+BEGIN_SRC emacs-lisp
   ;; 文字カテゴリの作成
   (unless (category-docstring ?V)
     (define-category ?V "Upper case"))
@@ -356,8 +513,13 @@ exec-path-from-shell でパスの設定を行ないます:
   (modify-category-entry (cons ?a ?z) ?M)
   ;; 小文字に大文字が続く場合を単語境界とする。
   (add-to-list 'word-separating-categories (cons ?M ?V))
+#+END_SRC
 
-  ;; [emacs] CamelCase なんてもういらない - tomykaira makes love with codes <http://tomykaira.hatenablog.com/entry/2012/01/09/152903>
+次に、文字列をキャメルケースやスネークケース等に変換する関数を追加します。
+
+参考リンク: [[http://tomykaira.hatenablog.com/entry/2012/01/09/152903][{emacs} CamelCase なんてもういらない - tomykaira makes love with codes]]
+
+#+BEGIN_SRC emacs-lisp
   (defun camelize (s)
     "Convert under_score string S to CamelCase string."
     (mapconcat 'identity (mapcar
@@ -406,184 +568,163 @@ exec-path-from-shell でパスの設定を行ないます:
   (bind-key "\C-c \C-c" #'camelscore-word-at-point)
 #+END_SRC
 
-**** Common User Access style editing (CUA mode)
+**** savehist
+
+様々な入力履歴を永続化します。
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-x SPC" #'cua-rectangle-mark-mode)
+  (require 'savehist)
 #+END_SRC
 
-*** Session
+以下の変数を保存します:
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-backup-directory (expand-file-name "backup/" my-data-directory))
-(setq backup-directory-alist `((".*" . ,my-backup-directory)))
-
-(setq custom-file (expand-file-name ".emacs-custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-(setq create-lockfiles nil)
-
-;; Auto-save file
-(defvar my-auto-save-directory (expand-file-name "auto-save/" my-data-directory))
-(setq auto-save-default t)
-(setq auto-save-list-file-prefix my-auto-save-directory)
-
-;; always save TRAMP URLs to cache directory no matter what is the value
-;; of `dotspacemacs-auto-save-file-location'
-(let ((autosave-dir (expand-file-name "dist/" my-auto-save-directory)))
-  (setq auto-save-file-name-transforms
-        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,autosave-dir  t)))
-  (unless (file-exists-p autosave-dir)
-    (make-directory autosave-dir t)))
-
-(let ((autosave-dir (expand-file-name "site/" my-auto-save-directory)))
-  (add-to-list 'auto-save-file-name-transforms
-               `(".*" ,autosave-dir t) 'append)
-  (unless (file-exists-p autosave-dir)
-    (make-directory autosave-dir t)))
-
-;; remove annoying ellipsis when printing sexp in message buffer
-(setq eval-expression-print-length nil
-      eval-expression-print-level nil)
-
-;; cache files
-(use-package tramp-cache
-             :defer t
-             :config (setq tramp-persistency-file-name (expand-file-name "tramp/" my-data-directory)))
-
-;; remove prompt if the file is opened in other clients
-(use-package server
-             :defer t
-             :config
-             (defun server-remove-kill-buffer-hook ()
-               (remove-hook 'kill-buffer-query-functions #'server-kill-buffer-query-function))
-             (add-hook 'server-visit-hook #'server-remove-kill-buffer-hook))
-
-;; seems pointless to warn. There's always undo.
-(put 'narrow-to-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'erase-buffer 'disabled nil)
-(put 'scroll-left 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
+  (setq savehist-additional-variables '(
+                                        bookmark-history
+                                        command-history
+                                        desktop-missing-file-warning
+                                        extended-command-history
+                                        file-name-history
+                                        find-tag-history
+                                        helm-build-regexp-history
+                                        helm-eshell-command-on-file-input-history
+                                        helm-external-command-history
+                                        helm-ff-history
+                                        helm-file-name-history
+                                        helm-source-complex-command-history
+                                        helm-source-file-name-history
+                                        kill-ring
+                                        minibuffer-history
+                                        minibuffer-history-search-history
+                                        minibuffer-text-before-history
+                                        query-replace-history
+                                        regexp-search-ring
+                                        register-alist
+                                        search-ring
+                                        tags-file-name
+                                        tags-table-list
+                                        ))
 #+END_SRC
 
-**** desktop
+自動保存間隔と保存先ファイルを設定し、 ~savehist-mode~ を有効にします:
 
 #+BEGIN_SRC emacs-lisp
-    (use-package desktop
-      :config
-      (setq desktop-dirname (expand-file-name "desktop/" my-data-directory)
-            desktop-path `(,desktop-dirname)
-            desktop-save t
-            desktop-restore-frames nil
-            desktop-load-locked-desktop t
-            desktop-globals-to-save '(
-                                      bookmark-history
-                                      command-history
-                                      desktop-missing-file-warning
-                                      extended-command-history
-                                      file-name-history
-                                      find-tag-history
-                                      helm-build-regexp-history
-                                      helm-eshell-command-on-file-input-history
-                                      helm-external-command-history
-                                      helm-ff-history
-                                      helm-file-name-history
-                                      helm-source-complex-command-history
-                                      helm-source-file-name-history
-                                      kill-ring
-                                      minibuffer-history
-                                      minibuffer-history-search-history
-                                      minibuffer-text-before-history
-                                      query-replace-history
-                                      regexp-search-ring
-                                      register-alist
-                                      search-ring
-                                      tags-file-name
-                                      tags-table-list
-                                      )
-            desktop-files-not-to-save "")
-      (unless (file-directory-p desktop-dirname)
-        (make-directory desktop-dirname t))
-      (desktop-save-mode 1))
+  (setq savehist-autosave-interval 60)
+  (setq savehist-file (my-data-file ".savehist"))
+  (savehist-mode +1)
 #+END_SRC
 
 **** recentf
 
+〈最近開いたファイル〉の機能を有効にします。
+
 #+BEGIN_SRC emacs-lisp
-  (use-package recentf
-    :config
-    (setq recentf-save-file (expand-file-name ".recentf" my-data-directory)
-          recentf-max-saved-items 1000
-          recentf-exclude '(".recentf"))
-    (run-with-idle-timer 300 t #'recentf-save-list)
-    (run-with-idle-timer 600 t #'recentf-cleanup))
+  (require 'recentf)
 #+END_SRC
 
-**** uniquify
+保存先ファイルと最大保存数を設定します。
+また、保存先ファイル自身を履歴に含めないようにします:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package uniquify
-    :config
-    (setq uniquify-buffer-name-style 'post-forward-angle-brackets ; Makefile<foo/bar> といったスタイルを適用する
-          uniquify-min-dir-content 1 ; 最低でもひとつはディレクトリ名を付与する
-          ))
+  (setq recentf-save-file (my-data-file ".recentf")
+        recentf-max-saved-items 1000
+        recentf-exclude '(".recentf"))
 #+END_SRC
 
-*** UI
+リモートファイルの操作と相性が悪いため、自動整頓機能を無効にします:
 
 #+BEGIN_SRC emacs-lisp
-  ;; important for golden-ratio to better work
+  (setq recentf-auto-cleanup 'never)
+#+END_SRC
+
+~recnetf-mode~ を有効にし、定期的に自動保存させます:
+
+#+BEGIN_SRC emacs-lisp
+  (recentf-mode +1)
+  (run-with-idle-timer 300 t #'recentf-save-list)
+#+END_SRC
+
+*** ユーザーインタフェース系
+
+見た目に関する設定をします。
+
+新しいウインドウのサイズを適切に調整するようにします:
+
+#+BEGIN_SRC emacs-lisp
   (setq window-combination-resize t)
-  ;; fringes
+#+END_SRC
+
+フリンジ(縁)の設定をします:
+
+#+BEGIN_SRC emacs-lisp
   (setq-default fringe-indicator-alist
                 '((truncation . nil) (continuation . nil)))
-  ;; Show column number in mode line
-  (setq column-number-mode t)
+#+END_SRC
 
+行の何文字目にいるかをモードラインに表示するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+#+END_SRC
+
+行番号を表示するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'linum)
+  (setq linum-format "%4d")
   (add-hook 'prog-mode-hook #'linum-mode)
   (add-hook 'text-mode-hook #'linum-mode)
+#+END_SRC
 
-  ;; line number
-  (use-package linum
-    :defer t
-    :config (setq linum-format "%4d"))
-  ;; highlight current line
-  (global-hl-line-mode t)
-  ;; no blink
+現在行をハイライト表示します:
+
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode +1)
+#+END_SRC
+
+カーソルを点滅させないようにします:
+
+#+BEGIN_SRC emacs-lisp
   (blink-cursor-mode 0)
-  ;; When emacs asks for "yes" or "no", let "y" or "n" suffice
-  (fset 'yes-or-no-p 'y-or-n-p)
-  ;; draw underline lower
-  (setq x-underline-at-descent-line t)
-  ;; don't let the cursor go into minibuffer prompt
-  ;; Tip taken from Xah Lee: http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
-  (setq minibuffer-prompt-properties
-        '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
+#+END_SRC
 
+確認プロンプトを簡易化します:
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+アンダーラインに関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq x-underline-at-descent-line t)
+#+END_SRC
+
+ミニバッファにおける入力時の挙動を改善します。
+
+参考リンク : [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html][Emacs: Stop Cursor Going into Minibuffer Prompt]]
+
+#+BEGIN_SRC emacs-lisp
+(setq minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)) ; doesn't work in GNU Emacs 25.0.90.1.
+#+END_SRC
+
+不要なGUI部品を非表示にします:
+
+#+BEGIN_SRC emacs-lisp
   (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
   (when (fboundp 'menu-bar-mode) (menu-bar-mode 0))
   (when (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+#+END_SRC
 
+起動時に最大化するようにします:
 
-  (load-theme 'zenburn t)
-
+#+BEGIN_SRC emacs-lisp
   (add-hook 'window-setup-hook #'toggle-frame-maximized)
-  (use-package spaceline-config
-    :config
-    (setq powerline-height (+ (frame-char-height) 5)
-          powerline-default-separator 'slant
-          spaceline-window-numbers-unicode t
-          spaceline-workspace-numbers-unicode t
-          spaceline-minor-modes-separator " ")
-    (spaceline-spacemacs-theme)
-    (set-face-attribute 'mode-line nil :box nil)
-    (set-face-attribute 'mode-line-inactive nil :box nil))
+#+END_SRC
 
+全角スペース タブ trailing-spacesを目立たせます:
 
-  ;; 全角スペース タブ trailing-spacesを目立たせる
+#+BEGIN_SRC emacs-lisp
   (use-package whitespace
     :diminish
     ""
@@ -609,183 +750,240 @@ exec-path-from-shell でパスの設定を行ないます:
     (set-face-foreground 'whitespace-trailing "dim gray")
     (set-face-background 'whitespace-trailing 'unspecified)
     (global-whitespace-mode 1))
+#+END_SRC
 
+現在時刻の表示フォーマットを設定し、モードラインに表示します:
+
+#+BEGIN_SRC emacs-lisp
   (setq display-time-format "%m月%d日(%a) %H:%M"
         display-time-default-load-average nil)
   (display-time-mode 1)
 #+END_SRC
 
+スタートアップの画面を表示しないようにします:
+
 #+BEGIN_SRC emacs-lisp
-; east asian ambiguous settings
-
-(defun set-east-asian-ambiguous-width (width)
-  (cond ((= emacs-major-version 22) (set-east-asian-ambiguous-width-22 width))
-        ((> emacs-major-version 22) (set-east-asian-ambiguous-width-23 width))))
-
-; for emacs 22
-(defun set-east-asian-ambiguous-width-22 (width)
-  (if (= width 2)
-    (utf-translate-cjk-set-unicode-range
-      '((#x00a2 . #x00a3)
-        (#x00a7 . #x00a8)
-        (#x00ac . #x00ac)
-        (#x00b0 . #x00b1)
-        (#x00b4 . #x00b4)
-        (#x00b6 . #x00b6)
-        (#x00d7 . #x00d7)
-        (#X00f7 . #x00f7)
-        (#x0370 . #x03ff)
-        (#x0400 . #x04FF)
-        (#x2000 . #x206F)
-        (#x2100 . #x214F)
-        (#x2190 . #x21FF)
-        (#x2200 . #x22FF)
-        (#x2300 . #x23FF)
-        (#x2500 . #x257F)
-        (#x25A0 . #x25FF)
-        (#x2600 . #x26FF)
-        (#x2e80 . #xd7a3) (#xff00 . #xffef)))))
-
-; for over 23 (checked work in emacs 24)
-(defun set-east-asian-ambiguous-width-23 (width)
-  (while (char-table-parent char-width-table)
-         (setq char-width-table (char-table-parent char-width-table)))
-  (let ((table (make-char-table nil)))
-    (dolist (range
-              '(#x00A1 #x00A4 (#x00A7 . #x00A8) #x00AA (#x00AD . #x00AE)
-                (#x00B0 . #x00B4) (#x00B6 . #x00BA) (#x00BC . #x00BF)
-                #x00C6 #x00D0 (#x00D7 . #x00D8) (#x00DE . #x00E1) #x00E6
-                (#x00E8 . #x00EA) (#x00EC . #x00ED) #x00F0
-                (#x00F2 . #x00F3) (#x00F7 . #x00FA) #x00FC #x00FE
-                #x0101 #x0111 #x0113 #x011B (#x0126 . #x0127) #x012B
-                (#x0131 . #x0133) #x0138 (#x013F . #x0142) #x0144
-                (#x0148 . #x014B) #x014D (#x0152 . #x0153)
-                (#x0166 . #x0167) #x016B #x01CE #x01D0 #x01D2 #x01D4
-                #x01D6 #x01D8 #x01DA #x01DC #x0251 #x0261 #x02C4 #x02C7
-                (#x02C9 . #x02CB) #x02CD #x02D0 (#x02D8 . #x02DB) #x02DD
-                #x02DF (#x0300 . #x036F) (#x0391 . #x03A9)
-                (#x03B1 . #x03C1) (#x03C3 . #x03C9) #x0401
-                (#x0410 . #x044F) #x0451 #x2010 (#x2013 . #x2016)
-                (#x2018 . #x2019) (#x201C . #x201D) (#x2020 . #x2022)
-                (#x2024 . #x2027) #x2030 (#x2032 . #x2033) #x2035 #x203B
-                #x203E #x2074 #x207F (#x2081 . #x2084) #x20AC #x2103
-                #x2105 #x2109 #x2113 #x2116 (#x2121 . #x2122) #x2126
-                #x212B (#x2153 . #x2154) (#x215B . #x215E)
-                (#x2160 . #x216B) (#x2170 . #x2179) (#x2190 . #x2199)
-                (#x21B8 . #x21B9) #x21D2 #x21D4 #x21E7 #x2200
-                (#x2202 . #x2203) (#x2207 . #x2208) #x220B #x220F #x2211
-                #x2215 #x221A (#x221D . #x2220) #x2223 #x2225
-                (#x2227 . #x222C) #x222E (#x2234 . #x2237)
-                (#x223C . #x223D) #x2248 #x224C #x2252 (#x2260 . #x2261)
-                (#x2264 . #x2267) (#x226A . #x226B) (#x226E . #x226F)
-                (#x2282 . #x2283) (#x2286 . #x2287) #x2295 #x2299 #x22A5
-                #x22BF #x2312 (#x2460 . #x24E9) (#x24EB . #x254B)
-                (#x2550 . #x2573) (#x2580 . #x258F) (#x2592 . #x2595)
-                (#x25A0 . #x25A1) (#x25A3 . #x25A9) (#x25B2 . #x25B3)
-                (#x25B6 . #x25B7) (#x25BC . #x25BD) (#x25C0 . #x25C1)
-                (#x25C6 . #x25C8) #x25CB (#x25CE . #x25D1)
-                (#x25E2 . #x25E5) #x25EF (#x2605 . #x2606) #x2609
-                (#x260E . #x260F) (#x2614 . #x2615) #x261C #x261E #x2640
-                #x2642 (#x2660 . #x2661) (#x2663 . #x2665)
-                (#x2667 . #x266A) (#x266C . #x266D) #x266F #x273D
-                (#x2776 . #x277F) (#xE000 . #xF8FF) (#xFE00 . #xFE0F)
-                #xFFFD
-                ))
-      (set-char-table-range table range width))
-    (optimize-char-table table)
-    (set-char-table-parent table char-width-table)
-    (setq char-width-table table)))
-
-(set-east-asian-ambiguous-width 2)
+  (setq inhibit-startup-screen t)
 #+END_SRC
 
-*** Fundamental
+ファイルのリスティング系の挙動を調整します:
 
 #+BEGIN_SRC emacs-lisp
-  (set-language-environment 'Japanese)
-  (prefer-coding-system 'utf-8-unix)
-  (set-default-coding-systems 'utf-8-unix)
-
-  (setq user-full-name "Yuto SASAKI")
-  (setq user-mail-address "yewton@gmail.com")
-
-  (use-package which-key
-    :diminish "")
-  ;; 現在いる関数名をモードラインに表示
-  (use-package which-func
-    :config
-    (which-function-mode 1)
-    (setq which-func-unknown ""))
-  ;; キーストロークをすぐにエコーエリアに表示する
-  (setq echo-keystrokes 0.2)
-  ;; スタートアップの画面を表示しない
-  (setq inhibit-startup-screen t)
-
-  ;; リージョンをハイライト
-  (setq-default transient-mark-mode t)
-  ;; 対応する括弧の強調表示
-  (show-paren-mode t)
-
-  (use-package info+
-               :config
-               (eval-after-load 'info '(require 'info+)))
-
-  ;; cf. http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
-  (defun smarter-move-beginning-of-line (arg)
-    "Move point back to indentation of beginning of line.
-
-  Move point to the first non-whitespace character on this line.
-  If point is already there, move to the beginning of the line.
-  Effectively toggle between the first non-whitespace character and
-  the beginning of the line.
-
-  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-  point reaches the beginning or end of the buffer, stop there."
-    (interactive "^p")
-    (setq arg (or arg 1))
-
-    ;; Move lines first
-    (when (/= arg 1)
-      (let ((line-move-visual nil))
-        (forward-line (1- arg))))
-
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1))))
-
-  ;; remap C-a to `smarter-move-beginning-of-line'
-  (global-set-key [remap move-beginning-of-line]
-                  #'smarter-move-beginning-of-line)
-
   (use-package ls-lisp
+    :defer t
     :config
     (setq ls-lisp-dirs-first t
           ls-lisp-use-insert-directory-program nil
           ls-lisp-use-localized-time-format t))
-
-  (defun my-revert-buffer (&optional force) (interactive "P") (revert-buffer t force))
-  (bind-key* "C-c C-x j"  #'my-revert-buffer)
-  (setq load-prefer-newer t)
 #+END_SRC
 
-以下は明示的に設定しない場合は環境変数から自動で設定されるのですが、
-Mac OSX の Application として動かす場合は、
-シェルの環境変数が引き継がれるわけではないため、すべて明示的に指定しています。
+** パッケージのインストール
+
+el-get でインストールするパッケージを定義します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-packages
+        '(
+          ace-isearch
+          ace-link
+          ag
+          anzu
+          apache-mode
+          auto-complete
+          beacon
+          bm
+          bookmark+
+          buffer-move
+          color-theme-zenburn
+          crontab-mode
+          ddskk
+          diminish
+          dired+
+          dired-hacks
+          dockerfile-mode
+          easy-kill
+          eldoc-eval
+          elisp-slime-nav
+          enh-ruby-mode
+          ensime
+          eyebrowse
+          fancy-battery
+          flycheck
+          flycheck-pos-tip
+          flyspell
+          git-gutter
+          git-gutter-fringe
+          git-timemachine
+          git-modes
+          golden-ratio
+          google-c-style
+          helm
+          helm-ag
+          helm-c-yasnippet
+          helm-descbinds
+          helm-gtags
+          helm-projectile
+          helm-swoop
+          htmlize
+          hugo
+          imenu-anywhere
+          info+
+          japanese-holidays
+          js2-mode
+          lispxmp
+          magit
+          magit-gh-pulls
+          markdown-mode
+          migemo
+          multiple-cursors
+          nginx-mode
+          open-junk-file
+          operate-on-number
+          org-ac
+          org-present
+          org-reveal
+          persp-mode
+          plantuml-mode
+          projectile
+          quickrun
+          rainbow-delimiters
+          rainbow-identifiers
+          rainbow-mode
+          ruby-block
+          ruby-electric
+          ruby-end
+          ruby-mode
+          sbt-mode
+          scala-mode2
+          smartrep
+          spaceline
+          undo-tree
+          volatile-highlights
+          wakatime-mode
+          web-mode
+          wgrep
+          which-key
+          window-numbering
+          yaml-mode
+          yard-mode
+          yasnippet
+          ))
+#+END_SRC
+
+el-get の公式にないレシピや、一部自分用にカスタムしたものをここに列挙します:
+
+#+BEGIN_SRC emacs-lisp :noweb yes
+  (use-package url-expand)
+  (setq el-get-sources
+        '((:name spaceline :type github :pkgname "TheBB/spaceline" :depends (powerline dash s))
+          (:name persp-mode :type github :pkgname "Bad-ptr/persp-mode.el")
+          (:name fancy-battery :type github :pkgname "lunaryorn/fancy-battery.el")
+          (:name eyebrowse :type github :pkgname "wasamasa/eyebrowse")
+          (:name org-reveal :depends nil)
+          (:name powerline :pkgname "yewton/powerline" :branch "string-width")
+          (:name hugo :type github :pkgname "yewton/hugo.el" :depends (dash f ht s))
+          (:name easy-kill :type github :pkgname "leoliu/easy-kill")
+          (:name markdown-mode :prepare nil) ; markdown-modeじゃなくgfm-modeで開きたいから
+          (:name ensime :prepare nil) ; auto-load の定義が間違ってる気がする
+          (:name ddskk :pkgname "skk-dev/ddskk" :autoloads nil :load-path "share/emacs/site-lisp/skk"
+                 :info "share/info/skk.info" :features ("skk-setup")
+                 :build
+                 <<ddskk-build>>
+                 )
+          (:name open-junk-file
+                 :features nil
+                 :before (autoload 'open-junk-file "open-junk-file" "" t))))
+#+END_SRC
+
+DDSKK のビルドについては、実際の ~Makefile~ を出来るだけ忠実に再現出来るようにかなり頑張っています:
+
+#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref ddskk-build
+  (let* ((prefix (el-get-package-directory "ddskk"))
+         (dic-dir (expand-file-name "dic/" prefix))
+         (tools-dir (expand-file-name "tools/" prefix))
+         (info-dir (expand-file-name "share/info/" prefix))
+         (base-url "http://openlab.ring.gr.jp/skk/skk/")
+         (dic-base-url (url-expand-file-name "dic/" base-url))
+         (tools-base-url (url-expand-file-name "tools/" base-url))
+         (dic-name "SKK-JISYO.L")
+         (dic-url (url-expand-file-name dic-name dic-base-url))
+         (dic-path (expand-file-name dic-name dic-dir))
+         (dic-makefile-url (url-expand-file-name "Makefile" dic-base-url))
+         (dic-makefile-path (expand-file-name "Makefile" dic-dir))
+         (skk2cdb "skk2cdb.py")
+         (skk2cdb-url (url-expand-file-name skk2cdb tools-base-url))
+         (skk2cdb-path (expand-file-name skk2cdb tools-dir))
+         (emacs-options '("--batch" "--no-site-file" "--eval")))
+    `(,@(mapcar (lambda (cmd) `(,el-get-emacs ,@emacs-options ,cmd))
+                `(,@(mapcar (lambda (dir) (format "(make-directory \"%s\" t)" dir))
+                            (list dic-dir info-dir tools-dir))
+                  ,@(mapcar (lambda (p) (format "(url-copy-file \"%s\" \"%s\")" (car p) (cdr p)))
+                            (list `(,dic-url . ,dic-path)
+                                  `(,dic-makefile-url . ,dic-makefile-path)
+                                  `(,skk2cdb-url . ,skk2cdb-path)))))
+      (,el-get-emacs ,@emacs-options
+                     ,(format "(setq PREFIX \"%s\")" prefix)
+                     "-l" "SKK-MK" "-f" "SKK-MK-install")
+      ("make" "-C" ,dic-dir "cdb")))
+#+END_SRC
+
+MELPA 等で配布されているパッケージをそのまま el-get から利用することもあるので、
+標準のパッケージシステムも設定しておきます:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("gnu" . "http://elpa.gnu.org/packages/")
+                           ("ELPA" . "http://tromey.com/elpa/")))
+  (package-initialize)
+#+END_SRC
+
+Mac OS X の場合、ビルド時に正しいパスが設定されていないと失敗する場合があるため、
+exec-path-from-shell でパスの設定を行ないます:
 
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
-    (setq locale-coding-system 'utf-8)
-    (setq system-time-locale "ja_JP.UTF-8")
-    (setenv "LANG" "ja_JP.UTF-8")
-    (setenv "LC_ALL" "ja_JP.UTF-8")
-    (setenv "LC_MESSAGES" "ja_JP.UTF-8"))
+    (my-el-get-sync '(exec-path-from-shell))
+    (use-package exec-path-from-shell
+      :config (exec-path-from-shell-initialize)))
 #+END_SRC
 
-** パッケージごとの設定
+その他のパッケージをインストールします:
 
+#+BEGIN_SRC emacs-lisp
+  (my-el-get-sync my-packages)
+#+END_SRC
+
+** テーマの設定
+
+インストールしたテーマを設定します。
+[[https://github.com/bbatsov/zenburn-emacs][zenburn]] テーマを使います:
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'zenburn t)
+#+END_SRC
+
+** モードラインの設定
+
+[[https://github.com/syl20bnr/spacemacs][Spacemacs]] でも使われている [[https://github.com/TheBB/spaceline][Spaceline]] を使って、見栄えもよく使いやすいモードラインを設定します。
+
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline-config
+    :config
+    (setq powerline-height (+ (frame-char-height) 5)
+          powerline-default-separator 'slant
+          spaceline-window-numbers-unicode t
+          spaceline-workspace-numbers-unicode t
+          spaceline-minor-modes-separator " ")
+    (spaceline-spacemacs-theme)
+    (set-face-attribute 'mode-line nil :box nil)
+    (set-face-attribute 'mode-line-inactive nil :box nil))
+#+END_SRC
+
+** パッケージやモードごとの設定
 *** ddskk
-**** インストール
+**** セットアップ
+
 #+BEGIN_SRC emacs-lisp :noweb yes
   (use-package skk-setup
     :defer t
@@ -797,36 +995,51 @@ Mac OSX の Application として動かす場合は、
     (use-package skk
       :defer t
       :config
-      (setq skk-user-directory (expand-file-name "skk/" my-data-directory))
-      <<ddskk-init>>
+      <<ddskk-config>>
       ))
 #+END_SRC
 
-**** 初期化
+**** 初期設定
 :PROPERTIES:
-:noweb-ref: ddskk-init
+:noweb-ref: ddskk-config
 :tangle: no
 :END:
 
-***** 辞書の場所
+以下を参考にしています:
+
+- [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/ddskk_config.html][Youhei SASAKI's official site: DDSKKの設定]]
+- [[http://mugijiru.seesaa.net/article/275755984.html][暇だったからddskkの設定いじった: 麦汁三昧]]
+
+ユーザー辞書の場所を設定します:
+
 #+BEGIN_SRC emacs-lisp
-  (use-package el-get-core)
-  (setq skk-cdb-large-jisyo (expand-file-name "dic/SKK-JISYO.L.cdb" (el-get-package-directory "ddskk")))
+  (setq skk-user-directory (my-data-directory! "skk"))
 #+END_SRC
 
-***** 各種ファイルの場所
+辞書の場所を設定します:
 
 #+BEGIN_SRC emacs-lisp
-  (setq skk-jisyo (expand-file-name "jisyo" skk-user-directory)
-        skk-record-file (expand-file-name "record" skk-user-directory))
+  (use-package el-get-core)
+  (setq skk-cdb-large-jisyo (f-expand "dic/SKK-JISYO.L.cdb" (el-get-package-directory "ddskk")))
+#+END_SRC
+
+各種ファイルの場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq skk-jisyo (f-expand "jisyo" skk-user-directory)
+        skk-record-file (f-expand "record" skk-user-directory))
+#+END_SRC
+
+stickey-key の設定をします:
+
+#+BEGIN_SRC emacs-lisp
   (setq skk-sticky-key ";")
 #+END_SRC
 
-***** =C-j= に関する設定
-ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全にオーバーライドしてしまう。
-このままでは不便なため、挙動を調整する。
+ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全にオーバーライドしてしまいます。
+このままでは不便なため、挙動を調整します。
 
-cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21/etc/dot.skk
+参考リンク: [[https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21/etc/dot.skk][ddskk/dot.skk at 9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21 · skk-dev/ddskk]]
 
 #+BEGIN_SRC emacs-lisp
   ;; ■モードのまま C-j を有効とする
@@ -859,12 +1072,12 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
     (bind-key "C-o" #'skk-kakutei skk-jisx0208-latin-mode-map)
     ;; 全英モードで C-j を明け渡す
     (unbind-key "C-j" skk-jisx0208-latin-mode-map))
-  (use-package spaceline
+  (use-package spaceline-config
     :config
     (defun skk-setup-modeline ()
       "モードラインの表示はspacelineに任せる")
     (spaceline-define-segment skk
-      "SKKの現在の状態を表示します。"
+      "SKKの現在の状態を表示します."
       (cond
        (skk-abbrev-mode skk-abbrev-mode-string)
        (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
@@ -907,10 +1120,6 @@ cf. https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d
        buffer-position
        hud)))
 #+END_SRC
-
-***** 雑多な設定
-- [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/ddskk_config.html][Youhei SASAKI's official site: DDSKKの設定]]
-- [[http://mugijiru.seesaa.net/article/275755984.html][暇だったからddskkの設定いじった: 麦汁三昧]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package context-skk
@@ -1093,130 +1302,6 @@ projectile とキープレフィクスが被っているので、
     (add-hook 'emacs-startup-hook #'persp-on-startup))
 #+END_SRC
 
-*** etc.
-#+BEGIN_SRC emacs-lisp
-  (use-package apache-mode
-    :mode ("\\.htaccess\\'"
-           "httpd\\.conf\\'"
-           "srm\\.conf\\'"
-           "access\\.conf\\'"
-           "sites-\\(available\\|enabled\\)/"))
-
-  (use-package ag
-    :config
-    (setq ag-highlight-search t
-          ag-reuse-window t))
-
-  (use-package ace-isearch
-    :diminish ""
-    :config (global-ace-isearch-mode +1))
-
-  (use-package eyebrowse
-    :init
-    (setq eyebrowse-keymap-prefix (kbd "C-c w"))
-    :config
-    (eyebrowse-mode 1))
-
-  (use-package anzu
-    :diminish "杏"
-    :config
-    (setq anzu-use-migemo t
-          anzu-input-idle-delay 0.5
-          anzu-minimum-input-length 2
-          anzu-cons-mode-line-p nil)
-    (global-anzu-mode t))
-
-  (use-package flycheck
-    :diminish "🔍"
-    :config
-    (flycheck-pos-tip-mode)
-    (add-hook 'emacs-startup-hook #'global-flycheck-mode))
-
-  (use-package fancy-battery
-    :config
-    (setq-default fancy-battery-show-percentage t)
-    (fancy-battery-mode))
-
-  (use-package window-numbering
-    :config
-    (setq window-numbering-auto-assign-0-to-minibuffer nil)
-    (defun window-numbering-install-mode-line (&optional position)
-      "Do nothing, the display is handled by the powerline.")
-    (window-numbering-mode 1))
-
-  (use-package which-key
-    :config (which-key-mode))
-
-  (use-package golden-ratio
-    :diminish "金"
-    :config
-    (setq golden-ratio-exclude-modes '(
-                                       "bs-mode"
-                                       "calc-mode"
-                                       "dired-mode"
-                                       "ediff-mode"
-                                       "gdb-breakpoints-mode"
-                                       "gdb-disassembly-mode"
-                                       "gdb-frames-mode"
-                                       "gdb-inferior-io-mode"
-                                       "gdb-inferior-io-mode"
-                                       "gdb-locals-mode"
-                                       "gdb-memory-mode"
-                                       "gdb-registers-mode"
-                                       "gdb-threads-mode"
-                                       "gud-mode"
-                                       "gud-mode"
-                                       "restclient-mode"
-                                       "speedbar-mode"
-                                       ))
-    (setq golden-ratio-extra-commands
-          (append golden-ratio-extra-commands
-                  '(
-                    ace-delete-window
-                    ace-maximize-window
-                    ace-select-window
-                    ace-swap-window
-                    ace-window
-                    avy-pop-mark
-                    buf-move-down
-                    buf-move-left
-                    buf-move-right
-                    buf-move-up
-                    ess-eval-buffer-and-go
-                    ess-eval-function-and-go
-                    ess-eval-line-and-go
-                    evil-avy-goto-line
-                    evil-avy-goto-word-or-subword-1
-                    select-window-0
-                    select-window-1
-                    select-window-2
-                    select-window-3
-                    select-window-4
-                    select-window-5
-                    select-window-6
-                    select-window-7
-                    select-window-8
-                    select-window-9
-                    windmove-down
-                    windmove-left
-                    windmove-right
-                    windmove-up
-                    )))
-    (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
-    (golden-ratio-mode))
-
-  (use-package rainbow-mode
-    :diminish (rainbow-mode . "虹")
-    :config
-    (rainbow-mode t))
-  (use-package rainbow-identifiers
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-identifiers-mode))
-  (use-package rainbow-delimiters
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+END_SRC
-
 *** Bookmark
 
 #+BEGIN_SRC emacs-lisp
@@ -1315,15 +1400,13 @@ projectile とキープレフィクスが被っているので、
 #+BEGIN_SRC emacs-lisp
   (use-package bm
     :demand t
-    :init (defvar bm-restore-repository-on-load t)
+    :init
+    (setq bm-restore-repository-on-load t)
+    (setq bm-repository-file (f-expand ".bm-repository" (my-data-directory! "bm")))
     :bind (("M-SPC" . bm-toggle)
            ("M-[" . bm-next)
            ("M-]" . bm-previous))
     :config
-    (let ((dir (expand-file-name "bm/" my-data-directory)))
-      (unless (file-directory-p dir)
-        (make-directory dir t))
-      (setq bm-repository-file (expand-file-name ".bm-repository" dir)))
     (setq-default bm-buffer-persistence t)
     ;; Loading the repository from file when on start up.
     (add-hook' emacs-startup-hook #'bm-repository-load)
@@ -1377,21 +1460,6 @@ projectile とキープレフィクスが被っているので、
     :config
       (when (executable-find "wakatime")
         (global-wakatime-mode 1)))
-#+END_SRC
-
-*** scrolling
-uiに移動する
-
-#+BEGIN_SRC emacs-lisp
-  ;; scroll one line at a time (less "jumpy" than defaults)
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-  ;; (setq scroll-step 1
-  ;;       scroll-conservatively 10000
-  ;;       scroll-margin 1)
-  ;; (setq-default scroll-up-aggressively 0.01
-  ;;               scroll-down-aggressively 0.01)
 #+END_SRC
 
 *** flyspell
@@ -1750,7 +1818,6 @@ https://www.emacswiki.org/emacs/ElDoc
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 #+END_SRC
 
-
 *** crontab-mode
 
 #+BEGIN_SRC emacs-lisp
@@ -1769,7 +1836,6 @@ https://www.emacswiki.org/emacs/ElDoc
     :config
     (setq-default js-indent-level 2))
 #+END_SRC
-
 
 *** markdown-mode
 
@@ -1819,7 +1885,6 @@ https://www.emacswiki.org/emacs/ElDoc
                           :override t))
 #+END_SRC
 
-
 *** Ruby
 
 #+BEGIN_SRC emacs-lisp
@@ -1860,17 +1925,223 @@ https://www.emacswiki.org/emacs/ElDoc
      minibuffer-local-completion-map))
 #+END_SRC
 
-** Server
+*** beacon
+
+カーソルが大きく動いたときに
 
 #+BEGIN_SRC emacs-lisp
-(require 'server)
-(when (and (>= emacs-major-version 23)
-           (equal window-system 'w32))
-  (defun server-ensure-safe-dir (dir) "Noop" t))
-(unless (server-running-p) (server-start))
+  (use-package beacon
+    :defer t
+    :diminish ""
+    :init (beacon-mode 1))
+#+END_SRC
+
+*** diminish
+
+#+BEGIN_SRC emacs-lisp
+  (diminish 'auto-revert-mode)
+  (diminish 'abbrev-mode)
+  (diminish 'auto-fill-function)
+#+END_SRC
+
+*** info+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package info
+    :defer t
+    :config
+    (use-package info+))
+#+END_SRC
+
+*** volatile-highlights
+
+#+BEGIN_SRC emacs-lisp
+  (use-package volatile-highlights
+    :diminish ""
+    :config
+    (volatile-highlights-mode t))
+#+END_SRC
+
+*** undo-tree
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :diminish ""
+    :init
+    (setq undo-tree-history-directory-alist
+        `((".*" . ,temporary-file-directory)))
+    (setq undo-tree-auto-save-history t)
+    (global-undo-tree-mode))
+#+END_SRC
+
+*** easy-kill
+
+リージョンを指定せずに =M-w= したときの挙動を改善します。
+
+以下の機能が使えるようになります:
+
+1. =M-w w= :: 現在位置の単語をコピーします
+2. =M-w s= :: 現在位置のS式をコピーします
+3. =M-w l= :: 現在位置のリストをコピーします
+4. =M-w d= :: 現在位置の関数定義全体をコピーします
+5. =M-w D= :: 現在位置の関数名をコピーします
+6. =M-w f= :: 現在位置のファイル名をコピーします
+7. =M-w b= :: 現在のバッファのファイル名をコピーします。さらに =-= でディレクトリ名、 =+= でフルパス、 =0= でファイル名のみに変更します。
+
+また、選択範囲を変更するには以下のキーを使います:
+
+1. =@= :: 最後にコピーした内容に追加して終了します。例えば、 =M-w d @= で現在の関数名を最後にコピーした内容に追加します。
+2. =C-w= :: 選択範囲をカットして終了します。
+3. =+=, =-=, =1..9= :: 選択範囲を拡張/縮小します。
+4. =0= 選択範囲を初期化します。
+5. =C-SPC= :: 選択範囲をアクティブリージョンにします。
+6. =C-g= :: 中止します。
+7. =?= :: ヘルプを表示します。
+
+#+BEGIN_SRC emacs-lisp
+  (bind-keys ([remap kill-ring-save] . easy-kill)
+             ([remap mark-sexp] . easy-mark))
+#+END_SRC
+
+*** which-key
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :diminish "")
+#+END_SRC
+
+
+*** 未整理
+
+ごちゃごちゃ詰め込んでいます。
+
+#+BEGIN_SRC emacs-lisp
+  (use-package apache-mode
+    :mode ("\\.htaccess\\'"
+           "httpd\\.conf\\'"
+           "srm\\.conf\\'"
+           "access\\.conf\\'"
+           "sites-\\(available\\|enabled\\)/"))
+
+  (use-package ag
+    :config
+    (setq ag-highlight-search t
+          ag-reuse-window t))
+
+  (use-package ace-isearch
+    :diminish ""
+    :config (global-ace-isearch-mode +1))
+
+  (use-package eyebrowse
+    :init
+    (setq eyebrowse-keymap-prefix (kbd "C-c w"))
+    :config
+    (eyebrowse-mode 1))
+
+  (use-package anzu
+    :diminish "杏"
+    :config
+    (setq anzu-use-migemo t
+          anzu-input-idle-delay 0.5
+          anzu-minimum-input-length 2
+          anzu-cons-mode-line-p nil)
+    (global-anzu-mode t))
+
+  (use-package flycheck
+    :diminish "🔍"
+    :config
+    (flycheck-pos-tip-mode)
+    (add-hook 'emacs-startup-hook #'global-flycheck-mode))
+
+  (use-package fancy-battery
+    :config
+    (setq-default fancy-battery-show-percentage t)
+    (fancy-battery-mode))
+
+  (use-package window-numbering
+    :config
+    (setq window-numbering-auto-assign-0-to-minibuffer nil)
+    (defun window-numbering-install-mode-line (&optional position)
+      "Do nothing, the display is handled by the powerline.")
+    (window-numbering-mode 1))
+
+  (use-package which-key
+    :config (which-key-mode))
+
+  (use-package golden-ratio
+    :diminish "金"
+    :config
+    (setq golden-ratio-exclude-modes '(
+                                       "bs-mode"
+                                       "calc-mode"
+                                       "dired-mode"
+                                       "ediff-mode"
+                                       "gdb-breakpoints-mode"
+                                       "gdb-disassembly-mode"
+                                       "gdb-frames-mode"
+                                       "gdb-inferior-io-mode"
+                                       "gdb-inferior-io-mode"
+                                       "gdb-locals-mode"
+                                       "gdb-memory-mode"
+                                       "gdb-registers-mode"
+                                       "gdb-threads-mode"
+                                       "gud-mode"
+                                       "gud-mode"
+                                       "restclient-mode"
+                                       "speedbar-mode"
+                                       ))
+    (setq golden-ratio-extra-commands
+          (append golden-ratio-extra-commands
+                  '(
+                    ace-delete-window
+                    ace-maximize-window
+                    ace-select-window
+                    ace-swap-window
+                    ace-window
+                    avy-pop-mark
+                    buf-move-down
+                    buf-move-left
+                    buf-move-right
+                    buf-move-up
+                    ess-eval-buffer-and-go
+                    ess-eval-function-and-go
+                    ess-eval-line-and-go
+                    evil-avy-goto-line
+                    evil-avy-goto-word-or-subword-1
+                    select-window-0
+                    select-window-1
+                    select-window-2
+                    select-window-3
+                    select-window-4
+                    select-window-5
+                    select-window-6
+                    select-window-7
+                    select-window-8
+                    select-window-9
+                    windmove-down
+                    windmove-left
+                    windmove-right
+                    windmove-up
+                    )))
+    (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
+    (golden-ratio-mode))
+
+  (use-package rainbow-mode
+    :diminish (rainbow-mode . "虹")
+    :config
+    (rainbow-mode t))
+  (use-package rainbow-identifiers
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-identifiers-mode))
+  (use-package rainbow-delimiters
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 
 ** OS X
+
+OS X 特有の設定を行います。
+
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq ns-function-modifier 'hyper)
@@ -1890,4 +2161,18 @@ https://www.emacswiki.org/emacs/ElDoc
     ;; Enable emoji, and stop the UI from freezing when trying to display them.
     (if (fboundp 'set-fontset-font)
         (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)))
+#+END_SRC
+
+** 仕上げ
+
+ユーザーのカスタム設定ファイルの場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (f-expand "custom.el" my-personal-directory))
+#+END_SRC
+
+上記のファイルも含めた個人設定ファイルをロードします:
+
+#+BEGIN_SRC emacs-lisp
+  (mapc #'load (directory-files my-personal-directory 't "^[^#].*el\\'"))
 #+END_SRC
