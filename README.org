@@ -970,7 +970,7 @@ exec-path-from-shell でパスの設定を行ないます:
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline-config
     :config
-    (setq powerline-height (+ (frame-char-height) 5)
+    (setq powerline-height (+ (frame-char-height) 10)
           powerline-default-separator 'slant
           spaceline-window-numbers-unicode t
           spaceline-workspace-numbers-unicode t
@@ -1876,7 +1876,6 @@ org-mode 内で図を確認しながら plantuml を書くことが出来ます�
   (use-package ox-taskjuggler
     :init
     (add-to-list 'org-export-backends 'taskjuggler)
-    :defer t
     :config
     ;; http://www.taskjuggler.org/tj3/manual/resource.html
     (setq org-taskjuggler-valid-resource-attributes '(
@@ -2193,126 +2192,126 @@ https://www.emacswiki.org/emacs/ElDoc
 ごちゃごちゃ詰め込んでいます。
 
 #+BEGIN_SRC emacs-lisp
-  (use-package apache-mode
-    :mode ("\\.htaccess\\'"
-           "httpd\\.conf\\'"
-           "srm\\.conf\\'"
-           "access\\.conf\\'"
-           "sites-\\(available\\|enabled\\)/"))
+    (use-package apache-mode
+      :mode ("\\.htaccess\\'"
+             "httpd\\.conf\\'"
+             "srm\\.conf\\'"
+             "access\\.conf\\'"
+             "sites-\\(available\\|enabled\\)/"))
 
-  (use-package ag
-    :config
-    (setq ag-highlight-search t
-          ag-reuse-window t))
+    (use-package ag
+      :config
+      (setq ag-highlight-search t
+            ag-reuse-window t))
 
-  (use-package ace-isearch
-    :diminish ""
-    :config (global-ace-isearch-mode +1))
+    (use-package ace-isearch
+      :diminish ""
+      :config (global-ace-isearch-mode +1))
 
-  (use-package eyebrowse
-    :init
-    (setq eyebrowse-keymap-prefix (kbd "C-c w"))
-    :config
-    (eyebrowse-mode 1))
+    (use-package eyebrowse
+      :init
+      (setq eyebrowse-keymap-prefix (kbd "C-c w"))
+      :config
+      (eyebrowse-mode 1))
 
-  (use-package anzu
-    :diminish "杏"
-    :config
-    (setq anzu-use-migemo t
-          anzu-input-idle-delay 0.5
-          anzu-minimum-input-length 2
-          anzu-cons-mode-line-p nil)
-    (global-anzu-mode t))
+    (use-package anzu
+      :diminish "杏"
+      :config
+      (setq anzu-use-migemo t
+            anzu-input-idle-delay 0.5
+            anzu-minimum-input-length 2
+            anzu-cons-mode-line-p nil)
+      (global-anzu-mode t))
 
-  (use-package flycheck
-    :diminish "🔍"
-    :config
-    (flycheck-pos-tip-mode)
-    (add-hook 'emacs-startup-hook #'global-flycheck-mode))
+    (use-package flycheck
+      :diminish "査"
+      :config
+      (flycheck-pos-tip-mode)
+      (add-hook 'emacs-startup-hook #'global-flycheck-mode))
 
-  (use-package fancy-battery
-    :config
-    (setq-default fancy-battery-show-percentage t)
-    (fancy-battery-mode))
+    (use-package fancy-battery
+      :config
+      (setq-default fancy-battery-show-percentage t)
+      (fancy-battery-mode))
 
-  (use-package window-numbering
-    :config
-    (setq window-numbering-auto-assign-0-to-minibuffer nil)
-    (defun window-numbering-install-mode-line (&optional position)
-      "Do nothing, the display is handled by the powerline.")
-    (window-numbering-mode 1))
+    (use-package window-numbering
+      :config
+      (setq window-numbering-auto-assign-0-to-minibuffer nil)
+      (defun window-numbering-install-mode-line (&optional position)
+        "Do nothing, the display is handled by the powerline.")
+      (window-numbering-mode 1))
 
-  (use-package which-key
-    :config (which-key-mode))
+    (use-package which-key
+      :config (which-key-mode))
 
-  (use-package golden-ratio
-    :diminish "金"
-    :config
-    (setq golden-ratio-exclude-modes '(
-                                       "bs-mode"
-                                       "calc-mode"
-                                       "dired-mode"
-                                       "ediff-mode"
-                                       "gdb-breakpoints-mode"
-                                       "gdb-disassembly-mode"
-                                       "gdb-frames-mode"
-                                       "gdb-inferior-io-mode"
-                                       "gdb-inferior-io-mode"
-                                       "gdb-locals-mode"
-                                       "gdb-memory-mode"
-                                       "gdb-registers-mode"
-                                       "gdb-threads-mode"
-                                       "gud-mode"
-                                       "gud-mode"
-                                       "restclient-mode"
-                                       "speedbar-mode"
-                                       ))
-    (setq golden-ratio-extra-commands
-          (append golden-ratio-extra-commands
-                  '(
-                    ace-delete-window
-                    ace-maximize-window
-                    ace-select-window
-                    ace-swap-window
-                    ace-window
-                    avy-pop-mark
-                    buf-move-down
-                    buf-move-left
-                    buf-move-right
-                    buf-move-up
-                    ess-eval-buffer-and-go
-                    ess-eval-function-and-go
-                    ess-eval-line-and-go
-                    evil-avy-goto-line
-                    evil-avy-goto-word-or-subword-1
-                    select-window-0
-                    select-window-1
-                    select-window-2
-                    select-window-3
-                    select-window-4
-                    select-window-5
-                    select-window-6
-                    select-window-7
-                    select-window-8
-                    select-window-9
-                    windmove-down
-                    windmove-left
-                    windmove-right
-                    windmove-up
-                    )))
-    (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
-    (golden-ratio-mode))
+    (use-package golden-ratio
+      :diminish "金"
+      :config
+      (setq golden-ratio-exclude-modes '(
+                                         "bs-mode"
+                                         "calc-mode"
+                                         "dired-mode"
+                                         "ediff-mode"
+                                         "gdb-breakpoints-mode"
+                                         "gdb-disassembly-mode"
+                                         "gdb-frames-mode"
+                                         "gdb-inferior-io-mode"
+                                         "gdb-inferior-io-mode"
+                                         "gdb-locals-mode"
+                                         "gdb-memory-mode"
+                                         "gdb-registers-mode"
+                                         "gdb-threads-mode"
+                                         "gud-mode"
+                                         "gud-mode"
+                                         "restclient-mode"
+                                         "speedbar-mode"
+                                         ))
+      (setq golden-ratio-extra-commands
+            (append golden-ratio-extra-commands
+                    '(
+                      ace-delete-window
+                      ace-maximize-window
+                      ace-select-window
+                      ace-swap-window
+                      ace-window
+                      avy-pop-mark
+                      buf-move-down
+                      buf-move-left
+                      buf-move-right
+                      buf-move-up
+                      ess-eval-buffer-and-go
+                      ess-eval-function-and-go
+                      ess-eval-line-and-go
+                      evil-avy-goto-line
+                      evil-avy-goto-word-or-subword-1
+                      select-window-0
+                      select-window-1
+                      select-window-2
+                      select-window-3
+                      select-window-4
+                      select-window-5
+                      select-window-6
+                      select-window-7
+                      select-window-8
+                      select-window-9
+                      windmove-down
+                      windmove-left
+                      windmove-right
+                      windmove-up
+                      )))
+      (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
+      (golden-ratio-mode))
 
-  (use-package rainbow-mode
-    :diminish (rainbow-mode . "虹")
-    :config
-    (rainbow-mode t))
-  (use-package rainbow-identifiers
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-identifiers-mode))
-  (use-package rainbow-delimiters
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    (use-package rainbow-mode
+      :diminish (rainbow-mode . "虹")
+      :config
+      (rainbow-mode t))
+    (use-package rainbow-identifiers
+      :config
+      (add-hook 'prog-mode-hook #'rainbow-identifiers-mode))
+    (use-package rainbow-delimiters
+      :config
+      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 
 ** OS X
@@ -2324,7 +2323,7 @@ OS X 特有の設定を行います。
     (setq ns-function-modifier 'hyper)
     (setq ns-command-modifier 'meta)
     (setq ns-alternate-modifier 'super)
-
+    (setq face-font-rescale-alist '(("Ricty Discord" . 1.08)))
     (let* ((fonts (list (font-spec :name "Ricty Discord" :size 13)
                         (font-spec :name "Source Han Code JP" :size 13)
                         (font-spec :name "Source Code Pro" :size 13)))
@@ -2339,6 +2338,12 @@ OS X 特有の設定を行います。
     (if (fboundp 'set-fontset-font)
         (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)))
 #+END_SRC
+
+# (set-face-attribute 'default nil :family "Ricty Discord" :height 130)
+# nil
+# ELISP> (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty Discord"))
+# nil
+# ELISP> (setq face-font-rescale-alist '(("Ricty Discord" . 1.08)))
 
 ** 仕上げ
 
