@@ -1786,7 +1786,6 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
     (add-hook 'org-mode-hook #'my-org-mode-hook))
 
   (use-package org-agenda
-    :defer t
     :bind (("C-c a" . org-agenda))
     :config
     (setq org-agenda-custom-commands
