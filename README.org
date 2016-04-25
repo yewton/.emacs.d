@@ -1785,22 +1785,6 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
       (org-display-inline-images))
     (add-hook 'org-mode-hook #'my-org-mode-hook))
 
-  (use-package org-capture
-    :defer t
-    :bind (("C-c c" . helm-org-capture-templates))
-    :config
-    (setq org-capture-templates
-          `(("j" "Journal"
-             entry
-             (file+datetree
-              ,(expand-file-name
-                (format (format-time-string "journal-%Y-%%s.org") (system-name))
-                my-org-journal-directory))
-             "* %?\n%T\n%i"
-             :prepend t
-             :empty-lines 1
-             :jump-to-captured t))))
-
   (use-package org-agenda
     :defer t
     :bind (("C-c a" . org-agenda))
@@ -1844,6 +1828,21 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
 
     (add-hook 'org-present-mode-hook #'my-org-present-mode-hook)
     (add-hook 'org-present-mode-quit-hook #'my-org-present-mode-quit-hook))
+
+  (use-package helm-org
+    :bind (("C-c c" . helm-org-capture-templates))
+    :config
+    (setq org-capture-templates
+          `(("j" "Journal"
+             entry
+             (file+datetree
+              ,(expand-file-name
+                (format (format-time-string "journal-%Y-%%s.org") (system-name))
+                my-org-journal-directory))
+             "* %?\n%T\n%i"
+             :prepend t
+             :empty-lines 1
+             :jump-to-captured t))))
 #+END_SRC
 
 **** ob-plantuml
