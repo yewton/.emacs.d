@@ -1,0 +1,60 @@
+# -*- mode: snippet -*-
+# name: Taskjuggler template
+# key: tj
+# --
+#+STARTUP: showall
+#+PRIORITIES: A D B
+
+* Project                                                      :taskjuggler_project:
+:PROPERTIES:
+:TASK_ID: Project
+:END:
+
+** Milestones
+:PROPERTIES:
+:TASK_ID:  milestones
+:COLUMNS:  %70ITEM(Task) %20start
+:END:
+
+*** Start
+:PROPERTIES:
+:TASK_ID:  start
+:start:    2016-05-09
+:END:
+
+*** Release
+:PROPERTIES:
+:TASK_ID:  release
+:START:    2016-08-01
+:END:
+
+** Development
+:PROPERTIES:
+:COLUMNS:  %30ITEM(Task) %20ALLOCATE %10TASK_ID %10EFFORT %10PRIORITY
+:TASK_ID:  dev
+:ALLOCATE: dev
+:BLOCKER:  start
+:END:
+
+*** something
+:PROPERTIES:
+:TASK_ID:  something
+:ALLOCATE: dev
+:ORDERED:  t
+:END:
+
+* Resoures                                             :taskjuggler_resource:
+:PROPERTIES:
+:COLUMNS:  %70ITEM(Member) %20RESOURCE_ID
+:END:
+
+** developer
+:PROPERTIES:
+:RESOURCE_ID: dev
+:VACATION: 2016-04-29 - 2016-05-08, 2016-07-18, 2016-08-11+2d, 2016-08-15+5d, 2016-09-19, 2016-09-22
+:END:
+
+*** dev1
+:PROPERTIES:
+:RESOURCE_ID: dev1
+:END:

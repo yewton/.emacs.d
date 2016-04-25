@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: PlantUML
+# key: puml
+# --
+#+BEGIN_SRC plantuml :file `(file-name-sans-extension (file-name-base (buffer-file-name)))`.png :cmdline -charset UTF-8
+  アリス -> ボブ: Authentication Request
+  ボブ --> アリス: Authentication Response
+#+END_SRC

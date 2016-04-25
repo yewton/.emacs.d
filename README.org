@@ -1846,17 +1846,9 @@ cf. https://github.com/bbatsov/prelude/blob/555abd9a2fe3f55a0cb35d4b58f54d6cc32c
 
 **** ob-plantuml
 
-org-mode 内で図を確認しながら plantuml を書くことが出来ます。いつも書き方を忘れる…。
+org-mode 内で図を確認しながら plantuml を書くことが出来ます。
 
-以下のように書いて ~C-c C-c~ すると、 plantuml を実行してファイルを生成しつつ、画像を文書内に表示出来ます。
-これは snippet に登録した方がいな。。
-
-#+BEGIN_SRC org :tangle no
-  ,#+BEGIN_SRC plantuml :file sample2.png :cmdline -charset UTF-8
-    アリス -> ボブ: Authentication Request
-    ボブ --> アリス: Authentication Response
-  ,#+END_SRC
-#+END_SRC
+=puml= でスニペット展開出来るようにしてあります。
 
 #+BEGIN_SRC emacs-lisp
   (use-package ob-plantuml
@@ -1869,6 +1861,8 @@ org-mode 内で図を確認しながら plantuml を書くことが出来ます�
 #+END_SRC
 
 **** ox-taskjuggler
+
+=tj= でスニペット展開出来るようにしてあります。
 
 #+BEGIN_SRC emacs-lisp
   (use-package ox-taskjuggler
