@@ -2314,7 +2314,12 @@ OS X 特有の設定を行います。
 
     ;; Enable emoji, and stop the UI from freezing when trying to display them.
     (if (fboundp 'set-fontset-font)
-        (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)))
+        (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
+
+    (let ((gls (executable-find "gls")))
+      (when gls
+        (setq insert-directory-program gls
+              dired-listing-switches "-aBhl --group-directories-first"))))
 #+END_SRC
 
 # (set-face-attribute 'default nil :family "Ricty Discord" :height 130)
