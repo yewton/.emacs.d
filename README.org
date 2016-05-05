@@ -1385,20 +1385,6 @@ projectile とキープレフィクスが被っているので、
                             (append helm-persp-sources-list
                                     helm-mini-tail-sources)))))
 
-      ;; (add-hook 'persp-before-switch-functions
-      ;;           #'(lambda (next-pn)
-      ;;               (let ((p (get-current-persp)))
-      ;;                 (when p
-      ;;                   (persp-helm--liftup-source 'helm-source-persp-free-buffers)))))
-
-      ;; (add-hook 'persp-activated-hook
-      ;;           #'(lambda ()
-      ;;               (let ((p (get-current-persp)))
-      ;;                 (when p
-      ;;                   (let* ((pn (persp-name p))
-      ;;                          (source-name (intern (concat helm-persp-source-name-prefix pn))))
-      ;;                     (persp-helm--liftup-source source-name))))))
-
       (add-hook 'persp-before-kill-functions
                 #'(lambda (p)
                     (when p
