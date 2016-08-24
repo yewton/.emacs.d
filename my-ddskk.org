@@ -1,0 +1,171 @@
+**** セットアップ
+
+#+BEGIN_SRC emacs-lisp :noweb yes
+  (use-package skk-setup
+    :defer t
+    :config
+    (bind-key* "C-x C-j" #'skk-mode)
+    (bind-key* "C-`" #'skk-mode)
+    (bind-key* "C-x j" #'skk-auto-fill-mode)
+    (bind-key* "C-x t" #'skk-tutorial)
+    (use-package skk
+      :defer t
+      :config
+      <<ddskk-config>>
+      ))
+#+END_SRC
+
+**** 初期設定
+:PROPERTIES:
+:noweb-ref: ddskk-config
+:tangle: no
+:END:
+
+以下を参考にしています:
+
+- [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/ddskk_config.html][Youhei SASAKI's official site: DDSKKの設定]]
+- [[http://mugijiru.seesaa.net/article/275755984.html][暇だったからddskkの設定いじった: 麦汁三昧]]
+
+ユーザー辞書の場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq skk-user-directory (my-data-directory! "skk"))
+#+END_SRC
+
+辞書の場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package el-get-core)
+  (setq skk-cdb-large-jisyo (f-expand "dic/SKK-JISYO.L.cdb" (el-get-package-directory "ddskk")))
+#+END_SRC
+
+各種ファイルの場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq skk-jisyo (f-expand "jisyo" skk-user-directory)
+        skk-record-file (f-expand "record" skk-user-directory))
+#+END_SRC
+
+stickey-key の設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq skk-sticky-key ";")
+#+END_SRC
+
+ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全にオーバーライドしてしまいます。
+このままでは不便なため、挙動を調整します。
+
+参考リンク: [[https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21/etc/dot.skk][ddskk/dot.skk at 9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21 · skk-dev/ddskk]]
+
+#+BEGIN_SRC emacs-lisp
+  ;; ■モードのまま C-j を有効とする
+  (defun skk-C-j-key (arg)
+    (interactive "P")
+    (let ((enable-modes '(lisp-interaction-mode ; eval-print-last-sexp
+                          emacs-lisp-mode       ; newline-and-indent
+                          ;; and more.
+                          )))
+      (cond
+       ((and (null (skk-in-minibuffer-p))
+             (null skk-henkan-mode)
+             (member major-mode enable-modes))
+        (skk-emulate-original-map arg))
+       (t
+        (skk-kakutei arg)))))
+  ;; 状態遷移規則のリストに追加する
+  (add-to-list 'skk-rom-kana-rule-list
+               '(skk-kakutei-key nil skk-C-j-key))
+  ;; よく使う英単語を■モードのままでも
+  (add-to-list 'skk-rom-kana-rule-list
+               '("http" nil "http://"))
+  (defadvice skk-latin-mode (after skk-latin-mode-free-cj activate)
+    ;; latin-mode ではこのキーでかなモードに遷移する
+    (bind-key "C-o" #'skk-kakutei skk-latin-mode-map)
+    ;; latin-mode で C-j を明け渡す
+    (unbind-key "C-j" skk-latin-mode-map))
+  (defadvice skk-jisx0208-latin-mode (after skk-jisx0208-latin-mode-free-cj activate)
+    ;; 全英モードではこのキーでかなモードに遷移する
+    (bind-key "C-o" #'skk-kakutei skk-jisx0208-latin-mode-map)
+    ;; 全英モードで C-j を明け渡す
+    (unbind-key "C-j" skk-jisx0208-latin-mode-map))
+  (use-package spaceline-config
+    :config
+    (defun skk-setup-modeline ()
+      "モードラインの表示はspacelineに任せる")
+    (spaceline-define-segment skk
+      "SKKの現在の状態を表示します."
+      (cond
+       (skk-abbrev-mode skk-abbrev-mode-string)
+       (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
+       (skk-katakana skk-katakana-mode-string)
+       (skk-j-mode skk-hiragana-mode-string)
+       (skk-jisx0201-mode skk-jisx0201-mode-string)
+       (t skk-latin-mode-string))
+      :when (and active (bound-and-true-p skk-mode)))
+    (spaceline-install
+     '(((persp-name workspace-number window-number)
+        :fallback evil-state
+        :separator "|"
+        :face highlight-face)
+       anzu
+       auto-compile
+       skk
+       (buffer-modified buffer-size buffer-id remote-host)
+       major-mode
+       (process :when active)
+       ((flycheck-error flycheck-warning flycheck-info)
+        :when active)
+       ((minor-modes :separator spaceline-minor-modes-separator)
+        :when active)
+       (mu4e-alert-segment :when active)
+       (erc-track :when active)
+       (version-control :when active)
+       (org-pomodoro :when active)
+       (org-clock :when active)
+       nyan-cat)
+     '(which-function
+       (python-pyvenv :fallback python-pyenv)
+       (battery :when active)
+       selection-info
+       input-method
+       ((buffer-encoding-abbrev
+         point-position
+         line-column)
+        :separator " | ")
+       (global :when active)
+       buffer-position
+       hud)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package context-skk
+    :diminish "")
+  (use-package skk-hint)
+  (setq skk-hint-start-char ?:)
+  ;; 空の辞書ファイルを作成
+  (unless (file-exists-p skk-jisyo)
+    (unless (file-directory-p skk-user-directory)
+      (make-directory skk-user-directory t))
+    (write-region "" nil skk-jisyo))
+  (setq
+   ;; Enter で改行しない
+   skk-egg-like-newline t
+   ;; 注釈の表示
+   skk-show-annotation t
+   ;; インジケータを左端に.
+   skk-status-indicator 'left
+   ;; 半角カナを入力
+   skk-use-jisx0201-input-method t
+   ;;"「"を入力したら"」"も自動で挿入
+   skk-auto-insert-paren t
+   ;; 見出し語と送り仮名がマッチした候補を優先して表示
+   skk-henkan-strict-okuri-precedence t
+   ;; インクリメンタルサーチではskkを利用しない
+   skk-isearch-mode-enable nil
+   skk-show-mode-show t
+   skk-show-mode-style 'tooltip
+   skk-status-indicator 'minor-mode)
+  (skk-wrap-newline-command markdown-enter-key)
+  (add-hook 'before-make-frame-hook #'ccc-setup)
+#+END_SRC
+

@@ -1,0 +1,645 @@
+*** ナビゲーション系
+
+カーソルやバッファ、ウインドウなどの移動関連の設定です。
+
+~dired~ で、もう片方のウインドウに表示された ~dired~ のディレクトリに対して
+コピーなどの操作が行われるようにするなど、
+~dired~ に対象ディレクトリを〈推測〉させます:
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-dwim-target t)
+#+END_SRC
+
+いちいち音を鳴らしたり画面を点滅させたりさせないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore
+        visible-bell nil)
+#+END_SRC
+
+リンクっぽい文字列をハイライトして、 ~C-c RET~ でリンクを開けるようにします:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook #'goto-address-prog-mode)
+#+END_SRC
+
+同じようにバグや不具合に対する参照にリンクを設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
+#+END_SRC
+
+~*Help*~ ウインドウにフォーカスを当てたままにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq help-window-select t)
+#+END_SRC
+
+~*compilation*~ バッファを、最初のエラーまたは最後までスクロールさせます:
+
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-scroll-output 'first-error)
+#+END_SRC
+
+
+行頭移動の挙動を改善します。
+
+参考リンク: [[http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Smarter navigation to the beginning of a line - Emacs Redux]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
+
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
+
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+
+  ;; remap C-a to `smarter-move-beginning-of-line'
+  (global-set-key [remap move-beginning-of-line]
+                  #'smarter-move-beginning-of-line)
+#+END_SRC
+
+ファイルの再読み込みを行うヘルパー関数を定義します:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-revert-buffer (&optional force) (interactive "P") (revert-buffer t force))
+  (bind-key* "C-c C-x j"  #'my-revert-buffer)
+#+END_SRC
+
+*** 編集系
+
+編集作業に関連する設定を行います。
+
+言語環境を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (set-language-environment 'Japanese)
+  (prefer-coding-system 'utf-8-unix)
+  (set-default-coding-systems 'utf-8-unix)
+#+END_SRC
+
+外部の変更を自動的に反映するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'autorevert)
+  (global-auto-revert-mode 1)
+#+END_SRC
+
+~dired~ も自動反映させます。
+また、自動反映時のメッセージを表示しないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
+#+END_SRC
+
+~*scratch*~ バッファを ~text-mode~ で開くようにします。
+デフォルトでは ~emacs-lisp-mode~ で開かれるため
+emacs-lisp 用の設定がロードされてしまい、起動に時間がかかってしまうためです。
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-major-mode 'text-mode)
+#+END_SRC
+
+インデントにハードタブではなくスペースを使うようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil
+                tab-width 2)
+#+END_SRC
+
+ファイル削除時にシステムのごみ箱を使うようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+END_SRC
+
+自動折り返しする文字数を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 120)
+#+END_SRC
+
+略称展開(abbrev)に関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq abbrev-file-name (my-data-file "abbrev_defs")
+        save-abbrevs t)
+  (setq-default abbrev-mode t)
+#+END_SRC
+
+クリップボードの内容を kill-ring に保存するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+Single space between sentences is more widespread than double:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default sentence-end-double-space nil)
+#+END_SRC
+
+coming  (command interpreter) に関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+(setq comint-process-echoes t)
+#+END_SRC
+
+Electric-Pair mode(自動で対応する閉じカッコを挿入してくれるモード)を有効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (electric-pair-mode +1)
+#+END_SRC
+
+~C-h~ をバックスペースキーにします。
+また、それに伴って ~help-command~ のキー割り当てを変更しています:
+
+#+BEGIN_SRC emacs-lisp
+  (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+  (bind-key "C-c h" #'help-command)
+#+END_SRC
+
+~hippie-expand~ (様々な補完や展開を行なう)にキーを割り当てます:
+
+#+BEGIN_SRC emacs-lisp
+(bind-key*  "M-/" #'hippie-expand)
+#+END_SRC
+
+CUA(Common User Access style editing) mode から必要な関数だけキーを割り当てます。
+
+矩形選択モードだけ使っています:
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-x SPC" #'cua-rectangle-mark-mode)
+#+END_SRC
+
+バックアップファイルを一箇所に保存するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `((".*" . ,(my-data-directory! "backup"))))
+#+END_SRC
+
+編集の競合を防ぐためのロックファイルを作成しないようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq create-lockfiles nil)
+#+END_SRC
+
+式の評価時に省略せずに結果を出力するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq eval-expression-print-length nil
+        eval-expression-print-level nil)
+#+END_SRC
+
+TRAMPのキャッシュファイルの場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tramp-cache
+    :defer t
+    :config (setq tramp-persistency-file-name (my-data-directory! "tramp")))
+#+END_SRC
+
+以下の関数は [[https://www.emacswiki.org/emacs/DisabledCommands][Disabled Commands]] の対象外にします:
+
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+  (put 'erase-buffer 'disabled nil)
+  (put 'scroll-left 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil)
+#+END_SRC
+
+ファイルの最後に必ず改行を入れるようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq require-final-newline t)
+#+END_SRC
+
+リージョン内でキー入力をしたときに、普通の選択範囲と同じように削除するようにします:
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode +1)
+#+END_SRC
+
+スクロールの挙動を調整します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-margin 0
+        scroll-conservatively 100000
+        scroll-preserve-screen-position 1)
+#+END_SRC
+
+マウスホイールによるスクロールの挙動を調整します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse t) ;; scroll window under mouse
+#+END_SRC
+
+現在いる関数名をモードラインに表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (eval-when-compile (require 'which-func))
+  (which-function-mode 1)
+  (setq which-func-unknown "")
+#+END_SRC
+
+キーストロークをすぐにエコーエリアに表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.2)
+#+END_SRC
+
+リージョンをハイライトします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default transient-mark-mode t)
+#+END_SRC
+
+対応するカッコを強調表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+#+END_SRC
+
+サーバーの設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'server)
+  (defun server-remove-kill-buffer-hook ()
+    (remove-hook 'kill-buffer-query-functions #'server-kill-buffer-query-function))
+  (add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
+  (when (and (>= emacs-major-version 23)
+             (equal window-system 'w32))
+    (defun server-ensure-safe-dir (dir) "Noop" t))
+  (unless (server-running-p) (server-start))
+#+END_SRC
+
+**** Auto-save
+
+自動保存ファイルを保存するディレクトリを宣言します:
+
+#+BEGIN_SRC emacs-lisp
+  (defconst my-auto-save-directory (my-data-directory! "auto-save"))
+#+END_SRC
+
+全てのファイルについて自動保存を有効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-default t)
+#+END_SRC
+
+自動保存ファイルのプレフィクスを設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-list-file-prefix my-auto-save-directory)
+#+END_SRC
+
+TRAMP経由の自動保存ファイルの置き場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-file-name-transforms
+        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,(my-directory! "dist" my-auto-save-directory) t)))
+#+END_SRC
+
+ローカルの自動保存ファイルの置き場所を設定します:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-save-file-name-transforms
+               `(".*" ,(my-directory! "site" my-auto-save-directory) t) 'append)
+#+END_SRC
+
+**** uniquify
+
+バッファ名が被らないように、ファイル名に加えてディレクトリ名をバッファ名に付与するようにします。
+
+#+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+#+END_SRC
+
+=bar/mumble/name= のようにディレクトリ名を先頭に付与するスタイルを採用します:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+セパレータを設定します:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-separator "/")
+#+END_SRC
+
+バッファを削除した際に再度 uniquify を行うようにします:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-after-kill-buffer-p t)
+#+END_SRC
+
+特殊なバッファは uniquify の対象外にします:
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-ignore-buffers-re "^\\*")
+#+END_SRC
+
+**** キャメルケースへの対応
+
+キャメルケースに関連する設定を行います。
+
+まず、単語の区切りをキャメルケースを考慮して判定するように設定します。
+
+参考リンク: [[http://smallsteps.seesaa.net/article/123661899.html][Emacsで単語単位の移動をキャメルケースの途中で区切るには: 小ネタ帳]] 
+
+#+BEGIN_SRC emacs-lisp
+  ;; 文字カテゴリの作成
+  (unless (category-docstring ?V)
+    (define-category ?V "Upper case"))
+  (unless (category-docstring ?M)
+      (define-category ?M "Lower case"))
+  ;; 文字の登録。とりあえずはAからZまでの英字のみ。
+  (modify-category-entry (cons ?A ?Z) ?V)
+  (modify-category-entry (cons ?a ?z) ?M)
+  ;; 小文字に大文字が続く場合を単語境界とする。
+  (add-to-list 'word-separating-categories (cons ?M ?V))
+#+END_SRC
+
+次に、文字列をキャメルケースやスネークケース等に変換する関数を追加します。
+
+参考リンク: [[http://tomykaira.hatenablog.com/entry/2012/01/09/152903][{emacs} CamelCase なんてもういらない - tomykaira makes love with codes]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun camelize (s)
+    "Convert under_score string S to CamelCase string."
+    (mapconcat 'identity (mapcar
+                          #'(lambda (word) (capitalize (downcase word)))
+                          (split-string s "_")) ""))
+  (defun camelize-previous-snake (&optional beg end)
+    "Camelize the previous snake cased string .
+
+  If transient-mark-mode is active and a region is activated,
+  camelize the region."
+    (interactive)
+    (unless (and beg end)
+      (if (and (boundp 'transient-mark-mode) transient-mark-mode mark-active)
+          (setq beg (mark)
+                end (point))
+        (setq end (point)
+              beg (+ (point) (skip-chars-backward "[:alnum:]_")))))
+    (save-excursion
+      (let ((c (camelize (buffer-substring-no-properties beg end))))
+        (delete-region beg end)
+        (goto-char (min beg end))
+        (insert c))))
+  (defun split-name (s)
+    (split-string
+     (let ((case-fold-search nil))
+       (downcase
+        (replace-regexp-in-string "\\([a-z]\\)\\([A-Z]\\)" "\\1 \\2" s)))
+     "[^A-Za-z0-9]+"))
+  (defun camelcase  (s) (mapconcat 'capitalize (split-name s) ""))
+  (defun underscore (s) (mapconcat 'downcase   (split-name s) "_"))
+  (defun dasherize  (s) (mapconcat 'downcase   (split-name s) "-"))
+  (defun colonize   (s) (mapconcat 'capitalize (split-name s) "::"))
+  (defun camelscore (s)
+    (cond ((string-match-p "\:"  s) (camelcase s))
+          ((string-match-p "-" s)   (colonize s))
+          ((string-match-p "_" s)   (dasherize s))
+          (t                        (underscore s))))
+  (defun camelscore-word-at-point ()
+    (interactive)
+    (let* ((case-fold-search nil)
+           (beg (and (skip-chars-backward "[:alnum:]:_-") (point)))
+           (end (and (skip-chars-forward  "[:alnum:]:_-") (point)))
+           (txt (buffer-substring beg end))
+           (cml (camelscore txt)) )
+      (if cml (progn (delete-region beg end) (insert cml))) ))
+  (bind-key "\C-c \C-c" #'camelscore-word-at-point)
+#+END_SRC
+
+**** savehist
+
+様々な入力履歴を永続化します。
+
+#+BEGIN_SRC emacs-lisp
+  (require 'savehist)
+#+END_SRC
+
+以下の変数を保存します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq savehist-additional-variables '(
+                                        bookmark-history
+                                        command-history
+                                        desktop-missing-file-warning
+                                        extended-command-history
+                                        file-name-history
+                                        find-tag-history
+                                        helm-build-regexp-history
+                                        helm-eshell-command-on-file-input-history
+                                        helm-external-command-history
+                                        helm-ff-history
+                                        helm-file-name-history
+                                        helm-source-complex-command-history
+                                        helm-source-file-name-history
+                                        kill-ring
+                                        minibuffer-history
+                                        minibuffer-history-search-history
+                                        minibuffer-text-before-history
+                                        query-replace-history
+                                        regexp-search-ring
+                                        register-alist
+                                        search-ring
+                                        tags-file-name
+                                        tags-table-list
+                                        ))
+#+END_SRC
+
+自動保存間隔と保存先ファイルを設定し、 ~savehist-mode~ を有効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq savehist-autosave-interval 60)
+  (setq savehist-file (my-data-file ".savehist"))
+  (savehist-mode +1)
+#+END_SRC
+
+**** recentf
+
+〈最近開いたファイル〉の機能を有効にします。
+
+#+BEGIN_SRC emacs-lisp
+  (require 'recentf)
+#+END_SRC
+
+保存先ファイルと最大保存数を設定します。
+また、保存先ファイル自身を履歴に含めないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq recentf-save-file (my-data-file ".recentf")
+        recentf-max-saved-items 1000
+        recentf-exclude '(".recentf"))
+#+END_SRC
+
+リモートファイルの操作と相性が悪いため、自動整頓機能を無効にします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq recentf-auto-cleanup 'never)
+#+END_SRC
+
+~recnetf-mode~ を有効にし、定期的に自動保存させます:
+
+#+BEGIN_SRC emacs-lisp
+  (recentf-mode +1)
+  (run-with-idle-timer 300 t #'recentf-save-list)
+#+END_SRC
+
+*** ユーザーインタフェース系
+
+見た目に関する設定をします。
+
+新しいウインドウのサイズを適切に調整するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq window-combination-resize t)
+#+END_SRC
+
+フリンジ(縁)の設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fringe-indicator-alist
+                '((truncation . nil) (continuation . nil)))
+#+END_SRC
+
+行の何文字目にいるかをモードラインに表示するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+#+END_SRC
+
+行番号を表示するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'linum)
+  (setq linum-format "%4d")
+  (add-hook 'prog-mode-hook #'linum-mode)
+  (add-hook 'text-mode-hook #'linum-mode)
+#+END_SRC
+
+現在行をハイライト表示します:
+
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode +1)
+#+END_SRC
+
+カーソルを点滅させないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+#+END_SRC
+
+確認プロンプトを簡易化します:
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+アンダーラインに関する設定をします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq x-underline-at-descent-line t)
+#+END_SRC
+
+ミニバッファにおける入力時の挙動を改善します。
+
+参考リンク : [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html][Emacs: Stop Cursor Going into Minibuffer Prompt]]
+
+#+BEGIN_SRC emacs-lisp
+(setq minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)) ; doesn't work in GNU Emacs 25.0.90.1.
+#+END_SRC
+
+不要なGUI部品を非表示にします:
+
+#+BEGIN_SRC emacs-lisp
+  (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
+  (when (fboundp 'menu-bar-mode) (menu-bar-mode 0))
+  (when (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+#+END_SRC
+
+起動時に最大化するようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'window-setup-hook #'toggle-frame-maximized)
+#+END_SRC
+
+全角スペース タブ trailing-spacesを目立たせます:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package whitespace
+    :diminish
+    ""
+    (global-whitespace-mode . "")
+    :config
+    ;; space-markとtab-mark、それからspacesとtrailingを対象とする
+    (setq whitespace-style '(space-mark tab-mark face spaces trailing)
+          whitespace-display-mappings '(
+                                        (space-mark ?\xA0 [?\u00A4] [?_]) ; hard space - currency
+                                        (space-mark ?\x8A0 [?\x8A4] [?_]) ; hard space - currency
+                                        (space-mark ?\x920 [?\x924] [?_]) ; hard space - currency
+                                        (space-mark ?\xE20 [?\xE24] [?_]) ; hard space - currency
+                                        (space-mark ?\xF20 [?\xF24] [?_]) ; hard space - currency
+                                        (space-mark ?\u3000 [?\u3000] [?_ ?_]) ; full-width-space - square
+                                        (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t]) ; tab - left quote mark
+                                        )
+          ;; whitespace-spaceの定義を全角スペースにし、色をつけて目立たせる
+          whitespace-space-regexp "\\(\u3000+\\)")
+    (set-face-foreground 'whitespace-space 'unspecified)
+    (set-face-background 'whitespace-space "dim gray")
+    ;; whitespace-trailingを色つきアンダーラインで目立たせる
+    (set-face-underline 'whitespace-trailing t)
+    (set-face-foreground 'whitespace-trailing "dim gray")
+    (set-face-background 'whitespace-trailing 'unspecified)
+    (global-whitespace-mode 1))
+#+END_SRC
+
+現在時刻の表示フォーマットを設定し、モードラインに表示します:
+
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-format "%m月%d日(%a) %H:%M"
+        display-time-default-load-average nil)
+  (display-time-mode 1)
+#+END_SRC
+
+スタートアップの画面を表示しないようにします:
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+ファイルのリスティング系の挙動を調整します:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ls-lisp
+    :defer t
+    :config
+    (setq ls-lisp-dirs-first t
+          ls-lisp-use-insert-directory-program nil
+          ls-lisp-use-localized-time-format t))
+#+END_SRC

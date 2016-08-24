@@ -1,0 +1,33 @@
+OS X 特有の設定を行います。
+
+#+BEGIN_SRC emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq ns-function-modifier 'hyper)
+    (setq ns-command-modifier 'meta)
+    (setq ns-alternate-modifier 'super)
+    (setq face-font-rescale-alist '(("Ricty Discord" . 1.08)))
+    (let* ((fonts (list (font-spec :name "Ricty Discord" :size 13)
+                        (font-spec :name "Source Han Code JP" :size 13)
+                        (font-spec :name "Source Code Pro" :size 13)))
+           (font (cl-find-if (lambda (font) (find-font font)) fonts)))
+      (set-frame-font font))
+
+    ;; これが無いと powerline のみためが悪い
+    ;; cf. https://github.com/milkypostman/powerline/issues/54#issuecomment-65078550
+    (setq ns-use-srgb-colorspace nil)
+
+    ;; Enable emoji, and stop the UI from freezing when trying to display them.
+    (if (fboundp 'set-fontset-font)
+        (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
+
+    (let ((gls (executable-find "gls")))
+      (when gls
+        (setq insert-directory-program gls
+              dired-listing-switches "-aBhl --group-directories-first"))))
+#+END_SRC
+
+# (set-face-attribute 'default nil :family "Ricty Discord" :height 130)
+# nil
+# ELISP> (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty Discord"))
+# nil
+# ELISP> (setq face-font-rescale-alist '(("Ricty Discord" . 1.08)))

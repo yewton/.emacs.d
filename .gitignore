@@ -5,3 +5,12 @@
 /.emacs-custom.el
 /personal
 /.org-id-locations
+/my-ddskk.el
+/my-fundamental.el
+/my-persp.el
+/my-helm.el
+/my-install-packages.el
+/my-misc.el
+/my-org.el
+/my-osx.el
+/my-package-agnostic.el
