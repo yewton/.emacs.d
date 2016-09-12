@@ -379,7 +379,7 @@ tangle されたファイルに付与されるヘッダです。
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :config
+    :init
     (let ((projectile-dir (expand-file-name "projectile" my-data-directory)))
       (unless (file-directory-p projectile-dir)
         (make-directory projectile-dir t))
