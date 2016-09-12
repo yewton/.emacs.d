@@ -152,14 +152,6 @@ tangle されたファイルに付与されるヘッダです。
     :config (setq magit-auto-revert-mode-ligter ""))
 #+END_SRC
 
-*** persp
-
-[[file:my-persp.org][perp-modeの設定]] をロードします:
-
-#+BEGIN_SRC emacs-lisp
-  (org-babel-load-file (expand-file-name "my-persp.org" user-emacs-directory))
-#+END_SRC
-
 *** Bookmark
 
 #+BEGIN_SRC emacs-lisp
