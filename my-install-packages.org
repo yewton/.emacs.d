@@ -61,7 +61,6 @@ el-get でインストールするパッケージを定義します:
           org-ac
           org-present
           org-reveal
-          persp-mode
           plantuml-mode
           projectile
           quickrun
