@@ -15,7 +15,8 @@
     (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
     (defun my-org-mode-hook ()
       (set (make-local-variable 'system-time-locale) "C")
-      (org-display-inline-images))
+      (org-display-inline-images)
+      (org-bullets-mode 1))
     (add-hook 'org-mode-hook #'my-org-mode-hook))
 
   (use-package org-agenda
