@@ -308,8 +308,8 @@ tangle されたファイルに付与されるヘッダです。
   (use-package wakatime-mode
     :diminish (wakatime-mode . "若")
     :config
-      (when (executable-find "wakatime")
-        (global-wakatime-mode 1)))
+    (when (executable-find "wakatime")
+      (add-hook 'emacs-startup-hook #'global-wakatime-mode)))
 #+END_SRC
 
 *** flyspell
