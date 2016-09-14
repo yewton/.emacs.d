@@ -16,7 +16,8 @@
     (defun my-org-mode-hook ()
       (set (make-local-variable 'system-time-locale) "C")
       (org-display-inline-images)
-      (org-bullets-mode 1))
+      (org-bullets-mode 1)
+      (setq org-fontify-whole-heading-line t))
     (add-hook 'org-mode-hook #'my-org-mode-hook))
 
   (use-package org-agenda

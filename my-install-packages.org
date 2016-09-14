@@ -32,8 +32,8 @@ el-get でインストールするパッケージを定義します:
           flyspell
           git-gutter
           git-gutter-fringe
-          git-timemachine
           git-modes
+          git-timemachine
           golden-ratio
           google-c-style
           helm
@@ -49,6 +49,7 @@ el-get でインストールするパッケージを定義します:
           info+
           japanese-holidays
           js2-mode
+          leuven-theme
           lispxmp
           magit
           magit-gh-pulls

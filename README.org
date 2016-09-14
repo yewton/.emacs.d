@@ -44,7 +44,7 @@ tangle されたファイルに付与されるヘッダです。
 [[https://github.com/bbatsov/zenburn-emacs][zenburn]] テーマを使います:
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'zenburn t)
+  (load-theme 'leuven t)
 #+END_SRC
 
 ** モードラインの設定
