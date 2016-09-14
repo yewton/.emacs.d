@@ -9,8 +9,12 @@ OS X 特有の設定を行います。
     (let* ((fonts (list (font-spec :name "Ricty Discord" :size 13)
                         (font-spec :name "Source Han Code JP" :size 13)
                         (font-spec :name "Source Code Pro" :size 13)))
-           (font (cl-find-if (lambda (font) (find-font font)) fonts)))
-      (set-frame-font font))
+           (font (cl-find-if (lambda (font) (find-font font)) fonts))
+           (font-name (font-get font :name))
+           (font-height (* 10 (font-get font :size))))
+      (set-face-attribute 'default nil :font font-name :height font-height)
+      (set-frame-font font nil t))
+
 
     ;; これが無いと powerline のみためが悪い
     ;; cf. https://github.com/milkypostman/powerline/issues/54#issuecomment-65078550
