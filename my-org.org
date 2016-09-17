@@ -32,6 +32,11 @@
             ("js" "Journal Search" search nil
              ((org-agenda-files (list ,my-org-journal-directory)))))))
 
+  (use-package org-faces
+    :defer t
+    :config
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch))
+
   (use-package ox-html
     :defer t
     :config
