@@ -130,12 +130,38 @@ tangle されたファイルに付与されるヘッダです。
     (global-auto-complete-mode 1))
 #+END_SRC
 
-*** helm
+*** swiper, ivy
 
-[[file:my-helm.org][Helmの設定]] ロードします:
+- https://github.com/abo-abo/swiper
 
 #+BEGIN_SRC emacs-lisp
-  (org-babel-load-file (expand-file-name "my-helm.org" user-emacs-directory))
+  (use-package swiper
+    :init
+    (setq ivy-use-virtual-buffers t)
+    (ivy-mode 1)
+    ;; cf. http://rubikitch.com/2015/03/18/swiper/
+    (defun isearch-forward-or-swiper (use-swiper)
+      (interactive "P")
+      (let (current-prefix-arg)
+        (call-interactively (if use-swiper #'swiper #'isearch-forward))))
+    (global-set-key (kbd "C-s") 'isearch-forward-or-swiper)
+    :bind (("C-s" . isearch-forward-or-swiper)
+           ("C-c C-r" . ivy-resume)
+           ("<f6>" . ivy-resume)
+           ("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("<help> b" . counsel-descbinds)
+           ("<help> f" . counsel-describe-function)
+           ("<help> v" . counsel-describe-variable)
+           ("<help> l" . counsel-load-library)
+           ("<f2> i" . counsel-info-lookup-symbol)
+           ("<f2> u" . counsel-unicode-char)
+           ("C-c g" . counsel-git)
+           ("C-c j" . counsel-git-grep)
+           ("C-c k" . counsel-ag)
+           ("C-x l" . counsel-locate)
+           :map read-expression-map
+           ("C-r" . counsel-expression-history)))
 #+END_SRC
 
 *** magit
@@ -392,9 +418,9 @@ tangle されたファイルに付与されるヘッダです。
             projectile-cache-file (expand-file-name "projectile.cache" projectile-dir)))
     (projectile-global-mode 1)
     :config
-    (use-package helm-projectile
-      :config
-      (helm-projectile-on)))
+    (use-package counsel-projectile
+      :init
+      (counsel-projectile-on)))
 #+END_SRC
 
 *** wgrep

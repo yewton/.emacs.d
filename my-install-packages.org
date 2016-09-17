@@ -3,7 +3,6 @@ el-get でインストールするパッケージを定義します:
 #+BEGIN_SRC emacs-lisp
   (setq my-packages
         '(
-          ace-isearch
           ace-link
           ag
           anzu
@@ -14,6 +13,7 @@ el-get でインストールするパッケージを定義します:
           bookmark+
           buffer-move
           color-theme-zenburn
+          counsel-projectile
           crontab-mode
           ddskk
           diminish
@@ -36,13 +36,6 @@ el-get でインストールするパッケージを定義します:
           git-timemachine
           golden-ratio
           google-c-style
-          helm
-          helm-ag
-          helm-c-yasnippet
-          helm-descbinds
-          helm-gtags
-          helm-projectile
-          helm-swoop
           htmlize
           hugo
           imenu-anywhere
@@ -76,6 +69,7 @@ el-get でインストールするパッケージを定義します:
           scala-mode2
           smartrep
           spaceline
+          swiper
           undo-tree
           volatile-highlights
           wakatime-mode
