@@ -172,6 +172,8 @@ tangle されたファイルに付与されるヘッダです。
            ("C-c j" . counsel-git-grep)
            ("C-c k" . counsel-ag)
            ("C-x l" . counsel-locate)
+           ("C-x C-r" . counsel-recentf)
+           ("M-y" . counsel-yank-pop)
            :map read-expression-map
            ("C-r" . counsel-expression-history)
            :map ivy-minibuffer-map
