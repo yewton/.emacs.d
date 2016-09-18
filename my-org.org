@@ -40,7 +40,7 @@
   (use-package ox-html
     :defer t
     :config
-    (setq org-html-htmlize-output-type))
+    (setq org-html-htmlize-output-type 'css))
 
   (use-package ox
     :defer t
