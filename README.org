@@ -161,7 +161,9 @@ tangle されたファイルに付与されるヘッダです。
            ("C-c k" . counsel-ag)
            ("C-x l" . counsel-locate)
            :map read-expression-map
-           ("C-r" . counsel-expression-history)))
+           ("C-r" . counsel-expression-history)
+           :map ivy-minibuffer-map
+           ("C-l" . ivy-backward-delete-char)))
 #+END_SRC
 
 *** magit
