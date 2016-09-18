@@ -179,7 +179,21 @@ Electric-Pair mode(自動で対応する閉じカッコを挿入してくれる�
 ~hippie-expand~ (様々な補完や展開を行なう)にキーを割り当てます:
 
 #+BEGIN_SRC emacs-lisp
-(bind-key*  "M-/" #'hippie-expand)
+  (use-package hippie-exp
+    :init
+    (setq hippie-expand-try-functions-list
+          '(try-complete-file-name-partially
+            try-complete-file-name
+            try-expand-all-abbrevs
+            try-expand-list
+            ;; try-expand-line ノイズになることが多い(個人の感想です)
+            try-expand-dabbrev
+            try-expand-dabbrev-all-buffers
+            ;; try-expand-dabbrev-from-kill ノイズになることが多い(個人の感想です)
+            try-complete-lisp-symbol-partially
+            try-complete-lisp-symbol))
+    :bind* (("M-/" . hippie-expand)))
+
 #+END_SRC
 
 CUA(Common User Access style editing) mode から必要な関数だけキーを割り当てます。

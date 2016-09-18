@@ -381,12 +381,16 @@ tangle されたファイルに付与されるヘッダです。
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :diminish (yas-minor-mode . "")
+    :init
+    (yas-global-mode 1)
     :bind (:map yas-minor-mode-map
-                ("<C-tab>" . yas-expand))
+                ("C-M-i" . yas-expand))
     :config
-    ; (unbind-key "<tab>" yas-minor-mode-map)
-    (add-to-list 'hippie-expand-try-functions-list #'yas-hippie-try-expand)
-    (yas-global-mode 1))
+    ;; cf. http://stackoverflow.com/a/28487263
+    (define-key yas-minor-mode-map [(tab)]        nil)
+    (define-key yas-minor-mode-map (kbd "TAB")    nil)
+    (define-key yas-minor-mode-map (kbd "<tab>")  nil)
+    (add-to-list 'hippie-expand-try-functions-list #'yas-hippie-try-expand))
 #+END_SRC
 
 *** buffer-move
