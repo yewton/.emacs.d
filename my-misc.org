@@ -13,10 +13,6 @@
     (setq ag-highlight-search t
           ag-reuse-window t))
 
-  (use-package ace-isearch
-    :diminish ""
-    :config (global-ace-isearch-mode +1))
-
   (use-package eyebrowse
     :init
     (setq eyebrowse-keymap-prefix (kbd "C-c w"))
