@@ -130,6 +130,18 @@ tangle されたファイルに付与されるヘッダです。
     (global-auto-complete-mode 1))
 #+END_SRC
 
+*** avy
+
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :init
+    (avy-setup-default)
+    :bind (("C-:" . avy-goto-char)
+           ("C-'" . avy-goto-char-2)
+           ("M-g f" . avy-goto-line)
+           ("M-g w" . avy-goto-word-1)
+           ("M-g e" . avy-goto-word-0)))
+#+END_SRC
 *** swiper, ivy
 
 - https://github.com/abo-abo/swiper

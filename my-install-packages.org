@@ -8,6 +8,7 @@ el-get でインストールするパッケージを定義します:
           anzu
           apache-mode
           auto-complete
+          avy
           beacon
           bm
           bookmark+
