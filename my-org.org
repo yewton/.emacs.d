@@ -68,9 +68,8 @@
     (add-hook 'org-present-mode-hook #'my-org-present-mode-hook)
     (add-hook 'org-present-mode-quit-hook #'my-org-present-mode-quit-hook))
 
-  (use-package helm-org
-    :bind (("C-c c" . helm-org-capture-templates))
-    :config
+  (use-package org-capture
+    :init
     (setq org-capture-templates
           `(("j" "Journal"
              entry
@@ -81,7 +80,8 @@
              "* %?\n%T\n%i"
              :prepend t
              :empty-lines 1
-             :jump-to-captured t))))
+             :jump-to-captured t)))
+    :bind (("C-c c" . org-capture)))
 #+END_SRC
 
 **** ob-plantuml
