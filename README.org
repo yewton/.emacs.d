@@ -4,6 +4,11 @@
 yewton の ~.emacs.d~ です。
 
 [[./images/screenshot.png]]
+** 事前準備
+*** macOS
+
+[[http://brew.sh/index_ja.html][Homebrew]] 及び [[https://github.com/Homebrew/homebrew-bundle][Homebrew Bundle]] をインストールし、 =brew bundle= で依存パッケージをインストール出来ます。
+
 ** ヘッダー
 
 tangle されたファイルに付与されるヘッダです。
@@ -629,6 +634,7 @@ https://www.emacswiki.org/emacs/ElDoc
 
 #+BEGIN_SRC emacs-lisp
   (use-package enh-ruby-mode
+    :mode "Brewfile$" ; これ以外は el-get の recipe で設定されている
     :config
     (setq enh-ruby-deep-indent-paren nil)
     (add-hook 'enh-ruby-mode #'turn-on-eldoc-mode))
