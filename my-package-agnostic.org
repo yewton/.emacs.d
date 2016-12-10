@@ -548,15 +548,6 @@ TRAMP経由の自動保存ファイルの置き場所を設定します:
   (setq column-number-mode t)
 #+END_SRC
 
-行番号を表示するようにします:
-
-#+BEGIN_SRC emacs-lisp
-  (require 'linum)
-  (setq linum-format "%4d")
-  (add-hook 'prog-mode-hook #'linum-mode)
-  (add-hook 'text-mode-hook #'linum-mode)
-#+END_SRC
-
 現在行をハイライト表示します:
 
 #+BEGIN_SRC emacs-lisp

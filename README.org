@@ -753,6 +753,21 @@ https://www.emacswiki.org/emacs/ElDoc
 #+END_SRC
 
 
+*** nlinum
+
+行番号を表示するようにします。
+~(global-nlinum-mode)~ だと、 Magit バッファやなど必要無い箇所でも行番号が表示されてしまうため、
+
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nlinum
+    :init
+    (setq nlinum-format "%4d")
+    (add-hook 'prog-mode-hook #'nlinum-mode)
+    (add-hook 'text-mode-hook #'nlinum-mode))
+#+END_SRC
+
 *** 未整理
 
 [[file:my-misc.org][雑多な設定]] をロードします:

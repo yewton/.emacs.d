@@ -106,7 +106,8 @@ el-get の公式にないレシピや、一部自分用にカスタムしたも�
                  )
           (:name open-junk-file
                  :features nil
-                 :before (autoload 'open-junk-file "open-junk-file" "" t))))
+                 :before (autoload 'open-junk-file "open-junk-file" "" t))
+          (:name nlinum :type emacsmirror)))
 #+END_SRC
 
 DDSKK のビルドについては、実際の ~Makefile~ を出来るだけ忠実に再現出来るようにかなり頑張っています:
