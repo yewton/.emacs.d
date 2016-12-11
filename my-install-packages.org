@@ -55,6 +55,7 @@ el-get でインストールするパッケージを定義します:
           open-junk-file
           operate-on-number
           org-ac
+          org-bullets
           org-present
           org-reveal
           package
