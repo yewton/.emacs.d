@@ -16,10 +16,6 @@
 #+END_SRC
 
 **** 初期設定
-:PROPERTIES:
-:noweb-ref: ddskk-config
-:tangle: no
-:END:
 
 以下を参考にしています:
 
@@ -28,27 +24,27 @@
 
 ユーザー辞書の場所を設定します:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (setq skk-user-directory (my-data-directory! "skk"))
 #+END_SRC
 
 辞書の場所を設定します:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (use-package el-get-core)
   (setq skk-cdb-large-jisyo (f-expand "dic/SKK-JISYO.L.cdb" (el-get-package-directory "ddskk")))
 #+END_SRC
 
 各種ファイルの場所を設定します:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (setq skk-jisyo (f-expand "jisyo" skk-user-directory)
         skk-record-file (f-expand "record" skk-user-directory))
 #+END_SRC
 
 stickey-key の設定をします:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (setq skk-sticky-key ";")
 #+END_SRC
 
@@ -57,7 +53,7 @@ ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全�
 
 参考リンク: [[https://github.com/skk-dev/ddskk/blob/9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21/etc/dot.skk][ddskk/dot.skk at 9ebbfcaa48bdef2b8fcf7f5e8cf5808561ae5d21 · skk-dev/ddskk]]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   ;; ■モードのまま C-j を有効とする
   (defun skk-C-j-key (arg)
     (interactive "P")
@@ -137,7 +133,7 @@ ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全�
        hud)))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (use-package context-skk
     :diminish "")
   (use-package skk-hint)
@@ -168,4 +164,3 @@ ddskk 標準の設定では、 =C-j= (=newline-and-indent=) の挙動を完全�
   (skk-wrap-newline-command markdown-enter-key)
   (add-hook 'before-make-frame-hook #'ccc-setup)
 #+END_SRC
-

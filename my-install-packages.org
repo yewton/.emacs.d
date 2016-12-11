@@ -100,7 +100,7 @@ el-get の公式にないレシピや、一部自分用にカスタムしたも�
           (:name easy-kill :type github :pkgname "leoliu/easy-kill")
           (:name markdown-mode :prepare nil) ; markdown-modeじゃなくgfm-modeで開きたいから
           (:name ensime :prepare nil) ; auto-load の定義が間違ってる気がする
-          (:name ddskk :pkgname "skk-dev/ddskk" :autoloads nil :load-path "share/emacs/site-lisp/skk"
+          (:name ddskk :pkgname "skk-dev/ddskk" :autoloads nil :load-path "site-lisp/skk"
                  :info "share/info/skk.info" :features ("skk-setup")
                  :build
                  <<ddskk-build>>
