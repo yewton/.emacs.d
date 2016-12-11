@@ -7,7 +7,9 @@ yewton の ~.emacs.d~ です。
 ** 事前準備
 *** macOS
 
-[[http://brew.sh/index_ja.html][Homebrew]] 及び [[https://github.com/Homebrew/homebrew-bundle][Homebrew Bundle]] をインストールし、 =brew bundle= で依存パッケージをインストール出来ます。
+[[http://brew.sh/index_ja.html][Homebrew]] 及び [[https://github.com/Homebrew/homebrew-bundle][Homebrew Bundle]] をインストールし、 =brew bundle= で依存パッケージをインストールします。
+
+~brew link --force texinfo~ で =texinfo= を更新します。
 
 ** ヘッダー
 
