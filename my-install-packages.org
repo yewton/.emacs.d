@@ -68,7 +68,7 @@ el-get でインストールするパッケージを定義します:
           ruby-end
           ruby-mode
           sbt-mode
-          scala-mode2
+          scala-mode
           smartrep
           spaceline
           swiper
