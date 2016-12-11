@@ -51,6 +51,7 @@ el-get でインストールするパッケージを定義します:
           migemo
           multiple-cursors
           nginx-mode
+          nlinum
           open-junk-file
           operate-on-number
           org-ac
