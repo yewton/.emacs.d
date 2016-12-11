@@ -51,6 +51,11 @@
 (setq org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory))
 
 (declare-function el-get "el-get" (&optional sync &rest packages))
+;; org-mode の git clone が泣きたくなる程遅かったので…
+(setq el-get-sources '((:name org-mode
+                              :type http-tar
+                              :options ("xzf")
+                              :url "http://orgmode.org/org-9.0.1.tar.gz")))
 (el-get 'sync '(org-mode))
 
 (org-babel-load-file (expand-file-name "README.org" user-emacs-directory))
