@@ -11,6 +11,7 @@ OS X 特有の設定を行います。
     (add-to-list 'face-font-rescale-alist '(".*Hiragino.*" . 1.2))
 
     (let* ((fonts '(
+                    ("Myrica M for Powerline" . 140)
                     ("Myrica M" . 140)
                     ("Ricty Discord" . 135)
                     ("MyricaM M" . 140)
