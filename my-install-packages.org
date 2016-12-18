@@ -73,6 +73,7 @@ el-get でインストールするパッケージを定義します:
           scala-mode
           smartrep
           spaceline
+          ssh-config-mode
           swiper
           undo-tree
           volatile-highlights
@@ -119,7 +120,15 @@ el-get の公式にないレシピや、一部自分用にカスタムしたも�
                  ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                                           ("gnu" . "http://elpa.gnu.org/packages/")
-                                          ("ELPA" . "http://tromey.com/elpa/"))))))
+                                          ("ELPA" . "http://tromey.com/elpa/"))))
+          (:name ssh-config-mode :type github :pkgname "jhgorrell/ssh-config-mode-el"
+                 :after
+                 (autoload 'ssh-config-mode "ssh-config-mode" t)
+                 (add-to-list 'auto-mode-alist '("/\\.ssh/config\\'"     . ssh-config-mode))
+                 (add-to-list 'auto-mode-alist '("/sshd?_config\\'"      . ssh-config-mode))
+                 (add-to-list 'auto-mode-alist '("/known_hosts\\'"       . ssh-known-hosts-mode))
+                 (add-to-list 'auto-mode-alist '("/authorized_keys2?\\'" . ssh-authorized-keys-mode))
+                 (add-hook 'ssh-config-mode-hook #'turn-on-font-lock))))
 #+END_SRC
 
 DDSKK のビルドについては、実際の ~Makefile~ を出来るだけ忠実に再現出来るようにかなり頑張っています:
