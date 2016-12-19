@@ -1,5 +1,12 @@
+#+TITLE: org-mode の設定
 
-~org-goto (C-j)~ は大変便利。
+=org-directory= はデフォルトで =~/org= になっているので、
+これは変更せず、文書を共有したい場合は以下のようにリンクを設定するのが
+面倒臭くなくてよいと思う:
+
+#+BEGIN_SRC sh
+ln -s ~/Google\ Drive/Documents/org/your-host-name ~/org
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
