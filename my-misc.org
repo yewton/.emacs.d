@@ -99,10 +99,6 @@
                     select-window-7
                     select-window-8
                     select-window-9
-                    windmove-down
-                    windmove-left
-                    windmove-right
-                    windmove-up
                     )))
     (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
     (golden-ratio-mode))

@@ -414,20 +414,6 @@ tangle されたファイルに付与されるヘッダです。
                 ("C-S-h" . buf-move-left)))
 #+END_SRC
 
-*** windmove
-
-#+BEGIN_SRC emacs-lisp
-  (use-package windmove
-    :defer t
-    :init
-    (bind-keys* ("C-M-h" . windmove-left)
-                ("C-M-k" . windmove-up)
-                ("C-M-l" . windmove-right)
-                ("C-M-j" . windmove-down))
-    :config
-    (setq windmove-wrap-around t))
-#+END_SRC
-
 *** projectile
 
 #+BEGIN_SRC emacs-lisp
