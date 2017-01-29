@@ -45,6 +45,7 @@ el-get でインストールするパッケージを定義します:
           js2-mode
           leuven-theme
           lispxmp
+          lua-mode
           magit
           magit-gh-pulls
           markdown-mode
