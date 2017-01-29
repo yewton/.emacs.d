@@ -762,6 +762,19 @@ https://www.emacswiki.org/emacs/ElDoc
     (add-hook 'text-mode-hook #'nlinum-mode))
 #+END_SRC
 
+*** emojify
+
+絵文字を表示出来るようにします :blush:
+
+~emojify-insert-emoji~ で ivy 補完しながら絵文字を入力出来る。
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emojify
+    :defer t
+    :init
+    (add-hook 'after-init-hook #'global-emojify-mode))
+#+END_SRC
+
 *** 未整理
 
 [[file:my-misc.org][雑多な設定]] をロードします:

@@ -24,6 +24,7 @@ el-get でインストールするパッケージを定義します:
           easy-kill
           eldoc-eval
           elisp-slime-nav
+          emojify
           enh-ruby-mode
           ensime
           eyebrowse
