@@ -779,7 +779,8 @@ https://www.emacswiki.org/emacs/ElDoc
   (use-package emojify
     :defer t
     :init
-    (add-hook 'after-init-hook #'global-emojify-mode))
+    (add-hook 'after-init-hook #'global-emojify-mode)
+    :bind (("C-c e" . emojify-insert-emoji)))
 #+END_SRC
 
 *** 未整理
