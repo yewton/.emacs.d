@@ -1,5 +1,5 @@
 tap 'caskroom/cask'
-tap 'yewton/fonts'
+tap 'caskroom/fonts'
 
 brew 'aspell'
 brew 'cmigemo'
@@ -8,6 +8,6 @@ brew 'hugo'
 brew 'plantuml'
 brew 'texinfo'
 brew 'the_silver_searcher'
+brew 'ricty', args: ['with-powerline']
 
-cask 'font-myrica-for-powerline'
 cask 'emacs'
