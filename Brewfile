@@ -8,6 +8,6 @@ brew 'hugo'
 brew 'plantuml'
 brew 'texinfo'
 brew 'the_silver_searcher'
-brew 'ricty', args: ['with-powerline']
+brew 'ricty', args: ['powerline']
 
 cask 'emacs'
