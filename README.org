@@ -11,6 +11,13 @@ yewton の ~.emacs.d~ です。
 
 ~brew link --force texinfo~ で =texinfo= を更新します。
 
+Ricty フォントをインストールします:
+
+#+BEGIN_SRC sh
+  cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+  fc-cache -vf
+#+END_SRC
+
 ** ヘッダー
 
 tangle されたファイルに付与されるヘッダです。
