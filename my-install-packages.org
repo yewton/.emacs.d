@@ -51,6 +51,7 @@ el-get でインストールするパッケージを定義します:
           magit-gh-pulls
           markdown-mode
           migemo
+          monokai-theme
           multiple-cursors
           nginx-mode
           nlinum
