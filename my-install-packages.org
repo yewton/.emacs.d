@@ -55,7 +55,6 @@ el-get でインストールするパッケージを定義します:
           multiple-cursors
           nginx-mode
           nlinum
-          open-junk-file
           operate-on-number
           org-ac
           org-bullets

@@ -171,6 +171,21 @@ tangle されたファイルに付与されるヘッダです。
       (let (current-prefix-arg)
         (call-interactively (if use-swiper #'swiper #'isearch-forward))))
     (global-set-key (kbd "C-s") 'isearch-forward-or-swiper)
+    (setq open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." my-data-directory))
+    (defun my-open-junk-file (&optional arg)
+      "Open junk file using ivy.
+
+  When ARG is non-nil search in junk files."
+      (interactive "P")
+      (let* ((fname (format-time-string open-junk-file-format (current-time)))
+             (rel-fname (file-name-nondirectory fname))
+             (junk-dir (file-name-directory fname))
+             (default-directory junk-dir))
+        (cond (arg
+               (counsel-ag nil junk-dir "" "[junk]"))
+              (t
+               (counsel-find-file rel-fname)))))
+    (bind-key "C-x C-z" #'my-open-junk-file)
     :bind (("C-s" . isearch-forward-or-swiper)
            ("C-c C-r" . ivy-resume)
            ("<f6>" . ivy-resume)
@@ -293,13 +308,6 @@ tangle されたファイルに付与されるヘッダです。
   (use-package elisp-slime-nav
     :defer t
     :diminish "")
-#+END_SRC
-
-*** open-junk-file
-#+BEGIN_SRC emacs-lisp
-  (use-package open-junk-file
-    :bind ("C-x C-z" . open-junk-file)
-    :config (setq open-junk-file-directory (expand-file-name "junk/%Y/%m/%d-%H%M%S." my-data-directory)))
 #+END_SRC
 
 *** bm
