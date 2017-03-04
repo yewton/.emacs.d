@@ -56,6 +56,7 @@
                               :type http-tar
                               :options ("xzf")
                               :url "http://orgmode.org/org-9.0.1.tar.gz")))
+                              :load-path ("." "contrib/lisp" "lisp")
 (el-get 'sync '(org-mode))
 
 (org-babel-load-file (expand-file-name "README.org" user-emacs-directory))
