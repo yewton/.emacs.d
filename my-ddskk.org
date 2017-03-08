@@ -39,7 +39,8 @@
 
 #+BEGIN_SRC emacs-lisp :noweb-ref ddskk-config :tangle no
   (setq skk-jisyo (f-expand "jisyo" skk-user-directory)
-        skk-record-file (f-expand "record" skk-user-directory))
+        skk-record-file (f-expand "record" skk-user-directory)
+        skk-extra-jisyo-file-list (list (f-expand "dic/SKK-JISYO.lisp" (el-get-package-directory "ddskk"))))
 #+END_SRC
 
 stickey-key の設定をします:
