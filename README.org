@@ -633,6 +633,13 @@ https://www.emacswiki.org/emacs/ElDoc
                           :override t))
 #+END_SRC
 
+*** plantuml
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+  (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
+#+END_SRC
+
 *** Ruby
 
 #+BEGIN_SRC emacs-lisp
