@@ -14,6 +14,7 @@ el-get でインストールするパッケージを定義します:
           bookmark+
           buffer-move
           color-theme-zenburn
+          coffee-mode
           counsel-projectile
           crontab-mode
           ddskk
