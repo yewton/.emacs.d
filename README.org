@@ -256,6 +256,13 @@ tangle されたファイルに付与されるヘッダです。
                 ("C-x n n" . dired-subtree-narrow)))
 #+END_SRC
 
+*** ediff
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ediff-wind
+    :defer t
+    :init (setq ediff-split-window-function 'split-window-horizontally))
+#+END_SRC
 *** git-gutter
 
 #+BEGIN_SRC emacs-lisp
