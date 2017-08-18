@@ -163,7 +163,8 @@ tangle されたファイルに付与されるヘッダです。
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
     :init
-    (setq ivy-use-virtual-buffers t)
+    (setq ivy-use-virtual-buffers t
+          counsel-ag-base-command "rg --color never --no-heading %s")
     (ivy-mode 1)
     ;; cf. http://rubikitch.com/2015/03/18/swiper/
     (defun isearch-forward-or-swiper (use-swiper)

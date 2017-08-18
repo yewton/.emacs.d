@@ -69,6 +69,7 @@ el-get でインストールするパッケージを定義します:
           rainbow-delimiters
           rainbow-identifiers
           rainbow-mode
+          ripgrep
           ruby-block
           ruby-electric
           ruby-end
@@ -141,7 +142,8 @@ el-get の公式にないレシピや、一部自分用にカスタムしたも�
                           (when (not (file-exists-p plantuml-jar))
                             (url-copy-file plantuml-url plantuml-jar)))
                  :before (setq plantuml-jar-path
-                               (expand-file-name "plantuml.jar" default-directory)))))
+                               (expand-file-name "plantuml.jar" default-directory)))
+          (:name ripgrep :type github :pkgname "nlamirault/ripgrep.el")))
 #+END_SRC
 
 DDSKK のビルドについては、実際の ~Makefile~ を出来るだけ忠実に再現出来るようにかなり頑張っています:
