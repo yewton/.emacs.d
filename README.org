@@ -802,6 +802,7 @@ https://www.emacswiki.org/emacs/ElDoc
   (use-package emojify
     :defer t
     :init
+    (setq emojify-emoji-styles'(github unicode))
     (add-hook 'after-init-hook #'global-emojify-mode)
     :bind (("C-c e" . emojify-insert-emoji)))
 #+END_SRC
