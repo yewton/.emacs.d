@@ -12,6 +12,7 @@ el-get でインストールするパッケージを定義します:
           beacon
           bm
           bookmark+
+          browse-at-remote
           buffer-move
           color-theme-zenburn
           coffee-mode

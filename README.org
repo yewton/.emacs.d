@@ -807,6 +807,13 @@ https://www.emacswiki.org/emacs/ElDoc
     :bind (("C-c e" . emojify-insert-emoji)))
 #+END_SRC
 
+*** browse-at-remote
+
+#+BEGIN_SRC emacs-lisp
+  (use-package browse-at-remote
+    :init (setq browse-at-remote-prefer-symbolic nil))
+#+END_SRC
+
 *** 未整理
 
 [[file:my-misc.org][雑多な設定]] をロードします:
