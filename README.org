@@ -55,10 +55,9 @@ tangle されたファイルに付与されるヘッダです。
 ** テーマの設定
 
 インストールしたテーマを設定します。
-[[https://github.com/oneKelvinSmith/monokai-emacs][monokai]] テーマを使います:
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'github-modern t)
+  (load-theme 'leuven t)
 #+END_SRC
 
 ** モードラインの設定
