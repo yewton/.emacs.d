@@ -214,13 +214,14 @@ tangle されたファイルに付与されるヘッダです。
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :defer t
-    :config
+    :init
     (setq magit-diff-refine-hunk 'all
-          magit-git-executable (if (eq system-type 'windows-nt) "c:/Git/bin/git.exe" "git")))
+          magit-git-executable (if (eq system-type 'windows-nt) "c:/Git/bin/git.exe" "git")
+          magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
   (use-package magit-autorevert
     :defer t
-    :config (setq magit-auto-revert-mode-ligter ""))
+    :init (setq magit-auto-revert-mode-ligter ""))
 #+END_SRC
 
 *** Bookmark
