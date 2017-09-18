@@ -654,7 +654,8 @@ https://www.emacswiki.org/emacs/ElDoc
   (use-package enh-ruby-mode
     :mode "Brewfile$" ; これ以外は el-get の recipe で設定されている
     :config
-    (setq enh-ruby-deep-indent-paren nil)
+    (setq enh-ruby-deep-indent-paren nil
+          enh-ruby-add-encoding-comment-on-save nil)
     (add-hook 'enh-ruby-mode #'turn-on-eldoc-mode))
 
   (use-package ruby-end
