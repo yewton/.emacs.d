@@ -1,3 +1,3 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-rm -fr data el-get elpa README.el
+DIR=$(dirname "$(greadlink -f "$0")")
+gfind ./lisp -name '*.elc' -delete
