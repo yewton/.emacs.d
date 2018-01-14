@@ -9,6 +9,8 @@
 
 ;;; Code:
 
+(load-theme 'leuven t)
+
 (set-language-environment 'Japanese)
 (prefer-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
@@ -30,6 +32,7 @@
 (f-mkdir ytn-backup-directory)
 (setq backup-directory-alist `((".*" . ,ytn-backup-directory)))
 
+(require 'dired)
 (setq package-enable-at-startup nil
       inhibit-startup-screen t
       initial-major-mode 'fundamental-mode
@@ -43,7 +46,6 @@
       disabled-command-function nil
       save-interprogram-paste-before-kill t
       delete-by-moving-to-trash t
-      dired-dwim-target t
       ring-bell-function 'ignore
       visible-bell nil)
 
@@ -60,32 +62,28 @@
 (setq abbrev-file-name (f-join ytn-var-directory "abbrev_defs")
       save-abbrevs t)
 (setq-default abbrev-mode t)
+(delight 'abbrev-mode "" 'abbrev)
+
+(require 'whitespace)
+(delight 'global-whitespace-mode "" 'whitespace)
+(setq whitespace-style '(face tabs trailing spaces)
+      ;; full-width space (\u3000, 　)
+      whitespace-space-regexp "\\(\u3000+\\)")
+(set-face-underline 'whitespace-space "pink")
+(set-face-underline 'whitespace-trailing "pink")
+(global-whitespace-mode)
 
 (show-paren-mode)
 (electric-pair-mode)
 
 (require 'autorevert)
-(global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t
-      auto-revert-verbose nil)
+      auto-revert-verbose nil
+      auto-revert-mode-text nil)
+(global-auto-revert-mode)
 
-(require 'server)
-(defun server-remove-kill-buffer-hook ()
-  (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
-(add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
-(unless (server-running-p) (server-start))
-
-(require 'use-package)
-(require 'delight)
-(require 'bind-key)
-(require 'f)
-(require 'ytn-const)
-
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-(bind-key "C-c h" #'help-command)
-
-(with-eval-after-load "compile"
-  (setq compilation-scroll-output 'first-error))
+(require 'compile)
+(setq compilation-scroll-output 'first-error)
 
 (require 'recentf)
 (setq recentf-save-file (f-join ytn-var-directory ".recentf")
@@ -99,14 +97,34 @@
       display-time-default-load-average nil)
 (display-time-mode)
 
+(require 'server)
+(defun server-remove-kill-buffer-hook ()
+  "See https://stackoverflow.com/a/268205/2142831 ."
+  (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
+(add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
+(unless (server-running-p) (server-start))
+
+(eval-when-compile (require 'use-package))
+(require 'delight)
+(require 'bind-key)
+(require 'f)
+(require 'ytn-const)
+
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(bind-key "C-c h" #'help-command)
+
+(use-package dired
+  :config
+  (setq dired-dwim-target t))
+
 (use-package ls-lisp
-    :config
+  :config
   (setq ls-lisp-dirs-first t
         ls-lisp-use-insert-directory-program nil
         ls-lisp-use-localized-time-format t))
 
 (use-package hippie-exp
-    :config
+  :config
   (setq hippie-expand-try-functions-list
         '(try-complete-file-name-partially
           try-complete-file-name
@@ -115,53 +133,53 @@
           try-expand-dabbrev
           try-expand-dabbrev-all-buffers
           try-complete-lisp-symbol-partially
-          try-complete-lisp-symbol)))
-(bind-key* "M-/" #'hippie-expand)
-
-(require 'auto-compile)
+          try-complete-lisp-symbol))
+  :bind* (("M-/" . hippie-expand)))
 
 (use-package auto-compile
-    :demand t
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
+  :demand t
+  :config
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
+
+(use-package nlinum
+  :demand t
+  :config
+  (add-hook 'prog-mode-hook 'nlinum-mode)
+  (add-hook 'text-mode-hook 'nlinum-mode))
 
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
-(use-package smex    
-    :config
+(use-package smex
+  :config
   (setq smex-save-file (f-join ytn-var-directory "smex-items")
         smex-history-length 9))
 
 (use-package ivy
-    :demand t
-    :delight
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t
-          enable-recursive-minibuffers t)
-    :bind (("C-c C-r" . ivy-resume)
-           ("<f6>" . ivy-resume)
-           :map ivy-minibuffer-map
-           ("C-l" . ivy-backward-delete-char)))
+  :demand t
+  :delight
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  :bind (("C-c C-r" . ivy-resume)
+         ("<f6>" . ivy-resume)
+         :map ivy-minibuffer-map
+         ("C-r" . ivy-previous-line)
+         ("C-l" . ivy-backward-delete-char)))
 
 (use-package swiper
-    :config
-  ;; cf. http://rubikitch.com/2015/03/18/swiper/
-  (defun isearch-forward-or-swiper (use-swiper)
-    (interactive "P")
-    (let (current-prefix-arg)
-      (call-interactively (if use-swiper #'swiper #'isearch-forward))))
-  :bind (("C-s" . isearch-forward-or-swiper)))
+  :config
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
 
 (use-package counsel
-    :config
-  (setq counsel-ag-base-command "rg --color never --no-heading %s")
-  (defun my-open-junk-file (&optional arg)
+  :config
+  (defun ytn-open-junk-file (&optional arg)
     "Open junk file using counsel.
 
   When ARG is non-nil search in junk files."
     (interactive "P")
-    (let* ((open-junk-file-format (expand-file-name "var/junk/%Y/%m/%d-%H%M%S." user-emacs-directory))
+    (let* ((open-junk-file-format (f-join ytn-var-directory "junk/%Y/%m/%d-%H%M%S."))
            (fname (format-time-string open-junk-file-format (current-time)))
            (rel-fname (file-name-nondirectory fname))
            (junk-dir (file-name-directory fname))
@@ -180,38 +198,38 @@
          ("<f2> u" . counsel-unicode-char)
          ("C-c g" . counsel-git)
          ("C-c j" . counsel-git-grep)
-         ("C-c k" . counsel-ag)
+         ("C-c k" . counsel-rg)
          ("C-x l" . counsel-locate)
          ("C-x C-r" . counsel-recentf)
          ("M-y" . counsel-yank-pop)
-         ("C-x C-z". my-open-junk-file)
+         ("C-x C-z". ytn-open-junk-file)
          :map read-expression-map
          ("C-r" . counsel-minibuffer-history)))
 
 (use-package ivy-xref
-    :demand t
-    :config
-    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+  :demand t
+  :config
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 (use-package winum
-    :demand t
-    :delight
-    :bind (:map winum-keymap
-                ("M-0" . 'winum-select-window-0-or-10)
-                ("M-1" . 'winum-select-window-1)
-                ("M-2" . 'winum-select-window-2)
-                ("M-3" . 'winum-select-window-3)
-                ("M-4" . 'winum-select-window-4)
-                ("M-5" . 'winum-select-window-5)
-                ("M-6" . 'winum-select-window-6)
-                ("M-7" . 'winum-select-window-7)
-                ("M-8" . 'winum-select-window-8)
-                ("M-9" . 'winum-select-window-9))
-    :config
-    (winum-mode))
+  :demand t
+  :delight
+  :bind (:map winum-keymap
+              ("M-0" . 'winum-select-window-0-or-10)
+              ("M-1" . 'winum-select-window-1)
+              ("M-2" . 'winum-select-window-2)
+              ("M-3" . 'winum-select-window-3)
+              ("M-4" . 'winum-select-window-4)
+              ("M-5" . 'winum-select-window-5)
+              ("M-6" . 'winum-select-window-6)
+              ("M-7" . 'winum-select-window-7)
+              ("M-8" . 'winum-select-window-8)
+              ("M-9" . 'winum-select-window-9))
+  :config
+  (winum-mode))
 
 (use-package crux
-    :init
+  :init
   (global-set-key [remap move-beginning-of-line] 'crux-move-beginning-of-line)
   (global-set-key (kbd "C-c o") 'crux-open-with)
   (global-set-key [(shift return)] 'crux-smart-open-line)
@@ -220,84 +238,106 @@
   (global-set-key [remap kill-whole-line] 'crux-kill-whole-line))
 
 (use-package magit
-    :defer t
-    :config
-    (setq magit-diff-refine-hunk 'all
-          magit-git-executable (if (eq system-type 'windows-nt) "c:/Git/bin/git.exe" "git")))
+  :defer t
+  :config
+  (setq magit-diff-refine-hunk 'all
+        magit-git-executable (if (eq system-type 'windows-nt) "c:/Git/bin/git.exe" "git")))
 
 (use-package magit-mode
-    :defer t
-    :config
-    (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
-
-(use-package elisp-mode
-    :defer t
-    :config
-    (eval-when-compile (require 'cl-indent))
-    (defun ytn-elisp-mode-hook ()
-      (setq-local lisp-indent-function #'common-lisp-indent-function)
-      (setq-local lisp-backquote-indentation nil))
-    (add-hook 'emacs-lisp-mode-hook 'ytn-elisp-mode-hook))
+  :defer t
+  :config
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 
 (use-package flycheck
-    :demand t
-    :delight
-    :config
-    (add-hook 'after-init-hook #'global-flycheck-mode))
+  :demand t
+  :delight
+  :config
+  (setq flycheck-emacs-lisp-load-path 'inherit)
+  (add-hook 'emacs-startup-hook #'global-flycheck-mode))
 
 (use-package flycheck-pos-tip
-    :after flycheck
-    :config
-    (flycheck-pos-tip-mode))
+  :after flycheck
+  :config
+  (flycheck-pos-tip-mode))
 
-(eval-and-compile (require 'projectile))
 (use-package projectile
-    :demand t
-    :delight
-    :config
-    (let ((projectile-dir (f-join ytn-var-directory "projectile")))
-      (f-mkdir projectile-dir)
-      (setq projectile-enable-caching t
-            projectile-ignored-projects '("/usr/local/")
-            projectile-mode-line ""
-            projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
-            projectile-cache-file (f-join projectile-dir "projectile.cache")))
-    (projectile-mode)
-    (projectile-load-known-projects))
+  :demand t
+  :delight
+  :config
+  (let ((projectile-dir (f-join ytn-var-directory "projectile")))
+    (f-mkdir projectile-dir)
+    (setq projectile-enable-caching t
+          projectile-ignored-projects '("/usr/local/")
+          projectile-mode-line ""
+          projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
+          projectile-cache-file (f-join projectile-dir "projectile.cache")))
+  (add-hook 'projectile-mode-hook 'projectile-load-known-projects))
 
 (use-package counsel-projectile
-    :after projectile
-    :delight
-    :config
-    (counsel-projectile-mode))
+  :after projectile
+  :delight
+  :config
+  (counsel-projectile-mode))
 
 (use-package hydra
-    :demand t
-    :config
-    (require 'ytn-hydra))
+  :demand t
+  :config
+  (require 'ytn-hydra))
 
 (use-package golden-ratio
-    :demand t
-    :delight
-    :config
-    (require 'ytn-golden-ratio))
+  :demand t
+  :delight
+  :config
+  (require 'ytn-golden-ratio))
 
 (use-package buffer-move
-    :bind (("C-S-j" . buf-move-up)
-           ("C-S-k" . buf-move-down)
-           ("C-S-l" . buf-move-right)
-           ("C-S-h" . buf-move-left)))
+  :bind (("C-S-j" . buf-move-up)
+         ("C-S-k" . buf-move-down)
+         ("C-S-l" . buf-move-right)
+         ("C-S-h" . buf-move-left)))
 
 (use-package windmove
-    :bind (("C-M-j" . windmove-up)
-           ("C-M-k" . windmove-down)
-           ("C-M-l" . windmove-right)
-           ("C-M-h" . windmove-left)))
+  :bind (("C-M-j" . windmove-up)
+         ("C-M-k" . windmove-down)
+         ("C-M-l" . windmove-right)
+         ("C-M-h" . windmove-left)))
 
 (use-package which-key
-    :demand t
-    :config
-    (which-key-mode))
+  :delight
+  :demand t
+  :config
+  (which-key-mode))
+
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+(use-package rainbow-identifiers
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+
+(use-package company
+  :delight
+  :init
+  (add-hook 'emacs-startup-hook 'global-company-mode)
+  :config
+  (bind-key [remap complete-symbol] 'counsel-company company-mode-map)
+  (bind-key [remap completion-at-point] 'counsel-company company-mode-map))
+
+(use-package powerline
+  :config
+  (setq powerline-height (+ (frame-char-height) 10)
+        powerline-default-separator 'slant))
+
+(use-package spaceline-config
+  :demand t
+  :functions spaceline-spacemacs-theme
+  :config
+  (setq spaceline-window-numbers-unicode t
+        spaceline-workspace-numbers-unicode t
+        spaceline-minor-modes-separator " ")
+  ;; to prevent byte compile warning...
+  (add-hook 'emacs-startup-hook 'spaceline-spacemacs-theme))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

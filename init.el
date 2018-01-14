@@ -22,8 +22,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp))))
 
-(setq el-get-git-shallow-clone t
-      el-get-verbose t)
+(setq el-get-verbose t)
 (with-eval-after-load "el-get"
   ;; cf. https://github.com/dimitri/el-get/pull/2598
   (add-to-list 'el-get-git-known-smart-domains "code.orgmode.org"))
