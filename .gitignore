@@ -1,4 +1,5 @@
 /data
+/var
 /README.el
 /el-get
 /elpa

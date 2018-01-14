@@ -3,8 +3,7 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(setq load-prefer-newer t
-      package-enable-at-startup nil)
+(setq load-prefer-newer t)
 
 ;; cf. https://emacs.stackexchange.com/a/35953/18118
 (require 'gnutls)
@@ -41,25 +40,21 @@
   (dolist (dir (list recipes-dir common-dir system-dir window-system-dir))
     (when dir (add-to-list 'load-path dir)))
 
-  (byte-recompile-directory recipes-dir)
+  (byte-recompile-directory recipes-dir 0)
   (require 'ytn-recipes)
 
-  (el-get 'sync (mapcar #'el-get-source-name ytn-base-recipes))
-
   ;; to avoid build errors
-  (el-get 'sync '(exec-path-from-shell use-package))
-  (use-package exec-path-from-shell
-    :demand t
-    :config
-    (when (memq window-system '(mac ns x))
-      (setq exec-path-from-shell-arguments (list "-l"))
-      (exec-path-from-shell-initialize)))
+  (el-get 'sync '(exec-path-from-shell))
+  (when (memq window-system '(mac ns x))
+    (require 'exec-path-from-shell)
+    (setq exec-path-from-shell-arguments (list "-l"))
+    (exec-path-from-shell-initialize))
 
-  (el-get 'sync (mapcar #'el-get-source-name ytn-recipes))
+  (el-get 'sync (mapcar #'el-get-source-name el-get-sources))
 
   (dolist (dir (list common-dir system-dir window-system-dir))
     (when (file-directory-p dir)
-        (byte-recompile-directory dir 0)))
+      (byte-recompile-directory dir 0)))
 
   (require 'ytn-init-common)
   (require 'ytn-init-system nil t)
