@@ -42,7 +42,6 @@
       create-lockfiles nil
       eval-expression-print-length nil
       eval-expression-print-level nil
-      require-final-newline t
       disabled-command-function nil
       save-interprogram-paste-before-kill t
       delete-by-moving-to-trash t
@@ -57,7 +56,8 @@
               sentence-end-double-space nil
               fill-column 120
               indent-tabs-mode nil
-              tab-width 2)
+              tab-width 2
+              require-final-newline t)
 
 (setq abbrev-file-name (f-join ytn-var-directory "abbrev_defs")
       save-abbrevs t)
@@ -145,8 +145,8 @@
 (use-package nlinum
   :demand t
   :config
-  (add-hook 'prog-mode-hook 'nlinum-mode)
-  (add-hook 'text-mode-hook 'nlinum-mode))
+  (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
+    (add-hook hook 'nlinum-mode)))
 
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex
@@ -247,6 +247,15 @@
   :defer t
   :config
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
+
+(use-package diff-hl
+  :config
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (global-diff-hl-mode))
+
+(use-package diff-hl-margin
+  :config
+  (unless (window-system) (diff-hl-margin-mode)))
 
 (use-package flycheck
   :demand t
