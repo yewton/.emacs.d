@@ -15,6 +15,7 @@
 (require 'context-skk)
 (require 'skk-develop)
 (require 'bind-key)
+(require 'delight)
 
 (require 'ytn-const)
 
@@ -39,6 +40,8 @@
 (unbind-key "C-j" skk-jisx0208-latin-mode-map)
 
 (set-face-attribute 'skk-show-mode-inline-face nil :foreground "black" :background "lemon chiffon")
+
+(delight 'context-skk-mode "" 'context-skk)
 
 (defun ytn-init-skk-extra-jisyo ()
   "Initialize `skk-extra-jisyo-file-list'. Download jisyo files if needed."

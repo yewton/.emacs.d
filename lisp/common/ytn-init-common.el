@@ -9,6 +9,8 @@
 
 ;;; Code:
 
+(require 'dash)
+
 (load-theme 'leuven t)
 
 (set-language-environment 'Japanese)
@@ -114,14 +116,27 @@
 (bind-key "C-c h" #'help-command)
 
 (use-package dired
+  :defer t
   :config
   (setq dired-dwim-target t))
 
 (use-package ls-lisp
+  :defer t
   :config
   (setq ls-lisp-dirs-first t
         ls-lisp-use-insert-directory-program nil
         ls-lisp-use-localized-time-format t))
+
+(defun ytn-elisp-get-fnsymargs-string (oldfun sym &optional index prefix)
+  "Apply OLDFUN SYM INDEX PREFIX."
+  (let ((orig (apply oldfun sym index prefix)))
+    (when orig
+      (let* ((doc (s-replace-regexp "^.*advice:.*$"
+                                    ""
+                                    (or (ignore-errors (documentation sym)) "")))
+             (doc (s-join "\n" (-take 3 (-filter #'s-present? (s-lines doc))))))
+        (s-trim (s-concat orig "\n" doc))))))
+(advice-add 'elisp-get-fnsym-args-string :around #'ytn-elisp-get-fnsymargs-string)
 
 (use-package hippie-exp
   :config
@@ -172,6 +187,7 @@
 
 (use-package counsel
   :config
+  (setq counsel-describe-function-preselect 'ivy-function-called-at-point)
   (defun ytn-open-junk-file (&optional arg)
     "Open junk file using counsel.
 
@@ -193,6 +209,7 @@
          ("<help> v" . counsel-describe-variable)
          ("<help> l" . counsel-load-library)
          ("<help> a" . counsel-apropos)
+         ("<help> S" . counsel-info-lookup-symbol)
          ("<f2> i" . counsel-info-lookup-symbol)
          ("<f2> u" . counsel-unicode-char)
          ("C-c g" . counsel-git)
@@ -319,6 +336,10 @@
   :init
   (add-hook 'emacs-startup-hook 'global-company-mode)
   :config
+  (bind-key [remap next-line] 'company-select-next company-active-map)
+  (bind-key [remap previous-line] 'company-select-previous company-active-map)
+  (bind-key "C-f" 'company-show-location company-active-map)
+  (bind-key "M-f" 'company-show-doc-buffer company-active-map)
   (bind-key [remap complete-symbol] 'counsel-company company-mode-map)
   (bind-key [remap completion-at-point] 'counsel-company company-mode-map))
 
