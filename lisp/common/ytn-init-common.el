@@ -105,6 +105,7 @@
 (unless (server-running-p) (server-start))
 
 (eval-when-compile (require 'use-package))
+(setq use-package-expand-minimally byte-compile-current-file)
 (require 'delight)
 (require 'bind-key)
 (require 'f)
@@ -137,13 +138,11 @@
   :bind* (("M-/" . hippie-expand)))
 
 (use-package auto-compile
-  :demand t
   :config
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode))
 
 (use-package nlinum
-  :demand t
   :config
   (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
     (add-hook hook 'nlinum-mode)))
@@ -207,7 +206,6 @@
          ("C-r" . counsel-minibuffer-history)))
 
 (use-package ivy-xref
-  :demand t
   :config
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
@@ -215,7 +213,6 @@
   :demand t
   :delight
   :bind (:map winum-keymap
-              ("M-0" . 'winum-select-window-0-or-10)
               ("M-1" . 'winum-select-window-1)
               ("M-2" . 'winum-select-window-2)
               ("M-3" . 'winum-select-window-3)
@@ -251,14 +248,9 @@
 (use-package diff-hl
   :config
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (global-diff-hl-mode))
-
-(use-package diff-hl-margin
-  :config
-  (unless (window-system) (diff-hl-margin-mode)))
+  (add-hook 'emacs-start-up-hook 'global-diff-hl-mode))
 
 (use-package flycheck
-  :demand t
   :delight
   :config
   (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -270,8 +262,8 @@
   (flycheck-pos-tip-mode))
 
 (use-package projectile
-  :demand t
   :delight
+  :commands projectile-load-known-projects
   :config
   (let ((projectile-dir (f-join ytn-var-directory "projectile")))
     (f-mkdir projectile-dir)
@@ -280,7 +272,7 @@
           projectile-mode-line ""
           projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
           projectile-cache-file (f-join projectile-dir "projectile.cache")))
-  (add-hook 'projectile-mode-hook 'projectile-load-known-projects))
+  (projectile-load-known-projects))
 
 (use-package counsel-projectile
   :after projectile
@@ -289,12 +281,10 @@
   (counsel-projectile-mode))
 
 (use-package hydra
-  :demand t
   :config
   (require 'ytn-hydra))
 
 (use-package golden-ratio
-  :demand t
   :delight
   :config
   (require 'ytn-golden-ratio))
@@ -313,7 +303,6 @@
 
 (use-package which-key
   :delight
-  :demand t
   :config
   (which-key-mode))
 
@@ -339,14 +328,71 @@
         powerline-default-separator 'slant))
 
 (use-package spaceline-config
-  :demand t
-  :functions spaceline-spacemacs-theme
+  :commands spaceline-spacemacs-theme
   :config
   (setq spaceline-window-numbers-unicode t
         spaceline-workspace-numbers-unicode t
         spaceline-minor-modes-separator " ")
-  ;; to prevent byte compile warning...
-  (add-hook 'emacs-startup-hook 'spaceline-spacemacs-theme))
+  (spaceline-spacemacs-theme))
+
+(use-package treemacs
+  :defines (fa-fo)
+  :config
+  (setq treemacs-change-root-without-asking nil
+        treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+        treemacs-file-event-delay           5000
+        treemacs-follow-after-init          t
+        treemacs-goto-tag-strategy          'refetch-index
+        treemacs-indentation                2
+        treemacs-indentation-string         " "
+        treemacs-is-never-other-window      nil
+        treemacs-never-persist              nil
+        treemacs-no-png-images              nil
+        treemacs-recenter-after-file-follow nil
+        treemacs-recenter-after-tag-follow  nil
+        treemacs-show-hidden-files          t
+        treemacs-silent-filewatch           nil
+        treemacs-silent-refresh             nil
+        treemacs-sorting                    'alphabetic-desc
+        treemacs-tag-follow-cleanup         t
+        treemacs-tag-follow-delay           1.5
+        treemacs-winum-number               10
+        treemacs-width                      40
+        treemacs-python-executable (executable-find "python3"))
+  :bind (([f8] . treemacs-toggle)
+         ("M-0" . treemacs-select-window)
+         ("C-c 1" . treemacs-delete-other-windows)))
+
+(use-package treemacs-filewatch-mode
+  :after treemacs
+  :commands treemacs-filewatch-mode
+  :config
+  (treemacs-filewatch-mode t))
+
+(use-package treemacs-follow-mode
+  :after treemacs
+  :commands treemacs-follow-mode
+  :config
+  (treemacs-follow-mode t))
+
+
+(use-package treemacs-async
+  :after treemacs
+  :commands treemacs-git-mode
+  :config
+  (pcase (cons (not (null (executable-find "git")))
+               (not (null (executable-find "python3"))))
+    (`(t . t)
+     (treemacs-git-mode 'extended))
+    (`(t . _)
+     (treemacs-git-mode 'simple))))
+
+(use-package treemacs-projectile
+  :config
+  (setq treemacs-header-function 'treemacs-projectile-create-header)
+  :bind (:map projectile-mode-map
+              ([f8] . treemacs-projectile-toggle)
+              ([f9] . treemacs-projectile)))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

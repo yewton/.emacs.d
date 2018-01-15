@@ -95,6 +95,11 @@
                        (:name powerline :shallow t :branch "2.4")
                        (:name spaceline :checkout "ca20430271f80d46892d62cb7624b4dee6cafe72" :compile nil)
 
+                       (:name avy :checkout "34d3531a3cd35ae6b9e8dbc37343c027504fdcb0")
+                       (:name ace-window :checkout "c0fbdd51be8fdd43fd7a89140ebd4b4c311d45fc")
+                       (:name pfuture :checkout "d55a764b5beee803e489974be2408dbe236fc482")
+                       (:name treemacs :checkout "692f5be4ab6a4868978dcb2639334f78a267cfd2")
+
                        (:name org-mode
                               :branch "release_9.1.6"
                               :shallow t
