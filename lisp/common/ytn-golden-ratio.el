@@ -31,21 +31,25 @@
         "speedbar-mode"))
 
 (setq golden-ratio-extra-commands
-      (append golden-ratio-extra-commands
-              '(buf-move-down
-                buf-move-left
-                buf-move-right
-                buf-move-up
-                winum-select-window-0
-                winum-select-window-1
-                winum-select-window-2
-                winum-select-window-3
-                winum-select-window-4
-                winum-select-window-5
-                winum-select-window-6
-                winum-select-window-7
-                winum-select-window-8
-                winum-select-window-9)))
+      '(windmove-left
+        windmove-right
+        windmove-down
+        windmove-up
+        buf-move-down
+        buf-move-left
+        buf-move-right
+        buf-move-up
+        winum-select-window-0
+        winum-select-window-1
+        winum-select-window-2
+        winum-select-window-3
+        winum-select-window-4
+        winum-select-window-5
+        winum-select-window-6
+        winum-select-window-7
+        winum-select-window-8
+        winum-select-window-9
+        xref-find-definitions))
 (golden-ratio-mode)
 
 (provide 'ytn-golden-ratio)

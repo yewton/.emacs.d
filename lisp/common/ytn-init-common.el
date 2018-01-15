@@ -36,7 +36,6 @@
 (setq package-enable-at-startup nil
       inhibit-startup-screen t
       initial-major-mode 'fundamental-mode
-      help-window-select t
       save-abbrevs 'silently
       echo-keystrokes 0.2
       create-lockfiles nil
@@ -193,6 +192,7 @@
          ("<help> f" . counsel-describe-function)
          ("<help> v" . counsel-describe-variable)
          ("<help> l" . counsel-load-library)
+         ("<help> a" . counsel-apropos)
          ("<f2> i" . counsel-info-lookup-symbol)
          ("<f2> u" . counsel-unicode-char)
          ("C-c g" . counsel-git)
@@ -328,12 +328,8 @@
         powerline-default-separator 'slant))
 
 (use-package spaceline-config
-  :commands spaceline-spacemacs-theme
   :config
-  (setq spaceline-window-numbers-unicode t
-        spaceline-workspace-numbers-unicode t
-        spaceline-minor-modes-separator " ")
-  (spaceline-spacemacs-theme))
+  (require 'ytn-init-spaceline))
 
 (use-package treemacs
   :defines (fa-fo)
@@ -393,6 +389,12 @@
   :bind (:map projectile-mode-map
               ([f8] . treemacs-projectile-toggle)
               ([f9] . treemacs-projectile)))
+
+(use-package skk
+  :commands (skk-emulate-original-map skk-kakutei)
+  :config
+  (require 'ytn-init-skk)
+  :bind* (("C-x C-j" . skk-mode)))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
