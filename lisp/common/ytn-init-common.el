@@ -413,10 +413,15 @@
               ([f9] . treemacs-projectile)))
 
 (use-package skk
-  :commands (skk-emulate-original-map skk-kakutei)
   :config
   (require 'ytn-init-skk)
   :bind* (("C-x C-j" . skk-mode)))
+
+(use-package rg
+  :demand t
+  :commands rg-enable-default-bindings
+  :config
+  (rg-enable-default-bindings (kbd "M-s")))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
