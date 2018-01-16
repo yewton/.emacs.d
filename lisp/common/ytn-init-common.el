@@ -47,7 +47,8 @@
       save-interprogram-paste-before-kill t
       delete-by-moving-to-trash t
       ring-bell-function 'ignore
-      visible-bell nil)
+      visible-bell nil
+      dired-dwim-target t)
 
 (add-hook 'prog-mode-hook #'goto-address-prog-mode)
 (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
@@ -115,11 +116,6 @@
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 (bind-key "C-c h" #'help-command)
 
-(use-package dired
-  :defer t
-  :config
-  (setq dired-dwim-target t))
-
 (use-package ls-lisp
   :defer t
   :config
@@ -160,6 +156,15 @@
   :config
   (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
     (add-hook hook 'nlinum-mode)))
+
+(use-package wdired
+  :bind (:map dired-mode-map
+              ("r" . wdired-change-to-wdired-mode)))
+
+
+
+
+;; ------ vendor -------
 
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex
@@ -265,7 +270,7 @@
 (use-package diff-hl
   :config
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'emacs-start-up-hook 'global-diff-hl-mode))
+  (add-hook 'emacs-startup-hook 'global-diff-hl-mode))
 
 (use-package flycheck
   :delight
@@ -421,7 +426,8 @@
   :demand t
   :commands rg-enable-default-bindings
   :config
-  (rg-enable-default-bindings (kbd "M-s")))
+  (rg-enable-default-bindings (kbd "M-s"))
+  (add-hook 'rg-mode-hook 'wgrep-ag-setup))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
