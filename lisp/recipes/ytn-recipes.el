@@ -41,6 +41,10 @@
                               :checkout "aa97103ea8ce6ab8891e34deff7d43aa83fe36dd"
                               :compile nil)
 
+                       (:name wgrep :checkout "1cdd7c136f1e7565bb13d2df69be3dc77b83698d")
+                       (:name ag :checkout "d00aa65ec2da6944f1ed81da440ad7a9024cfbf0")
+                       (:name rg :checkout "42603a9279b13427f7049c2768bcc6213094ef18")
+
                        (:name winum :shallow t :branch "2.0.0" :compile nil)
 
                        (:name crux :checkout "3e07035660f953cb08847362378267f5859bbe69")

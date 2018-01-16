@@ -281,6 +281,7 @@
 (use-package projectile
   :delight
   :commands projectile-load-known-projects
+  :demand t
   :config
   (let ((projectile-dir (f-join ytn-var-directory "projectile")))
     (f-mkdir projectile-dir)

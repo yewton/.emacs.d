@@ -12,7 +12,8 @@
 (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
 
 (setq el-get-install-skip-emacswiki-recipes t
-      el-get-install-shallow-clone t)
+      el-get-install-shallow-clone t
+      el-get-is-lazy t)
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -22,7 +23,8 @@
       (goto-char (point-max))
       (eval-print-last-sexp))))
 
-(setq el-get-verbose t)
+(setq el-get-verbose t
+      debug-on-error t)
 (with-eval-after-load "el-get"
   ;; cf. https://github.com/dimitri/el-get/pull/2598
   (add-to-list 'el-get-git-known-smart-domains "code.orgmode.org"))
@@ -39,11 +41,12 @@
   (dolist (dir (list recipes-dir common-dir system-dir window-system-dir))
     (when dir (add-to-list 'load-path dir)))
 
-  (byte-recompile-directory recipes-dir 0)
+  ;; (byte-recompile-directory recipes-dir 0)
   (require 'ytn-recipes)
 
   ;; to avoid build errors
-  (el-get 'sync '(exec-path-from-shell))
+  (let ((el-get-use-autoloads nil))
+    (el-get 'sync '(exec-path-from-shell)))
   (when (memq window-system '(mac ns x))
     (require 'exec-path-from-shell)
     (setq exec-path-from-shell-arguments (list "-l"))

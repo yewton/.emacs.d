@@ -1,0 +1,6 @@
+(:name rg
+       :description "Emacs frontend to ripgrep"
+       :type github
+       :depends (s)
+       :compile ("rg.el")
+       :pkgname "dajva/rg.el")
