@@ -429,5 +429,21 @@
   (rg-enable-default-bindings (kbd "M-s"))
   (add-hook 'rg-mode-hook 'wgrep-ag-setup))
 
+(use-package info+
+  :after info
+  :config
+  ;; cf. https://www.emacswiki.org/emacs/info+.el
+  (setq display-buffer-alist '(("*info*"
+                                special-display-popup-frame
+                                (background-color . "LightSteelBlue")
+                                (height . 40)
+                                (width . 80)
+                                (unsplittable . t))))
+  (set-face-attribute 'info-xref nil :underline nil))
+
+(use-package help-mode+)
+(use-package help+)
+(use-package help-fns+)
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

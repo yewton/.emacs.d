@@ -1,5 +1,0 @@
-(:name font-lock+
-       :description "Enhancements to standard library `font-lock.el'."
-       :type http
-       :localname "font-lock+.el"
-       :url "https://www.emacswiki.org/emacs/download/font-lock%2b.el")

@@ -114,6 +114,15 @@
                               ;; cf. https://github.com/dimitri/el-get/pull/2590
                               :url "https://code.orgmode.org/bzg/org-mode.git")
 
+                       (:name info-plus :type emacsmirror
+                              :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
+                       (:name help-mode-plus :type emacsmirror
+                              :checkout "ce7c0c8df3a0146123b6e9538fe7d6bb14c02c0f")
+                       (:name help-plus :type emacsmirror
+                              :checkout "a702d717dda84dd45c9dcc677bdf580b8275d5a7")
+                       (:name help-fns-plus :type emacsmirror
+                              :checkout "7213ef84d0345e2625f28e2b3134f8d98489391f")
+
                        (:name leuven-theme :shallow t)))
 
 (provide 'ytn-recipes)
