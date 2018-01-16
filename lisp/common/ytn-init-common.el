@@ -48,7 +48,8 @@
       delete-by-moving-to-trash t
       ring-bell-function 'ignore
       visible-bell nil
-      dired-dwim-target t)
+      dired-dwim-target t
+      help-window-select t)
 
 (add-hook 'prog-mode-hook #'goto-address-prog-mode)
 (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
@@ -441,9 +442,16 @@
                                 (unsplittable . t))))
   (set-face-attribute 'info-xref nil :underline nil))
 
-(use-package help-mode+)
 (use-package help+)
 (use-package help-fns+)
+
+(use-package helpful
+  :bind (("C-c h f" . helpful-callable)
+         ("C-c h v" . helpful-variable)
+         ("C-c h k" . helpful-key)
+         ("C-c h C-d" . helpful-at-point)
+         ("C-c h F" . helpful-function)
+         ("C-c h C" . helpful-command)))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

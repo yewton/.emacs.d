@@ -48,8 +48,13 @@
         winum-select-window-6
         winum-select-window-7
         winum-select-window-8
-        winum-select-window-9
-        xref-find-definitions))
+        winum-select-window-9))
+
+;; cf. https://github.com/roman/golden-ratio.el/pull/76/files
+(add-hook 'buffer-list-update-hook #'golden-ratio)
+(add-hook 'focus-in-hook #'golden-ratio)
+(add-hook 'focus-out-hook #'golden-ratio)
+
 (golden-ratio-mode)
 
 (provide 'ytn-golden-ratio)

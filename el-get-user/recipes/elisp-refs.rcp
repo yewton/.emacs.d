@@ -1,0 +1,5 @@
+(:name elisp-refs
+       :description "semantic code search for emacs lisp"
+       :type github
+       :depends (dash loop s)
+       :pkgname "Wilfred/elisp-refs")

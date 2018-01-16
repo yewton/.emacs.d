@@ -116,12 +116,15 @@
 
                        (:name info-plus :type emacsmirror
                               :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
-                       (:name help-mode-plus :type emacsmirror
-                              :checkout "ce7c0c8df3a0146123b6e9538fe7d6bb14c02c0f")
                        (:name help-plus :type emacsmirror
                               :checkout "a702d717dda84dd45c9dcc677bdf580b8275d5a7")
                        (:name help-fns-plus :type emacsmirror
                               :checkout "7213ef84d0345e2625f28e2b3134f8d98489391f")
+
+                       (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
+                       (:name elisp-refs :checkout "eee751a6120f925cdffcfbb6a4545e599b953e94")
+                       (:name shut-up :checkout "a4fd18f37e20ae991c0dbba821b2c8e6f1679c39")
+                       (:name helpful :checkout "5eb8368c429833309abaa5c42e170e6fad84a19f")
 
                        (:name leuven-theme :shallow t)))
 
