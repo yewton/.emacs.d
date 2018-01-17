@@ -31,6 +31,9 @@
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
 
 (require 'ytn-const)
+
+(f-mkdir ytn-var-directory)
+
 (f-mkdir ytn-backup-directory)
 (setq backup-directory-alist `((".*" . ,ytn-backup-directory)))
 
