@@ -51,9 +51,8 @@
         winum-select-window-9))
 
 ;; cf. https://github.com/roman/golden-ratio.el/pull/76/files
-(add-hook 'buffer-list-update-hook #'golden-ratio)
-(add-hook 'focus-in-hook #'golden-ratio)
-(add-hook 'focus-out-hook #'golden-ratio)
+;; (add-hook 'buffer-list-update-hook #'golden-ratio)
+;; (add-hook 'focus-in-hook #'golden-ratio)
 
 (golden-ratio-mode)
 

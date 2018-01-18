@@ -10,7 +10,8 @@
 ;;; Code:
 
 (defvar el-get-sources)
-(setq el-get-sources '((:name exec-path-from-shell :checkout "5e355fbc50913d1ffe48bf86df0bcecd8b369ffb")
+(setq el-get-sources '((:name el-get)
+                       (:name exec-path-from-shell :checkout "5e355fbc50913d1ffe48bf86df0bcecd8b369ffb")
 
                        (:name package :after
                         ;; To avoid long initialization phase of melpa repo
@@ -19,6 +20,8 @@
                         ;; cf. https://github.com/nicferrier/elmarmalade/issues/138
                         ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                               (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/"))))
+
+                       (:name dired-plus :type emacsmirror :checkout "c634998e6111e04b187e4d1f5009df0457a29e84")
 
                        (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
                        (:name s :checkout "5e9a6857d42015c67681616aa3519f599f97b8d8")

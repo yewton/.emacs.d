@@ -117,8 +117,12 @@
 (require 'f)
 (require 'ytn-const)
 
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+;; <backspace> is too far away
+(define-key key-translation-map (kbd "C-h") (kbd "DEL"))
 (bind-key "C-c h" #'help-command)
+(bind-key "C-q" #'help-command)
+(bind-key "C-\\" #'help-command)
+(bind-key "C-=" #'help-command)
 
 (use-package ls-lisp
   :defer t
@@ -289,7 +293,7 @@
 
 (use-package projectile
   :delight
-  :commands projectile-load-known-projects
+  :commands (projectile-project-p projectile-load-known-projects)
   :demand t
   :config
   (let ((projectile-dir (f-join ytn-var-directory "projectile")))
@@ -299,7 +303,23 @@
           projectile-mode-line ""
           projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
           projectile-cache-file (f-join projectile-dir "projectile.cache")))
+
+  (defun ytn-treemacs (arg)
+  "Project context-aware treemacs (-toggle).
+
+If called in a project `treemacs-toggle',
+otherwise `treemacs-projectile'.
+If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
+  (interactive "P")
+  (message (format "%s" arg))
+  (let ((fun (if (projectile-project-p)
+                 (if arg 'treemacs-projectile 'treemacs-projectile-toggle)
+               (if arg 'treemacs 'treemacs-toggle))))
+    (funcall fun)))
+
   (projectile-load-known-projects))
+
+
 
 (use-package counsel-projectile
   :after projectile
@@ -363,7 +383,6 @@
   (require 'ytn-init-spaceline))
 
 (use-package treemacs
-  :defines (fa-fo)
   :config
   (setq treemacs-change-root-without-asking nil
         treemacs-collapse-dirs              (if (executable-find "python") 3 0)
@@ -386,7 +405,7 @@
         treemacs-winum-number               10
         treemacs-width                      40
         treemacs-python-executable (executable-find "python3"))
-  :bind (([f8] . treemacs-toggle)
+  :bind (([f8] . ytn-treemacs)
          ("M-0" . treemacs-select-window)
          ("C-c 1" . treemacs-delete-other-windows)))
 
@@ -402,7 +421,6 @@
   :config
   (treemacs-follow-mode t))
 
-
 (use-package treemacs-async
   :after treemacs
   :commands treemacs-git-mode
@@ -416,10 +434,7 @@
 
 (use-package treemacs-projectile
   :config
-  (setq treemacs-header-function 'treemacs-projectile-create-header)
-  :bind (:map projectile-mode-map
-              ([f8] . treemacs-projectile-toggle)
-              ([f9] . treemacs-projectile)))
+  (setq treemacs-header-function 'treemacs-projectile-create-header))
 
 (use-package skk
   :config
@@ -449,12 +464,12 @@
 (use-package help-fns+)
 
 (use-package helpful
-  :bind (("C-c h f" . helpful-callable)
-         ("C-c h v" . helpful-variable)
-         ("C-c h k" . helpful-key)
-         ("C-c h C-d" . helpful-at-point)
-         ("C-c h F" . helpful-function)
-         ("C-c h C" . helpful-command)))
+  :bind (("<help> C-f" . helpful-callable)
+         ("<help> C-v" . helpful-variable)
+         ("<help> C-k" . helpful-key)
+         ("<help> C-d" . helpful-at-point)
+         ("<help> F" . helpful-function)
+         ("<help> C" . helpful-command)))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
