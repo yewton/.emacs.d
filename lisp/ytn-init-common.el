@@ -124,13 +124,6 @@
 (bind-key "C-\\" #'help-command)
 (bind-key "C-=" #'help-command)
 
-(use-package ls-lisp
-  :defer t
-  :config
-  (setq ls-lisp-dirs-first t
-        ls-lisp-use-insert-directory-program nil
-        ls-lisp-use-localized-time-format t))
-
 (defun ytn-elisp-get-fnsymargs-string (oldfun sym &optional index prefix)
   "Apply OLDFUN SYM INDEX PREFIX."
   (let ((orig (apply oldfun sym index prefix)))
@@ -173,6 +166,12 @@
 
 
 ;; ------ vendor -------
+
+(use-package dired+
+  :demand t
+  :commands diredp-toggle-find-file-reuse-dir
+  :config
+  (diredp-toggle-find-file-reuse-dir t))
 
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex

@@ -21,8 +21,6 @@
                         ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                               (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/"))))
 
-                       (:name dired-plus :type emacsmirror :checkout "c634998e6111e04b187e4d1f5009df0457a29e84")
-
                        (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
                        (:name s :checkout "5e9a6857d42015c67681616aa3519f599f97b8d8")
                        (:name f :checkout "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
@@ -30,6 +28,7 @@
                        (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
                        (:name use-package :checkout "05a4033b830bf52c596ceedea10b2cbd91f85fdb")
 
+                       (:name dired-plus :type emacsmirror :checkout "c634998e6111e04b187e4d1f5009df0457a29e84")
                        (:name nlinum :repo ("gnu" . "http://elpa.gnu.org/packages/"))
 
                        (:name hydra :checkout "1deed8a00e6936903cace1dac123364b6c0cde90")
