@@ -116,9 +116,7 @@
 ;; <backspace> is too far away
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
 (bind-key "C-c h" #'help-command)
-(bind-key "C-q" #'help-command)
-(bind-key "C-\\" #'help-command)
-(bind-key "C-=" #'help-command)
+(bind-key "C-?" #'help-command)
 
 (defun ytn-elisp-get-fnsymargs-string (oldfun sym &optional index prefix)
   "Apply OLDFUN SYM INDEX PREFIX."
@@ -438,6 +436,17 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (require 'ytn-init-skk)
   :bind* (("C-x C-j" . skk-mode)))
 
+(use-package grep
+  :bind (:map grep-mode-map
+              ("r" . wgrep-change-to-wgrep-mode)))
+
+(use-package wgrep
+  :defer t
+  :config
+  (setq wgrep-auto-save-buffer t)
+  :bind (:map wgrep-mode-map
+              ("C-c C-c" . wgrep-finish-edit)))
+
 (use-package rg
   :demand t
   :commands rg-enable-default-bindings
@@ -456,6 +465,22 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
                                 (width . 80)
                                 (unsplittable . t))))
   (set-face-attribute 'info-xref nil :underline nil))
+
+(use-package ace-link
+  :commands ace-link-setup-default
+  :config
+  (ace-link-setup-default))
+
+(use-package help-mode
+  :bind (:map help-mode-map
+              ("j" . next-line)
+              ("k" . previous-line)
+              ("H" . help-go-back)
+              ("h" . backward-char)
+              ("L" . help-go-forward)
+              ("l" . forward-char)
+              ("v" . recenter-top-bottom)
+              ("c" . counsel-ace-link)))
 
 (use-package help+)
 (use-package help-fns+)

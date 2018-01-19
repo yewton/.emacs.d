@@ -3,7 +3,7 @@
 ;; Copyright (C) 2018 Yuto SASAKI
 ;; Author: Yuto SASAKI <yewton@gmail.com>
 
-;;; Commentary:
+n;;; Commentary:
 
 ;; Setup package install recipese (i.e. `el-get-sources').
 
@@ -112,6 +112,9 @@
                          (:name ace-window :checkout "c0fbdd51be8fdd43fd7a89140ebd4b4c311d45fc")
                          (:name pfuture :checkout "d55a764b5beee803e489974be2408dbe236fc482")
                          (:name treemacs :checkout "692f5be4ab6a4868978dcb2639334f78a267cfd2")
+
+                         (:name ace-link :depends (avy)
+                                :checkout "43d224546a2a557857294a8e3d13c4fe63508e03")
 
                          (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
 
