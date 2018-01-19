@@ -24,6 +24,7 @@
                        (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
                        (:name s :checkout "5e9a6857d42015c67681616aa3519f599f97b8d8")
                        (:name f :checkout "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
+                       (:name ht :checkout "64af52688eb09eb42b7228a4e8e40d4a81cd983b")
 
                        (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
                        (:name use-package :checkout "05a4033b830bf52c596ceedea10b2cbd91f85fdb")
@@ -127,6 +128,8 @@
                        (:name elisp-refs :checkout "eee751a6120f925cdffcfbb6a4545e599b953e94")
                        (:name shut-up :checkout "a4fd18f37e20ae991c0dbba821b2c8e6f1679c39")
                        (:name helpful :checkout "5eb8368c429833309abaa5c42e170e6fad84a19f")
+
+                       (:name emojify :checkout "001c3adcc521223f6b53a2243635528b2cb7f7e8")
 
                        (:name leuven-theme :shallow t)))
 

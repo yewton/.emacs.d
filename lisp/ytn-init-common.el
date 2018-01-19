@@ -470,5 +470,15 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
          ("<help> F" . helpful-function)
          ("<help> C" . helpful-command)))
 
+(use-package emojify
+  :defines (emojify-emoji-styles emojify-emoji-dir)
+  :demand t
+  :config
+  (setq emojify-emoji-styles '(github unicode)
+        emojify-emojis-dir (f-join ytn-var-directory "emojis"))
+  (add-hook 'emacs-startup-hook 'global-emojify-mode)
+  (add-hook 'emacs-startup-hook 'global-emojify-mode-line-mode)
+  :bind (("C-c e" . emojify-insert-emoji)))
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
