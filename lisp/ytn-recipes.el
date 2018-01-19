@@ -133,6 +133,9 @@
 
                        (:name emojify :checkout "001c3adcc521223f6b53a2243635528b2cb7f7e8")
 
+                       (:name yasnippet :checkout "203059a95e320b031ac0d2cabe9c1de68604baec")
+                       (:name yasnippet-snippets :checkout "f76efc2054ac41434544de96ed0a09a455b6c040")
+
                        (:name leuven-theme :shallow t)))
 
 (provide 'ytn-recipes)

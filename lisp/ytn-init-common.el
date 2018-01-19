@@ -365,6 +365,8 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (bind-key [remap previous-line] 'company-select-previous company-active-map)
   (bind-key "C-f" 'company-show-location company-active-map)
   (bind-key "M-f" 'company-show-doc-buffer company-active-map)
+  (bind-key [remap next-line] 'company-select-next company-search-map)
+  (bind-key [remap previous-line] 'company-select-previous company-search-map)
   (bind-key [remap complete-symbol] 'counsel-company company-mode-map)
   (bind-key [remap completion-at-point] 'counsel-company company-mode-map))
 
@@ -474,6 +476,20 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (add-hook 'emacs-startup-hook 'global-emojify-mode)
   (add-hook 'emacs-startup-hook 'global-emojify-mode-line-mode)
   :bind (("C-c e" . emojify-insert-emoji)))
+
+(use-package browse-at-remote
+  :defer t
+  :config
+  (setq browse-at-remote-prefer-symbolic nil))
+
+(use-package yasnippet
+  :delight
+  :commands yas-global-mode
+  :demand t
+  :config
+  (unbind-key "<tab>" yas-keymap)
+  (yas-global-mode 1)
+  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
