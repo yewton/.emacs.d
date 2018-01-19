@@ -34,11 +34,6 @@
   (scroll-bar-mode 0)
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
 
-(require 'ytn-const)
-
-(f-mkdir ytn-backup-directory)
-(setq backup-directory-alist `((".*" . ,ytn-backup-directory)))
-
 (require 'dired)
 (setq package-enable-at-startup nil
       inhibit-startup-screen t
@@ -67,7 +62,7 @@
               tab-width 2
               require-final-newline t)
 
-(setq abbrev-file-name (f-join ytn-var-directory "abbrev_defs")
+(setq abbrev-file-name (f-join no-littering-var-directory "abbrev_defs")
       save-abbrevs t)
 (setq-default abbrev-mode t)
 (delight 'abbrev-mode "" 'abbrev)
@@ -94,7 +89,7 @@
 (setq compilation-scroll-output 'first-error)
 
 (require 'recentf)
-(setq recentf-save-file (f-join ytn-var-directory ".recentf")
+(setq recentf-save-file (f-join no-littering-var-directory ".recentf")
       recentf-max-saved-items 1000
       recentf-exclude '(".recentf" "COMMIT_EDITMSG"))
 (recentf-mode)
@@ -117,7 +112,6 @@
 (require 'delight)
 (require 'bind-key)
 (require 'f)
-(require 'ytn-const)
 
 ;; <backspace> is too far away
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
@@ -178,7 +172,7 @@
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex
   :config
-  (setq smex-save-file (f-join ytn-var-directory "smex-items")
+  (setq smex-save-file (f-join no-littering-var-directory "smex-items")
         smex-history-length 9))
 
 (use-package ivy
@@ -207,7 +201,7 @@
 
   When ARG is non-nil search in junk files."
     (interactive "P")
-    (let* ((open-junk-file-format (f-join ytn-var-directory "junk/%Y/%m/%d-%H%M%S."))
+    (let* ((open-junk-file-format (f-join no-littering-var-directory "junk/%Y/%m/%d-%H%M%S."))
            (fname (format-time-string open-junk-file-format (current-time)))
            (rel-fname (file-name-nondirectory fname))
            (junk-dir (file-name-directory fname))
@@ -297,7 +291,7 @@
   :commands (projectile-project-p projectile-load-known-projects)
   :demand t
   :config
-  (let ((projectile-dir (f-join ytn-var-directory "projectile")))
+  (let ((projectile-dir (f-join no-littering-var-directory "projectile")))
     (f-mkdir projectile-dir)
     (setq projectile-enable-caching t
           projectile-ignored-projects '("/usr/local/")
@@ -476,8 +470,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :defines (emojify-emoji-styles emojify-emoji-dir)
   :demand t
   :config
-  (setq emojify-emoji-styles '(github unicode)
-        emojify-emojis-dir (f-join ytn-var-directory "emojis"))
+  (setq emojify-emoji-styles '(github unicode))
   (add-hook 'emacs-startup-hook 'global-emojify-mode)
   (add-hook 'emacs-startup-hook 'global-emojify-mode-line-mode)
   :bind (("C-c e" . emojify-insert-emoji)))

@@ -9,23 +9,20 @@
 (require 'gnutls)
 (add-to-list 'gnutls-trustfiles "/private/etc/ssl/cert.pem")
 
-(add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
-
+(setq el-get-dir (expand-file-name (convert-standard-filename "var/el-get") user-emacs-directory)
+      el-get-install-skip-emacswiki-recipes t
+      el-get-install-shallow-clone t)
+(add-to-list 'load-path (expand-file-name "el-get" el-get-dir))
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
        "https://raw.githubusercontent.com/yewton/el-get/fa6ee7cd5e19952a3a636fb5bb0ad18491845db4/el-get-install.el")
-    (let (el-get-install-skip-emacswiki-recipes
-          el-get-install-shallow-clone)
-      (goto-char (point-max))
-      (eval-print-last-sexp))))
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
 
 (setq el-get-verbose t
       debug-on-error t
       package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory))
-(with-eval-after-load "el-get"
-  ;; cf. https://github.com/dimitri/el-get/pull/2598
-  (add-to-list 'el-get-git-known-smart-domains "code.orgmode.org"))
 (add-to-list 'el-get-recipe-path (expand-file-name (convert-standard-filename "etc/el-get-recipes/")
                                                    user-emacs-directory))
 

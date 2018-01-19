@@ -16,10 +16,9 @@
 (require 'skk-develop)
 (require 'bind-key)
 (require 'delight)
+(require 'no-littering)
 
-(require 'ytn-const)
-
-(setq skk-get-jisyo-directory (f-join ytn-var-directory "skk-get-jisyo"))
+(setq skk-get-jisyo-directory (f-join no-littering-var-directory "skk-get-jisyo"))
 (setq skk-sticky-key ";"
       skk-egg-like-newline t
       skk-show-annotation t
