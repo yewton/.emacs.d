@@ -3,47 +3,20 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(setq load-prefer-newer t)
-
-;; cf. https://emacs.stackexchange.com/a/35953/18118
-(require 'gnutls)
-(add-to-list 'gnutls-trustfiles "/private/etc/ssl/cert.pem")
-
-(setq el-get-dir (expand-file-name (convert-standard-filename "var/el-get") user-emacs-directory)
-      el-get-install-skip-emacswiki-recipes t
-      el-get-install-shallow-clone t)
-(add-to-list 'load-path (expand-file-name "el-get" el-get-dir))
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/yewton/el-get/fa6ee7cd5e19952a3a636fb5bb0ad18491845db4/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(setq el-get-verbose t
-      debug-on-error t
-      package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory))
-(add-to-list 'el-get-recipe-path (expand-file-name (convert-standard-filename "etc/el-get-recipes/")
-                                                   user-emacs-directory))
-
-(let* ((lisp-dir (expand-file-name "lisp" user-emacs-directory)))
+(defvar generated-autoload-file)
+(defvar make-backup-files)
+(let* ((lisp-dir (expand-file-name "lisp" user-emacs-directory))
+       (generated-autoload-file (expand-file-name "ytn-autoloads.el" lisp-dir)))
   (add-to-list 'load-path lisp-dir)
 
-  (require 'ytn-recipes)
+  (let ((make-backup-files nil))
+    (update-directory-autoloads lisp-dir))
+  (require 'ytn-autoloads)
 
-  (let ((el-get-use-autoloads nil))
-    (el-get 'sync '(exec-path-from-shell no-littering)))
-
-  ;; to avoid build errors due to PATH
-  (when (memq window-system '(ns x))
-    (require 'exec-path-from-shell)
-    (setq exec-path-from-shell-arguments (list "-l"))
-    (exec-path-from-shell-initialize))
-
-  ;; to avoid littering
-  (require 'no-littering)
-
-  (el-get 'sync (mapcar #'el-get-source-name el-get-sources))
+  (ytn-init-bootstrap)
+  (ytn-recipes-setup)
+  (ytn-init-el-get)
+  (ytn-init-install-packages)
 
   (byte-recompile-directory lisp-dir 0)
 

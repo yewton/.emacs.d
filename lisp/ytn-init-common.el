@@ -488,7 +488,9 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :demand t
   :config
   (unbind-key "<tab>" yas-keymap)
+  (setq yas-snippet-dirs `(,(expand-file-name "yasnippet/snippets" no-littering-etc-directory)))
   (yas-global-mode 1)
+  (yasnippet-snippets-initialize)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
 
 (provide 'ytn-init-common)

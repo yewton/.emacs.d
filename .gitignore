@@ -3,3 +3,4 @@
 /elpa
 /eshell
 *.elc
+/lisp/ytn-autoloads.el
