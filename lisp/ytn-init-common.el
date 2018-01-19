@@ -12,8 +12,6 @@
 (require 'dash)
 (require 'no-littering)
 
-(load-theme 'leuven t)
-
 (set-language-environment 'Japanese)
 (prefer-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
@@ -517,6 +515,13 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (yas-global-mode 1)
   (yasnippet-snippets-initialize)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
+
+(use-package solarized
+  :config
+  (setq solarized-distinct-fringe-background t)
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-high-contrast-mode-line t)
+  (load-theme 'solarized-light t))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

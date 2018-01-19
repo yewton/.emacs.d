@@ -3,7 +3,7 @@
 ;; Copyright (C) 2018 Yuto SASAKI
 ;; Author: Yuto SASAKI <yewton@gmail.com>
 
-n;;; Commentary:
+;;; Commentary:
 
 ;; Setup package install recipese (i.e. `el-get-sources').
 
@@ -143,7 +143,7 @@ n;;; Commentary:
                          (:name yasnippet :checkout "203059a95e320b031ac0d2cabe9c1de68604baec")
                          (:name yasnippet-snippets :checkout "f76efc2054ac41434544de96ed0a09a455b6c040")
 
-                         (:name leuven-theme :shallow t))))
+                         (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)
 ;;; ytn-recipes.el ends here
