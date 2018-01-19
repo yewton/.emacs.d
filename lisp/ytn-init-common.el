@@ -10,6 +10,7 @@
 ;;; Code:
 
 (require 'dash)
+(require 'no-littering)
 
 (load-theme 'leuven t)
 
@@ -24,6 +25,9 @@
 
 (blink-cursor-mode 0)
 
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 (when window-system
   (tool-bar-mode 0)
   (menu-bar-mode 0)
@@ -31,8 +35,6 @@
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
 
 (require 'ytn-const)
-
-(f-mkdir ytn-var-directory)
 
 (f-mkdir ytn-backup-directory)
 (setq backup-directory-alist `((".*" . ,ytn-backup-directory)))

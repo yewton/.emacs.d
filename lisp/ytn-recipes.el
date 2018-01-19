@@ -26,6 +26,8 @@
                        (:name f :checkout "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
                        (:name ht :checkout "64af52688eb09eb42b7228a4e8e40d4a81cd983b")
 
+                       (:name no-littering :checkout "c6de27af80edadc3cc09fe8a6832058d00ad570c")
+
                        (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
                        (:name use-package :checkout "05a4033b830bf52c596ceedea10b2cbd91f85fdb")
 
