@@ -10,6 +10,7 @@
 ;;; Code:
 
 (require 'dash)
+(require 'f)
 (require 'no-littering)
 
 (set-language-environment 'Japanese)
@@ -109,7 +110,6 @@
 (setq use-package-expand-minimally byte-compile-current-file)
 (require 'delight)
 (require 'bind-key)
-(require 'f)
 
 ;; <backspace> is too far away
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
