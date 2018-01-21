@@ -159,12 +159,6 @@
 
 ;; ------ vendor -------
 
-(use-package dired+
-  :demand t
-  :commands diredp-toggle-find-file-reuse-dir
-  :config
-  (diredp-toggle-find-file-reuse-dir t))
-
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex
   :config
@@ -191,7 +185,8 @@
 
 (use-package counsel
   :config
-  (setq counsel-describe-function-preselect 'ivy-function-called-at-point)
+  (setq counsel-describe-function-preselect 'ivy-function-called-at-point
+        counsel-find-file-ignore-regex "\(?:\`[#.]\)\|\(?:[#~]\'\)|\(?:*.elc$)")
   (defun ytn-open-junk-file (&optional arg)
     "Open junk file using counsel.
 
@@ -204,7 +199,7 @@
            (default-directory junk-dir))
       (if arg
           (counsel-ag nil junk-dir "" "[junk]")
-        (f-mkdir junk-dir)
+        (mkdir junk-dir 'parents)
         (counsel-find-file rel-fname))))
   :bind (("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
@@ -515,6 +510,12 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (yas-global-mode 1)
   (yasnippet-snippets-initialize)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
+
+p(use-package diredfl
+  :commands diredfl-global-mode
+  :after dired
+  :config
+  (diredfl-global-mode))
 
 (use-package solarized
   :config

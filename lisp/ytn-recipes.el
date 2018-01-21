@@ -35,7 +35,8 @@
                          (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
                          (:name use-package :checkout "05a4033b830bf52c596ceedea10b2cbd91f85fdb")
 
-                         (:name dired-plus :type emacsmirror :checkout "c634998e6111e04b187e4d1f5009df0457a29e84")
+                         (:name diredfl :shallow t :branch "0.4")
+
                          (:name nlinum :repo ("gnu" . "http://elpa.gnu.org/packages/"))
 
                          (:name hydra :checkout "1deed8a00e6936903cace1dac123364b6c0cde90")
