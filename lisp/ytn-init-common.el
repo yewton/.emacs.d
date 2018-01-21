@@ -186,7 +186,7 @@
 (use-package counsel
   :config
   (setq counsel-describe-function-preselect 'ivy-function-called-at-point
-        counsel-find-file-ignore-regex "\(?:\`[#.]\)\|\(?:[#~]\'\)|\(?:*.elc$)")
+        counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
   (defun ytn-open-junk-file (&optional arg)
     "Open junk file using counsel.
 
