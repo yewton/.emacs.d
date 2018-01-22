@@ -151,6 +151,8 @@
 
                          (:name highlight-thing :checkout "4eadd178175772fb04ae50e1199d797a6375ad4d")
 
+                         (:name visual-regexp :shallow t :branch "v1.1.1")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)

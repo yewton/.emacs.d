@@ -551,5 +551,9 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :config
   (global-highlight-thing-mode))
 
+(use-package visual-regexp
+  :bind (("C-c r" . vr/replace)
+         ("C-c q" . vr/query-replace)))
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
