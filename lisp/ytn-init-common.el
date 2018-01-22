@@ -130,7 +130,7 @@
 (bind-key "C-c h" #'help-command)
 (bind-key "C-?" #'help-command)
 
-(defun ytn-elisp-get-fnsymargs-string (oldfun sym &optional index prefix)
+(defun ytn-elisp-get-fnsym-args-string (oldfun sym &optional index prefix)
   "Apply OLDFUN SYM INDEX PREFIX."
   (let ((orig (apply oldfun sym index prefix)))
     (when orig
@@ -139,7 +139,7 @@
                                     (or (ignore-errors (documentation sym)) "")))
              (doc (s-join "\n" (-take 3 (-filter #'s-present? (s-lines doc))))))
         (s-trim (s-concat orig "\n" doc))))))
-(advice-add 'elisp-get-fnsym-args-string :around #'ytn-elisp-get-fnsymargs-string)
+(advice-add 'elisp-get-fnsym-args-string :around #'ytn-elisp-get-fnsym-args-string)
 
 (use-package hippie-exp
   :config
@@ -180,6 +180,7 @@
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t
+        ivy-height 30
         enable-recursive-minibuffers t)
   :bind (("C-c C-r" . ivy-resume)
          ("<f6>" . ivy-resume)
