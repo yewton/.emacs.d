@@ -111,6 +111,15 @@
 (add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
 (unless (server-running-p) (server-start))
 
+(require 'nlinum)
+(setq nlinum-highlight-current-line t)
+(dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
+  (add-hook hook 'nlinum-mode))
+
+(require 'hl-line)
+(global-hl-line-mode)
+(setq global-hl-line-sticky-flag t)
+
 (eval-when-compile (require 'use-package))
 (setq use-package-expand-minimally byte-compile-current-file)
 (require 'delight)
@@ -149,12 +158,6 @@
   :config
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode))
-
-(use-package nlinum
-  :config
-  (setq nlinum-highlight-current-line t)
-  (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
-    (add-hook hook 'nlinum-mode)))
 
 (use-package wdired
   :bind (:map dired-mode-map
