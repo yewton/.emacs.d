@@ -149,6 +149,8 @@
                          (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
                          (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")
 
+                         (:name highlight-thing :checkout "4eadd178175772fb04ae50e1199d797a6375ad4d")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)

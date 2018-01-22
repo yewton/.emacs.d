@@ -524,8 +524,11 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (unbind-key "<tab>" yas-keymap)
   (setq yas-snippet-dirs `(,(expand-file-name "yasnippet/snippets" no-littering-etc-directory)))
   (yas-global-mode 1)
-  (yasnippet-snippets-initialize)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
+
+(use-package yasnippet-snippets
+  :after yasnippet
+  (yasnippet-snippets-initialize))
 
 (use-package diredfl
   :after dired
@@ -543,6 +546,10 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (setq solarized-use-variable-pitch nil)
   (setq solarized-high-contrast-mode-line t)
   (load-theme 'solarized-light t))
+
+(use-package highlight-thing
+  :config
+  (global-highlight-thing-mode))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
