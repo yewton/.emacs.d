@@ -26,7 +26,7 @@
   (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
   (when (eq window-system 'ns) (require 'ytn-init-window-system-ns)))
 
-(load custom-file)
+(load custom-file 'noerror)
 
 ;; Local Variables:
 ;; no-byte-compile: t
