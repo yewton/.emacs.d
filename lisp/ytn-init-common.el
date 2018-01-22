@@ -519,7 +519,6 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
 (use-package yasnippet
   :delight yas-minor-mode
-  :commands yas-global-mode
   :demand t
   :config
   (unbind-key "<tab>" yas-keymap)
@@ -529,10 +528,14 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
 
 (use-package diredfl
-  :commands diredfl-global-mode
   :after dired
   :config
   (diredfl-global-mode))
+
+(use-package ace-popup-menu
+  :config
+  (setq ace-popup-menu-show-pane-header t)
+  (ace-popup-menu-mode))
 
 (use-package solarized
   :config

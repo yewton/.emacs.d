@@ -146,6 +146,9 @@
                          (:name yasnippet :checkout "203059a95e320b031ac0d2cabe9c1de68604baec")
                          (:name yasnippet-snippets :checkout "f76efc2054ac41434544de96ed0a09a455b6c040")
 
+                         (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
+                         (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)
