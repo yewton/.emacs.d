@@ -9,6 +9,8 @@
 
 ;;; Code:
 
+(require '.loaddefs)
+
 (require 'dash)
 (require 'f)
 (require 'no-littering)

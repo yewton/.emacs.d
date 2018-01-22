@@ -121,11 +121,13 @@
 
                          (:name ddskk :checkout "16d156562aef72f02ced58087335ed72d520d878")
 
-                         (:name org-mode
-                                :branch "release_9.1.6"
-                                :shallow t
-                                ;; cf. https://github.com/dimitri/el-get/pull/2590
-                                :url "https://code.orgmode.org/bzg/org-mode.git")
+                         (:name org-mode :checkout "ffa5f3c5198c87454a9957f81380d52d2bbb96a0")
+
+                         ;; (:name org-mode
+                         ;;        :branch "release_9.1.6"
+                         ;;        :shallow t
+                         ;;        ;; cf. https://github.com/dimitri/el-get/pull/2590
+                         ;;        :url "https://code.orgmode.org/bzg/org-mode.git")
 
                          (:name info-plus :type emacsmirror
                                 :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
