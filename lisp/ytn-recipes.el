@@ -97,7 +97,7 @@
 
                          (:name which-key :shallow t :branch "v3.1.0" :compile nil)
 
-                         (:name golden-ratio :checkout "72b028808b41d23fa3f7e8c0d23d2c475e7b46ae")
+                         (:name zoom :checkout "d4f417b24fe022b6512a1a0ffebf898044393250")
 
                          (:name buffer-move :checkout "cb517ecf8409b5fdcda472d7190c6021f0c49751")
 

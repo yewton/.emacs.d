@@ -327,10 +327,16 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :config
   (require 'ytn-hydra))
 
-(use-package golden-ratio
+(use-package zoom
   :delight
+  :demand t
+  :commands zoom-mode
   :config
-  (require 'ytn-golden-ratio))
+  (setq zoom-ignored-major-modes '(treemacs-mode
+                                   minibuffer-inactive-mode
+                                   help-mode))
+  (zoom-mode)
+  (bind-key [remap balance-windows] 'zoom))
 
 (use-package buffer-move
   :bind (("C-S-j" . buf-move-up)
