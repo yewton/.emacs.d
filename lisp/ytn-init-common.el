@@ -511,7 +511,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (setq browse-at-remote-prefer-symbolic nil))
 
 (use-package yasnippet
-  :delight
+  :delight yas-minor-mode
   :commands yas-global-mode
   :demand t
   :config
