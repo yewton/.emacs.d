@@ -461,6 +461,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
 (use-package ace-link
   :commands ace-link-setup-default
+  :demand t
   :config
   (ace-link-setup-default))
 
