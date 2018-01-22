@@ -18,6 +18,7 @@
 (defvar el-get-install-shallow-clone)
 (defvar el-get-verbose)
 (defvar el-get-dir)
+(defvar el-get-autoload-file)
 
 ;;;###autoload
 (defun ytn-init-bootstrap ()
@@ -26,7 +27,8 @@
   (setq load-prefer-newer t
         package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory)
         el-get-verbose t
-        el-get-dir (expand-file-name (convert-standard-filename "var/el-get") user-emacs-directory))
+        el-get-dir (expand-file-name (convert-standard-filename "var/el-get") user-emacs-directory)
+        el-get-autoload-file (expand-file-name "el-get-autoloads.el" el-get-dir))
 
   ;; cf. https://emacs.stackexchange.com/a/35953/18118
   (add-to-list 'gnutls-trustfiles "/private/etc/ssl/cert.pem")

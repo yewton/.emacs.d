@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+;; cf. https://www.reddit.com/r/emacs/comments/56fvgd/is_there_a_way_to_stop_emacs_from_adding_the/
+(setq package--init-file-ensured t)
+
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

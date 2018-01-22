@@ -9,7 +9,7 @@
 
 ;;; Code:
 
-(require '.loaddefs)
+(require 'el-get-autoloads)
 
 (require 'f)
 (require 'no-littering)
