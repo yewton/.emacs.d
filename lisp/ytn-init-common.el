@@ -23,7 +23,7 @@
 (setq column-number-mode t
       window-combination-resize t)
 
-(blink-cursor-mode 0)
+(blink-cursor-mode)
 
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
@@ -33,6 +33,10 @@
   (menu-bar-mode 0)
   (scroll-bar-mode 0)
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
+
+(setq scroll-conservatively 0)
+(setq-default scroll-up-aggressively 0.8
+              scroll-down-aggressively 0.8)
 
 (require 'dired)
 (setq package-enable-at-startup nil
@@ -513,7 +517,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (yasnippet-snippets-initialize)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
 
-p(use-package diredfl
+(use-package diredfl
   :commands diredfl-global-mode
   :after dired
   :config
