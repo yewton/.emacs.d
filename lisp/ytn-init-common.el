@@ -152,6 +152,7 @@
 
 (use-package nlinum
   :config
+  (setq nlinum-highlight-current-line t)
   (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
     (add-hook hook 'nlinum-mode)))
 
