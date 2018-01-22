@@ -2,6 +2,7 @@
 
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (defvar generated-autoload-file)
 (defvar make-backup-files)
@@ -24,6 +25,8 @@
 
   (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
   (when (eq window-system 'ns) (require 'ytn-init-window-system-ns)))
+
+(load custom-file)
 
 ;; Local Variables:
 ;; no-byte-compile: t
