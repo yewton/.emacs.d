@@ -23,7 +23,7 @@
 (setq column-number-mode t
       window-combination-resize t)
 
-(blink-cursor-mode)
+(blink-cursor-mode -1)
 
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
@@ -549,6 +549,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
 (use-package highlight-thing
   :config
+  (setq highlight-thing-prefer-active-region t)
   (global-highlight-thing-mode))
 
 (use-package visual-regexp
