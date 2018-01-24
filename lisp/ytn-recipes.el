@@ -155,6 +155,8 @@
 
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
 
+                         (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "plantuml-server")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)
