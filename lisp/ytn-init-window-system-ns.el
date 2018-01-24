@@ -9,6 +9,8 @@
 
 ;;; Code:
 
+(eval-when-compile (require 'use-package))
+
 (setq locale-coding-system 'utf-8)
 (setq system-time-locale "ja_JP.UTF-8")
 (setenv "LANG" "ja_JP.UTF-8")
@@ -46,5 +48,25 @@
                           charset
                           (font-spec :family font-family))))))
 
+(defun ytn-markdown-open-function ()
+  (if (not buffer-file-name)
+      (user-error "Must be visiting a file")
+    (save-buffer)
+    (let ((exit-code (call-process "open" nil nil nil
+                                   "-a"
+                                   "Marked 2"
+                                   buffer-file-name)))
+      (unless (eq exit-code 0)
+        (user-error "Marked 2 failed with exit code %s" exit-code)))))
+
+(use-package markdown
+  :defer t
+  :defines markdown-open-command
+  :init (setq markdown-open-command #'ytn-markdown-open-function))
+
 (provide 'ytn-init-window-system-ns)
 ;;; ytn-init-window-system-ns.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

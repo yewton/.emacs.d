@@ -12,4 +12,5 @@ brew 'texinfo'
 brew 'ripgrep'
 brew 'ricty', args: ['powerline']
 
+cask 'marked'
 cask 'emacs'

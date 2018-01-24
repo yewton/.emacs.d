@@ -565,5 +565,11 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :bind (("C-c r" . vr/replace)
          ("C-c q" . vr/query-replace)))
 
+(use-package markdown-mode
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "marked"))
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
