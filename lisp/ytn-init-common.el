@@ -120,6 +120,12 @@
 (global-hl-line-mode)
 (setq global-hl-line-sticky-flag t)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward
+      uniquify-separator "/"
+      uniquify-after-kill-buffer-p t
+      uniquify-ignore-buffers-re "^\\*")
+
 (eval-when-compile (require 'use-package))
 (setq use-package-expand-minimally byte-compile-current-file)
 (require 'delight)
