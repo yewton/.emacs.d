@@ -153,9 +153,10 @@
 
                          (:name visual-regexp :shallow t :branch "v1.1.1")
 
+                         (:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
 
-                         (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "plantuml-server")
+                         (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "experimental")
 
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
