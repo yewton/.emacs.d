@@ -51,6 +51,8 @@
   (dolist (dic (list "SKK-JISYO.L" "SKK-JISYO.lisp"))
     (add-to-list 'skk-extra-jisyo-file-list (f-join skk-get-jisyo-directory dic))))
 
+(skk-wrap-newline-command markdown-enter-key)
+
 (add-hook 'emacs-startup-hook #'ytn-init-skk-extra-jisyo)
 
 (provide 'ytn-init-skk)

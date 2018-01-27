@@ -1,0 +1,68 @@
+# -*- mode: snippet -*-
+# name: er
+# key: er
+# --
+hide circle
+hide empty members
+
+entity "Supplier" as s {
+  * supplier id
+  --
+  * delivery id
+  * delivery date
+}
+
+entity "Delivery" as d {
+  * delivery id
+  --
+  * delivery date
+  * supplier id
+}
+
+entity "Product" as p {
+  * product id
+  --
+  * supplier id
+}
+
+entity "OrderDetail" as od {
+  * order detail id
+  --
+  * prooduct id
+  * order id
+  * product quantity
+}
+
+entity "Branch" as b {
+  * branch id
+  --
+}
+
+entity "OrderDetailDelivery" as odd {
+  * order detail delivery id
+  --
+  * order id
+  * delivery id
+}
+
+entity "Order" as o {
+  * order id
+  --
+  * order date
+  * headquartes id
+}
+
+entity "HeadQuarters" as hq {
+  * headquartes id
+  --
+  * branch id
+}
+
+s -d-|{ p
+s -r-|{ d
+p |o-r-{ od
+d --r|{ odd
+od -u-|{ odd
+o --l|{ od
+hq ||-u-|| o
+hq -l-|{ b
