@@ -10,12 +10,12 @@
 (defvar generated-autoload-file)
 (defvar make-backup-files)
 (let* ((lisp-dir (expand-file-name "lisp" user-emacs-directory))
-       (generated-autoload-file (expand-file-name "ytn-autoloads.el" lisp-dir)))
+       (generated-autoload-file (expand-file-name "ytn-init-autoloads.el" lisp-dir)))
   (add-to-list 'load-path lisp-dir)
 
   (let ((make-backup-files nil))
     (update-directory-autoloads lisp-dir))
-  (require 'ytn-autoloads)
+  (require 'ytn-init-autoloads)
 
   (ytn-init-bootstrap)
   (ytn-recipes-setup)
@@ -24,6 +24,7 @@
 
   (byte-recompile-directory lisp-dir 0)
 
+  (ytn-init-builtins)
   (require 'ytn-init-common)
 
   (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
