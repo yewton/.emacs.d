@@ -170,8 +170,6 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
   (projectile-load-known-projects))
 
-
-
 (use-package counsel-projectile
   :after projectile
   :delight
@@ -375,7 +373,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
 (use-package yasnippet
   :delight yas-minor-mode
-  :demand t
+  :defer 5
   :config
   (ytn-init-yasnippet))
 
@@ -398,7 +396,7 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 
 (use-package highlight-thing
   :config
-  (setq highlight-thing-prefer-active-region t)
+  (setq highlight-thing-exclude-thing-under-point t)
   (global-highlight-thing-mode))
 
 (use-package visual-regexp
