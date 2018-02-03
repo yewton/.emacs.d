@@ -395,9 +395,13 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (load-theme 'solarized-light t))
 
 (use-package highlight-thing
+  :delight
   :config
   (setq highlight-thing-exclude-thing-under-point t)
   (global-highlight-thing-mode))
+
+(use-package hi-lock
+  :delight)
 
 (use-package visual-regexp
   :bind (("C-c r" . vr/replace)
@@ -409,6 +413,22 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "marked"
               markdown-fontify-code-blocks-natively t))
+
+(use-package scala-mode
+  :interpreter
+  ("scala" . scala-mode)
+  :config
+  (setq scala-indent:use-javadoc-style t))
+
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

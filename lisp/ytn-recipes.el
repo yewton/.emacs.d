@@ -23,7 +23,7 @@
                                 ;; This recipe is required by type `elpa' package.
                                 ;; cf. https://github.com/nicferrier/elmarmalade/issues/138
                                 ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
-                                (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/"))))
+                                (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/"))))
 
                          (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
                          (:name s :checkout "5e9a6857d42015c67681616aa3519f599f97b8d8")
@@ -37,7 +37,7 @@
 
                          (:name diredfl :shallow t :branch "0.4")
 
-                         (:name nlinum :repo ("gnu" . "http://elpa.gnu.org/packages/"))
+                         (:name nlinum :repo ("gnu" . "https://elpa.gnu.org/packages/"))
 
                          (:name hydra :checkout "1deed8a00e6936903cace1dac123364b6c0cde90")
 
@@ -157,6 +157,9 @@
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
 
                          (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "experimental")
+
+                         (:name scala-mode :shallow t :branch "v1.0.0")
+                         (:name sbt-mode :shallow t :branch "v1.0.1")
 
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
