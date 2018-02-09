@@ -28,7 +28,8 @@
   (require 'ytn-init-common)
 
   (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
-  (when (eq window-system 'ns) (require 'ytn-init-window-system-ns)))
+  (when (eq window-system 'ns) (require 'ytn-init-window-system-ns))
+  (when (eq window-system 'x) (require 'ytn-init-window-system-x)))
 
 (load custom-file 'noerror)
 
