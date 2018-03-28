@@ -105,6 +105,7 @@
                          (:name rainbow-delimiters :shallow t :branch "2.1.3")
 
                          (:name company-mode :shallow t :branch "0.9.4")
+                         (:name company-quickhelp :checkout "1580b10")
 
                          (:name powerline :shallow t :branch "2.4")
                          (:name spaceline :checkout "ca20430271f80d46892d62cb7624b4dee6cafe72" :compile nil)
@@ -159,6 +160,10 @@
                          (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "experimental")
 
                          (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
+
+                         (:name hcl-mode :checkout "0f2c5e")
+                         (:name terraform-mode :checkout "6973d1")
+                         (:name company-terraform :checkout "74dad2")
 
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 

@@ -231,6 +231,12 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (bind-key [remap complete-symbol] 'counsel-company company-mode-map)
   (bind-key [remap completion-at-point] 'counsel-company company-mode-map))
 
+(use-package company-quickhelp
+  :after company
+  :config
+  (setq company-quickhelp-use-propertized-text t)
+  (company-quickhelp-mode))
+
 (use-package powerline
   :config
   (setq powerline-height (+ (frame-char-height) 10)
@@ -395,9 +401,13 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (load-theme 'solarized-light t))
 
 (use-package highlight-thing
+  :delight
   :config
   (setq highlight-thing-exclude-thing-under-point t)
   (global-highlight-thing-mode))
+
+(use-package hi-lock
+  :delight)
 
 (use-package visual-regexp
   :bind (("C-c r" . vr/replace)
@@ -409,6 +419,10 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "marked"
               markdown-fontify-code-blocks-natively t))
+
+(use-package company-terraform
+  :config
+  (company-terraform-init))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
