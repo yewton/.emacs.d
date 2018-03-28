@@ -158,6 +158,8 @@
 
                          (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "experimental")
 
+                         (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)
