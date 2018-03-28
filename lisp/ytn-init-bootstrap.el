@@ -37,7 +37,7 @@
   (unless (require 'el-get nil t)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/yewton/el-get/fa6ee7cd5e19952a3a636fb5bb0ad18491845db4/el-get-install.el")
+         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
       (let (el-get-install-skip-emacswiki-recipes
             el-get-install-shallow-clone)
         (goto-char (point-max))
