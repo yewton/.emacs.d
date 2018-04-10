@@ -163,7 +163,7 @@
 
                          (:name hcl-mode :checkout "0f2c5e")
                          (:name terraform-mode :checkout "6973d1")
-                         (:name company-terraform :checkout "74dad2")
+                         (:name company-terraform :pkgname "rafalcieslak/emacs-company-terraform" :type github :checkout "74dad2")
 
                          (:name scala-mode :shallow t :branch "v1.0.0")
                          (:name sbt-mode :shallow t :branch "v1.0.1")
