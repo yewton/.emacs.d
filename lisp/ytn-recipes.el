@@ -168,6 +168,8 @@
                          (:name scala-mode :shallow t :branch "v1.0.0")
                          (:name sbt-mode :shallow t :branch "v1.0.1")
 
+                         (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
+
                          (:name solarized-emacs :checkout "2dd2699b2f315374333292b132dc0dc03719aba2"))))
 
 (provide 'ytn-recipes)
