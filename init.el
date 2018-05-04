@@ -1,63 +1,39 @@
-;;; init.el --- My Emacs' configuration entry point. -*- lexical-binding: t -*-
+;; -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2016 Yuto SASAKI
-
-;; Author: Yuto SASAKI <yewton@gmail.com>
-;; Version: 1.0.0
-;; Keywords: convenient
-
-;; This file is not part of GNU Emacs.
-
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;; README.org を読み込むための最低限の設定を行います。
-
-;;; Code:
-
-;; Without this comment emacs25 adds (package-initialize) here
-;; と、spacemacs が言っていたので。
-;; (package-initialize)
+;; cf. https://www.reddit.com/r/emacs/comments/56fvgd/is_there_a_way_to_stop_emacs_from_adding_the/
+(setq package--init-file-ensured t)
 
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-(add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
-(setq el-get-verbose t)
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+(defvar generated-autoload-file)
+(defvar make-backup-files)
+(let* ((lisp-dir (expand-file-name "lisp" user-emacs-directory))
+       (generated-autoload-file (expand-file-name "ytn-init-autoloads.el" lisp-dir)))
+  (add-to-list 'load-path lisp-dir)
 
-(defconst my-data-directory (expand-file-name "data/" user-emacs-directory)
-  "バージョン管理外の様々なデータファイル置き場.")
-(unless (file-directory-p my-data-directory)
-  (make-directory my-data-directory))
+  (let ((make-backup-files nil))
+    (update-directory-autoloads lisp-dir))
+  (require 'ytn-init-autoloads)
 
-(setq org-id-locations-file (expand-file-name ".org-id-locations" my-data-directory))
+  (ytn-init-bootstrap)
+  (ytn-recipes-setup)
+  (ytn-init-el-get)
+  (ytn-init-install-packages)
 
-(declare-function el-get "el-get" (&optional sync &rest packages))
-;; org-mode の git clone が泣きたくなる程遅かったので…
-(setq el-get-sources '((:name org-mode
-                              :type http-tar
-                              :options ("xzf")
-                              :load-path ("." "contrib/lisp" "lisp")
-                              :url "http://orgmode.org/org-9.0.9.tar.gz")))
-(el-get 'sync '(org-mode))
+  (byte-recompile-directory lisp-dir 0)
 
-(org-babel-load-file (expand-file-name "README.org" user-emacs-directory))
-;;; init.el ends here
+  (ytn-init-builtins)
+  (require 'ytn-init-common)
+
+  (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
+  (when (eq window-system 'ns) (require 'ytn-init-window-system-ns))
+  (when (eq window-system 'x) (require 'ytn-init-window-system-x)))
+
+(load custom-file 'noerror)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

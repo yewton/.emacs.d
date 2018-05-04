@@ -1,0 +1,3 @@
+(:name nlinum
+       :description "Show line numbers in the margin"
+       :type elpa)

@@ -1,7 +1,7 @@
 # name: elisp library file header
 # key: header
 # --
-;;; `(file-name-nondirectory buffer-file-name)` --- $1 -*- lexical-binding: t -*-
+;;; `(file-name-nondirectory (or buffer-file-name ""))` --- ${1:summary} -*- lexical-binding: t -*-
 
 ;; Copyright (C) `(format-time-string "%Y")` `user-full-name`
 
@@ -30,5 +30,5 @@
 
 ;;; Code:
 
-(provide '`(file-name-base buffer-file-name)`)
+(provide '`(file-name-base (or buffer-file-name ""))`)
 ;;; `(file-name-nondirectory buffer-file-name)` ends here

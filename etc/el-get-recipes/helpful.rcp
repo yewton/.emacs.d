@@ -1,0 +1,5 @@
+(:name helpful
+       :description "A better Emacs *help* buffer"
+       :type github
+       :depends (dash elisp-refs s shut-up)
+       :pkgname "Wilfred/helpful")
