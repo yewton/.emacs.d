@@ -1,0 +1,14 @@
+# key: csr
+# name: csr
+# --
+(export SERVER=www.example.com; \
+ export PREFIX=www.example.com; \
+ export SUBJECT=$(echo | openssl s_client -showcerts -servername \${SERVER} -connect \${SERVER}:443 2>/dev/null | \
+                           grep 'subject=' | sed 's/subject=//'); \
+ openssl req -nodes \
+             -newkey rsa:2048 \
+             -sha256 \
+             -keyout "\${PREFIX}.key" \
+             -out "\${PREFIX}.csr" \
+             -subj "\${SUBJECT}" && \
+   openssl req -noout -text -in "\${PREFIX}.csr" | grep 'Subject:')
