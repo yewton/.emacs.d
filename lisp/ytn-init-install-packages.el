@@ -18,7 +18,6 @@
   "Install all packages defined in `el-get-sources'."
   ;; to avoid build errors due to PATH
   (when (memq window-system '(ns x))
-    (setq exec-path-from-shell-arguments (list "-l"))
     (exec-path-from-shell-initialize))
 
   (el-get 'sync (mapcar #'el-get-source-name el-get-sources)))
