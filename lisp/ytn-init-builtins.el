@@ -96,6 +96,8 @@
                 tab-width 2
                 require-final-newline t)
 
+  (setq js-indent-level 2)
+
   (setq abbrev-file-name (f-join no-littering-var-directory "abbrev_defs")
         save-abbrevs t)
   (setq-default abbrev-mode t)
