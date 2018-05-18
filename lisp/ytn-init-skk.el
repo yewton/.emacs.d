@@ -36,7 +36,6 @@
         skk-egg-like-newline t
         skk-show-annotation t
         skk-use-jisx0201-input-method t
-        skk-auto-insert-paren t
         skk-henkan-strict-okuri-precedence t
         skk-isearch-mode-enable nil
         skk-show-mode-show t
