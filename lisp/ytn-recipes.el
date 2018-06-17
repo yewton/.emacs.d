@@ -83,7 +83,7 @@
                          (:name ghub :checkout "1395d56496c1581dda0c70a091500e2b947b8d35")
                          (:name with-editor :checkout "04d59d68dab58a7cf3034c84d8ba0553b78ae30c")
                          (:name magit-popup :checkout "3f23e81eb0267d6578d8f1733c5e42699b0229a1")
-                         (:name magit :shallow t :branch "2.11.0")
+                         (:name magit :shallow t :branch "2.13.0")
                          (:name git-modes :shallow t :branch "1.2.6")
 
                          (:name diff-hl :checkout "bec9889de7bf48d28826039880cec9bfad24a628")
