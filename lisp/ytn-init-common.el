@@ -396,7 +396,6 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
 (use-package solarized
   :config
   (setq solarized-distinct-fringe-background t)
-  (setq solarized-use-variable-pitch nil)
   (setq solarized-high-contrast-mode-line t)
   (load-theme 'solarized-light t))
 
