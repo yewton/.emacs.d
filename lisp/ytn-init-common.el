@@ -440,5 +440,9 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
    'self-insert-command
    minibuffer-local-completion-map))
 
+(use-package org
+  :config
+  (setq org-goto-auto-isearch nil))
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
