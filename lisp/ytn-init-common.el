@@ -146,6 +146,8 @@
   :delight
   :commands (projectile-project-p projectile-load-known-projects)
   :demand t
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map))
   :config
   (let ((projectile-dir (f-join no-littering-var-directory "projectile")))
     (f-mkdir projectile-dir)

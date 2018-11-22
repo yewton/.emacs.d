@@ -89,10 +89,10 @@
                          (:name diff-hl :checkout "bec9889de7bf48d28826039880cec9bfad24a628")
 
                          (:name projectile
-                                :checkout "293849974df45b60bad572bfdc5166575fbbf0a5"
+                                :checkout "9482d69e5ca6549ec7baea58f86c1445b544563b"
                                 :compile nil)
                          (:name counsel-projectile
-                                :checkout "4d78ae8c90e8ebb903b8e70442989a69e46ff069"
+                                :checkout "7607fb8bb4eb7fbe0ec20f9644b6bbaa5c363330"
                                 :compile nil)
 
                          (:name which-key :shallow t :branch "v3.1.0" :compile nil)
