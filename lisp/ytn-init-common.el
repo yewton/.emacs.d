@@ -394,11 +394,10 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   (setq ace-popup-menu-show-pane-header t)
   (ace-popup-menu-mode))
 
-(use-package solarized
+(use-package leuven-theme
   :config
-  (setq solarized-distinct-fringe-background t)
-  (setq solarized-high-contrast-mode-line t)
-  (load-theme 'solarized-light t))
+  (setq org-fontify-whole-heading-line t)
+  (load-theme 'leuven t))
 
 (use-package highlight-thing
   :delight

@@ -170,7 +170,7 @@
 
                          (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
 
-                         (:name solarized-emacs :checkout "87d4758e7ecc8ed873f3326e4f8b185fd2b9da0a"))))
+                         (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
 
 (provide 'ytn-recipes)
 ;;; ytn-recipes.el ends here
