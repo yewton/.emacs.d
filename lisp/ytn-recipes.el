@@ -43,8 +43,7 @@
 
                          (:name smex :checkout "55aaebe3d793c2c990b39a302eb26c184281c42c")
                          (:name swiper
-                                :shallow t
-                                :branch "0.10.0"
+                                :checkout "6fe1a938d6b43442f23888219a24a15226a888e4"
                                 :build (("makeinfo" "-o" "doc/ivy.info" "doc/ivy.texi")))
 
                          (:name ivy-xref
