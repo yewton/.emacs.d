@@ -43,6 +43,9 @@
          ("C-r" . ivy-previous-line)
          ("C-l" . ivy-backward-delete-char)))
 
+(use-package ivy-hydra
+  :after ivy)
+
 (use-package swiper
   :config
   :bind (("C-s" . swiper)
