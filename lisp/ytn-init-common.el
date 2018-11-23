@@ -448,7 +448,8 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :config
   (setq org-goto-auto-isearch nil
         org-agenda-window-setup 'only-window
-        org-agenda-restore-windows-after-quit t))
+        org-agenda-restore-windows-after-quit t
+        org-ellipsis " …"))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
