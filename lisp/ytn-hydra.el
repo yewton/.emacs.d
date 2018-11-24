@@ -12,7 +12,7 @@
 (require 'bind-key)
 
 (autoload 'hydra-rectangle/body "ytn-hydra-rectangle" nil t)
-(bind-key* "C-x SPC" #'hydra-rectangle/body)
+(bind-key [remap rectangle-mark-mode] #'hydra-rectangle/body)
 
 (defhydra hydra-window-resize (global-map "C-x")
   "Enlarge/shrink window."
