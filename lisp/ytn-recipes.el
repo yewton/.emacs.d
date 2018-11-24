@@ -96,8 +96,6 @@
 
                          (:name which-key :shallow t :branch "v3.1.0" :compile nil)
 
-                         (:name zoom :checkout "d4f417b24fe022b6512a1a0ffebf898044393250")
-
                          (:name buffer-move :checkout "cb517ecf8409b5fdcda472d7190c6021f0c49751")
 
                          (:name rainbow-identifiers :shallow t :branch "0.2.2")

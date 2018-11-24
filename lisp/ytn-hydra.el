@@ -14,5 +14,16 @@
 (autoload 'hydra-rectangle/body "ytn-hydra-rectangle" nil t)
 (bind-key* "C-x SPC" #'hydra-rectangle/body)
 
+(defhydra hydra-window-resize (global-map "C-x")
+  "Enlarge/shrink window."
+  ("{" shrink-window-horizontally)
+  ("}" enlarge-window-horizontally)
+  ("^" enlarge-window)
+  ("&" shrink-window)
+  ("+" balance-windows)
+  ("-" shrink-window-if-larger-than-buffer)
+  ("q" nil)
+  ("g" nil))
+
 (provide 'ytn-hydra)
 ;;; ytn-hydra.el ends here

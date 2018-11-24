@@ -185,18 +185,6 @@ If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
   :config
   (require 'ytn-hydra))
 
-(use-package zoom
-  :delight
-  :demand t
-  :commands zoom-mode
-  :config
-  (setq zoom-ignored-major-modes '(treemacs-mode
-                                   minibuffer-inactive-mode
-                                   help-mode)
-        zoom-minibuffer-preserve-layout nil)
-  (zoom-mode)
-  (bind-key [remap balance-windows] 'zoom))
-
 (use-package buffer-move
   :bind (("C-S-j" . buf-move-up)
          ("C-S-k" . buf-move-down)
