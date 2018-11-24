@@ -160,18 +160,13 @@
           projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
           projectile-cache-file (f-join projectile-dir "projectile.cache")))
 
-  (defun ytn-treemacs (arg)
-  "Project context-aware treemacs (-toggle).
+  (defun ytn-treemacs ()
+    "Project context-aware treemacs.
 
-If called in a project `treemacs-toggle',
-otherwise `treemacs-projectile'.
-If ARG is non-nil call `treemacs' or `treemacs-projectile' respectively."
-  (interactive "P")
-  (message (format "%s" arg))
-  (let ((fun (if (projectile-project-p)
-                 (if arg 'treemacs-projectile 'treemacs-projectile-toggle)
-               (if arg 'treemacs 'treemacs-toggle))))
-    (funcall fun)))
+If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
+    (interactive)
+    (let ((fun (if (projectile-project-p) #'treemacs-projectile #'treemacs)))
+      (call-interactively fun)))
 
   (projectile-load-known-projects))
 
