@@ -450,7 +450,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
 
 (use-package shackle
   :init
-  (setq shackle-rules '((compilation-mode :noselect t)
+  (setq shackle-rules '((compilation-mode :select nil)
                         (calendar-mode :select t :align 'below :size 0.45 :popup t))
         shackle-default-rule '(:select t))
   (shackle-mode))
