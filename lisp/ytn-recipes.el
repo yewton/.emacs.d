@@ -167,6 +167,8 @@
 
                          (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
 
+                         (:name shackle :checkout "4189c1c773aab533969b587f7801ffbcd1d7d613")
+
                          (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
 
 (provide 'ytn-recipes)

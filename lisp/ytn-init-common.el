@@ -314,13 +314,6 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
 (use-package info+
   :after info
   :config
-  ;; cf. https://www.emacswiki.org/emacs/info+.el
-  (setq display-buffer-alist '(("*info*"
-                                special-display-popup-frame
-                                (background-color . "LightSteelBlue")
-                                (height . 40)
-                                (width . 80)
-                                (unsplittable . t))))
   (set-face-attribute 'info-xref nil :underline nil))
 
 (use-package ace-link
@@ -432,6 +425,13 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-agenda-window-setup 'only-window
         org-agenda-restore-windows-after-quit t
         org-ellipsis " …"))
+
+(use-package shackle
+  :init
+  (setq shackle-rules '((compilation-mode :noselect t)
+                        (calendar-mode :select t :align 'below :size 0.45 :popup t))
+        shackle-default-rule '(:select t))
+  (shackle-mode))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
