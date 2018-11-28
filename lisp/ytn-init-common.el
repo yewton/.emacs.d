@@ -452,7 +452,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
   :init
   (setq shackle-rules '((compilation-mode :select nil)
                         (calendar-mode :select t :align 'below :size 0.45 :popup t))
-        shackle-default-rule '(:select t))
+        shackle-default-rule nil)
   (shackle-mode))
 
 (provide 'ytn-init-common)
