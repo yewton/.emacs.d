@@ -419,12 +419,34 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
    'self-insert-command
    minibuffer-local-completion-map))
 
+(use-package calendar
+  :init
+  (setq calendar-day-abbrev-array ["日" "月" "火" "水" "木" "金" "土"]
+        calendar-day-header-array calendar-day-abbrev-array
+        calendar-day-name-array (cl-map 'array (lambda (a) (format "%s曜日" a)) calendar-day-abbrev-array)
+        calendar-month-name-array (cl-map 'array (lambda (a) (format "%2d月" a)) (number-sequence 1 12))
+        calendar-month-abbrev-array calendar-month-name-array))
+
 (use-package org
+  :bind (("C-c c" . org-capture)
+         ("C-c l" . org-store-link)
+         ("C-c a" . org-agenda))
   :config
+  (set-face-underline 'org-agenda-current-time nil)
   (setq org-goto-auto-isearch nil
-        org-agenda-window-setup 'only-window
+        org-agenda-window-setup 'reorganize-frame
         org-agenda-restore-windows-after-quit t
-        org-ellipsis " …"))
+        org-ellipsis " …"
+        org-startup-indented t
+        org-startup-with-inline-images t
+        org-startup-folded 'content
+        org-agenda-start-on-weekday nil
+        org-attach-store-link-p t
+        org-agenda-deadline-leaders '("⏰ " "%3d日後: " "%2d日前: ")
+        org-agenda-scheduled-leaders '("📅 " "Sched.%2dx: ")
+        org-agenda-format-date "%_2m月%e日(%a) %_20Y年"
+        org-agenda-show-current-time-in-grid t
+        org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"))
 
 (use-package shackle
   :init
