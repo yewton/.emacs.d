@@ -434,6 +434,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
          ("C-c C-x C-j" . org-clock-goto)
          ("C-c C-x C-x" . org-clock-in-last))
   :config
+  (org-clock-persistence-insinuate)
   (set-face-underline 'org-agenda-current-time nil)
   (setq org-goto-auto-isearch nil
         org-agenda-window-setup 'reorganize-frame
@@ -449,7 +450,8 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-agenda-format-date "%_2m月%e日(%a) %_20Y年"
         org-agenda-show-current-time-in-grid t
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
-        org-clock-clocked-in-display 'both))
+        org-clock-clocked-in-display 'both
+        org-clock-persist t))
 
 (use-package shackle
   :init
