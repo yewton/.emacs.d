@@ -430,9 +430,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
 (use-package org
   :bind (("C-c c" . org-capture)
          ("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c C-x C-j" . org-clock-goto)
-         ("C-c C-x C-x" . org-clock-in-last))
+         ("C-c a" . org-agenda))
   :config
   (org-clock-persistence-insinuate)
   (set-face-underline 'org-agenda-current-time nil)
@@ -459,6 +457,13 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
                         (calendar-mode :select t :align 'below :size 0.45 :popup t))
         shackle-default-rule nil)
   (shackle-mode))
+
+(use-package org-mru-clock
+  :bind* (("C-c C-x C-x" . org-mru-clock-in)
+          ("C-c C-x C-j" . org-mru-clock-select-recent-task))
+  :init
+  (setq org-mru-clock-how-many 10
+        org-mru-clock-completing-read #'ivy-completing-read))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

@@ -169,6 +169,8 @@
 
                          (:name shackle :checkout "4189c1c773aab533969b587f7801ffbcd1d7d613")
 
+                         (:name org-mru-clock :pkgname "unhammer/org-mru-clock" :type github :checkout "72e6cd0a6458ae0392f587026233f553278ab481")
+
                          (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
 
 (provide 'ytn-recipes)
