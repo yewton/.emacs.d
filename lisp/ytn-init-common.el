@@ -430,7 +430,9 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
 (use-package org
   :bind (("C-c c" . org-capture)
          ("C-c l" . org-store-link)
-         ("C-c a" . org-agenda))
+         ("C-c a" . org-agenda)
+         ("C-c C-x C-j" . org-clock-goto)
+         ("C-c C-x C-x" . org-clock-in-last))
   :config
   (set-face-underline 'org-agenda-current-time nil)
   (setq org-goto-auto-isearch nil
