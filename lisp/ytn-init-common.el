@@ -446,7 +446,8 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-agenda-scheduled-leaders '("📅" "📌%2dd")
         org-agenda-format-date "%_2m月%e日(%a) %_20Y年"
         org-agenda-show-current-time-in-grid t
-        org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"))
+        org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
+        org-clock-clocked-in-display 'both))
 
 (use-package shackle
   :init
