@@ -465,5 +465,11 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
   (setq org-mru-clock-how-many 10
         org-mru-clock-completing-read #'ivy-completing-read))
 
+(use-package beacon
+  :init
+  ;; xref-pulse-momentarily の配色を参考に
+  (setq beacon-color (face-attribute 'next-error :background))
+  (beacon-mode 1))
+
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here

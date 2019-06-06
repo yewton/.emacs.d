@@ -171,6 +171,8 @@
 
                          (:name org-mru-clock :pkgname "unhammer/org-mru-clock" :type github :checkout "72e6cd0a6458ae0392f587026233f553278ab481")
 
+                         (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
+
                          (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
 
 (provide 'ytn-recipes)
