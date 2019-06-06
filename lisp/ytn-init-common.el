@@ -449,7 +449,9 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-agenda-show-current-time-in-grid t
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
         org-clock-clocked-in-display 'both
-        org-clock-persist t))
+        org-clock-persist t
+        org-log-redeadline 'time
+        org-log-reschedule 'time))
 
 (use-package shackle
   :init
