@@ -451,7 +451,8 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-clock-clocked-in-display 'both
         org-clock-persist t
         org-log-redeadline 'time
-        org-log-reschedule 'time))
+        org-log-reschedule 'time
+        org-agenda-compact-blocks t))
 
 (use-package shackle
   :init
