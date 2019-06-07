@@ -441,7 +441,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-startup-indented t
         org-startup-with-inline-images t
         org-startup-folded 'content
-        org-agenda-start-on-weekday nil
+        org-agenda-start-on-weekday 1
         org-attach-store-link-p t
         org-agenda-deadline-leaders '("⏰" "🔜%2dd" "⚠%2dd")
         org-agenda-scheduled-leaders '("📅" "📌%2dd")
