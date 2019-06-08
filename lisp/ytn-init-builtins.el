@@ -65,7 +65,8 @@
     (scroll-bar-mode 0)
     (add-hook 'window-setup-hook #'toggle-frame-maximized))
 
-  (setq scroll-conservatively 0)
+  (setq scroll-conservatively 0
+        scroll-preserve-screen-position t)
   (setq-default scroll-up-aggressively 0.8
                 scroll-down-aggressively 0.8)
 
