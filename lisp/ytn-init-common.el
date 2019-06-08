@@ -470,9 +470,11 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
 
 (use-package beacon
   :init
-  ;; xref-pulse-momentarily の配色を参考に
-  (setq beacon-color (face-attribute 'next-error :background))
-  (beacon-mode 1))
+  (beacon-mode 1)
+  :config
+  ;; https://stackoverflow.com/a/56115851/2142831
+  (set 'beacon-blink-org (symbol-function 'beacon-blink))
+  (defun beacon-blink () (interactive) (xref-pulse-momentarily)))
 
 (provide 'ytn-init-common)
 ;;; ytn-init-common.el ends here
