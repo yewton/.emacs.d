@@ -54,7 +54,7 @@
   (setq column-number-mode t
         window-combination-resize t)
 
-  (blink-cursor-mode 0)
+  (blink-cursor-mode 1)
 
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
