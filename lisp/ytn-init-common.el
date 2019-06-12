@@ -443,8 +443,8 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-startup-folded 'content
         org-agenda-start-on-weekday 1
         org-attach-store-link-p t
-        org-agenda-deadline-leaders '("⏰" "🔜%2dd" "⚠%2dd")
-        org-agenda-scheduled-leaders '("📅" "📌%2dd")
+        org-agenda-deadline-leaders '("⏰" "🔜%2d日後" "⚠%2d日超過")
+        org-agenda-scheduled-leaders '("📅" "📌%2d日前")
         org-agenda-format-date "%_2m月%e日(%a) %_20Y年"
         org-agenda-show-current-time-in-grid t
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
