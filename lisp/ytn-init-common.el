@@ -453,6 +453,7 @@ If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
         org-log-redeadline 'time
         org-log-reschedule 'time
         org-agenda-compact-blocks t
+        org-agenda-show-outline-path nil
         org-reverse-note-order t))
 
 (use-package shackle
