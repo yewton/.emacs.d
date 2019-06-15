@@ -1,26 +1,23 @@
-;;; ytn-init-install-packages.el --- Install packages with el-get. -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@kappa-yewton-home.local>
-
-;;; Commentary:
-
-;; In
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (require 'el-get)
 (require 'exec-path-from-shell)
 (require 'no-littering)
 
+(require 'ytn-recipes)
+
+(setq el-get-sources ytn-recipes)
+
 ;;;###autoload
 (defun ytn-init-install-packages ()
-  "Install all packages defined in `el-get-sources'."
+  (interactive)
   ;; to avoid build errors due to PATH
   (when (memq window-system '(ns x))
     (exec-path-from-shell-initialize))
 
-  (el-get 'sync (mapcar #'el-get-source-name el-get-sources)))
+  (let ((el-get-sources ytn-recipes))
+    (el-get 'sync (mapcar #'el-get-source-name el-get-sources))))
 
 (provide 'ytn-init-install-packages)
-;;; ytn-init-install-packages.el ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

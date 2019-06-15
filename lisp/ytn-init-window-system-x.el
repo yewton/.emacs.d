@@ -1,14 +1,4 @@
-;;; ytn-init-window-system-x.el --- Window System concerns. -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@gmail.com>
-
-;;; Commentary:
-
-;; 
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (let* ((fonts '(
                 ("Myrica M" . 120)
                 ("Monospace" . 96)
@@ -30,8 +20,6 @@
                           (font-spec :family font-family))))))
 
 (provide 'ytn-init-window-system-x)
-;;; ytn-init-window-system-x.el ends here
-
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

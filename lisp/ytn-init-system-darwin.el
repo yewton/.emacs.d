@@ -1,14 +1,4 @@
-;;; ytn-init-system-darwin.el --- System concerns. -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@gmail.com>
-
-;;; Commentary:
-
-;; 
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 ;; cf. https://apple.stackexchange.com/a/300623
 (let ((gls (executable-find "gls")))
   (when gls
@@ -16,4 +6,6 @@
           dired-listing-switches "-aBhl --group-directories-first")))
 
 (provide 'ytn-init-system-darwin)
-;;; ytn-init-system-darwin.el ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

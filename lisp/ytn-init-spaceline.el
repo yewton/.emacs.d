@@ -1,14 +1,4 @@
-;;; ytn-init-spaceline.el --- Spaceline initialization -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@gmail.com>
-
-;;; Commentary:
-
-;; Initialize Spaceline.
-
-;;; Code:
-
+;; -*- lexical-binding: t; -*-
 (require 'spaceline-segments)
 (require 'ccc)
 (require 'skk)
@@ -74,4 +64,6 @@
 (ytn-spaceline-theme)
 
 (provide 'ytn-init-spaceline)
-;;; ytn-init-spaceline.el ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

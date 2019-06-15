@@ -1,14 +1,4 @@
-;;; ytn-init-window-system-ns.el --- Window System concerns. -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@gmail.com>
-
-;;; Commentary:
-
-;; 
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (eval-when-compile (require 'use-package))
 
 (setq locale-coding-system 'utf-8)
@@ -59,14 +49,12 @@
       (unless (eq exit-code 0)
         (user-error "Marked 2 failed with exit code %s" exit-code)))))
 
-(use-package markdown
+(use-package markdown-mode
   :defer t
   :defines markdown-open-command
   :init (setq markdown-open-command #'ytn-markdown-open-function))
 
 (provide 'ytn-init-window-system-ns)
-;;; ytn-init-window-system-ns.el ends here
-
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

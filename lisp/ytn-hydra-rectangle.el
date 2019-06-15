@@ -1,19 +1,10 @@
-;;; ytn-hydra-rectangle.el --- Hydra for rectangle -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-;; Author: Yuto SASAKI <yewton@gmail.com>
-
-;;; Commentary:
-
-;; This file is intended to be autoloaded to lazy load along with `rect' package.
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (require 'rect)
+(require 'hydra)
+
+;;;###autoload
 (defun hydra-rectangle/body ()
   (interactive)
-  
-  (require 'hydra)
   (funcall (defhydra hydra-rectangle (:pre (rectangle-mark-mode 1)
                                       :color pink
                                       :hint nil
@@ -43,4 +34,6 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
              ("g" nil))))
 
 (provide 'ytn-hydra-rectangle)
-;;; ytn-hydra-rectangle.el ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

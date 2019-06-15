@@ -1,17 +1,6 @@
-;;; ytn-init-bootstrap.el --- Bootstrapping -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-
-;; Author: Yuto SASAKI <yewton@kappa-yewton-home.local>
-;; Version: 1.0.0
-
-;;; Commentary:
-
-;; Install el-get.
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (require 'gnutls)
+
 (require 'ytn-recipes)
 
 (defvar el-get-install-skip-emacswiki-recipes)
@@ -21,8 +10,7 @@
 (defvar el-get-autoload-file)
 
 ;;;###autoload
-(defun ytn-init-bootstrap ()
-  "Install el-get."
+(defun ytn-init-install-el-get ()
   (interactive)
   (setq load-prefer-newer t
         package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory)
@@ -43,5 +31,7 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))))
 
-(provide 'ytn-init-bootstrap)
-;;; ytn-init-bootstrap.el ends here
+(provide 'ytn-init-install-el-get)
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:

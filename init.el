@@ -7,29 +7,31 @@
   (setq user-emacs-directory (file-name-directory load-file-name)))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-(defvar generated-autoload-file)
-(defvar make-backup-files)
-(let* ((lisp-dir (expand-file-name "lisp" user-emacs-directory))
-       (generated-autoload-file (expand-file-name "ytn-init-autoloads.el" lisp-dir)))
-  (add-to-list 'load-path lisp-dir)
+(defvar ytn-lisp-dir (expand-file-name "lisp" user-emacs-directory))
 
-  (let ((make-backup-files nil))
-    (update-directory-autoloads lisp-dir))
-  (require 'ytn-init-autoloads)
+(require 'files) ; for make-backup-files
+(require 'autoload)
 
-  (ytn-init-bootstrap)
-  (ytn-recipes-setup)
-  (ytn-init-el-get)
-  (ytn-init-install-packages)
+(defun ytn-update-autoloads ()
+  (interactive)
+  (let ((generated-autoload-file (expand-file-name "ytn-init-autoloads.el" ytn-lisp-dir))
+        (make-backup-files nil))
+    (update-directory-autoloads ytn-lisp-dir)))
 
-  (byte-recompile-directory lisp-dir 0)
+(add-to-list 'load-path ytn-lisp-dir)
 
-  (ytn-init-builtins)
-  (require 'ytn-init-common)
+(ytn-update-autoloads)
+(require 'ytn-init-autoloads)
 
-  (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
-  (when (eq window-system 'ns) (require 'ytn-init-window-system-ns))
-  (when (eq window-system 'x) (require 'ytn-init-window-system-x)))
+(ytn-init-install-el-get)
+
+(ytn-init-install-build-essentials)
+
+(ytn-init-install-packages)
+
+(byte-recompile-directory ytn-lisp-dir 0)
+
+(ytn-init-configure)
 
 (load custom-file 'noerror)
 

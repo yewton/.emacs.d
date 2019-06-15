@@ -1,20 +1,8 @@
-;;; ytn-init-builtins.el --- Built-in packages initialization -*- lexical-binding: t -*-
-
-;; Copyright (C) 2018 Yuto SASAKI
-
-;; Author: Yuto SASAKI <yewton@kappa-yewton-home-6.local>
-
-;;; Commentary:
-
-;; Initialize built-in packages.
-
-;;; Code:
-
+;; -*- lexical-binding: t -*-
 (require 'autorevert)
 (require 'compile)
 (require 'dired)
 (require 'hl-line)
-(require 'nlinum)
 (require 'no-littering)
 (require 'recentf)
 (require 'server)
@@ -97,7 +85,9 @@
                 tab-width 2
                 require-final-newline t)
 
-  (setq js-indent-level 2)
+  (use-package js
+    :config
+    (setq js-indent-level 2))
 
   (setq abbrev-file-name (f-join no-littering-var-directory "abbrev_defs")
         save-abbrevs t)
@@ -135,9 +125,8 @@
   (add-hook 'server-visit-hook #'server-remove-kill-buffer-hook)
   (unless (server-running-p) (server-start))
 
-  (setq nlinum-highlight-current-line t)
   (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
-    (add-hook hook 'nlinum-mode))
+    (add-hook hook 'display-line-numbers-mode))
 
   (global-hl-line-mode)
   (setq global-hl-line-sticky-flag t)
@@ -176,8 +165,13 @@
   (use-package sh-script
     :defer t
     :config
-    (setq sh-basic-offset 2
-          sh-indentation 2)))
+    (setq sh-basic-offset 2))
+
+  (use-package eldoc
+    :defer t
+    :delight eldoc-mode))
 
 (provide 'ytn-init-builtins)
-;;; ytn-init-builtins.el ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:
