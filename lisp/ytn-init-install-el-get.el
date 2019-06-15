@@ -1,8 +1,6 @@
 ;; -*- lexical-binding: t -*-
 (require 'gnutls)
 
-(require 'ytn-recipes)
-
 (defvar el-get-install-skip-emacswiki-recipes)
 (defvar el-get-install-shallow-clone)
 (defvar el-get-verbose)
