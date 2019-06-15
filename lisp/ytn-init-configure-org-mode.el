@@ -16,7 +16,9 @@
           org-startup-folded 'content
           org-log-redeadline 'time
           org-log-reschedule 'time
-          org-reverse-note-order t))
+          org-reverse-note-order t
+          org-catch-invisible-edits 'show-and-error
+          org-cycle-separator-lines 0))
 
   (use-package org-goto
     :config
