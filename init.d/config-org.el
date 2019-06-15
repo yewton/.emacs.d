@@ -16,7 +16,9 @@
         org-log-reschedule 'time
         org-reverse-note-order t
         org-catch-invisible-edits 'show-and-error
-        org-cycle-separator-lines 0))
+        org-cycle-separator-lines 0
+        org-outline-path-complete-in-steps nil
+        org-refile-use-outline-path t))
 
 (use-package org-goto
   :config
@@ -42,6 +44,10 @@
   :config
   (setq org-attach-store-link-p t))
 
+(use-package ox
+  :config
+  (setq org-export-default-language "ja"))
+
 (use-package org-clock
   :config
   (setq org-clock-clocked-in-display 'both
@@ -61,6 +67,10 @@
 
 (use-package org-tempo
   :after (org))
+
+(use-package org-duration
+  :config
+  (setq org-duration-format '((special . h:mm))))
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
