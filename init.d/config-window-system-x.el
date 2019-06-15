@@ -18,8 +18,6 @@
         (set-fontset-font (frame-parameter nil 'font)
                           charset
                           (font-spec :family font-family))))))
-
-(provide 'ytn-init-window-system-x)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

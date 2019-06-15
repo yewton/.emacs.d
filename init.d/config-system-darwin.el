@@ -4,8 +4,6 @@
   (when gls
     (setq insert-directory-program gls
           dired-listing-switches "-aBhl --group-directories-first")))
-
-(provide 'ytn-init-system-darwin)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

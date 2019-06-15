@@ -53,8 +53,6 @@
   :defer t
   :defines markdown-open-command
   :init (setq markdown-open-command #'ytn-markdown-open-function))
-
-(provide 'ytn-init-window-system-ns)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
