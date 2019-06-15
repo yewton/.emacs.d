@@ -12,7 +12,7 @@
 
 ;;;###autoload
 (defun ytn-init-configure()
-  (ytn-init-builtins)
+  (ytn-init-configure-builtins)
 
   (use-package auto-compile
     :commands (auto-compile-on-load-mode auto-compile-on-save-mode)
@@ -303,12 +303,6 @@
     :config
     (setq treemacs-header-function 'treemacs-projectile-create-header))
 
-  (use-package ytn-init-skk
-    :requires skk
-    :commands (ytn-init-skk)
-    :config
-    (ytn-init-skk))
-
   (use-package grep
     :bind (:map grep-mode-map
                 ("r" . wgrep-change-to-wgrep-mode)))
@@ -471,12 +465,8 @@
     (setq beacon-color (face-attribute 'next-error :background))
     (beacon-mode 1))
 
-  (use-package ytn-init-org-mode
-    :requires org
-    :commands (ytn-init-org-mode)
-    :config
-    (ytn-init-org-mode))
-
+  (ytn-init-configure-skk)
+  (ytn-init-configure-org-mode)
 
   (when (eq system-type 'darwin) (require 'ytn-init-system-darwin))
   (when (eq window-system 'ns) (require 'ytn-init-window-system-ns))

@@ -2,7 +2,7 @@
 (eval-when-compile (require 'use-package))
 
 ;;;###autoload
-(defun ytn-init-org-mode() 
+(defun ytn-init-configure-org-mode()
   (use-package org
     :commands (org-clock-persistence-insinuate)
     :bind (("C-c c" . org-capture)
@@ -35,7 +35,8 @@
           org-agenda-show-current-time-in-grid t
           org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
           org-agenda-compact-blocks t
-          org-agenda-show-outline-path nil))
+          org-agenda-show-outline-path nil
+          org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :level t :timestamp t)))
 
   (use-package org-attach
     :config
@@ -44,7 +45,9 @@
   (use-package org-clock
     :config
     (setq org-clock-clocked-in-display 'both
-          org-clock-persist t))
+          org-clock-persist t)
+    (add-to-list 'org-clock-clocktable-language-setup
+                 '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "Clock summary at")))
 
   (use-package org-mru-clock
     :bind* (("C-c C-x C-x" . org-mru-clock-in)
@@ -59,7 +62,7 @@
   (use-package org-tempo
     :after (org)))
 
-(provide 'ytn-init-org-mode)
+(provide 'ytn-init-configure-org-mode)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

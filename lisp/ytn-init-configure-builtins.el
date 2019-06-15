@@ -31,7 +31,7 @@
         (s-trim (s-concat orig "\n" doc))))))
 
 ;;;###autoload
-(defun ytn-init-builtins ()
+(defun ytn-init-configure-builtins ()
   "Initialize built-in packages."
   (set-language-environment 'Japanese)
   (prefer-coding-system 'utf-8-unix)
@@ -171,7 +171,7 @@
     :defer t
     :delight eldoc-mode))
 
-(provide 'ytn-init-builtins)
+(provide 'ytn-init-configure-builtins)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

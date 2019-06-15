@@ -17,7 +17,7 @@
     (add-to-list 'skk-extra-jisyo-file-list (f-join skk-get-jisyo-directory dic))))
 
 ;;;###autoload
-(defun ytn-init-skk()
+(defun ytn-init-configure-skk()
   (use-package skk-vars
     :config
     (setq skk-sticky-key ";"
@@ -54,7 +54,7 @@
 
       (add-hook 'emacs-startup-hook #'ytn-init-skk-extra-jisyo))))
 
-(provide 'ytn-init-skk)
+(provide 'ytn-init-configure-skk)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
