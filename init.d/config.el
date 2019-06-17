@@ -460,6 +460,14 @@
   (setq beacon-color (face-attribute 'next-error :background))
   (beacon-mode 1))
 
+(use-package org-cliplink
+  :after (org)
+  :commands (org-cliplink)
+  :config
+  ;; url-retrieve だと一部のHTTPS URLが空文字列で返ってくる。
+  ;; 関係あり？ http://emacs.1067599.n8.nabble.com/bug-23225-25-1-50-url-retrieve-synchronously-having-trouble-with-some-https-URLs-td394451.html
+  (setq org-cliplink-transport-implementation 'curl))
+
 (ytn-load-init-file "config-skk")
 (ytn-load-init-file "config-org")
 

@@ -154,6 +154,11 @@
 
                          (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
 
+                         (:name org-cliplink
+                                :type github
+                                :pkgname "rexim/org-cliplink"
+                                :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
+
                          (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
 
 (provide 'ytn-init-set-el-get-sources)
