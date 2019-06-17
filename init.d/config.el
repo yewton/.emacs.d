@@ -370,13 +370,13 @@
 
 (use-package yasnippet
   :delight yas-minor-mode
-  :commands (yas-global-mode yasnippet-snippets-initialize)
+  :commands (yas-global-mode)
   :init
+  ;; yasnippet 読み込みと同時に `yasnippet-snippets-initialize' が走るから、先にセットしておかないといけない
+  (setq yas-snippet-dirs `(,(expand-file-name "yasnippet/snippets" no-littering-etc-directory)))
   (yas-global-mode 1)
   :config
-  (unbind-key "<tab>" yas-keymap)
-  (setq yas-snippet-dirs `(,(expand-file-name "yasnippet/snippets" no-littering-etc-directory)))
-  (yasnippet-snippets-initialize))
+  (unbind-key "<tab>" yas-keymap))
 
 (use-package diredfl
   :after dired
