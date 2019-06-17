@@ -4,7 +4,8 @@
 (use-package org
   :commands (org-clock-persistence-insinuate)
   :bind (("C-c c" . org-capture)
-         ("C-c l" . org-store-link))
+         ("C-c l" . org-store-link)
+         ("C-c b" . org-switchb))
   :config
   (org-clock-persistence-insinuate)
   (setq org-ellipsis " …"
