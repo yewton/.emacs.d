@@ -8,7 +8,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (defvar ytn-lisp-dir (expand-file-name "lisp" user-emacs-directory))
-(defvar ytn-lisp-dir (expand-file-name "init.d" user-emacs-directory))
+(defvar ytn-init-dir (expand-file-name "init.d" user-emacs-directory))
 
 (require 'files) ; for make-backup-files
 (require 'autoload)
@@ -30,6 +30,7 @@
 (ytn-init-install-packages)
 
 (byte-recompile-directory ytn-lisp-dir 0)
+(byte-recompile-directory ytn-init-dir 0)
 
 (ytn-load-init-file "config")
 
