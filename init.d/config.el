@@ -10,12 +10,6 @@
 
 (ytn-load-init-file "config-builtins")
 
-(use-package auto-compile
-  :commands (auto-compile-on-load-mode auto-compile-on-save-mode)
-  :init
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
-
 ;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
 (use-package smex
   :config

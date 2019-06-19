@@ -26,7 +26,13 @@
 
 (ytn-init-install-el-get)
 (ytn-init-set-el-get-sources)
+
 (ytn-init-install-build-essentials)
+
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+
 (ytn-init-install-packages)
 
 (byte-recompile-directory ytn-lisp-dir 0)
