@@ -20,11 +20,13 @@
         org-cycle-separator-lines 0
         org-outline-path-complete-in-steps nil
         org-refile-use-outline-path t
-        org-default-notes-file (expand-file-name "inbox.org" org-directory)))
+        org-default-notes-file (expand-file-name "inbox.org" org-directory)
+        ))
 
 (use-package org-goto
   :config
-  (setq org-goto-auto-isearch nil))
+  (setq org-goto-auto-isearch nil
+        org-goto-interface 'outline-path-completion))
 
 (use-package org-agenda
   :bind (("C-c a" . org-agenda))
