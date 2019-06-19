@@ -122,8 +122,8 @@
 
                          (:name emojify :checkout "a16199dcf9b4688839eba00f1e356d9beac46cfe")
 
-                         (:name yasnippet :checkout "203059a95e320b031ac0d2cabe9c1de68604baec")
-                         (:name yasnippet-snippets :checkout "f76efc2054ac41434544de96ed0a09a455b6c040")
+                         (:name yasnippet :checkout "e45e3de357fbd4289fcfa3dd26aaa7be357fb0b8")
+                         (:name yasnippet-snippets :checkout "15e4b08f7484c049d6b043263c5e09bc73846e32")
 
                          (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
                          (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")
