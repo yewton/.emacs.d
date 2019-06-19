@@ -168,10 +168,6 @@
   :init
   (counsel-projectile-mode))
 
-(use-package hydra
-  :config
-  (ytn-install-hydra))
-
 (use-package buffer-move
   :bind (("C-S-j" . buf-move-up)
          ("C-S-k" . buf-move-down)
@@ -470,6 +466,7 @@
 
 (ytn-load-init-file "config-skk")
 (ytn-load-init-file "config-org")
+(ytn-load-init-file "config-hydra")
 
 (when (eq system-type 'darwin) (ytn-load-init-file "config-system-darwin"))
 (when (eq window-system 'ns) (ytn-load-init-file "config-window-system-ns"))
