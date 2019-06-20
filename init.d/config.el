@@ -10,80 +10,6 @@
 
 (ytn-load-init-file "config-builtins")
 
-;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
-(use-package smex
-  :config
-  (setq smex-save-file (f-join no-littering-var-directory "smex-items")
-        smex-history-length 9))
-
-(use-package swiper
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper)))
-
-(use-package ivy
-  :delight
-  :demand t
-  :commands (ivy-mode)
-  :bind (("C-c C-r" . ivy-resume)
-         ("<f6>" . ivy-resume)
-         :map ivy-minibuffer-map
-         ("C-r" . ivy-previous-line)
-         ("C-l" . ivy-backward-delete-char))
-  :init
-  (ivy-mode 1)
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-height 30
-        enable-recursive-minibuffers t))
-
-(use-package ivy-hydra
-  :after (ivy hydra))
-
-(use-package counsel
-  :commands (counsel-ag)
-  :config
-  (setq counsel-describe-function-preselect 'ivy-function-called-at-point
-        counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
-  (defun ytn-open-junk-file (&optional arg)
-    "Open junk file using counsel.
-
-  When ARG is non-nil search in junk files."
-    (interactive "P")
-    (let* ((open-junk-file-format (f-join no-littering-var-directory "junk/%Y/%m/%d-%H%M%S."))
-           (fname (format-time-string open-junk-file-format (current-time)))
-           (rel-fname (file-name-nondirectory fname))
-           (junk-dir (file-name-directory fname))
-           (default-directory junk-dir))
-      (if arg
-          (counsel-ag nil junk-dir "" "[junk]")
-        (mkdir junk-dir 'parents)
-        (counsel-find-file rel-fname))))
-  :bind (("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file)
-         ("<help> b" . counsel-descbinds)
-         ("<help> f" . counsel-describe-function)
-         ("<help> v" . counsel-describe-variable)
-         ("<help> l" . counsel-load-library)
-         ("<help> a" . counsel-apropos)
-         ("<help> S" . counsel-info-lookup-symbol)
-         ("<f2> i" . counsel-info-lookup-symbol)
-         ("<f2> u" . counsel-unicode-char)
-         ("C-c g" . counsel-git)
-         ("C-c j" . counsel-git-grep)
-         ("C-c k" . counsel-rg)
-         ("C-x l" . counsel-locate)
-         ("C-x C-r" . counsel-recentf)
-         ("M-y" . counsel-yank-pop)
-         ("C-x C-z". ytn-open-junk-file)
-         :map read-expression-map
-         ("C-r" . counsel-minibuffer-history)))
-
-(use-package ivy-xref
-  :demand t
-  :commands (ivy-xref-show-xrefs)
-  :config
-  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-
 (use-package winum
   :commands (winum-mode winum-select-window-1 winum-select-window-2 winum-select-window-3 winum-select-window-4 winum-select-window-5
                         winum-select-window-6 winum-select-window-7 winum-select-window-8 winum-select-window-9)
@@ -136,13 +62,12 @@
 (use-package flycheck-pos-tip
   :after flycheck
   :commands (flycheck-pos-tip-mode)
-  :init
+  :config
   (flycheck-pos-tip-mode))
 
 (use-package projectile
   :delight
-  :defines (projectile-mode-line)
-  :commands (projectile-project-p projectile-load-known-projects)
+  :commands (projectile-mode projectile-project-p projectile-load-known-projects)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map))
   :config
@@ -150,17 +75,11 @@
     (f-mkdir projectile-dir)
     (setq projectile-enable-caching t
           projectile-ignored-projects '("/usr/local/")
-          projectile-mode-line ""
           projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
           projectile-cache-file (f-join projectile-dir "projectile.cache")))
-  (projectile-load-known-projects))
-
-(use-package counsel-projectile
-  :after projectile
-  :delight
-  :commands (counsel-projectile-mode)
+  (projectile-load-known-projects)
   :init
-  (counsel-projectile-mode))
+  (projectile-mode +1))
 
 (use-package buffer-move
   :bind (("C-S-j" . buf-move-up)
@@ -188,21 +107,6 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
-(use-package company
-  :delight
-  :commands (global-company-mode)
-  :init
-  (add-hook 'emacs-startup-hook #'global-company-mode)
-  :config
-  (bind-key [remap next-line] 'company-select-next company-active-map)
-  (bind-key [remap previous-line] 'company-select-previous company-active-map)
-  (bind-key "C-f" 'company-show-location company-active-map)
-  (bind-key "M-f" 'company-show-doc-buffer company-active-map)
-  (bind-key [remap next-line] 'company-select-next company-search-map)
-  (bind-key [remap previous-line] 'company-select-previous company-search-map)
-  (bind-key [remap complete-symbol] 'counsel-company company-mode-map)
-  (bind-key [remap completion-at-point] 'counsel-company company-mode-map))
-
 (use-package company-quickhelp
   :after company
   :commands (company-quickhelp-mode)
@@ -214,79 +118,6 @@
   :config
   (setq powerline-height (+ (frame-char-height) 10)
         powerline-default-separator 'slant))
-
-(use-package spaceline-config
-  :config
-  (require 'ytn-init-spaceline))
-
-(use-package treemacs
-  :config
-  (setq treemacs-change-root-without-asking nil
-        treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-        treemacs-file-event-delay           5000
-        treemacs-follow-after-init          t
-        treemacs-goto-tag-strategy          'refetch-index
-        treemacs-indentation                2
-        treemacs-indentation-string         " "
-        treemacs-is-never-other-window      nil
-        treemacs-never-persist              nil
-        treemacs-no-png-images              nil
-        treemacs-recenter-after-file-follow nil
-        treemacs-recenter-after-tag-follow  nil
-        treemacs-show-hidden-files          t
-        treemacs-silent-filewatch           nil
-        treemacs-silent-refresh             nil
-        treemacs-sorting                    'alphabetic-desc
-        treemacs-tag-follow-cleanup         t
-        treemacs-tag-follow-delay           1.5
-        treemacs-winum-number               10
-        treemacs-width                      40
-        treemacs-python-executable (executable-find "python3"))
-
-  :bind (([f8] . ytn-treemacs)
-         ("M-0" . treemacs-select-window)
-         ("C-c 1" . treemacs-delete-other-windows)))
-
-;;   (use-package treemacs-projectile
-;;     :commands (treemacs-projectile)
-;;     :config
-;;     (use-package treemacs
-;;       :commands (treemacs)
-;;       :config
-;;       (defun ytn-treemacs ()
-;;         "Project context-aware treemacs.
-
-;; If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
-;;         (interactive)
-;;         (let ((fun (if (projectile-project-p) #'treemacs-projectile #'treemacs)))
-;;           (call-interactively fun)))))
-
-(use-package treemacs-filewatch-mode
-  :after treemacs
-  :commands (treemacs-filewatch-mode)
-  :config
-  (treemacs-filewatch-mode t))
-
-(use-package treemacs-follow-mode
-  :after treemacs
-  :commands (treemacs-follow-mode)
-  :config
-  (treemacs-follow-mode t))
-
-(use-package treemacs-async
-  :after treemacs
-  :commands (treemacs-git-mode)
-  :config
-  (pcase (cons (not (null (executable-find "git")))
-               (not (null (executable-find "python3"))))
-    (`(t . t)
-     (treemacs-git-mode 'extended))
-    (`(t . _)
-     (treemacs-git-mode 'simple))))
-
-(use-package treemacs-projectile
-  :config
-  (setq treemacs-header-function 'treemacs-projectile-create-header))
 
 (use-package grep
   :bind (:map grep-mode-map
@@ -321,17 +152,6 @@
   :commands (ace-link-setup-default)
   :init
   (ace-link-setup-default))
-
-(use-package help-mode
-  :bind (:map help-mode-map
-              ("j" . next-line)
-              ("k" . previous-line)
-              ("H" . help-go-back)
-              ("h" . backward-char)
-              ("L" . help-go-forward)
-              ("l" . forward-char)
-              ("v" . recenter-top-bottom)
-              ("c" . counsel-ace-link)))
 
 (use-package help+)
 (use-package help-fns+)
@@ -461,7 +281,10 @@
 
 (ytn-load-init-file "config-skk")
 (ytn-load-init-file "config-org")
+(ytn-load-init-file "config-ivy")
 (ytn-load-init-file "config-hydra")
+(ytn-load-init-file "config-treemacs")
+(ytn-load-init-file "config-spaceline")
 
 (when (eq system-type 'darwin) (ytn-load-init-file "config-system-darwin"))
 (when (eq window-system 'ns) (ytn-load-init-file "config-window-system-ns"))

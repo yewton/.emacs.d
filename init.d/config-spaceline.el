@@ -62,8 +62,6 @@
 (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
 
 (ytn-spaceline-theme)
-
-(provide 'ytn-init-spaceline)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
