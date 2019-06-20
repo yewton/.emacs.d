@@ -20,8 +20,7 @@
         org-cycle-separator-lines 0
         org-outline-path-complete-in-steps nil
         org-refile-use-outline-path t
-        org-default-notes-file (expand-file-name "inbox.org" org-directory)
-        ))
+        org-default-notes-file (expand-file-name "inbox.org" org-directory)))
 
 (use-package org-goto
   :config
