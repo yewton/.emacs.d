@@ -2,9 +2,6 @@
 (defvar ytn-lisp-dir (expand-file-name "lisp" user-emacs-directory))
 (defvar ytn-init-dir (expand-file-name "init.d" user-emacs-directory))
 
-(defun ytn-load-init-file (file)
-  (load (expand-file-name file ytn-init-dir)))
-
 ;; https://emacs.stackexchange.com/a/33523/18118
 (defun ytn-current-time-microseconds ()
   "Return the current time formatted to include microseconds."

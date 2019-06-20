@@ -6,9 +6,7 @@
 (require 'bind-key)
 (require 'delight)
 
-(require 'ytn-lib)
-
-(ytn-load-init-file "config-builtins")
+(load "ytn-config-builtins")
 
 (use-package winum
   :commands (winum-mode winum-select-window-1 winum-select-window-2 winum-select-window-3 winum-select-window-4 winum-select-window-5
@@ -279,16 +277,16 @@
   ;; 関係あり？ http://emacs.1067599.n8.nabble.com/bug-23225-25-1-50-url-retrieve-synchronously-having-trouble-with-some-https-URLs-td394451.html
   (setq org-cliplink-transport-implementation 'curl))
 
-(ytn-load-init-file "config-skk")
-(ytn-load-init-file "config-org")
-(ytn-load-init-file "config-ivy")
-(ytn-load-init-file "config-hydra")
-(ytn-load-init-file "config-treemacs")
-(ytn-load-init-file "config-spaceline")
+(load "ytn-config-skk")
+(load "ytn-config-org")
+(load "ytn-config-ivy")
+(load "ytn-config-hydra")
+(load "ytn-config-treemacs")
+(load "ytn-config-spaceline")
 
-(when (eq system-type 'darwin) (ytn-load-init-file "config-system-darwin"))
-(when (eq window-system 'ns) (ytn-load-init-file "config-window-system-ns"))
-(when (eq window-system 'x) (ytn-load-init-file "config-window-system-x"))
+(when (eq system-type 'darwin) (load "ytn-config-system-darwin"))
+(when (eq window-system 'ns) (load "ytn-config-window-system-ns"))
+(when (eq window-system 'x) (load "ytn-config-window-system-x"))
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

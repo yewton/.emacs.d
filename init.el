@@ -33,7 +33,9 @@
 (byte-recompile-directory ytn-lisp-dir 0)
 (byte-recompile-directory ytn-init-dir 0)
 
-(ytn-load-init-file "config")
+(add-to-list 'load-path ytn-init-dir)
+
+(load "ytn-config")
 
 (load custom-file 'noerror)
 
