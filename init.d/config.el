@@ -6,7 +6,7 @@
 (require 'bind-key)
 (require 'delight)
 
-(require 'ytn-init-autoloads)
+(require 'ytn-lib)
 
 (ytn-load-init-file "config-builtins")
 
