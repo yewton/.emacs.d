@@ -6,7 +6,8 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory)
+      load-prefer-newer t)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 

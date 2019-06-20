@@ -10,8 +10,7 @@
 ;;;###autoload
 (defun ytn-init-install-el-get ()
   (interactive)
-  (setq load-prefer-newer t
-        package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory)
+  (setq package-user-dir (expand-file-name (convert-standard-filename "var/elpa") user-emacs-directory)
         el-get-verbose t
         el-get-dir (expand-file-name (convert-standard-filename "var/el-get") user-emacs-directory)
         el-get-autoload-file (expand-file-name "el-get-autoloads.el" el-get-dir))
