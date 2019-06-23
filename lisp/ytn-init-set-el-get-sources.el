@@ -159,7 +159,7 @@
                                 :pkgname "rexim/org-cliplink"
                                 :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
 
-                         (:name leuven-theme :checkout "77dcc0bd277541ce90438e9ea9fc3f3fe5d90e22"))))
+                         (:name leuven-theme :checkout "916c0f3b562b5b0e4f4294b83decda941fb183b1"))))
 
 (provide 'ytn-init-set-el-get-sources)
 ;; Local Variables:
