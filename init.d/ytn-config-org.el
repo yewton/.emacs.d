@@ -41,7 +41,7 @@
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
         org-agenda-compact-blocks t
         org-agenda-show-outline-path nil
-        org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :level t :timestamp t)))
+        org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)))
 
 (use-package org-capture
   :bind (("C-c c" . org-capture))
