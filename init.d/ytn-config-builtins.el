@@ -123,10 +123,8 @@
 (unless (server-running-p) (server-start))
 
 (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
-  (add-hook hook 'display-line-numbers-mode))
-
-(global-hl-line-mode)
-(setq global-hl-line-sticky-flag t)
+  (add-hook hook 'display-line-numbers-mode)
+  (add-hook hook 'hl-line-mode))
 
 (setq uniquify-buffer-name-style 'forward
       uniquify-separator "/"
