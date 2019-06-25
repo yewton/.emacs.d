@@ -3,8 +3,7 @@
 
 (use-package org
   :commands (org-clock-persistence-insinuate)
-  :bind (("C-c c" . org-capture)
-         ("C-c l" . org-store-link)
+  :bind (("C-c l" . org-store-link)
          ("C-c b" . org-switchb))
   :config
   (org-clock-persistence-insinuate)
@@ -19,8 +18,9 @@
         org-catch-invisible-edits 'show-and-error
         org-cycle-separator-lines 0
         org-outline-path-complete-in-steps nil
+        org-agenda-files '("~/org/agenda")
         org-refile-use-outline-path t
-        org-default-notes-file (expand-file-name "inbox.org" org-directory)))
+        org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
   :config
@@ -42,6 +42,19 @@
         org-agenda-compact-blocks t
         org-agenda-show-outline-path nil
         org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :level t :timestamp t)))
+
+(use-package org-capture
+  :bind (("C-c c" . org-capture))
+  :config
+  (setq org-capture-templates '(("t" "ToDo" entry (file+headline "" "Inbox")
+                                 "* TODO %?\n%U" :empty-lines 1 :prepend t)
+                                ("j" "Jot" entry (file+headline "" "Inbox")
+                                 "* on %<%Y-%m-%d %H:%M:%S>\n%U\n\n%?" :empty-lines 1 :prepend t)
+                                ("e" "Entry" entry (file+headline "" "Inbox")
+                                 "* %?\n%U" :empty-lines 1 :prepend t)
+                                ("i" "Clock-in" entry (file+headline "" "Inbox")
+                                 "* %?\n%U\n" :clock-in t :clock-keep t :empty-lines 1 :prepend t))))
+
 
 (use-package org-attach
   :config
