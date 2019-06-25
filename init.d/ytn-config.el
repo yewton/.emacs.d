@@ -45,9 +45,9 @@
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 
 (use-package diff-hl
-  :config
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'emacs-startup-hook 'global-diff-hl-mode))
+  :hook ((magit-post-refresh . diff-hl-magit-post-refresh)
+         (prog-mode . turn-on-diff-hl-mode)
+         (vc-dir-mode-hook . turn-on-diff-hl-mode)))
 
 (use-package flycheck
   :delight

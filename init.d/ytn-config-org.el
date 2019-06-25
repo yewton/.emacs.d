@@ -23,6 +23,7 @@
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
+  :defer t
   :config
   (setq org-goto-auto-isearch nil
         org-goto-interface 'outline-path-completion))
@@ -58,14 +59,17 @@
 
 
 (use-package org-attach
+  :defer t
   :config
   (setq org-attach-store-link-p t))
 
 (use-package ox
+  :defer t
   :config
   (setq org-export-default-language "ja"))
 
 (use-package org-clock
+  :defer t
   :config
   (setq org-clock-clocked-in-display 'both
         org-clock-persist t)
@@ -86,6 +90,7 @@
   :after (org))
 
 (use-package org-duration
+  :defer t
   :config
   (setq org-duration-format '((special . h:mm))))
 ;; Local Variables:
