@@ -126,6 +126,7 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
   (add-hook hook 'display-line-numbers-mode)
   (add-hook hook 'hl-line-mode))
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 (setq uniquify-buffer-name-style 'forward
       uniquify-separator "/"
