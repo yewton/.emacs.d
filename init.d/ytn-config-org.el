@@ -43,7 +43,8 @@
         org-agenda-compact-blocks t
         org-agenda-show-outline-path nil
         org-agenda-sticky t
-        org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)))
+        org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
+        org-agenda-log-mode-items '(clock)))
 
 (use-package org-capture
   :bind (("C-c c" . org-capture))
