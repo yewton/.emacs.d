@@ -19,7 +19,7 @@
         org-cycle-separator-lines 0
         org-outline-path-complete-in-steps nil
         org-agenda-files '("~/org/agenda")
-        org-refile-use-outline-path t
+        org-refile-use-outline-path 'file
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
