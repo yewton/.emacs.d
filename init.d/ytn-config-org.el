@@ -42,7 +42,12 @@
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
         org-agenda-compact-blocks t
         org-agenda-show-outline-path nil
-        org-agenda-sticky t
+        org-agenda-sticky nil
+        org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+                                     ("u" "Unscheduled TODO" todo ""
+                                      ((org-agenda-overriding-header "Unscheduled TODO")
+                                       (org-agenda-todo-ignore-scheduled 'all)
+                                       (org-agenda-todo-ignore-deadlines 'all))))
         org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock)))
 
