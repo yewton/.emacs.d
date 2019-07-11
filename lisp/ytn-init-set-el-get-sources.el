@@ -159,6 +159,9 @@
                                 :pkgname "rexim/org-cliplink"
                                 :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
 
+                         (:name git-auto-commit-mode
+                                :checkout "2c8197e5d7813734d6a49f9b9c0b227b7ae022a8")
+
                          (:name leuven-theme :checkout "916c0f3b562b5b0e4f4294b83decda941fb183b1"))))
 
 (provide 'ytn-init-set-el-get-sources)
