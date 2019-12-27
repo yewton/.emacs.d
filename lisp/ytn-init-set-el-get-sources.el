@@ -135,7 +135,7 @@
                          (:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
 
-                         (:name plantuml-mode :pkgname "yewton/plantuml-mode" :branch "experimental")
+                         (:name plantuml-mode :pkgname "skuro/plantuml-mode" :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 
                          (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
 
