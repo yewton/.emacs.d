@@ -222,7 +222,8 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "marked"
-              markdown-fontify-code-blocks-natively t))
+              markdown-fontify-code-blocks-natively t
+              markdown-asymmetric-header t))
 
 (use-package company-terraform
   :commands (company-terraform-init)
