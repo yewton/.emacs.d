@@ -16,10 +16,7 @@
 
 (add-to-list 'face-font-rescale-alist '(".*Hiragino.*" . 1.2))
 (let* ((fonts '(
-                ("Ricty Discord for Powerline" . 140)
-                ("Myrica M" . 140)
-                ("Ricty Discord" . 135)
-                ("MyricaM M" . 140)
+                ("Cica" . 140)
                 ("Menlo" . 120)
                 ))
        (font (cl-find-if (lambda (f) (find-font (font-spec :name (car f))))
