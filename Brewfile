@@ -1,16 +1,19 @@
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
+# -*- mode: ruby; -*-
 
-brew 'python3'
-brew 'aspell'
-brew 'cmigemo'
-brew 'gnutls'
-brew 'findutils'
-brew 'hugo'
-brew 'plantuml'
-brew 'texinfo'
-brew 'ripgrep'
-brew 'ricty', args: ['powerline']
+# for Treemacs
+brew "python3"
 
-cask 'marked'
-cask 'emacs'
+# for ispell
+brew "aspell"
+
+brew "cmigemo"
+
+brew "coreutils"
+brew "findutils"
+brew "texinfo"
+
+brew "ripgrep"
+
+cask "font-cica"
+cask "marked"
+cask "emacs"

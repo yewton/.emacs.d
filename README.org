@@ -2,7 +2,7 @@
 
 * Prerequisites
 
-#+BEGIN_SRC
-brew bundle
-yarn global add marked
+#+BEGIN_SRC sh
+  brew bundle
+  gem install commonmarker #for markdown-command
 #+END_SRC

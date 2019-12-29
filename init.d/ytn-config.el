@@ -221,9 +221,21 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "marked"
-              markdown-fontify-code-blocks-natively t
-              markdown-asymmetric-header t))
+  :init
+  (defun ytn-markdown-command (begin-region end-region buf)
+    (let ((exit-code (call-process-region begin-region end-region "commonmarker" nil buf nil
+                                          "--extension=tagfilter,autolink,table,strikethrough")))
+      (unless (eq exit-code 0)
+        (user-error "commonmarker failed with exit code %s" exit-code))))
+
+  (setq markdown-command 'ytn-markdown-command
+        markdown-fontify-code-blocks-natively t
+        markdown-asymmetric-header t
+        markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+                             "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
+        markdown-xhtml-header-content "<script src=\"http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script><script>hljs.initHighlightingOnLoad();</script>"
+        markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
+        markdown-xhtml-body-epilogue "</div>"))
 
 (use-package company-terraform
   :commands (company-terraform-init)

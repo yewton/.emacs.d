@@ -36,6 +36,7 @@
 
 (add-to-list 'load-path ytn-init-dir)
 
+(add-to-list 'exec-path (expand-file-name "bin/" user-emacs-directory))
 (load "ytn-config")
 
 (load custom-file 'noerror)

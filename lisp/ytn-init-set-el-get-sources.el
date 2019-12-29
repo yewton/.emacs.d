@@ -162,6 +162,8 @@
                          (:name git-auto-commit-mode
                                 :checkout "2c8197e5d7813734d6a49f9b9c0b227b7ae022a8")
 
+                         (:name ssh-config-mode :pkgname "jhgorrell/ssh-config-mode-el" :type github :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
+
                          (:name leuven-theme :checkout "916c0f3b562b5b0e4f4294b83decda941fb183b1"))))
 
 (provide 'ytn-init-set-el-get-sources)
