@@ -60,7 +60,7 @@
 (use-package flycheck-pos-tip
   :after flycheck
   :commands (flycheck-pos-tip-mode)
-  :config
+  :init
   (flycheck-pos-tip-mode))
 
 (use-package projectile
