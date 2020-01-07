@@ -21,6 +21,7 @@
         org-agenda-files '("~/org/agenda")
         org-refile-use-outline-path 'file
         org-use-speed-commands t
+        org-image-actual-width nil
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
@@ -107,6 +108,11 @@
   (defalias 'toml-mode 'conf-toml-mode)
   :config
   (setq org-hugo-use-code-for-kbd t))
+
+(use-package org-download
+  :config
+  (setq org-download-method 'attach)
+  :hook (dired-mode . org-download-enable))
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)

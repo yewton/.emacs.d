@@ -166,6 +166,8 @@
 
                          (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a")
 
+                         (:name org-download :checkout "a367669384859261bcb11bac4b782f231f972353")
+
                          (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
 (provide 'ytn-init-set-el-get-sources)
