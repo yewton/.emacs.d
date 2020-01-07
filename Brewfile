@@ -1,4 +1,5 @@
 # -*- mode: ruby; -*-
+tap "d12frosted/emacs-plus"
 
 # for Treemacs
 brew "python3"
@@ -16,4 +17,6 @@ brew "ripgrep"
 
 cask "font-cica"
 cask "marked"
-cask "emacs"
+
+brew "emacs-plus"
+

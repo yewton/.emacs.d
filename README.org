@@ -4,5 +4,6 @@
 
 #+BEGIN_SRC sh
   brew bundle
-  gem install commonmarker #for markdown-command
+  gem install commonmarker # for markdown-command
+  brew info emacs-plus # and follow directions
 #+END_SRC

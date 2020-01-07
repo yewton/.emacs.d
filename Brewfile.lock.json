@@ -1,5 +1,10 @@
 {
   "entries": {
+    "tap": {
+      "d12frosted/emacs-plus": {
+        "revision": "52df00282bc9a5a906535a7a70e22bf0744322ef"
+      }
+    },
     "brew": {
       "python3": null,
       "aspell": {
@@ -148,28 +153,42 @@
           }
         }
       },
+      "emacs-plus": {
+        "version": "26.3",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "mojave": {
+              "url": "https://dl.bintray.com/d12frosted/emacs-plus/emacs-plus-26.3.mojave.bottle.tar.gz",
+              "sha256": "6b59ea5c941b754f5008039be319e4437ebd66dc2e1a50fdf890cf226c078386"
+            },
+            "catalina": {
+              "url": "https://dl.bintray.com/d12frosted/emacs-plus/emacs-plus-26.3.catalina.bottle.tar.gz",
+              "sha256": "cb589861c8a697869107d1cbacc9cc920a8e7257b5c371b7e590b05e7e04c92c"
+            }
+          }
+        }
+      }
     },
     "cask": {
       "font-cica": {
         "version": "5.0.1"
       },
       "marked": {
-        "version": "2.5.35978"
-      },
-      "emacs": {
-        "version": "26.3"
+        "version": "2.5.10230"
       }
     }
   },
   "system": {
     "macos": {
-      "catalina": {
+      "mojave": {
         "HOMEBREW_VERSION": "2.2.2",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "c78fb7506eaa66e53a3e4913043450136272a182",
-        "CLT": "11.3.0.0.1.1574140115",
+        "Homebrew/homebrew-core": "4584e6c727d23a393adf78eecf33cd41b75ae061",
+        "CLT": "10.3.0.0.1.1562985497",
         "Xcode": "11.3",
-        "macOS": "10.15.1"
+        "macOS": "10.14.6"
       }
     }
   }
