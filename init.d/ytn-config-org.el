@@ -20,6 +20,7 @@
         org-outline-path-complete-in-steps nil
         org-agenda-files '("~/org/agenda")
         org-refile-use-outline-path 'file
+        org-use-speed-commands t
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
@@ -48,7 +49,7 @@
                                       ((org-agenda-overriding-header "Unscheduled TODO")
                                        (org-agenda-todo-ignore-scheduled 'all)
                                        (org-agenda-todo-ignore-deadlines 'all))))
-        org-agenda-clockreport-parameter-plist '(:lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
+        org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock)))
 
 (use-package org-capture

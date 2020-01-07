@@ -106,7 +106,7 @@
 
                          (:name ddskk :checkout "ad61579af269291b4446f4bab0a58522cc454f1c")
 
-                         (:name org-mode :branch "release_9.2.4" :shallow t)
+                         (:name org-mode :branch "release_9.3.1" :shallow t)
 
                          (:name info-plus :type emacsmirror
                                 :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
@@ -164,9 +164,9 @@
 
                          (:name ssh-config-mode :pkgname "jhgorrell/ssh-config-mode-el" :type github :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
 
-                         (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a" :compile ("hoge.el"))
+                         (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a")
 
-                         (:name leuven-theme :checkout "916c0f3b562b5b0e4f4294b83decda941fb183b1"))))
+                         (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
 (provide 'ytn-init-set-el-get-sources)
 ;; Local Variables:
