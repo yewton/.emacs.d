@@ -164,6 +164,8 @@
 
                          (:name ssh-config-mode :pkgname "jhgorrell/ssh-config-mode-el" :type github :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
 
+                         (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a" :compile ("hoge.el"))
+
                          (:name leuven-theme :checkout "916c0f3b562b5b0e4f4294b83decda941fb183b1"))))
 
 (provide 'ytn-init-set-el-get-sources)

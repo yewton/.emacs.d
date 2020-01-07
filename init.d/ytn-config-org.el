@@ -99,6 +99,14 @@
   :defer t
   :config
   (setq org-duration-format '((special . h:mm))))
+
+(use-package ox-hugo
+  :after ox
+  :init
+  (defalias 'toml-mode 'conf-toml-mode)
+  :config
+  (setq org-hugo-use-code-for-kbd t))
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
