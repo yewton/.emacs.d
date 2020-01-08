@@ -110,9 +110,10 @@
   (setq org-hugo-use-code-for-kbd t))
 
 (use-package org-download
+  :after org
   :config
   (setq org-download-method 'attach)
-  :hook (dired-mode . org-download-enable))
+  (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
