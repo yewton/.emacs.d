@@ -29,7 +29,16 @@
   :config
   (setq ivy-use-virtual-buffers t
         ivy-height 30
-        enable-recursive-minibuffers t))
+        enable-recursive-minibuffers t
+        ivy-initial-inputs-alist '((org-refile . "")
+                                   (org-agenda-refile . "")
+                                   (org-capture-refile . "")
+                                   (counsel-M-x . "^")
+                                   (counsel-describe-function . "^")
+                                   (counsel-describe-variable . "^")
+                                   (counsel-org-capture . "^")
+                                   (Man-completion-table . "^")
+                                   (woman . "^"))))
 
 (use-package ivy-hydra
   :after (ivy hydra))
