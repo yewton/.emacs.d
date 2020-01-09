@@ -111,8 +111,15 @@
 
 (use-package org-download
   :after org
+  :functions (org-link-escape)
   :config
   (setq org-download-method 'attach)
+  ;; ox-hugo が attachment: link abbrev に対応していないため
+  (setq org-download-link-format-function
+        (lambda (filename)
+          (format org-download-link-format
+                  (org-link-escape
+                   (funcall org-download-abbreviate-filename-function filename)))))
   (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; Local Variables:
