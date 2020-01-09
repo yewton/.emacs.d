@@ -128,6 +128,10 @@
   (add-hook hook 'hl-line-mode))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
+(use-package display-line-numbers
+  :config
+  (setq display-line-numbers-width-start t))
+
 (setq uniquify-buffer-name-style 'forward
       uniquify-separator "/"
       uniquify-after-kill-buffer-p t
