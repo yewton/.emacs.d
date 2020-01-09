@@ -54,7 +54,6 @@
         org-agenda-log-mode-items '(clock)))
 
 (use-package org-capture
-  :bind (("C-c c" . org-capture))
   :config
   (setq org-capture-templates '(("t" "ToDo" entry (file+headline "" "Inbox")
                                  "* TODO %?\n%U" :empty-lines 1 :prepend t)

@@ -45,6 +45,7 @@
 
 (use-package counsel
   :commands (counsel-ag)
+  :defines org-mode-map
   :config
   (setq counsel-describe-function-preselect 'ivy-function-called-at-point
         counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
@@ -79,8 +80,11 @@
          ("C-x C-r" . counsel-recentf)
          ("M-y" . counsel-yank-pop)
          ("C-x C-z". ytn-open-junk-file)
+         ("C-c c" . counsel-org-capture)
          :map read-expression-map
-         ("C-r" . counsel-minibuffer-history)))
+         ("C-r" . counsel-minibuffer-history)
+         :map org-mode-map
+         ("C-c C-j" . counsel-org-goto)))
 
 (use-package ivy-xref
   :demand t
