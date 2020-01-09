@@ -49,7 +49,8 @@
                                      ("u" "Unscheduled TODO" todo ""
                                       ((org-agenda-overriding-header "Unscheduled TODO")
                                        (org-agenda-todo-ignore-scheduled 'all)
-                                       (org-agenda-todo-ignore-deadlines 'all))))
+                                       (org-agenda-todo-ignore-deadlines 'all)))
+                                     ("N" "Non-recurring TODO" tags-todo "-recurring-routine"))
         org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock)))
 
