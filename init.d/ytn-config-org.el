@@ -22,6 +22,7 @@
         org-refile-use-outline-path 'file
         org-use-speed-commands t
         org-image-actual-width nil
+        org-use-property-inheritance '("DIR")
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
