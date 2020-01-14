@@ -52,7 +52,9 @@
                                       ((org-agenda-overriding-header "Unscheduled TODO")
                                        (org-agenda-todo-ignore-scheduled 'all)
                                        (org-agenda-todo-ignore-deadlines 'all)))
-                                     ("N" "Non-recurring TODO" tags-todo "-recurring-routine"))
+                                     ("N" "Non-recurring TODO" todo ""
+                                      ((org-agenda-overriding-header "Non-recurring TODO")
+                                       (org-agenda-category-filter-preset '("-routine")))))
         org-agenda-breadcrumbs-separator " / "
         org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
                                    (todo . " %i %-12:c% s%?b")
