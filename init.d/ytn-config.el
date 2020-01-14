@@ -226,8 +226,8 @@
         markdown-fontify-code-blocks-natively t
         markdown-asymmetric-header t
         markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
-                             "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
-        markdown-xhtml-header-content "<script src=\"http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script><script>hljs.initHighlightingOnLoad();</script>"
+                             "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
+        markdown-xhtml-header-content "<script src=\"https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script><script>hljs.initHighlightingOnLoad();</script>"
         markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
         markdown-xhtml-body-epilogue "</div>"))
 
