@@ -7,3 +7,11 @@
   gem install commonmarker # for markdown-command
   brew info emacs-plus # and follow directions
 #+END_SRC
+
+* Icons
+
+- [[https://material.io/resources/icons/?icon=autorenew&style=baseline][autorenew from Material Design Icon]]
+- [[https://material.io/resources/icons/?icon=event&style=baseline][event from Material Design Icon]]
+- [[https://material.io/resources/icons/?icon=cake&style=baseline][cake from Material Design Icon]]
+- [[https://material.io/resources/icons/?icon=notes&style=baseline][notes from Material Design Icon]]
+- [[https://material.io/resources/icons/?icon=playlist_add_check&style=baseline][playlist_add_check from Material Design Icon]]

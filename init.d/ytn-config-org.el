@@ -35,6 +35,7 @@
   :bind (("C-c a" . org-agenda))
   :config
   (set-face-underline 'org-agenda-current-time nil)
+  
   (setq org-agenda-window-setup 'reorganize-frame
         org-agenda-restore-windows-after-quit t
         org-agenda-start-on-weekday 1
@@ -52,8 +53,22 @@
                                        (org-agenda-todo-ignore-scheduled 'all)
                                        (org-agenda-todo-ignore-deadlines 'all)))
                                      ("N" "Non-recurring TODO" tags-todo "-recurring-routine"))
+        org-agenda-breadcrumbs-separator " / "
+        org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+                                   (todo . " %i %-12:c% s%?b")
+                                   (tags . " %i %-12:c")
+                                   (search . " %i %-12:c"))
         org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
-        org-agenda-log-mode-items '(clock)))
+        org-agenda-log-mode-items '(clock))
+  (require 'f)
+  (require 's)
+  (let ((fn (lambda (category)
+              `(,category ,(f-join user-emacs-directory "res" (s-concat category ".svg")) nil nil :ascent center))))
+    (setq org-agenda-category-icon-alist `(,(funcall fn "task")
+                                           ,(funcall fn "routine")
+                                           ,(funcall fn "event")
+                                           ,(funcall fn "anniv")
+                                           ,(funcall fn "log")))))
 
 (use-package org-capture
   :config
