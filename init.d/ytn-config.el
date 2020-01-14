@@ -222,13 +222,7 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (defun ytn-markdown-command (begin-region end-region buf)
-    (let ((exit-code (call-process-region begin-region end-region "commonmarker" nil buf nil
-                                          "--extension=tagfilter,autolink,table,strikethrough")))
-      (unless (eq exit-code 0)
-        (user-error "commonmarker failed with exit code %s" exit-code))))
-
-  (setq markdown-command 'ytn-markdown-command
+  (setq markdown-command "commonmarker --extension=tagfilter,autolink,table,strikethrough"
         markdown-fontify-code-blocks-natively t
         markdown-asymmetric-header t
         markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
