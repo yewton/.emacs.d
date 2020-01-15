@@ -1,6 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 (eval-when-compile (require 'use-package))
 
+(require 'f)
+(require 's)
+
 (use-package org
   :commands (org-clock-persistence-insinuate)
   :bind (("C-c l" . org-store-link)
@@ -35,7 +38,6 @@
   :bind (("C-c a" . org-agenda))
   :config
   (set-face-underline 'org-agenda-current-time nil)
-  
   (setq org-agenda-window-setup 'reorganize-frame
         org-agenda-restore-windows-after-quit t
         org-agenda-start-on-weekday 1
@@ -62,8 +64,6 @@
                                    (search . " %i %-12:c"))
         org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock))
-  (require 'f)
-  (require 's)
   (let ((fn (lambda (category)
               `(,category ,(f-join user-emacs-directory "res" (s-concat category ".svg")) nil nil :ascent center))))
     (setq org-agenda-category-icon-alist `(,(funcall fn "task")
