@@ -15,9 +15,9 @@
                                 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/"))))
 
                          (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
-                         (:name s :checkout "5e9a6857d42015c67681616aa3519f599f97b8d8")
-                         (:name f :checkout "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
-                         (:name ht :checkout "64af52688eb09eb42b7228a4e8e40d4a81cd983b")
+                         (:name s :checkout "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")
+                         (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
+                         (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
                          (:name no-littering :checkout "c6de27af80edadc3cc09fe8a6832058d00ad570c")
 
@@ -26,7 +26,7 @@
 
                          (:name diredfl :shallow t :branch "0.4")
 
-                         (:name hydra :checkout "1deed8a00e6936903cace1dac123364b6c0cde90")
+                         (:name hydra :checkout "9db28034d7d61bfeff89899633b958f22befc53d")
 
                          (:name smex :checkout "55aaebe3d793c2c990b39a302eb26c184281c42c")
                          (:name swiper
@@ -94,10 +94,10 @@
                          (:name powerline :shallow t :branch "2.4")
                          (:name spaceline :checkout "ca20430271f80d46892d62cb7624b4dee6cafe72" :compile nil)
 
-                         (:name avy :checkout "34d3531a3cd35ae6b9e8dbc37343c027504fdcb0")
-                         (:name ace-window :checkout "c0fbdd51be8fdd43fd7a89140ebd4b4c311d45fc")
-                         (:name pfuture :checkout "d55a764b5beee803e489974be2408dbe236fc482")
-                         (:name treemacs :checkout "692f5be4ab6a4868978dcb2639334f78a267cfd2")
+                         (:name avy :checkout "cf95ba9582121a1c2249e3c5efdc51acd566d190")
+                         (:name ace-window :checkout "edbbb1b77c3fb939e4d9057443bc1897321d0095")
+                         (:name pfuture :checkout "fbecd1562b34fcd15563b7cc00d98e5af0d7e43d")
+                         (:name treemacs :checkout "e63fc3873da685768d9a6ba0dd85842b730a8d1e" :load-path ("src/elisp" "src/extra"))
 
                          (:name ace-link :depends (avy)
                                 :checkout "43d224546a2a557857294a8e3d13c4fe63508e03")

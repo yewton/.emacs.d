@@ -1,73 +1,80 @@
 ;; -*- lexical-binding: t; -*-
 (eval-when-compile (require 'use-package))
 
-(declare-function projectile-project-p "projectile")
-(declare-function treemacs-projectile "treemacs-projectile")
-(declare-function treemacs "treemacs")
-
-(defun ytn-treemacs ()
-      "Project context-aware treemacs.
-
-If called in a project it calls `treemacs-projectile', otherwise `treemacs'."
-      (interactive)
-      (let ((fun (if (projectile-project-p) #'treemacs-projectile #'treemacs)))
-        (call-interactively fun)))
+(require 'no-littering)
 
 (use-package treemacs
-  :bind (([f8] . ytn-treemacs)
-         ("M-0" . treemacs-select-window)
-         ("C-c 1" . treemacs-delete-other-windows))
+  :bind (:map global-map
+              ("M-0"        . treemacs-select-window)
+              ("M-<f8> 1"   . treemacs-delete-other-windows)
+              ("<f8>"       . treemacs)
+              ("M-<f8> B"   . treemacs-bookmark)
+              ("M-<f8> C-t" . treemacs-find-file)
+              ("M-<f8> M-t" . treemacs-find-tag))
+  :defines winum-keymap
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :commands treemacs-follow-mode treemacs-filewatch-mode treemacs-fringe-indicator-mode treemacs-git-mode
   :config
-  (setq treemacs-change-root-without-asking nil
-        treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-        treemacs-file-event-delay           5000
-        treemacs-follow-after-init          t
-        treemacs-goto-tag-strategy          'refetch-index
-        treemacs-indentation                2
-        treemacs-indentation-string         " "
-        treemacs-is-never-other-window      nil
-        treemacs-never-persist              nil
-        treemacs-no-png-images              nil
-        treemacs-recenter-after-file-follow nil
-        treemacs-recenter-after-tag-follow  nil
-        treemacs-show-hidden-files          t
-        treemacs-silent-filewatch           nil
-        treemacs-silent-refresh             nil
-        treemacs-sorting                    'alphabetic-desc
-        treemacs-tag-follow-cleanup         t
-        treemacs-tag-follow-delay           1.5
-        treemacs-winum-number               10
-        treemacs-width                      40
-        treemacs-python-executable (executable-find "python3")))
+  (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
+        treemacs-deferred-git-apply-delay      0.5
+        treemacs-directory-name-transformer    #'identity
+        treemacs-display-in-side-window        t
+        treemacs-eldoc-display                 t
+        treemacs-file-event-delay              5000
+        treemacs-file-extension-regex          treemacs-last-period-regex-value
+        treemacs-file-follow-delay             0.2
+        treemacs-file-name-transformer         #'identity
+        treemacs-follow-after-init             t
+        treemacs-git-command-pipe              ""
+        treemacs-goto-tag-strategy             'refetch-index
+        treemacs-indentation                   2
+        treemacs-indentation-string            " "
+        treemacs-is-never-other-window         nil
+        treemacs-max-git-entries               5000
+        treemacs-missing-project-action        'ask
+        treemacs-no-png-images                 nil
+        treemacs-no-delete-other-windows       t
+        treemacs-project-follow-cleanup        nil
+        treemacs-persist-file                  (expand-file-name "treemacs-persist" no-littering-var-directory)
+        treemacs-position                      'left
+        treemacs-recenter-distance             0.1
+        treemacs-recenter-after-file-follow    nil
+        treemacs-recenter-after-tag-follow     nil
+        treemacs-recenter-after-project-jump   'always
+        treemacs-recenter-after-project-expand 'on-distance
+        treemacs-show-cursor                   nil
+        treemacs-show-hidden-files             t
+        treemacs-silent-filewatch              nil
+        treemacs-silent-refresh                nil
+        treemacs-sorting                       'alphabetic-asc
+        treemacs-space-between-root-nodes      t
+        treemacs-tag-follow-cleanup            t
+        treemacs-tag-follow-delay              1.5
+        treemacs-width                         35)
 
-(use-package treemacs-projectile
-  :commands (treemacs-projectile)
-  :after (treemacs)
-  :config
-  (setq treemacs-header-function 'treemacs-projectile-create-header))
-
-(use-package treemacs-filewatch-mode
-  :commands (treemacs-filewatch-mode)
-  :after (treemacs)
-  :config
-  (treemacs-filewatch-mode t))
-
-(use-package treemacs-follow-mode
-  :after (treemacs)
-  :commands (treemacs-follow-mode)
-  :config
-  (treemacs-follow-mode t))
-
-(use-package treemacs-async
-  :after (treemacs)
-  :commands (treemacs-git-mode)
-  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode t)
   (pcase (cons (not (null (executable-find "git")))
-               (not (null (executable-find "python3"))))
+               (not (null treemacs-python-executable)))
     (`(t . t)
-     (treemacs-git-mode 'extended))
+     (treemacs-git-mode 'deferred))
     (`(t . _)
      (treemacs-git-mode 'simple))))
+
+(use-package treemacs-projectile
+  :after treemacs projectile)
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :commands treemacs-icons-dired-mode
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit)
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
