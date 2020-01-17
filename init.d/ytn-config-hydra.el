@@ -2,13 +2,7 @@
 (require 'bind-key)
 (require 'hydra)
 
-(declare-function rectangle-previous-line "rect")
-(declare-function rectangle-next-line "rect")
-(declare-function rectangle-backward-char "rect")
-(declare-function rectangle-forward-char "rect")
-(declare-function rectangle-exchange-point-and-mark "rect")
-(declare-function rectangle-number-lines "rect")
-
+(eval-when-compile (require 'rect))
 (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
                                      :color pink
                                      :hint nil
@@ -36,7 +30,11 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
          (rectangle-mark-mode 1)))
   ("u" undo nil)
   ("g" nil))
-(bind-key [remap refctangle-mark-mode] #'hydra-rectangle/body)
+(defun ytn-hydra-rectangle ()
+  (interactive)
+  (require 'rect)
+  (hydra-rectangle/body))
+(bind-key [remap rectangle-mark-mode] #'ytn-hydra-rectangle)
 
 (defhydra hydra-window-resize (global-map "C-x")
   "Enlarge/shrink window."
@@ -49,7 +47,8 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
   ("q" nil)
   ("g" nil))
 
-(with-eval-after-load "outline"
+(eval-when-compile (require 'outline))
+(with-eval-after-load 'outline
   (defhydra hydra-outline (:color pink :hint nil)
     "
 ^Hide^             ^Show^           ^Move
@@ -83,8 +82,9 @@ _d_: subtree
     ("b" outline-backward-same-level)       ; Backward - same level
     ("z" nil "leave"))
 
-(global-set-key (kbd "C-c #") 'hydra-outline/body))
+  (bind-key "C-c #" 'hydra-outline/body))
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; byte-compile-warnings: (not noruntime)
 ;; End:
