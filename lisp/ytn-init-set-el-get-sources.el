@@ -41,7 +41,7 @@
                          (:name ag :checkout "d00aa65ec2da6944f1ed81da440ad7a9024cfbf0")
                          (:name rg :checkout "42603a9279b13427f7049c2768bcc6213094ef18")
 
-                         (:name winum :shallow t :branch "2.0.0" :compile nil)
+                         (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
                          (:name crux :checkout "3e07035660f953cb08847362378267f5859bbe69")
 
