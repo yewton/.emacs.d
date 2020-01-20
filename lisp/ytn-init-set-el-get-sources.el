@@ -33,6 +33,8 @@
                                 :checkout "44b2d7d6a8a81d1ed5c2aaa613eabe7e25c0b9a3"
                                 :build (("makeinfo" "-o" "doc/ivy.info" "doc/ivy.texi")))
 
+                         (:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
+
                          (:name ivy-xref
                                 :checkout "aa97103ea8ce6ab8891e34deff7d43aa83fe36dd"
                                 :compile nil)

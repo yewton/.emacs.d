@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 (require 'f)
+(require 'dash)
 (require 'no-littering)
 
 (eval-when-compile (require 'use-package))
@@ -283,6 +284,19 @@
   ;; url-retrieve だと一部のHTTPS URLが空文字列で返ってくる。
   ;; 関係あり？ http://emacs.1067599.n8.nabble.com/bug-23225-25-1-50-url-retrieve-synchronously-having-trouble-with-some-https-URLs-td394451.html
   (setq org-cliplink-transport-implementation 'curl))
+
+(use-package migemo
+  :demand t
+  :commands migemo-init
+  :config
+  (let* ((dict-candidates (list "/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict"
+                                "/usr/local/share/migemo/utf-8/migemo-dict"))
+         (dict (--find (f-readable-p it) dict-candidates)))
+    (when dict
+      (setq migemo-dictionary dict)))
+  (setq migemo-user-dictionary (f-join no-littering-var-directory "migemo-user-dict"))
+  (setq migemo-regex-dictionary (f-join no-littering-var-directory "migemo-regex-dict"))
+  (migemo-init))
 
 (load "ytn-config-skk")
 (load "ytn-config-org")

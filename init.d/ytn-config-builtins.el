@@ -171,6 +171,15 @@
 (use-package eldoc
   :defer t
   :delight eldoc-mode)
+
+(use-package isearch
+  :config
+  :bind (("s-s" . isearch-forward)
+         ("s-r" . isearch-backward)
+         :map isearch-mode-map
+         ("s-s" . isearch-repeat-forward)
+         ("s-r" . isearch-repeat-backward)))
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
