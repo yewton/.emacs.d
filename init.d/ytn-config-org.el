@@ -25,7 +25,6 @@
         org-refile-use-outline-path 'file
         org-use-speed-commands t
         org-image-actual-width nil
-        org-use-property-inheritance '("DIR")
         org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
@@ -87,7 +86,9 @@
 (use-package org-attach
   :defer t
   :config
-  (setq org-attach-store-link-p t))
+  (setq org-attach-store-link-p t
+        org-attach-dir-relative t
+        org-attach-use-inheritance t))
 
 (use-package ox
   :defer t
