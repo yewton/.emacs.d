@@ -139,13 +139,7 @@
           (format org-download-link-format
                   (org-link-escape
                    (funcall org-download-abbreviate-filename-function filename)))))
-  (setq org-download-annotate-function
-        (lambda (link)
-          (format "#+DOWNLOADED: %s @ %s\n#+ATTR_ORG: :width 500\n"
-                  (if (equal link org-download-screenshot-file)
-                      "screenshot"
-                    link)
-                  (format-time-string "%Y-%m-%d %H:%M:%S"))))
+  (setq org-download-annotate-function (lambda (_link) "#+ATTR_ORG: :width 500\n"))
   (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; Local Variables:
