@@ -68,6 +68,7 @@
     (setq org-agenda-category-icon-alist `(,(funcall fn "task")
                                            ,(funcall fn "routine")
                                            ,(funcall fn "event")
+                                           ,(funcall fn "holiday")
                                            ,(funcall fn "anniv")
                                            ,(funcall fn "log")))))
 
