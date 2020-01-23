@@ -48,6 +48,7 @@
         org-agenda-compact-blocks t
         org-agenda-show-outline-path nil
         org-agenda-sticky nil
+        org-agenda-include-diary t
         org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                                      ("u" "Unscheduled TODO" todo ""
                                       ((org-agenda-overriding-header "Unscheduled TODO")
@@ -65,12 +66,14 @@
         org-agenda-log-mode-items '(clock))
   (let ((fn (lambda (category)
               `(,category ,(f-join user-emacs-directory "res" (s-concat category ".svg")) nil nil :ascent center))))
+
     (setq org-agenda-category-icon-alist `(,(funcall fn "task")
                                            ,(funcall fn "routine")
                                            ,(funcall fn "event")
                                            ,(funcall fn "leave")
                                            ,(funcall fn "anniv")
-                                           ,(funcall fn "log")))))
+                                           ,(funcall fn "log")
+                                           ,(funcall fn "Diary")))))
 
 (use-package org-capture
   :config

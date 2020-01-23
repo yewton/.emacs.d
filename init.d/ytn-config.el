@@ -298,6 +298,17 @@
   (setq migemo-regex-dictionary (f-join no-littering-var-directory "migemo-regex-dict"))
   (migemo-init))
 
+(use-package japanese-holidays
+  :after calendar holidays
+  :config
+  (setq calendar-holidays japanese-holidays holiday-local-holidays holiday-other-holidays)
+  (setq japanese-holiday-weekend '(0 6)     ; 土日を祝日として表示
+        japanese-holiday-weekend-marker     ; 土曜日を水色で表示
+        '(holiday nil nil nil nil nil japanese-holiday-saturday))
+  (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
+  (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
+  (add-hook 'calendar-today-visible-hook 'calendar-mark-today))
+
 (load "ytn-config-skk")
 (load "ytn-config-org")
 (load "ytn-config-ivy")

@@ -180,6 +180,10 @@
          ("s-s" . isearch-repeat-forward)
          ("s-r" . isearch-repeat-backward)))
 
+(use-package calendar
+  :config
+  (setq calendar-mark-holidays-flag t))
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
