@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 (require 'f)
+(require 's)
 (require 'dash)
 (require 'no-littering)
 
@@ -73,9 +74,11 @@
   (let ((projectile-dir (f-join no-littering-var-directory "projectile")))
     (f-mkdir projectile-dir)
     (setq projectile-enable-caching t
-          projectile-ignored-projects '("/usr/local/")
           projectile-known-projects-file (f-join projectile-dir "projectile-bookmarks.eld")
-          projectile-cache-file (f-join projectile-dir "projectile.cache")))
+          projectile-cache-file (f-join projectile-dir "projectile.cache")
+          projectile-ignored-project-function (lambda (truename)
+                                                (or (s-contains-p "var/el-get" truename)
+                                                    (s-prefix-p "/usr/local/" truename)))))
   (projectile-load-known-projects)
   :init
   (projectile-mode +1))
