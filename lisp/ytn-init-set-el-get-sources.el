@@ -19,7 +19,7 @@
                          (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
                          (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
-                         (:name no-littering :checkout "c6de27af80edadc3cc09fe8a6832058d00ad570c")
+                         (:name no-littering :checkout "14ed8ed2a2d8ae700ce1889d76bc4588d22549b1")
 
                          (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
                          (:name use-package :checkout "4aa14a4fcd5ca52b3f1bfcf5ab294173f7bbe390")
@@ -68,10 +68,10 @@
                                 :compile nil)
 
                          (:name emacs-async :checkout "324549ba1dcf610c3766c272f86bae9d2c49fc70")
-                         (:name ghub :checkout "1395d56496c1581dda0c70a091500e2b947b8d35")
-                         (:name with-editor :checkout "04d59d68dab58a7cf3034c84d8ba0553b78ae30c")
-                         (:name magit-popup :checkout "3f23e81eb0267d6578d8f1733c5e42699b0229a1")
-                         (:name magit :shallow t :branch "2.13.0")
+                         (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
+                         (:name transient :checkout "79777324858df408bd6ba7509d9f0b6987208d98")
+                         (:name magit :checkout "e5e475c61ce568a7e20ed8f795fa343a93632871")
+
                          (:name git-modes :shallow t :branch "1.2.6")
 
                          (:name diff-hl :checkout "bec9889de7bf48d28826039880cec9bfad24a628")
@@ -136,6 +136,14 @@
 
                          (:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
+
+                         (:name pcsv :checkout "")
+                         (:name esqlite :checkout "")
+                         (:name closql :checkout "1e78f96dc976badb59067c986f7766cce89405cc")
+                         (:name emacsql :checkout "a118b6c95af1306f0288a383d274b5dd93efbbda")
+                         (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
+                         (:name ghub :checkout "4ebe60b9522355c6ee95005bc7d8ba41df4a3c6b")
+                         (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3")
 
                          (:name plantuml-mode :pkgname "skuro/plantuml-mode" :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 

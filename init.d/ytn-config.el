@@ -46,6 +46,9 @@
   :config
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 
+(use-package forge
+  :after magit)
+
 (use-package diff-hl
   :hook ((magit-post-refresh . diff-hl-magit-post-refresh)
          (prog-mode . turn-on-diff-hl-mode)
