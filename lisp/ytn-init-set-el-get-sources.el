@@ -137,8 +137,8 @@
                          (:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
                          (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
 
-                         (:name pcsv :checkout "")
-                         (:name esqlite :checkout "")
+                         (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
+                         (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
                          (:name closql :checkout "1e78f96dc976badb59067c986f7766cce89405cc")
                          (:name emacsql :checkout "a118b6c95af1306f0288a383d274b5dd93efbbda")
                          (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
