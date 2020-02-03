@@ -296,6 +296,7 @@
   :commands migemo-init
   :config
   (let* ((dict-candidates (list "/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict"
+                                "/usr/share/cmigemo/utf-8/migemo-dict"
                                 "/usr/local/share/migemo/utf-8/migemo-dict"))
          (dict (--find (f-readable-p it) dict-candidates)))
     (when dict
