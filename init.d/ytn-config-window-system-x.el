@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t -*-
 (let* ((fonts '(
+                ("Cica" . 120)
                 ("Myrica M" . 120)
                 ("Monospace" . 96)
                 ))
