@@ -176,6 +176,7 @@
 
                          (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a")
 
+                         (:name emacs-async :checkout "324549ba1dcf610c3766c272f86bae9d2c49fc70")
                          (:name org-download :checkout "a367669384859261bcb11bac4b782f231f972353")
 
                          (:name japanese-holidays :checkout "45e70a6eaf4a555fadc58ab731d522a037a81997")
