@@ -180,6 +180,10 @@
 
                          (:name japanese-holidays :checkout "45e70a6eaf4a555fadc58ab731d522a037a81997")
 
+                         (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df")
+
+                         (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064")
+
                          (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
 (provide 'ytn-init-set-el-get-sources)
