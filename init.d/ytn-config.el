@@ -167,7 +167,10 @@
          ("<help> C-k" . helpful-key)
          ("<help> C-d" . helpful-at-point)
          ("<help> F" . helpful-function)
-         ("<help> C" . helpful-command)))
+         ("<help> C" . helpful-command))
+  :init
+  (setq counsel-describe-function-function 'helpful-callable)
+  (setq counsel-describe-variable-function 'helpful-variable))
 
 (use-package emojify
   :bind (("C-c e" . emojify-insert-emoji))

@@ -14,7 +14,7 @@
                                 ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                                 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/"))))
 
-                         (:name dash :checkout "528e5a51f1af668e3075f2beccd2b39785ccb2ba")
+                         (:name dash :checkout "721436b04da4e2795387cb48a98ac6de37ece0fd")
                          (:name s :checkout "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")
                          (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
                          (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
@@ -67,7 +67,6 @@
                                 :checkout "7b94c0c1e3185a4350dc39885add3927037ebad8"
                                 :compile nil)
 
-                         (:name emacs-async :checkout "324549ba1dcf610c3766c272f86bae9d2c49fc70")
                          (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
                          (:name transient :checkout "79777324858df408bd6ba7509d9f0b6987208d98")
                          (:name magit :checkout "e5e475c61ce568a7e20ed8f795fa343a93632871")
@@ -118,9 +117,9 @@
                                 :checkout "7213ef84d0345e2625f28e2b3134f8d98489391f")
 
                          (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
-                         (:name elisp-refs :checkout "eee751a6120f925cdffcfbb6a4545e599b953e94")
-                         (:name shut-up :checkout "a4fd18f37e20ae991c0dbba821b2c8e6f1679c39")
-                         (:name helpful :checkout "5eb8368c429833309abaa5c42e170e6fad84a19f")
+                         (:name elisp-refs :checkout "0a254e6a4dc7fa12857f8334fe6eefa72e49d1c9")
+                         (:name shut-up :checkout "081d6b01e3ba0e60326558e545c4019219e046ce")
+                         (:name helpful :checkout "c54e9ddbd6a77858048c1a4c4b549de98af8f88e")
 
                          (:name emojify :checkout "a16199dcf9b4688839eba00f1e356d9beac46cfe")
 
