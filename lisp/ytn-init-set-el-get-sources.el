@@ -92,8 +92,8 @@
                          (:name company-mode :shallow t :branch "0.9.4")
                          (:name company-quickhelp :checkout "1580b10")
 
-                         (:name powerline :shallow t :branch "2.4")
-                         (:name spaceline :checkout "ca20430271f80d46892d62cb7624b4dee6cafe72" :compile nil)
+                         (:name powerline :checkout "edbb464eef680efc9d408730288c716cd4cac404")
+                         (:name spaceline :checkout "1b26af2c1a701481ac5d90928fe0200e389756c3")
 
                          (:name avy :checkout "cf95ba9582121a1c2249e3c5efdc51acd566d190")
                          (:name ace-window :checkout "edbbb1b77c3fb939e4d9057443bc1897321d0095")
