@@ -168,6 +168,7 @@
          ("<help> C-d" . helpful-at-point)
          ("<help> F" . helpful-function)
          ("<help> C" . helpful-command))
+  :defines (counsel-describe-function-function counsel-describe-variable-function)
   :init
   (setq counsel-describe-function-function 'helpful-callable)
   (setq counsel-describe-variable-function 'helpful-variable))
