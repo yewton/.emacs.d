@@ -5,3 +5,4 @@
 *.elc
 /custom.el
 /lisp/ytn-init-autoloads.el
+flycheck_*.el
