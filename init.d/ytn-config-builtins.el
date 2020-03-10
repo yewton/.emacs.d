@@ -41,8 +41,7 @@
 
 (blink-cursor-mode 1)
 
-(setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+(auto-save-visited-mode +1)
 
 (menu-bar-mode 0)
 (when window-system
