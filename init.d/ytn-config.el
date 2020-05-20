@@ -320,6 +320,24 @@
   (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
   (add-hook 'calendar-today-visible-hook 'calendar-mark-today))
 
+(use-package org-roam
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory (f-join org-directory "roam"))
+      :config
+      (setq org-roam-completion-system 'ivy)
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
+
+(use-package company-org-roam
+  :config
+  (push 'company-org-roam company-backends))
+
 (load "ytn-config-skk")
 (load "ytn-config-org")
 (load "ytn-config-ivy")
