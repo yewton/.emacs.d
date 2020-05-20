@@ -324,7 +324,7 @@
       :hook
       (after-init . org-roam-mode)
       :custom
-      (org-roam-directory (f-join org-directory "roam"))
+      (org-roam-directory "~/org/roam")
       :config
       (setq org-roam-completion-system 'ivy)
       :bind (:map org-roam-mode-map
