@@ -54,13 +54,14 @@
 
   When ARG is non-nil search in junk files."
     (interactive "P")
-    (let* ((open-junk-file-format (f-join no-littering-var-directory "junk/%Y/%m/%d-%H%M%S."))
+    (let* ((junk-root-dir (f-join no-littering-var-directory "junk"))
+           (open-junk-file-format (f-join junk-root-dir "junk/%Y/%m/%d-%H%M%S."))
            (fname (format-time-string open-junk-file-format (current-time)))
            (rel-fname (file-name-nondirectory fname))
            (junk-dir (file-name-directory fname))
            (default-directory junk-dir))
       (if arg
-          (counsel-ag nil junk-dir "" "[junk]")
+          (counsel-rg nil junk-root-dir "" "[junk]")
         (mkdir junk-dir 'parents)
         (counsel-find-file rel-fname))))
   :bind (("M-x" . counsel-M-x)
