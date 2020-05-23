@@ -144,6 +144,7 @@
                   (org-link-escape
                    (funcall org-download-abbreviate-filename-function filename)))))
   (setq org-download-annotate-function (lambda (_link) "#+ATTR_ORG: :width 500\n"))
+  (setq org-download-screenshot-method (cond ((eq system-type 'darwin) "screencapture -i %s")))
   (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; Local Variables:
