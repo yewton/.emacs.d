@@ -328,11 +328,19 @@
       (org-roam-directory "~/org/roam")
       :config
       (setq org-roam-completion-system 'ivy)
+      (defun ytn-org-roam-search ()
+        (interactive)
+        (counsel-rg nil org-roam-directory "" "[Roam]"))
+      (defun ytn-org-roam-find-refs ()
+        (interactive)
+        (counsel-rg (file-name-nondirectory (buffer-file-name)) org-roam-directory "" "[Roam Refs]"))
       :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
                ("C-c n g" . org-roam-graph)
-               ("C-c n t" . org-roam-dailies-today))
+               ("C-c n t" . org-roam-dailies-today)
+               ("C-c n s" . ytn-org-roam-search)
+               ("C-c n r" . ytn-org-roam-find-refs))
               :map org-mode-map
               (("C-c n i" . org-roam-insert))))
 
