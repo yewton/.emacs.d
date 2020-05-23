@@ -307,6 +307,7 @@
       (setq migemo-dictionary dict)))
   (setq migemo-user-dictionary (f-join no-littering-var-directory "migemo-user-dict"))
   (setq migemo-regex-dictionary (f-join no-littering-var-directory "migemo-regex-dict"))
+  (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
   (migemo-init))
 
 (use-package japanese-holidays
