@@ -165,6 +165,7 @@
       (avy-with avy-goto-migemo-timer
         (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
         (avy-process avy--old-cands))))
+  (add-to-list 'avy-styles-alist '(avy-goto-migemo-timer . pre))
   :bind (("C-'" . avy-goto-char-2)
          ("M-C-'" . avy-goto-migemo-timer)))
 
