@@ -326,6 +326,8 @@
       (after-init . org-roam-mode)
       :custom
       (org-roam-directory "~/org/roam")
+      :functions
+      counsel-rg
       :config
       (setq org-roam-completion-system 'ivy)
       (defun ytn-org-roam-search ()
