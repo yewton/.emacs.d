@@ -3,11 +3,14 @@
 
 (require 'f)
 (require 's)
+(require 'avy)
 
 (use-package org
   :commands (org-clock-persistence-insinuate)
   :bind (("C-c l" . org-store-link)
-         ("C-c b" . org-switchb))
+         ("C-c b" . org-switchb)
+         (:map org-mode-map
+               ("C-'" . avy-goto-char-2)))
   :config
   (org-clock-persistence-insinuate)
   (setq org-ellipsis " …"
