@@ -153,6 +153,21 @@
   :config
   (set-face-attribute 'info-xref nil :underline nil))
 
+(use-package avy
+  :functions
+  migemo-get-pattern
+  :config
+  (defun avy-goto-migemo-timer (&optional arg)
+    (interactive "P")
+    (let ((avy-all-windows (if arg
+                               (not avy-all-windows)
+                             avy-all-windows)))
+      (avy-with avy-goto-char-timer
+        (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
+        (avy-process avy--old-cands))))
+  :bind (("C-'" . avy-goto-char-2)
+         ("M-C-'" . avy-goto-migemo-timer)))
+
 (use-package ace-link
   :commands (ace-link-setup-default)
   :init
