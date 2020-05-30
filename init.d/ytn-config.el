@@ -162,7 +162,7 @@
     (let ((avy-all-windows (if arg
                                (not avy-all-windows)
                              avy-all-windows)))
-      (avy-with avy-goto-char-timer
+      (avy-with avy-goto-migemo-timer
         (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
         (avy-process avy--old-cands))))
   :bind (("C-'" . avy-goto-char-2)
