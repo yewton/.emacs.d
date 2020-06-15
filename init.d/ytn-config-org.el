@@ -45,7 +45,7 @@
         org-agenda-start-on-weekday 1
         org-agenda-deadline-leaders '("⏰" "🔜%2d日後" "⚠%2d日超過")
         org-agenda-scheduled-leaders '("📅" "📌%2d日前")
-        org-agenda-format-date "%_2m月%e日(%a) %_20Y年"
+        org-agenda-format-date "%-m月%e日(%a) %_20Y年"
         org-agenda-show-current-time-in-grid t
         org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
         org-agenda-compact-blocks t
