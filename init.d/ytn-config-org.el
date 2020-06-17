@@ -150,6 +150,9 @@
   (setq org-download-screenshot-method (cond ((eq system-type 'darwin) "screencapture -i %s")))
   (add-hook 'dired-mode-hook 'org-download-enable))
 
+(use-package org-protocol
+  :demand t)
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

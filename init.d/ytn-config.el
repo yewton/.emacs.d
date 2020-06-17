@@ -363,6 +363,9 @@
               :map org-mode-map
               (("C-c n i" . org-roam-insert))))
 
+(use-package org-roam-protocol
+  :after org-roam)
+
 (use-package company-org-roam
   :config
   (push 'company-org-roam company-backends))
