@@ -134,7 +134,8 @@
 (setq uniquify-buffer-name-style 'forward
       uniquify-separator "/"
       uniquify-after-kill-buffer-p t
-      uniquify-ignore-buffers-re "^\\*")
+      uniquify-ignore-buffers-re "^\\*"
+      uniquify-min-dir-content 2)
 
 (setq use-package-expand-minimally byte-compile-current-file)
 
