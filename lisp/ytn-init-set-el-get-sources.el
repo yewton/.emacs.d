@@ -14,8 +14,8 @@
                                 ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                                 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/"))))
 
-                         (:name dash :checkout "721436b04da4e2795387cb48a98ac6de37ece0fd")
-                         (:name s :checkout "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")
+                         (:name dash :checkout "732d92eac56023a4fb4a5dc3d9d4e274ebf44bf9")
+                         (:name s :checkout "43ba8b563bee3426cead0e6d4ddc09398e1a349d")
                          (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
                          (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
@@ -184,8 +184,9 @@
 
                          (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064")
 
-                         (:name org-roam :pkgname "org-roam/org-roam" :type github :checkout "c4189ff")
-                         (:name company-org-roam :pkgname "org-roam/company-org-roam" :type github :checkout "b5af6f2")
+                         (:name emacsql-sqlite3 :pkgname "cireu/emacsql-sqlite3" :type github :checkout "1e411fd38a0137553986db209642fe93cae96060")
+                         (:name org-roam :pkgname "org-roam/org-roam" :type github :checkout "79c75ac17468b5e2e3df03ce0936ddd8d0e5e947")
+                         (:name company-org-roam :pkgname "org-roam/company-org-roam" :type github :checkout "674c2bd493f571c5323d69279557a6c18ccbd14e")
 
                          (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
