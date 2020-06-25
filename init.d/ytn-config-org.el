@@ -6,11 +6,21 @@
 (require 'avy)
 
 (use-package org
-  :commands (org-clock-persistence-insinuate)
+  :commands (org-clock-persistence-insinuate
+             org-eval-in-calendar)
   :bind (("C-c l" . org-store-link)
          ("C-c b" . org-switchb)
          (:map org-mode-map
-               ("C-'" . avy-goto-char-2)))
+               ("C-'" . avy-goto-char-2))
+         (:map org-read-date-minibuffer-local-map
+               ("<up>" . (lambda () (interactive)
+                           (org-eval-in-calendar '(calendar-backward-week 1))))
+               ("<down>" . (lambda () (interactive)
+                            (org-eval-in-calendar '(calendar-forward-week 1))))
+               ("<left>" . (lambda () (interactive)
+                             (org-eval-in-calendar '(calendar-backward-day 1))))
+               ("<right>" . (lambda () (interactive)
+                              (org-eval-in-calendar '(calendar-forward-day 1))))))
   :config
   (org-clock-persistence-insinuate)
   (setq org-ellipsis " …"
