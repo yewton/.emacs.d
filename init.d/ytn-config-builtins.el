@@ -181,6 +181,11 @@
          ("s-r" . isearch-repeat-backward)))
 
 (use-package calendar
+  :bind (:map calendar-mode-map
+               ("h" . (lambda () (interactive) (calendar-backward-day 1)))
+               ("j" . (lambda () (interactive) (calendar-forward-week 1)))
+               ("k" . (lambda () (interactive) (calendar-backward-week 1)))
+               ("l" . (lambda () (interactive) (calendar-forward-day 1))))
   :config
   (setq calendar-mark-holidays-flag t))
 
