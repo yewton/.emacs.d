@@ -181,6 +181,7 @@
          ("s-r" . isearch-repeat-backward)))
 
 (use-package calendar
+  :commands calendar-backward-day calendar-backward-week calendar-forward-week calendar-forward-day
   :bind (:map calendar-mode-map
                ("h" . (lambda () (interactive) (calendar-backward-day 1)))
                ("j" . (lambda () (interactive) (calendar-forward-week 1)))
