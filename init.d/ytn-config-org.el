@@ -21,13 +21,13 @@
                              (org-eval-in-calendar '(calendar-backward-day 1))))
                ("<right>" . (lambda () (interactive)
                               (org-eval-in-calendar '(calendar-forward-day 1))))
-               ("h" . (lambda () (interactive)
+               ("b" . (lambda () (interactive)
                         (org-eval-in-calendar '(calendar-backward-day 1))))
-               ("j" . (lambda () (interactive)
+               ("n" . (lambda () (interactive)
                         (org-eval-in-calendar '(calendar-forward-week 1))))
-               ("k" . (lambda () (interactive)
+               ("p" . (lambda () (interactive)
                            (org-eval-in-calendar '(calendar-backward-week 1))))
-               ("l" . (lambda () (interactive)
+               ("f" . (lambda () (interactive)
                               (org-eval-in-calendar '(calendar-forward-day 1))))))
   :config
   (org-clock-persistence-insinuate)
@@ -70,6 +70,7 @@
         org-agenda-show-outline-path nil
         org-agenda-sticky nil
         org-agenda-include-diary t
+        org-sort-agenda-notime-is-late nil
         org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                                      ("u" "Unscheduled TODO" todo ""
                                       ((org-agenda-overriding-header "Unscheduled TODO")

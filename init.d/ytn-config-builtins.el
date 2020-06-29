@@ -183,10 +183,10 @@
 (use-package calendar
   :commands calendar-backward-day calendar-backward-week calendar-forward-week calendar-forward-day
   :bind (:map calendar-mode-map
-               ("h" . (lambda () (interactive) (calendar-backward-day 1)))
-               ("j" . (lambda () (interactive) (calendar-forward-week 1)))
-               ("k" . (lambda () (interactive) (calendar-backward-week 1)))
-               ("l" . (lambda () (interactive) (calendar-forward-day 1))))
+               ("b" . (lambda () (interactive) (calendar-backward-day 1)))
+               ("n" . (lambda () (interactive) (calendar-forward-week 1)))
+               ("p" . (lambda () (interactive) (calendar-backward-week 1)))
+               ("f" . (lambda () (interactive) (calendar-forward-day 1))))
   :config
   (setq calendar-mark-holidays-flag t))
 
