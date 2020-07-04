@@ -190,6 +190,18 @@
   :config
   (setq calendar-mark-holidays-flag t))
 
+(setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "†")
+                                       ("#+END_SRC" . "†")
+                                       ("#+begin_src" . "†")
+                                       ("#+end_src" . "†")
+                                       ("#+BEGIN_EXAMPLE" . "†")
+                                       ("#+END_EXAMPLE" . "†")
+                                       ("#+begin_example" . "†")
+                                       ("#+end_example" . "†")
+                                       (">=" . "≥")
+                                       ("=>" . "⇨")))
+(setq prettify-symbols-unprettify-at-point 'right-edge)
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

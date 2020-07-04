@@ -28,10 +28,12 @@
                ("p" . (lambda () (interactive)
                            (org-eval-in-calendar '(calendar-backward-week 1))))
                ("f" . (lambda () (interactive)
-                              (org-eval-in-calendar '(calendar-forward-day 1))))))
+                        (org-eval-in-calendar '(calendar-forward-day 1))))))
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . prettify-symbols-mode))
   :config
   (org-clock-persistence-insinuate)
-  (setq org-ellipsis " …")
+  (setq org-ellipsis "⤵")
   (setq org-fontify-whole-heading-line t)
   (setq org-startup-indented t)
   (setq org-startup-with-inline-images t)
@@ -46,7 +48,13 @@
   (setq org-refile-use-outline-path 'file)
   (setq org-use-speed-commands t)
   (setq org-image-actual-width nil)
-  (setq org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
+  (setq org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))
+  (setq org-src-tab-acts-natively t)
+  (setq org-hide-emphasis-markers t)
+  (setq org-fontify-done-headline t)
+  (setq org-hide-leading-stars t)
+  (setq org-pretty-entities t)
+  (setq org-odd-levels-only t))
 
 (use-package org-goto
   :defer t
@@ -171,6 +179,9 @@
 
 (use-package org-protocol
   :demand t)
+
+(use-package org-superstar
+  :hook (org-mode . org-superstar-mode))
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)

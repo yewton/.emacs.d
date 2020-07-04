@@ -108,6 +108,8 @@
                          (:name ddskk :checkout "ad61579af269291b4446f4bab0a58522cc454f1c")
 
                          (:name org-mode :branch "release_9.3.1" :shallow t)
+                         (:name org-superstar-mode :type github :pkgname "integral-dw/org-superstar-mode"
+                                :checkout "17481852c1bd09afea877635a3185261fc19fd64")
 
                          (:name info-plus :type emacsmirror
                                 :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
