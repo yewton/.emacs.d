@@ -31,22 +31,22 @@
                               (org-eval-in-calendar '(calendar-forward-day 1))))))
   :config
   (org-clock-persistence-insinuate)
-  (setq org-ellipsis " …"
-        org-fontify-whole-heading-line t
-        org-startup-indented t
-        org-startup-with-inline-images t
-        org-startup-folded 'content
-        org-log-redeadline 'time
-        org-log-reschedule 'time
-        org-reverse-note-order t
-        org-catch-invisible-edits 'show-and-error
-        org-cycle-separator-lines 0
-        org-outline-path-complete-in-steps nil
-        org-agenda-files '("~/org/agenda")
-        org-refile-use-outline-path 'file
-        org-use-speed-commands t
-        org-image-actual-width nil
-        org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
+  (setq org-ellipsis " …")
+  (setq org-fontify-whole-heading-line t)
+  (setq org-startup-indented t)
+  (setq org-startup-with-inline-images t)
+  (setq org-startup-folded 'content)
+  (setq org-log-redeadline 'time)
+  (setq org-log-reschedule 'time)
+  (setq org-reverse-note-order t)
+  (setq org-catch-invisible-edits 'show-and-error)
+  (setq org-cycle-separator-lines 0)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-agenda-files '("~/org/agenda"))
+  (setq org-refile-use-outline-path 'file)
+  (setq org-use-speed-commands t)
+  (setq org-image-actual-width nil)
+  (setq org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1))))
 
 (use-package org-goto
   :defer t
@@ -58,33 +58,33 @@
   :bind (("C-c a" . org-agenda))
   :config
   (set-face-underline 'org-agenda-current-time nil)
-  (setq org-agenda-window-setup 'reorganize-frame
-        org-agenda-restore-windows-after-quit t
-        org-agenda-start-on-weekday 1
-        org-agenda-deadline-leaders '("⏰" "🔜%2d日後" "⚠%2d日超過")
-        org-agenda-scheduled-leaders '("📅" "📌%2d日前")
-        org-agenda-format-date "%-m月%e日(%a) %_20Y年"
-        org-agenda-show-current-time-in-grid t
-        org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -"
-        org-agenda-compact-blocks t
-        org-agenda-show-outline-path nil
-        org-agenda-sticky nil
-        org-agenda-include-diary t
-        org-sort-agenda-notime-is-late nil
-        org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+  (setq org-agenda-window-setup 'reorganize-frame)
+  (setq org-agenda-restore-windows-after-quit t)
+  (setq org-agenda-start-on-weekday 1)
+  (setq org-agenda-deadline-leaders '("⏰" "🔜%2d日後" "⚠%2d日超過"))
+  (setq org-agenda-scheduled-leaders '("📅" "📌%2d日前"))
+  (setq org-agenda-format-date "%-m月%e日(%a) %_20Y年")
+  (setq org-agenda-show-current-time-in-grid t)
+  (setq org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -")
+  (setq org-agenda-compact-blocks t)
+  (setq org-agenda-show-outline-path nil)
+  (setq org-agenda-sticky nil)
+  (setq org-agenda-include-diary t)
+  (setq org-sort-agenda-notime-is-late nil)
+  (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                                      ("u" "Unscheduled TODO" todo ""
                                       ((org-agenda-overriding-header "Unscheduled TODO")
                                        (org-agenda-todo-ignore-scheduled 'all)
                                        (org-agenda-todo-ignore-deadlines 'all)))
                                      ("N" "Non-recurring TODO" todo ""
                                       ((org-agenda-overriding-header "Non-recurring TODO")
-                                       (org-agenda-category-filter-preset '("-routine")))))
-        org-agenda-breadcrumbs-separator " / "
-        org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+                                       (org-agenda-category-filter-preset '("-routine"))))))
+  (setq org-agenda-breadcrumbs-separator " / ")
+  (setq org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
                                    (todo . " %i %-12:c% s%?b")
                                    (tags . " %i %-12:c")
-                                   (search . " %i %-12:c"))
-        org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
+                                   (search . " %i %-12:c")))
+  (setq org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock))
   (let ((fn (lambda (category)
               `(,category ,(f-join user-emacs-directory "res" (s-concat category ".svg")) nil nil :ascent center))))
@@ -112,9 +112,9 @@
 (use-package org-attach
   :defer t
   :config
-  (setq org-attach-store-link-p t
-        org-attach-dir-relative t
-        org-attach-use-inheritance t))
+  (setq org-attach-store-link-p t)
+  (setq org-attach-dir-relative t)
+  (setq org-attach-use-inheritance t))
 
 (use-package ox
   :defer t
@@ -124,8 +124,8 @@
 (use-package org-clock
   :defer t
   :config
-  (setq org-clock-clocked-in-display 'both
-        org-clock-persist t)
+  (setq org-clock-clocked-in-display 'both)
+  (setq org-clock-persist t)
   (add-to-list 'org-clock-clocktable-language-setup
                '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "Clock summary at")))
 
