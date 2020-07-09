@@ -87,7 +87,7 @@
                                      ("N" "Non-recurring TODO" todo ""
                                       ((org-agenda-overriding-header "Non-recurring TODO")
                                        (org-agenda-category-filter-preset '("-routine"))))))
-  (setq org-agenda-breadcrumbs-separator " / ")
+  (setq org-agenda-breadcrumbs-separator " ❱ ")
   (setq org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
                                    (todo . " %i %-12:c% s%?b")
                                    (tags . " %i %-12:c")
