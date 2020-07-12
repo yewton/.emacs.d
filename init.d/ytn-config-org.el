@@ -103,7 +103,8 @@
                                            ,(funcall fn "leave")
                                            ,(funcall fn "anniv")
                                            ,(funcall fn "log")
-                                           ,(funcall fn "holiday")))))
+                                           ,(funcall fn "holiday")
+                                           ,(funcall fn "sprint")))))
 
 (use-package org-capture
   :config
