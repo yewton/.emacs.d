@@ -379,6 +379,8 @@
   :config
   (push 'company-org-roam company-backends))
 
+(use-package define-word)
+
 (load "ytn-config-skk")
 (load "ytn-config-org")
 (load "ytn-config-ivy")

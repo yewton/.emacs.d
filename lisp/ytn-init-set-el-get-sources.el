@@ -190,6 +190,8 @@
                          (:name org-roam :pkgname "org-roam/org-roam" :type github :checkout "79c75ac17468b5e2e3df03ce0936ddd8d0e5e947")
                          (:name company-org-roam :pkgname "org-roam/company-org-roam" :type github :checkout "674c2bd493f571c5323d69279557a6c18ccbd14e")
 
+                         (:name define-word :checkout "08c71b1ff4fd07bf0c78d1fcf77efeaafc8f7443")
+
                          (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
 (provide 'ytn-init-set-el-get-sources)
