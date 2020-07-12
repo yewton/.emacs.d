@@ -347,25 +347,30 @@
       counsel-rg
       :config
       (setq org-roam-completion-system 'ivy)
-      (setq org-roam-capture-templates '(("d" "default" plain (function org-roam-capture--get-point)
-                                          "%?"
-                                          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-                                          :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n" :unnarrowed t)))
-      (setq org-roam-capture-immediate-template '("d" "default" plain (function org-roam-capture--get-point)
-                                                  "%?"
-                                                  :file-name "%<%Y%m%d%H%M%S>-${slug}"
-                                                  :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n" :unnarrowed t :immediate-finish t))
+      (setq org-roam-capture-templates
+            '(("d" "default" plain (function org-roam-capture--get-point)
+               "%?"
+               :file-name "%<%Y%m%d%H%M%S>-${slug}"
+               :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n"
+               :unnarrowed t)))
+      (setq org-roam-capture-immediate-template
+            '("d" "default" plain (function org-roam-capture--get-point)
+              "%?"
+              :file-name "%<%Y%m%d%H%M%S>-${slug}"
+              :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n"
+              :unnarrowed t :immediate-finish t))
       (setq org-roam-dailies-capture-templates
             '(("d" "daily" plain (function org-roam-capture--get-point)
                ""
                :immediate-finish t
                :file-name "%<%Y-%m-%d>"
                :head "#+setupfile: ../roam-setup.org\n#+title: %<%Y-%m-%d>\n\n* Notes\n")))
-      (setq org-roam-capture-ref-templates '(("r" "ref" plain (function org-roam-capture--get-point)
-                                              ""
-                                              :file-name "${slug}"
-                                              :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n#+roam_key: ${ref}\n\n* Inbox\n"
-                                              :unnarrowed t)))
+      (setq org-roam-capture-ref-templates
+            '(("r" "ref" plain (function org-roam-capture--get-point)
+               ""
+               :file-name "${slug}"
+               :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n#+roam_key: ${ref}\n\n* Inbox\n"
+               :unnarrowed t)))
       (defun ytn-org-roam-search ()
         (interactive)
         (counsel-rg nil org-roam-directory "" "[Roam]"))
