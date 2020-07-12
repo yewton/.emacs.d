@@ -77,7 +77,7 @@
   (setq org-agenda-compact-blocks t)
   (setq org-agenda-show-outline-path nil)
   (setq org-agenda-sticky nil)
-  (setq org-agenda-include-diary t)
+  (setq org-agenda-include-diary nil)
   (setq org-sort-agenda-notime-is-late nil)
   (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                                      ("u" "Unscheduled TODO" todo ""
