@@ -351,6 +351,10 @@
                                           "%?"
                                           :file-name "%<%Y%m%d%H%M%S>-${slug}"
                                           :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n" :unnarrowed t)))
+      (setq org-roam-capture-immediate-template '("d" "default" plain (function org-roam-capture--get-point)
+                                                  "%?"
+                                                  :file-name "%<%Y%m%d%H%M%S>-${slug}"
+                                                  :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n" :unnarrowed t :immediate-finish t))
       (setq org-roam-capture-ref-templates '(("r" "ref" plain (function org-roam-capture--get-point)
                                               ""
                                               :file-name "${slug}"
@@ -370,7 +374,8 @@
                ("C-c n s" . ytn-org-roam-search)
                ("C-c n r" . ytn-org-roam-find-refs))
               :map org-mode-map
-              (("C-c n i" . org-roam-insert))))
+              (("C-c n i" . org-roam-insert)
+               ("C-c n I" . org-roam-insert-immediate))))
 
 (use-package org-roam-protocol
   :after org-roam)
