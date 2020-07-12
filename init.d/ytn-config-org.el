@@ -54,7 +54,8 @@
   (setq org-fontify-done-headline t)
   (setq org-hide-leading-stars t)
   (setq org-pretty-entities t)
-  (setq org-odd-levels-only nil))
+  (setq org-odd-levels-only nil)
+  (setq org-use-sub-superscripts nil))
 
 (use-package org-goto
   :defer t
