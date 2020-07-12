@@ -55,6 +55,7 @@
   (setq org-hide-leading-stars t)
   (setq org-pretty-entities t)
   (setq org-odd-levels-only nil)
+  (setq org-log-into-drawer t)
   (setq org-use-sub-superscripts nil))
 
 (use-package org-goto
