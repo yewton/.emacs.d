@@ -11,7 +11,7 @@
 * Icons
 
 - (task) [[https://www.flaticon.com/free-icon/tasks_906334][Tasks Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (routine) [[https://www.flaticon.com/free-icon/loop_3039356][Loop Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+- (routine) [[https://www.flaticon.com/free-icon/recycling_806265][Recycling Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (event) [[https://www.flaticon.com/free-icon/calendar_1306294][Calendar Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (anniv) [[https://www.flaticon.com/free-icon/birthday-cake_911173][Birthday Cake Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (leave) [[https://www.flaticon.com/free-icon/beach_3076181][Beach Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
