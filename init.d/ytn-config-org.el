@@ -58,6 +58,7 @@
   (setq org-log-into-drawer t)
   (setq org-yank-adjusted-subtrees t)
   (setq org-edit-src-content-indentation 0)
+  (setq org-return-follows-link t)
   (setq org-use-sub-superscripts nil))
 
 (use-package org-goto
