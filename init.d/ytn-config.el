@@ -355,6 +355,12 @@
                                                   "%?"
                                                   :file-name "%<%Y%m%d%H%M%S>-${slug}"
                                                   :head "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n" :unnarrowed t :immediate-finish t))
+      (setq org-roam-dailies-capture-templates
+            '(("d" "daily" plain (function org-roam-capture--get-point)
+               ""
+               :immediate-finish t
+               :file-name "%<%Y-%m-%d>"
+               :head "#+setupfile: ../roam-setup.org\n#+title: %<%Y-%m-%d>\n\n* Notes\n")))
       (setq org-roam-capture-ref-templates '(("r" "ref" plain (function org-roam-capture--get-point)
                                               ""
                                               :file-name "${slug}"
