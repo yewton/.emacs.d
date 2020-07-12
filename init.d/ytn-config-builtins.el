@@ -125,7 +125,25 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-unix-mode-hook))
   (add-hook hook 'display-line-numbers-mode)
   (add-hook hook 'hl-line-mode))
-(add-hook 'org-agenda-mode-hook 'hl-line-mode)
+
+;; https://stackoverflow.com/a/17630877/2142831
+;; First create new face which is a copy of hl-line-face
+(copy-face 'hl-line 'hl-line-agenda-face)
+
+;; Change what you want in this new face
+(set-face-attribute 'hl-line-agenda-face nil
+                    :background nil
+                    :underline nil
+                    :box '(:color "deep pink" :line-width 1 :style nil))
+
+;; The function to use the new face
+(defun my-org-agenda-hl-line ()
+  (set (make-local-variable 'hl-line-face) ; This is how to make it local
+       'hl-line-agenda-face)
+    (hl-line-mode))
+
+;; Finally, the hook
+(add-hook 'org-agenda-mode-hook 'my-org-agenda-hl-line)
 
 (use-package display-line-numbers
   :config
