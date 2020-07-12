@@ -56,6 +56,7 @@
   (setq org-pretty-entities t)
   (setq org-odd-levels-only nil)
   (setq org-log-into-drawer t)
+  (setq org-yank-adjusted-subtrees t)
   (setq org-use-sub-superscripts nil))
 
 (use-package org-goto
