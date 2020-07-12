@@ -18,3 +18,4 @@
 - (holiday) [[https://www.flaticon.com/free-icon/star_945124][Star Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (log) [[https://www.flaticon.com/free-icon/writing_1309480][Writing Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (sprint) [[https://www.flaticon.com/free-icon/running_1590970][Running Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+- (habit) [[https://www.flaticon.com/free-icon/to-do-list_2971381][To Do List Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]

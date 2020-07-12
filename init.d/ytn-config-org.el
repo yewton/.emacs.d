@@ -106,7 +106,8 @@
                                            ,(funcall fn "anniv")
                                            ,(funcall fn "log")
                                            ,(funcall fn "holiday")
-                                           ,(funcall fn "sprint")))))
+                                           ,(funcall fn "sprint")
+                                           ,(funcall fn "habit")))))
 
 (use-package org-capture
   :config
@@ -187,6 +188,9 @@
   :hook (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-headline-bullets-list '("◉" "◈" "○" "◇" "▷")))
+
+(use-package org-habit
+  :after org)
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
