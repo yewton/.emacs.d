@@ -57,6 +57,7 @@
   (setq org-odd-levels-only nil)
   (setq org-log-into-drawer t)
   (setq org-yank-adjusted-subtrees t)
+  (setq org-edit-src-content-indentation 0)
   (setq org-use-sub-superscripts nil))
 
 (use-package org-goto
