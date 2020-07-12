@@ -14,5 +14,6 @@
 - (routine) [[https://www.flaticon.com/free-icon/loop_3039356][Loop Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (event) [[https://www.flaticon.com/free-icon/calendar_1306294][Calendar Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (anniv) [[https://www.flaticon.com/free-icon/birthday-cake_911173][Birthday Cake Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (leave, Diary) [[https://www.flaticon.com/free-icon/beach_3076181][Beach Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+- (leave) [[https://www.flaticon.com/free-icon/beach_3076181][Beach Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+- (holiday) [[https://www.flaticon.com/free-icon/star_945124][Star Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
 - (log) [[https://www.flaticon.com/free-icon/writing_1309480][Writing Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
