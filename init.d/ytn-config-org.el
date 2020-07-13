@@ -99,6 +99,10 @@
                                    (search . " %i")))
   (setq org-agenda-clockreport-parameter-plist '(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
         org-agenda-log-mode-items '(clock))
+  (setq org-agenda-sorting-strategy '((agenda time-up habit-down priority-down category-keep)
+                                      (todo   priority-down category-keep)
+                                      (tags   priority-down category-keep)
+                                      (search category-keep)))
   (let ((fn (lambda (category)
               `(,category ,(f-join user-emacs-directory "res" (s-concat category ".svg")) nil nil :ascent center))))
 
