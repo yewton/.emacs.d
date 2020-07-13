@@ -84,6 +84,7 @@
   (setq org-agenda-sticky nil)
   (setq org-agenda-include-diary nil)
   (setq org-sort-agenda-notime-is-late nil)
+  (setq org-agenda-skip-unavailable-files t)
   (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                                      ("u" "Unscheduled TODO" todo ""
                                       ((org-agenda-overriding-header "Unscheduled TODO")
