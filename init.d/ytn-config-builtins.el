@@ -127,14 +127,11 @@
   (add-hook hook 'hl-line-mode))
 
 ;; https://stackoverflow.com/a/17630877/2142831
-;; First create new face which is a copy of hl-line-face
-(copy-face 'hl-line 'hl-line-agenda-face)
 
-;; Change what you want in this new face
-(set-face-attribute 'hl-line-agenda-face nil
-                    :background nil
-                    :underline nil
-                    :box '(:color "deep pink" :line-width 1 :style nil))
+(defface hl-line-agenda-face
+  '((t :box (:color "deep pink" :line-width 1 :style nil)))
+  "Face for highlighting the current line in org-agenda"
+  :group 'hl-line)
 
 ;; The function to use the new face
 (defun my-org-agenda-hl-line ()
