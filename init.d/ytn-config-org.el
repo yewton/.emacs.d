@@ -78,7 +78,12 @@
   (setq org-agenda-scheduled-leaders '("📅" "📌%2d日前"))
   (setq org-agenda-format-date "%-m月%e日(%a) %_20Y年")
   (setq org-agenda-show-current-time-in-grid t)
-  (setq org-agenda-current-time-string "▷ - - - - - - - - - - - - - - - - - - - - - - - - -")
+  (setq org-agenda-time-grid
+        '((daily today require-timed)
+          (800 900 01000 1100 1200 1300 1400 1500 1600 1700)
+          " ....... "
+          "――――――――――――――――――――――――――――――――――――――――"))
+  (setq org-agenda-current-time-string "❮――― now")
   (setq org-agenda-compact-blocks t)
   (setq org-agenda-show-outline-path nil)
   (setq org-agenda-sticky nil)
