@@ -101,7 +101,7 @@
                                        (org-agenda-start-with-log-mode nil)))
                                      ("N" "ルーチンワーク以外" todo ""
                                       ((org-agenda-category-filter-preset '("-routine" "-habit"))))
-                                     ("A" "アーカイブ候補" tags "CREATED<\"<-3m>\"|TIMESTAMP_IA<\"<-3m>\"|TIMESTAMP<\"<-3m>\"|SCHEDULED<\"<-3m>\"|DEADLINE<\"<-3m>\""
+                                     ("A" "アーカイブ候補" tags "CREATED<\"<-3m>\"|TIMESTAMP_IA<\"<-3m>\"|TIMESTAMP<\"<-3m>\"|SCHEDULED<\"<-3m>\"|DEADLINE<\"<-3m>\"/-TODO"
                                       ((org-agenda-max-entries 50)))
                                      ("R" "リファイル候補" tags "refileme"
                                       ((org-tags-match-list-sublevels nil)))
