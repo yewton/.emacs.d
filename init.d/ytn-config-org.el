@@ -96,7 +96,7 @@
                                       ((org-agenda-max-entries 50)))
                                      ("w" "Weekly" agenda ""
                                       ((org-agenda-span 'week)
-                                       (org-agenda-time-grid nil)
+                                       (org-agenda-use-time-grid nil)
                                        (org-agenda-show-all-dates nil)
                                        (org-agenda-start-with-log-mode nil)))
                                      ("N" "ルーチンワーク以外" todo ""
