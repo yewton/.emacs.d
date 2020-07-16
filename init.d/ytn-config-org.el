@@ -90,14 +90,34 @@
   (setq org-agenda-include-diary nil)
   (setq org-sort-agenda-notime-is-late t)
   (setq org-agenda-skip-unavailable-files t)
-  (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-                                     ("u" "Unscheduled TODO" todo ""
-                                      ((org-agenda-overriding-header "Unscheduled TODO")
-                                       (org-agenda-todo-ignore-scheduled 'all)
-                                       (org-agenda-todo-ignore-deadlines 'all)))
-                                     ("N" "Non-recurring TODO" todo ""
-                                      ((org-agenda-overriding-header "Non-recurring TODO")
-                                       (org-agenda-category-filter-preset '("-routine"))))))
+  (setq org-agenda-custom-commands '(("u" "スケジュールされていないタスク" todo ""
+                                      ((org-agenda-todo-ignore-scheduled 'all)))
+                                     ("r" "最近作成されたエントリ" tags "CREATED>=\"<-2w>\"|TIMESTAMP_IA>=\"<-2w>\""
+                                      ((org-agenda-max-entries 50)))
+                                     ("w" "Weekly" agenda ""
+                                      ((org-agenda-span 'week)
+                                       (org-agenda-time-grid nil)
+                                       (org-agenda-show-all-dates nil)
+                                       (org-agenda-start-with-log-mode nil)))
+                                     ("N" "ルーチンワーク以外" todo ""
+                                      ((org-agenda-category-filter-preset '("-routine" "-habit"))))
+                                     ("A" "アーカイブ候補" tags "CREATED<\"<-3m>\"|TIMESTAMP_IA<\"<-3m>\""
+                                      ((org-agenda-max-entries 50)))
+                                     ("R" "リファイル候補" tags "refileme"
+                                      ((org-tags-match-list-sublevels nil)))
+                                     ("D" "締切のみ" agenda ""
+                                      ((org-agenda-span 'month)
+                                       (org-agenda-time-grid nil)
+                                       (org-agenda-show-all-dates nil)
+                                       (org-agenda-start-with-log-mode nil)
+                                       (org-agenda-entry-types '(:deadline))
+                                       (org-deadline-warning-days 0)))
+                                     ("E" "予定のみ" agenda ""
+                                      ((org-agenda-span 'weeek)
+                                       (org-agenda-time-grid nil)
+                                       (org-agenda-show-all-dates nil)
+                                       (org-agenda-start-with-log-mode nil)
+                                       (org-agenda-entry-types '(:timestamp))))))
   (setq org-agenda-breadcrumbs-separator " ❱ ")
   (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s")
                                    (todo . " %i% s%?b")
