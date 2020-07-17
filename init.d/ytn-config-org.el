@@ -113,7 +113,7 @@
                                        (org-agenda-entry-types '(:deadline))
                                        (org-deadline-warning-days 0)))
                                      ("E" "予定のみ" agenda ""
-                                      ((org-agenda-span 'weeek)
+                                      ((org-agenda-span 'week)
                                        (org-agenda-time-grid nil)
                                        (org-agenda-show-all-dates nil)
                                        (org-agenda-start-with-log-mode nil)
