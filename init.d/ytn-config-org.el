@@ -117,7 +117,7 @@
                                        (org-agenda-time-grid nil)
                                        (org-agenda-show-all-dates nil)
                                        (org-agenda-start-with-log-mode nil)
-                                       (org-agenda-entry-types '(:timestamp))))))
+                                       (org-agenda-entry-types '(:timestamp :sexp))))))
   (setq org-agenda-breadcrumbs-separator " ❱ ")
   (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s")
                                    (todo . " %i% s%?b")
