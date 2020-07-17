@@ -228,8 +228,10 @@
   (ace-popup-menu-mode))
 
 (use-package leuven-theme
-  :config
-  (load-theme 'leuven t))
+  :init
+  (add-hook 'window-setup-hook
+            (defun ytn-load-theme ()
+              (load-theme 'leuven t))))
 
 (use-package highlight-thing
   :delight
