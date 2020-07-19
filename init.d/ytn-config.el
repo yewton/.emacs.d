@@ -178,8 +178,12 @@
 
 (use-package ace-link
   :commands (ace-link-setup-default)
+  :defines org-agenda-mode-map
   :init
-  (ace-link-setup-default))
+  (ace-link-setup-default)
+  :bind
+  (:map org-agenda-mode-map
+        ("o" . ace-link-org-agenda)))
 
 (use-package help+)
 (use-package help-fns+)
