@@ -169,6 +169,7 @@
   :bind (("C-'" . avy-goto-char-2)
          ("M-C-'" . avy-goto-migemo-timer)
          ("M-g g" . avy-goto-line)))
+  (setq avy-all-windows nil)
 
 (use-package ace-link
   :commands (ace-link-setup-default)
