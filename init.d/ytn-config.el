@@ -166,10 +166,15 @@
         (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
         (avy-process avy--old-cands))))
   (add-to-list 'avy-styles-alist '(avy-goto-migemo-timer . pre))
-  :bind (("C-'" . avy-goto-char-2)
-         ("M-C-'" . avy-goto-migemo-timer)
-         ("M-g g" . avy-goto-line)))
   (setq avy-all-windows nil)
+  :bind (("C-;" . avy-goto-char-2)
+         ("C-'" . avy-goto-line)
+         ("M-C-;" . avy-goto-migemo-timer)
+         ("M-g g" . avy-goto-line)
+         ("M-g c" . avy-goto-char)
+         ("M-g e" . avy-goto-word-0)
+         ("M-g w" . avy-goto-word-1)
+         ("M-g P" . avy-pop-mark)))
 
 (use-package ace-link
   :commands (ace-link-setup-default)
