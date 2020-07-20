@@ -181,9 +181,9 @@
   :defines org-agenda-mode-map
   :init
   (ace-link-setup-default)
-  :bind
-  (:map org-agenda-mode-map
-        ("o" . ace-link-org-agenda)))
+  :config
+  (with-eval-after-load "org-agenda"
+    (bind-key "o" #'ace-link-org-agenda org-agenda-mode-map)))
 
 (use-package help+)
 (use-package help-fns+)
