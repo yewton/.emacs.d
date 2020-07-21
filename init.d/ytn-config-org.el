@@ -11,7 +11,7 @@
   :bind (("C-c l" . org-store-link)
          ("C-c b" . org-switchb)
          (:map org-mode-map
-               ("C-'" . avy-goto-char-2))
+               ("C-'" . avy-goto-line))
          (:map org-read-date-minibuffer-local-map
                ("<up>" . (lambda () (interactive)
                            (org-eval-in-calendar '(calendar-backward-week 1))))
