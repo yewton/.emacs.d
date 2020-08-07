@@ -14,7 +14,7 @@
                                 ;;     https://github.com/dimitri/el-get/blob/2d9068f7bc2aa0b2ad2e9cbb2022e72ac737eaa7/recipes/package.rcp#L33-L38
                                 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/"))))
 
-                         (:name dash :checkout "732d92eac56023a4fb4a5dc3d9d4e274ebf44bf9")
+                         (:name dash :checkout "b92ab5a39b987e4fe69317b9d9fda452300baf20")
                          (:name s :checkout "43ba8b563bee3426cead0e6d4ddc09398e1a349d")
                          (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
                          (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
@@ -89,7 +89,7 @@
                          (:name rainbow-identifiers :shallow t :branch "0.2.2")
                          (:name rainbow-delimiters :shallow t :branch "2.1.3")
 
-                         (:name company-mode :shallow t :branch "0.9.4")
+                         (:name company-mode :checkout "5eb7d868c2a13bbfb14060b79d69f0d59f6a5f60")
                          (:name company-quickhelp :checkout "1580b10")
 
                          (:name powerline :checkout "edbb464eef680efc9d408730288c716cd4cac404")
@@ -141,7 +141,7 @@
                          (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
                          (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
                          (:name closql :checkout "1e78f96dc976badb59067c986f7766cce89405cc")
-                         (:name emacsql :checkout "a118b6c95af1306f0288a383d274b5dd93efbbda")
+                         (:name emacsql :checkout "6d8cd9366284b5a27268ff4b783e2c34573d5b60")
                          (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
                          (:name ghub :checkout "4ebe60b9522355c6ee95005bc7d8ba41df4a3c6b")
                          (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3")
@@ -186,9 +186,9 @@
 
                          (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064")
 
-                         (:name emacsql-sqlite3 :pkgname "cireu/emacsql-sqlite3" :type github :checkout "1e411fd38a0137553986db209642fe93cae96060")
-                         (:name org-roam :pkgname "org-roam/org-roam" :type github :checkout "79c75ac17468b5e2e3df03ce0936ddd8d0e5e947")
-                         (:name company-org-roam :pkgname "org-roam/company-org-roam" :type github :checkout "674c2bd493f571c5323d69279557a6c18ccbd14e")
+                         (:name emacsql-sqlite3 :checkout "e920671872cd8e0ef9c3646e6f0fae331bf8a7df")
+                         (:name org-roam :checkout "4f3668a1e3ccd6a91b61580be3c9a28652074f6e")
+                         (:name company-org-roam :checkout "1132663bd68022aa7ea005ff53c7c7571890769d")
 
                          (:name define-word :checkout "08c71b1ff4fd07bf0c78d1fcf77efeaafc8f7443")
 
