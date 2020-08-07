@@ -11,8 +11,7 @@
 (setq ns-command-modifier 'meta)
 (setq ns-alternate-modifier 'super)
 
-;; cf. https://github.com/milkypostman/powerline/issues/54#issuecomment-65078550
-(setq ns-use-srgb-colorspace nil)
+(setq ns-use-srgb-colorspace t)
 
 (add-to-list 'face-font-rescale-alist '(".*Hiragino.*" . 1.2))
 (let* ((fonts '(
