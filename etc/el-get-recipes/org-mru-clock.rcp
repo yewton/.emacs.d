@@ -1,0 +1,3 @@
+(:name org-mru-clock
+       :pkgname "unhammer/org-mru-clock"
+       :type github)

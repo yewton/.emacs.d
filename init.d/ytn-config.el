@@ -148,11 +148,6 @@
   :init
   (add-hook 'rg-mode-hook #'wgrep-ag-setup))
 
-(use-package info+
-  :after info
-  :config
-  (set-face-attribute 'info-xref nil :underline nil))
-
 (use-package avy
   :functions
   migemo-get-pattern
@@ -185,9 +180,6 @@
   :config
   (with-eval-after-load "org-agenda"
     (bind-key "o" #'ace-link-org-agenda org-agenda-mode-map)))
-
-(use-package help+)
-(use-package help-fns+)
 
 (use-package helpful
   :bind (("<help> C-f" . helpful-callable)

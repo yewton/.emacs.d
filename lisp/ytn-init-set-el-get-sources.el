@@ -58,11 +58,7 @@
                          (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
                          (:name flycheck :shallow t :branch "31" :compile nil)
 
-                         (:name pos-tip
-                                ;; cf. https://github.com/dimitri/el-get/pull/2597
-                                :type github
-                                :pkgname "pitkali/pos-tip"
-                                :checkout "051e08fec5cf30b7574bdf439f79fef7d42d689d")
+                         (:name pos-tip :checkout "051e08fec5cf30b7574bdf439f79fef7d42d689d")
                          (:name flycheck-pos-tip
                                 :checkout "7b94c0c1e3185a4350dc39885add3927037ebad8"
                                 :compile nil)
@@ -108,15 +104,7 @@
                          (:name ddskk :checkout "ad61579af269291b4446f4bab0a58522cc454f1c")
 
                          (:name org-mode :branch "release_9.3.1" :shallow t)
-                         (:name org-superstar-mode :type github :pkgname "integral-dw/org-superstar-mode"
-                                :checkout "17481852c1bd09afea877635a3185261fc19fd64")
-
-                         (:name info-plus :type emacsmirror
-                                :checkout "ac3aa3905e8ad2a99a0225f2e6a83a54541cf197")
-                         (:name help-plus :type emacsmirror
-                                :checkout "a702d717dda84dd45c9dcc677bdf580b8275d5a7")
-                         (:name help-fns-plus :type emacsmirror
-                                :checkout "7213ef84d0345e2625f28e2b3134f8d98489391f")
+                         (:name org-superstar-mode :checkout "17481852c1bd09afea877635a3185261fc19fd64")
 
                          (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
                          (:name elisp-refs :checkout "0a254e6a4dc7fa12857f8334fe6eefa72e49d1c9")
@@ -152,7 +140,7 @@
 
                          (:name hcl-mode :checkout "0f2c5e")
                          (:name terraform-mode :checkout "6973d1")
-                         (:name company-terraform :pkgname "rafalcieslak/emacs-company-terraform" :type github :checkout "74dad2")
+                         (:name company-terraform :checkout "74dad2")
 
                          (:name scala-mode :shallow t :branch "v1.0.0")
                          (:name sbt-mode :shallow t :branch "v1.0.1")
@@ -161,21 +149,17 @@
 
                          (:name shackle :checkout "4189c1c773aab533969b587f7801ffbcd1d7d613")
 
-                         (:name org-mru-clock :pkgname "unhammer/org-mru-clock" :type github :checkout "72e6cd0a6458ae0392f587026233f553278ab481")
+                         (:name org-mru-clock :checkout "72e6cd0a6458ae0392f587026233f553278ab481")
 
                          (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
 
-                         (:name org-cliplink
-                                :type github
-                                :pkgname "rexim/org-cliplink"
-                                :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
+                         (:name org-cliplink :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
 
-                         (:name git-auto-commit-mode
-                                :checkout "2c8197e5d7813734d6a49f9b9c0b227b7ae022a8")
+                         (:name git-auto-commit-mode :checkout "2c8197e5d7813734d6a49f9b9c0b227b7ae022a8")
 
-                         (:name ssh-config-mode :pkgname "jhgorrell/ssh-config-mode-el" :type github :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
+                         (:name ssh-config-mode :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
 
-                         (:name ox-hugo :pkgname "kaushalmodi/ox-hugo" :type github :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a")
+                         (:name ox-hugo :checkout "f95f4d5744c1dda0f9d80feb8765e8acce42449a")
 
                          (:name emacs-async :checkout "324549ba1dcf610c3766c272f86bae9d2c49fc70")
                          (:name org-download :checkout "a367669384859261bcb11bac4b782f231f972353")
