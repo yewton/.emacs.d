@@ -42,6 +42,7 @@
 (blink-cursor-mode 1)
 
 (auto-save-visited-mode +1)
+(save-place-mode t)
 
 (menu-bar-mode 0)
 (when window-system
@@ -99,7 +100,9 @@
 (set-face-underline 'whitespace-trailing "pink")
 (global-whitespace-mode)
 
+(require 'paren)
 (show-paren-mode)
+(setq show-paren-style 'mixed)
 (electric-pair-mode)
 
 (setq global-auto-revert-non-file-buffers t
