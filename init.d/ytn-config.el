@@ -402,6 +402,13 @@
 
 (use-package define-word)
 
+(use-package highlight-indent-guides
+  :init
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive 'stack))
+
 (load "ytn-config-skk")
 (load "ytn-config-org")
 (load "ytn-config-ivy")
