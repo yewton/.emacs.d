@@ -1,0 +1,4 @@
+(:name dimmer
+       :description "Interactively highlight which buffer is active by dimming the others."
+       :type github
+       :pkgname "gonewest818/dimmer.el")

@@ -409,6 +409,17 @@
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-responsive 'stack))
 
+(use-package dimmer
+  :demand t
+  :config
+  (setq dimmer-adjustment-mode :both)
+  (setq dimmer-fraction 0.2)
+  (dimmer-configure-which-key)
+  (dimmer-configure-org)
+  (dimmer-configure-hydra)
+  (dimmer-configure-posframe)
+  (dimmer-mode t))
+
 (load "ytn-config-skk")
 (load "ytn-config-org")
 (load "ytn-config-ivy")

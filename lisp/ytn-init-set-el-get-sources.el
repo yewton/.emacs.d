@@ -179,6 +179,8 @@
 
                          (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
 
+                         (:name dimmer :checkout "4abe51533a972910f9012029a47b533878ec682e")
+
                          (:name leuven-theme :checkout "ee89b5d8b08c94eb78c0398720381c44342e2f44"))))
 
 (provide 'ytn-init-set-el-get-sources)
