@@ -1,0 +1,5 @@
+(:name amx
+       :description "An alternative M-x interface for Emacs."
+       :type github
+       :depends (s)
+       :pkgname "DarwinAwardWinner/amx")

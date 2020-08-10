@@ -28,7 +28,8 @@
 
                          (:name hydra :checkout "9db28034d7d61bfeff89899633b958f22befc53d")
 
-                         (:name smex :checkout "55aaebe3d793c2c990b39a302eb26c184281c42c")
+                         (:name amx :checkout "ccfc92c600df681df5e8b5fecec328c462ceb71e")
+
                          (:name swiper
                                 :checkout "44b2d7d6a8a81d1ed5c2aaa613eabe7e25c0b9a3"
                                 :build (("makeinfo" "-o" "doc/ivy.info" "doc/ivy.texi")))

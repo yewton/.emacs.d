@@ -5,11 +5,11 @@
 
 (eval-when-compile (require 'use-package))
 
-;; cf. https://github.com/abo-abo/swiper/wiki/FAQ#sorting-commands-by-frequency
-(use-package smex
+(use-package amx
+  :init
+  (amx-mode)
   :config
-  (setq smex-save-file (f-join no-littering-var-directory "smex-items")
-        smex-history-length 9))
+  (setq amx-history-length 9))
 
 (use-package swiper
   :bind (("C-s" . swiper)
