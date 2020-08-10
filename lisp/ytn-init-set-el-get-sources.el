@@ -134,7 +134,7 @@
                          (:name ghub :checkout "4ebe60b9522355c6ee95005bc7d8ba41df4a3c6b")
                          (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3")
 
-                         (:name plantuml-mode :pkgname "skuro/plantuml-mode" :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
+                         (:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 
                          (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
 
