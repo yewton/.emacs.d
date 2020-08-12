@@ -306,7 +306,9 @@
   :commands (beacon-mode)
   :init
   ;; xref-pulse-momentarily の配色を参考に
-  (setq beacon-color (face-attribute 'next-error :background))
+  ;; (face-attribute 'next-error :background)
+  ;; Emacs 27 だと、起動時に上記が `unspecified' になってしまっていた。
+  (setq beacon-color "#9E3699")
   (beacon-mode 1))
 
 (use-package org-cliplink
