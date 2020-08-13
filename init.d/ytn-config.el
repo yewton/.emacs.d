@@ -347,6 +347,7 @@
   (add-hook 'calendar-today-visible-hook 'calendar-mark-today))
 
 (use-package org-roam
+      :delight
       :hook
       (after-init . org-roam-mode)
       :custom
@@ -406,6 +407,7 @@
 (use-package define-word)
 
 (use-package highlight-indent-guides
+  :delight
   :init
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   :config
