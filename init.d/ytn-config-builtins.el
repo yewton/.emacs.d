@@ -132,7 +132,7 @@
 ;; https://stackoverflow.com/a/17630877/2142831
 
 (defface hl-line-agenda-face
-  '((t :box (:color "deep pink" :line-width 1 :style nil)))
+  '((t :box (:color "deep pink" :line-width 1 :style nil) :extend t))
   "Face for highlighting the current line in org-agenda"
   :group 'hl-line)
 
