@@ -303,13 +303,14 @@
 
 (use-package beacon
   :delight
+  :hook
+  (window-setup . beacon-mode)
   :commands (beacon-mode)
   :init
   ;; xref-pulse-momentarily の配色を参考に
   ;; (face-attribute 'next-error :background)
   ;; Emacs 27 だと、起動時に上記が `unspecified' になってしまっていた。
-  (setq beacon-color "#9E3699")
-  (beacon-mode 1))
+  (setq beacon-color "#9E3699"))
 
 (use-package org-cliplink
   :after (org)
@@ -413,14 +414,15 @@
 
 (use-package dimmer
   :demand t
+  :hook
+  (window-setup . dimmer-mode)
   :config
   (setq dimmer-adjustment-mode :both)
   (setq dimmer-fraction 0.2)
   (dimmer-configure-which-key)
   (dimmer-configure-org)
   (dimmer-configure-hydra)
-  (dimmer-configure-posframe)
-  (dimmer-mode t))
+  (dimmer-configure-posframe))
 
 (load "ytn-config-skk")
 (load "ytn-config-org")

@@ -61,7 +61,7 @@
 
 (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
 
-(ytn-spaceline-theme)
+(add-hook 'window-setup-hook #'ytn-spaceline-theme)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
