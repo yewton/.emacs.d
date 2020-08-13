@@ -218,7 +218,9 @@
   :demand t)
 
 (use-package org-superstar
-  :hook (org-mode . org-superstar-mode)
+  ;; Emacs 27.1 では org-src-fontify-natively かつ、 markdown のソースブロックがある場合に
+  ;; エラーになったり fontify されなかったりする…。
+  ;; :hook (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-headline-bullets-list '("◉" "◈" "○" "◇" "▷")))
 
