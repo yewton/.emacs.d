@@ -21,7 +21,7 @@
 
                          (:name no-littering :checkout "14ed8ed2a2d8ae700ce1889d76bc4588d22549b1")
 
-                         (:name delight :checkout "05ef4d7d1a371884defcb47e881904f2a25a40b7")
+                         (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
                          (:name use-package :checkout "4aa14a4fcd5ca52b3f1bfcf5ab294173f7bbe390")
 
                          (:name diredfl :shallow t :branch "0.4")
