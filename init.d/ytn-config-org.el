@@ -59,7 +59,14 @@
   (setq org-yank-adjusted-subtrees t)
   (setq org-edit-src-content-indentation 0)
   (setq org-return-follows-link t)
-  (setq org-use-sub-superscripts nil))
+  (setq org-use-sub-superscripts nil)
+
+  ;; Workwround before ehttps://code.orgmode.org/bzg/org-mode/commit/81e2948472b1866496faaf00ccacafa66f29f5fc
+  (with-no-warnings
+    (when (fboundp 'set-face-extend)
+      (mapc (lambda (face) (set-face-extend face t))
+            (append org-level-faces '(org-block org-block-begin-line org-block-end-line)))))
+  )
 
 (use-package org-goto
   :defer t
