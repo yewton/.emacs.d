@@ -63,13 +63,17 @@
 
 ;; see https://github.com/tarsius/moody/commit/8f96f1ec6b331747774d84a6cc49968503bac7d0
 (defun powerline-set-selected-window1 (&optional _)
-  (if (null (frame-focus-state))
+  (if (and (fboundp 'frame-focus-state) (with-no-warnings (null (frame-focus-state))))
     (setq powerline-selected-window nil)
     (let ((win (selected-window)))
       (unless (minibuffer-window-active-p win)
         (setq powerline-selected-window win)))))
 (add-hook 'pre-redisplay-functions #'powerline-set-selected-window1)
-(add-function :after after-focus-change-function #'powerline-set-selected-window1)
+(with-no-warnings
+  (if (boundp 'after-focus-change-function)
+      (add-function :after after-focus-change-function #'powerline-set-selected-window1)
+    (add-hook 'focus-out-hook #'powerline-set-selected-window)
+    (add-hook 'focus-in-hook #'powerline-set-selected-window)))
 
 ;; see https://github.com/tarsius/moody/commit/a7fb64d6fae15ed6ff87e540ff177134fc0b19b5
 (defvar-local powerline--size-hacked-p nil)
