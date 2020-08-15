@@ -104,7 +104,7 @@
 
                          (:name ddskk :checkout "fe7f82ba568dc653431bf824a764993aa86a7aa3")
 
-                         (:name org-mode :branch "release_9.3.1" :shallow t)
+                         (:name org-mode :branch "release_9.3.7" :shallow t)
                          (:name org-superstar-mode :checkout "17481852c1bd09afea877635a3185261fc19fd64")
 
                          (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
