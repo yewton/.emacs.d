@@ -55,13 +55,13 @@
                                 :depends (packed)
                                 :compile nil)
 
-                         (:name epl :checkout "83797835f729f39b80acba4c7e83d73a2e410e26")
+                         (:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
                          (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
-                         (:name flycheck :shallow t :branch "31" :compile nil)
+                         (:name flycheck :checkout "c02cd773dded0215f9417ec04dfe8dabda63ef43")
 
-                         (:name pos-tip :checkout "051e08fec5cf30b7574bdf439f79fef7d42d689d")
+                         (:name pos-tip :checkout "179cc126b363f72ca12fab1e0dc462ce0ee79742")
                          (:name flycheck-pos-tip
-                                :checkout "7b94c0c1e3185a4350dc39885add3927037ebad8"
+                                :checkout "dc57beac0e59669926ad720c7af38b27c3a30467"
                                 :compile nil)
 
                          (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
