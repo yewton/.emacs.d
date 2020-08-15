@@ -51,6 +51,3 @@
       (skk-wrap-newline-command markdown-enter-key))
 
     (add-hook 'emacs-startup-hook #'ytn-init-skk-extra-jisyo)))
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

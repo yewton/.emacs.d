@@ -29,6 +29,3 @@
         (eval-print-last-sexp)))))
 
 (provide 'ytn-init-install-el-get)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

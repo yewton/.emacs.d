@@ -425,6 +425,5 @@
 (when (eq window-system 'ns) (load "ytn-config-window-system-ns"))
 (when (eq window-system 'x) (load "ytn-config-window-system-x"))
 ;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; byte-compile-warnings: (not noruntime)
 ;; End:

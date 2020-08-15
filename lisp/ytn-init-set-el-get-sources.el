@@ -182,6 +182,3 @@
                          (:name leuven-theme :checkout "a116202c82613c087440d2e8a6a504b08f1862ce"))))
 
 (provide 'ytn-init-set-el-get-sources)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

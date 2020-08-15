@@ -236,7 +236,3 @@
 
 (use-package org-checklist
   :after org)
-
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

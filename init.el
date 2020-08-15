@@ -48,5 +48,4 @@
 
 ;; Local Variables:
 ;; no-byte-compile: t
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

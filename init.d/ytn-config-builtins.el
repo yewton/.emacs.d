@@ -228,7 +228,3 @@
 (setq prettify-symbols-unprettify-at-point 'right-edge)
 
 (setq set-mark-command-repeat-pop t)
-
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

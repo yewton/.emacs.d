@@ -19,6 +19,3 @@
         (set-fontset-font (frame-parameter nil 'font)
                           charset
                           (font-spec :family font-family))))))
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

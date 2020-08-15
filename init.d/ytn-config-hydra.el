@@ -85,6 +85,5 @@ _d_: subtree
   (bind-key "C-c #" 'hydra-outline/body))
 
 ;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; byte-compile-warnings: (not noruntime)
 ;; End:

@@ -24,6 +24,3 @@ Activate this advice with:
         (insert (ytn-current-time-microseconds) " ")))))
 
 (provide 'ytn-lib)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

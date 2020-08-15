@@ -4,6 +4,3 @@
   (when gls
     (setq insert-directory-program gls
           dired-listing-switches "-aBhl --group-directories-first")))
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

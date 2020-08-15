@@ -75,7 +75,3 @@
 
 (use-package treemacs-magit
   :after treemacs magit)
-
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

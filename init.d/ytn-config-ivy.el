@@ -125,7 +125,3 @@
               ("l" . forward-char)
               ("v" . recenter-top-bottom)
               ("c" . counsel-ace-link)))
-
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

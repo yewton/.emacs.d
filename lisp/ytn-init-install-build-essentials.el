@@ -10,6 +10,3 @@
     (el-get 'sync '(exec-path-from-shell no-littering auto-compile))))
 
 (provide 'ytn-init-install-build-essentials)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

@@ -95,6 +95,3 @@
   (remove-hook 'focus-in-hook #'powerline-set-selected-window))
 
 (add-hook 'window-setup-hook #'ytn-spaceline-theme)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:

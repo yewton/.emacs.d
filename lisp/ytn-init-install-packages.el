@@ -12,6 +12,3 @@
   (el-get 'sync (mapcar #'el-get-source-name el-get-sources)))
 
 (provide 'ytn-init-install-packages)
-;; Local Variables:
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; End:
