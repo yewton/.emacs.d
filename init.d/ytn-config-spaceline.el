@@ -95,3 +95,5 @@
   (remove-hook 'focus-in-hook #'powerline-set-selected-window))
 
 (add-hook 'window-setup-hook #'ytn-spaceline-theme)
+;; macOS だと起動直後にフォーカスしていても `(frame-focus-state)' が nil になっているので暫定対応
+(add-hook 'window-setup-hook #'powerline-set-selected-window)
