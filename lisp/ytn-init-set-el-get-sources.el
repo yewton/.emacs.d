@@ -148,7 +148,7 @@
 
                          (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
 
-                         (:name shackle :checkout "4189c1c773aab533969b587f7801ffbcd1d7d613")
+                         (:name shackle :checkout "32a397770be30a518f5123b81a6d667d02308bfb")
 
                          (:name org-mru-clock :checkout "4fb77d9bb876e368e596d18324115cef6c1c71f3")
 
