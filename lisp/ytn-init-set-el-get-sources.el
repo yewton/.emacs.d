@@ -30,8 +30,9 @@
 
                          (:name amx :checkout "ccfc92c600df681df5e8b5fecec328c462ceb71e")
 
+                         (:name avy :checkout "bbf1e7339eba06784dfe86643bb0fbddf5bb0342")
                          (:name swiper
-                                :checkout "44b2d7d6a8a81d1ed5c2aaa613eabe7e25c0b9a3"
+                                :checkout "9619e3ccc4e9179780cf48b7abb24239037791d7"
                                 :build (("makeinfo" "-o" "doc/ivy.info" "doc/ivy.texi")))
 
                          (:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
@@ -92,7 +93,6 @@
                          (:name powerline :checkout "edbb464eef680efc9d408730288c716cd4cac404")
                          (:name spaceline :checkout "1b26af2c1a701481ac5d90928fe0200e389756c3")
 
-                         (:name avy :checkout "cf95ba9582121a1c2249e3c5efdc51acd566d190")
                          (:name ace-window :checkout "edbbb1b77c3fb939e4d9057443bc1897321d0095")
                          (:name pfuture :checkout "fbecd1562b34fcd15563b7cc00d98e5af0d7e43d")
                          (:name treemacs :checkout "e63fc3873da685768d9a6ba0dd85842b730a8d1e" :load-path ("src/elisp" "src/extra"))
@@ -150,7 +150,7 @@
 
                          (:name shackle :checkout "4189c1c773aab533969b587f7801ffbcd1d7d613")
 
-                         (:name org-mru-clock :checkout "72e6cd0a6458ae0392f587026233f553278ab481")
+                         (:name org-mru-clock :checkout "4fb77d9bb876e368e596d18324115cef6c1c71f3")
 
                          (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
 
@@ -172,7 +172,7 @@
                          (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064")
 
                          (:name emacsql-sqlite3 :checkout "e920671872cd8e0ef9c3646e6f0fae331bf8a7df")
-                         (:name org-roam :checkout "4f3668a1e3ccd6a91b61580be3c9a28652074f6e")
+                         (:name org-roam :checkout "2081e1268ad57dfb94171d1a99e8f13126fbdaa5")
                          (:name company-org-roam :checkout "1132663bd68022aa7ea005ff53c7c7571890769d")
 
                          (:name define-word :checkout "08c71b1ff4fd07bf0c78d1fcf77efeaafc8f7443")
