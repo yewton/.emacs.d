@@ -17,10 +17,11 @@ Activate this advice with:
   (unless (string-equal FORMAT-STRING "%s%s")
     (let ((deactivate-mark nil)
           (inhibit-read-only t))
-      (with-current-buffer "*Messages*"
-        (goto-char (point-max))
-        (if (not (bolp))
-          (newline))
-        (insert (ytn-current-time-microseconds) " ")))))
+      (save-excursion
+        (with-current-buffer "*Messages*"
+          (goto-char (point-max))
+          (if (not (bolp))
+              (newline))
+          (insert (ytn-current-time-microseconds) " "))))))
 
 (provide 'ytn-lib)
