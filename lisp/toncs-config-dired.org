@@ -1,0 +1,32 @@
+#+TITLE: dired
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-dired.el -*- lexical-binding: t -*-
+#+end_src
+
+本来は明示的に ~dired~ を呼ぶまではロードされないはずだから、
+こういう風にファイルを分けておくのは良いことなのだけれど、
+~el-get-core~ が ~(require 'dired)~ してしまっているので、起動時には必ずロードされてしまっている…。
+
+#+begin_src emacs-lisp
+(require 'dired)
+(require 'org-download)
+(require 'general)
+
+(defun toncs-config-dired-configure ()
+  (setq dired-dwim-target t)
+  (let ((gls (executable-find "gls")))
+    (when gls
+      (setq insert-directory-program gls)))
+  (setq dired-listing-switches "-aBhl --group-directories-first")
+  (general-def dired-mode-map
+    "r"  #'wdired-change-to-wdired-mode)
+  (diredfl-global-mode)
+  (add-hook 'dired-mode-hook #'org-download-enable))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-dired)
+;;; toncs-config-dired.el ends here
+#+end_src

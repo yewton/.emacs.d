@@ -1,0 +1,161 @@
+#+TITLE: Org mode 読み込み後の初期設定
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org)
+(require 'counsel)
+
+(require 'org-checklist)
+(require 'org-protocol)
+
+(require 'ob-shell)
+
+(require 'toncs-stdlib)
+
+(defconst toncs-org-agenda-directory (expand-file-name "agenda/" org-directory)
+  "アジェンダに含めるディレクトリです。")
+
+(defun toncs-org-babel-load-buffer-file ()
+  "現在のファイルを対象に `org-babel-load-file' を実行し、コンパイルもします。"
+  (interactive)
+  (when buffer-file-name
+    (org-babel-load-file buffer-file-name 'compile)))
+
+(defun toncs-org-mode-hook-function ()
+  (let ((file buffer-file-name))
+    (when (and file (toncs-safe-file-in-directory-p file user-emacs-directory))
+      (add-hook 'after-save-hook #'toncs-make-toncs nil t))))
+
+(defun toncs-org-src-mode-hook-function ()
+  (when (and (eq major-mode 'emacs-lisp-mode)
+             (boundp 'flycheck-disabled-checkers))
+    (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
+
+(defun toncs-org-read-date-backward () (interactive) (org-eval-in-calendar '(calendar-backward-day 1)))
+(defun toncs-org-read-date-next () (interactive) (org-eval-in-calendar '(calendar-forward-week 1)))
+(defun toncs-org-read-date-previous () (interactive) (org-eval-in-calendar '(calendar-backward-week 1)))
+(defun toncs-org-read-date-forward () (interactive) (org-eval-in-calendar '(calendar-forward-day 1)))
+
+(eval-when-compile (require 'org-duration))
+(defun toncs-config-org-duration-configure ()
+  (with-eval-after-load "org-duration"
+    (setq org-duration-format '((special . h:mm)))))
+
+(eval-when-compile (require 'org-refile))
+(defun toncs-config-org-refile-configure ()
+  (with-eval-after-load "org-refile"
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-use-outline-path 'file)
+    (setq org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))))
+
+(eval-when-compile (require 'ox))
+(defun toncs-config-ox-configure ()
+  (with-eval-after-load "ox"
+    (setq org-export-default-language "ja")))
+
+(require 'org-clock)
+(defun toncs-org-show-notification-handler (title &optional msg)
+  (cond
+   ((and (eq window-system 'ns) (executable-find "terminal-notifier"))
+    (call-process "terminal-notifier"
+                  nil ; /dev/null
+                  0 ; discard and don't wait for the program to terminate
+                  nil ; do not display
+                  "-title" title
+                  "-message" (or msg "")
+                  "-appIcon" "https://orgmode.org/img/org-mode-unicorn-logo.png"
+                  "-activate" "org.gnu.Emacs"))
+   ((eq window-system 'x)
+    (eval-and-compile (require 'notifications))
+    (notifications-notify :title title :body msg))
+   (t (message "%s %s" title msg))))
+
+(defun toncs-config-org-clock-configure ()
+  (setq org-clock-clocked-in-display 'both)
+  (setq org-clock-persist t)
+  (setq org-show-notification-handler #'toncs-org-show-notification-handler)
+  (add-to-list 'org-clock-clocktable-language-setup
+               '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "集計時刻")))
+
+(require 'org-download)
+(defun toncs-config-org-org-download-configure ()
+  (setq org-download-method 'attach)
+  ;; ox-hugo が attachment: link abbrev に対応していないため
+  (setq org-download-link-format-function
+        (lambda (filename)
+          (format org-download-link-format
+                  (org-link-escape
+                   (funcall org-download-abbreviate-filename-function filename)))))
+  (setq org-download-annotate-function (lambda (_link) "#+ATTR_ORG: :width 500\n"))
+  ;; 参考 https://zzamboni.org/post/how-to-insert-screenshots-in-org-documents-on-macos/
+  (setq org-download-screenshot-method (pcase system-type
+                                         ('darwin "pngpaste %s")
+                                         ('gnu/linux "xclip -selection clipboard -target image/png -o > %s"))))
+
+(defun toncs-config-org-configure ()
+  (setq org-catch-invisible-edits 'show-and-error)
+  (setq org-cycle-separator-lines 0)
+  (setq org-edit-src-content-indentation 0)
+  (setq org-ellipsis "⤵")
+  (setq org-fontify-done-headline t)
+  (setq org-fontify-whole-heading-line t)
+  (setq org-hide-emphasis-markers t)
+  (setq org-hide-leading-stars t)
+  (setq org-log-into-drawer t)
+  (setq org-log-redeadline 'time)
+  (setq org-log-reschedule 'time)
+  (setq org-pretty-entities t)
+  (setq org-return-follows-link t)
+  (setq org-reverse-note-order t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-startup-folded 'content)
+  (setq org-startup-indented t)
+  (setq org-startup-with-inline-images t)
+  (setq org-use-speed-commands t)
+  (setq org-use-sub-superscripts nil)
+  (setq org-yank-adjusted-subtrees t)
+  (setq org-default-notes-file (expand-file-name "refileme.org" org-directory))
+  (setq org-image-actual-width '(300))
+  (setq org-display-remote-inline-images 'cache)
+  (dolist (item (list toncs-org-agenda-directory org-default-notes-file))
+    (add-to-list 'org-agenda-files item))
+
+  (toncs-config-org-refile-configure)
+  (toncs-config-ox-configure)
+  (toncs-config-org-duration-configure)
+  (toncs-config-org-clock-configure)
+  (toncs-config-org-org-download-configure)
+
+  (general-def
+    "C-c l" #'org-store-link
+    "C-c b" #'org-switchb)
+  (general-def org-mode-map
+    "C-'" #'avy-goto-line
+    "<f5>" #'toncs-org-babel-load-buffer-file
+    "C-c C-q" #'counsel-org-tag)
+  (general-def org-read-date-minibuffer-local-map
+    "<left>" #'toncs-org-read-date-backward
+    "<down>" #'toncs-org-read-date-next
+    "<up>" #'toncs-org-read-date-previous
+    "<right>" #'toncs-org-read-date-forward
+    "b" #'toncs-org-read-date-backward
+    "n" #'toncs-org-read-date-next
+    "p" #'toncs-org-read-date-previous
+    "f" #'toncs-org-read-date-forward)
+
+  (org-clock-persistence-insinuate)
+
+  (delight '((org-indent-mode nil "org-indent")
+             (org-src-mode nil "org-src")))
+  (add-hook 'org-mode-hook #'toncs-org-mode-hook-function)
+  (add-hook 'org-src-mode-hook #'toncs-org-src-mode-hook-function))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org)
+;;; toncs-config-org.el ends here
+#+end_src

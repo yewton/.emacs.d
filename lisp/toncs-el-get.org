@@ -1,0 +1,78 @@
+#+TITLE: el-get 関連
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-el-get.el -*- lexical-binding: t -*-
+#+end_src
+
+~el-get~ を ~require~ する前に設定する必要がある
+
+#+begin_src emacs-lisp
+(require 'toncs-stdlib)
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'el-get)
+
+(require 'toncs-deps)
+
+(defun toncs-el-get-compile-sources ()
+  (setq el-get-sources (append toncs-deps-minimum toncs-deps-default toncs-deps-extra toncs-deps-lang)))
+
+(defun toncs-el-get-source-names (source)
+  (mapcar #'el-get-source-name source))
+
+(defun toncs-el-get-init ()
+  (setq el-get-verbose (not noninteractive))
+  (setq el-get-autoload-file (expand-file-name "el-get-autoloads.el" el-get-dir))
+  (setq el-get-is-lazy t)
+  (toncs-el-get-compile-sources)
+  (add-to-list 'el-get-recipe-path
+	       (expand-file-name "etc/el-get-recipes/" user-emacs-directory)))
+
+(defun toncs-el-get-install ()
+  (interactive)
+  (toncs-el-get-compile-sources)
+  (el-get 'sync (toncs-el-get-source-names el-get-sources))
+  (toncs-el-get-update-if-needed 'sync))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun toncs-el-get-recompile-sources ()
+  (interactive)
+  (org-babel-load-file (locate-library "toncs-deps.org") 'compile)
+  (toncs-el-get-compile-sources))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun toncs-el-get-updatable-packages ()
+  (toncs-el-get-compile-sources)
+  (seq-filter (lambda (package)
+                (let* ((sources (mapcar #'el-get-source-name el-get-sources))
+                       (source-exists-p (member package sources))
+                       (package-def (el-get-package-def package))
+                       (status-recipe (el-get-read-package-status-recipe package))
+                       (expected-checkout (plist-get package-def :checkout))
+                       (expected-branch (plist-get package-def :branch))
+                       (actual-checkout (plist-get status-recipe :checkout))
+                       (actual-branch (plist-get status-recipe :branch)))
+                  (and source-exists-p
+                       (not (and (string-equal expected-checkout actual-checkout)
+                                 (string-equal expected-branch actual-branch))))))
+              (el-get-list-package-names-with-status "installed")))
+
+(defun toncs-el-get-update-if-needed (&optional sync)
+  (interactive)
+  (defvar el-get-default-process-sync)
+  (let ((el-get-default-process-sync sync))
+    (dolist (package (toncs-el-get-updatable-packages))
+      (if (or (plist-get (el-get-package-def package) :shallow)
+              (plist-get (el-get-read-package-status-recipe package) :shallow))
+          (el-get-reinstall package)
+        (el-get-update package)))))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-el-get)
+;;; toncs-el-get.el ends here
+#+end_src

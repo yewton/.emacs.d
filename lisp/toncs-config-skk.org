@@ -1,0 +1,60 @@
+#+TITLE: skk
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-skk.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'general)
+(require 'no-littering)
+(require 'skk)
+(require 'context-skk)
+
+(defun toncs-config-skk-configure ()
+  (setq skk-sticky-key ";")
+  (setq skk-egg-like-newline t)
+  (setq skk-show-annotation t)
+  (setq skk-use-jisx0201-input-method t)
+  (setq skk-henkan-strict-okuri-precedence t)
+  (setq skk-isearch-mode-enable nil)
+  (setq skk-show-mode-show t)
+  ;; 'tooltip does not work with `context-skk' :()
+  (setq skk-show-mode-style 'inline)
+
+  ;; 辞書関連
+  (setq skk-server-host nil)
+  (setq skk-inhibit-ja-dic-search t)
+  (setq skk-get-jisyo-directory (no-littering-expand-var-file-name "skk-jisyo/"))
+  (setq skk-large-jisyo (expand-file-name "SKK-JISYO.L" skk-get-jisyo-directory))
+  (dolist (dic '("SKK-JISYO.geo" "SKK-JISYO.mazegaki" "SKK-JISYO.propernoun"
+                 "SKK-JISYO.jinmei" "SKK-JISYO.pubdic+" "SKK-JISYO.station"
+                 "SKK-JISYO.zipcode" "SKK-JISYO.lisp"))
+    (add-to-list 'skk-extra-jisyo-file-list (expand-file-name dic skk-get-jisyo-directory)))
+
+  (set-face-attribute 'skk-show-mode-inline-face nil :foreground "black" :background "lemon chiffon")
+
+  ;; Let me `newline-and-indent' in latin-mode!
+  (advice-add 'skk-setup-latin-mode-map-options :override #'ignore)
+  (advice-add 'skk-setup-jisx0208-latin-mode-map-options :override #'ignore)
+  (general-def skk-latin-mode-map
+    "C-o" #'skk-kakutei)
+  (general-def skk-jisx0208-latin-mode-map
+    "C-o" #'skk-kakutei)
+  (general-unbind skk-latin-mode-map "C-j")
+  (general-unbind skk-jisx0208-latin-mode-map "C-j")
+
+  (delight 'context-skk-mode nil "context-skk")
+
+  ;; 呼んでおかないと、 ad-Advice-modify-frame-parameters: Unknown color が出る…
+  (ccc-setup)
+
+  (with-eval-after-load "markdown-mode"
+    (when (fboundp 'markdown-enter-key)
+      (skk-wrap-newline-command markdown-enter-key))))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-skk)
+;;; toncs-config-skk.el ends here
+#+end_src

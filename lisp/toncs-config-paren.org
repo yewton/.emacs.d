@@ -1,0 +1,18 @@
+#+TITLE: paren
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-paren.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'paren)
+
+(defun toncs-config-paren-configure ()
+  (setq show-paren-style 'mixed))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-paren)
+;;; toncs-config-paren.el ends here
+#+end_src

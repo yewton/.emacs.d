@@ -1,0 +1,5 @@
+(:name rainbow-identifiers
+       :description "Rainbow identifier highlighting for Emacs"
+       :type github
+       :pkgname "Fanael/rainbow-identifiers"
+       :minimum-emacs-version 24)

@@ -1,0 +1,108 @@
+#+TITLE: org-agenda
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org-agenda.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org-agenda)
+(require 'org-habit)
+(require 'counsel)
+(require 'avy)
+
+(defconst toncs-agenda-categories
+  (list "task" "routine" "event" "leave" "anniv" "log" "holiday" "sprint" "habit")
+  "アジェンダで使うカテゴリのリストです。ここにあるカテゴリにはカスタムアイコンが設定されています。")
+
+(defun toncs-avy-org-agenda-cands ()
+  (let (candidates point)
+    (save-excursion
+      (save-restriction
+        (narrow-to-region (window-start) (window-end (selected-window) t))
+        (setq point (goto-char (point-min)))
+        (while (setq point (text-property-not-all point (window-end) 'org-marker nil))
+          (push (cons point (selected-window)) candidates)
+          (setq point (text-property-any point (window-end) 'org-marker nil)))))
+    (nreverse candidates)))
+
+(defun toncs-avy-org-agenda ()
+  "Goto a visible item in an `org-mode-agenda' buffer."
+  (interactive)
+  (avy-action-goto (avy-with avy-org-agenda
+			     (avy-process (toncs-avy-org-agenda-cands)))))
+
+(defun toncs-setup-custom-agenda-commands ()
+  (dolist (command '(("u" "スケジュールされていないタスク" todo ""
+                      ((org-agenda-todo-ignore-scheduled 'all)))
+                     ("r" "最近作成されたエントリ" tags "CREATED>=\"<-2w>\"|TIMESTAMP_IA>=\"<-2w>\""
+                      ((org-agenda-max-entries 50)))
+                     ("w" "Weekly" agenda ""
+                      ((org-agenda-span 'week)
+                       (org-agenda-use-time-grid nil)
+                       (org-agenda-show-all-dates nil)
+                       (org-agenda-start-with-log-mode nil)))
+                     ("N" "ルーチンワーク以外" todo ""
+                      ((org-agenda-category-filter-preset '("-routine" "-habit"))))
+                     ("A" "アーカイブ候補" tags "CREATED<\"<-3m>\"|TIMESTAMP_IA<\"<-3m>\"|TIMESTAMP<\"<-3m>\"|SCHEDULED<\"<-3m>\"|DEADLINE<\"<-3m>\"/-TODO"
+                      ((org-agenda-max-entries 50)))
+                     ("R" "リファイル候補" tags "refileme"
+                      ((org-tags-match-list-sublevels nil)))
+                     ("D" "締切のみ" agenda ""
+                      ((org-agenda-span 'month)
+                       (org-agenda-time-grid nil)
+                       (org-agenda-show-all-dates nil)
+                       (org-agenda-start-with-log-mode nil)
+                       (org-agenda-entry-types '(:deadline))
+                       (org-deadline-warning-days 0)))
+                     ("E" "予定のみ" agenda ""
+                      ((org-agenda-span 'week)
+                       (org-agenda-time-grid nil)
+                       (org-agenda-show-all-dates nil)
+                       (org-agenda-start-with-log-mode nil)
+                       (org-agenda-entry-types '(:timestamp :sexp))))))
+    (add-to-list 'org-agenda-custom-commands command)))
+
+(defun toncs-config-org-agenda-configure ()
+  (setq org-agenda-restore-windows-after-quit t)
+  (setq org-agenda-deadline-leaders '("⏰" "🔜%2d日後" "⚠%2d日超過"))
+  (setq org-agenda-scheduled-leaders '("📅" "📌%2d日前"))
+  (setq org-agenda-format-date "%-m月%e日(%a) %_20Y年")
+  (setq org-agenda-show-current-time-in-grid t)
+  (setq org-agenda-time-grid
+        `((daily today require-timed)
+          ,(number-sequence 800 1700 100)
+          " ....... "
+          "――――――――――――――――――――――――――――――――――――――――"))
+  (setq org-agenda-current-time-string "❮――― now")
+  (setq org-agenda-compact-blocks t)
+  (setq org-agenda-skip-unavailable-files t)
+  (setq org-agenda-category-icon-alist 
+        (mapcar (lambda (category)
+                  `(,category ,(locate-user-emacs-file (concat "res/" category ".svg")) nil nil :ascent center))
+                toncs-agenda-categories))
+  (setq org-agenda-breadcrumbs-separator " ❱ ")
+  (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s")
+                                   (todo . " %i% s%?b")
+                                   (tags . " %i")
+                                   (search . " %i")))
+  (setq org-agenda-clockreport-parameter-plist
+	'(:hidefiles t :properties ("CATEGORY") :lang "ja" :link t :compact t :stepskip0 t :fileskip0 t)
+        org-agenda-log-mode-items '(clock))
+  (setq org-agenda-sorting-strategy '((agenda time-up habit-down priority-down category-keep)
+                                      (todo   priority-down category-keep)
+                                      (tags   priority-down category-keep)
+                                      (search category-keep)))
+  (toncs-setup-custom-agenda-commands)
+
+  (general-def org-agenda-mode-map
+    "C-c C-q" #'counsel-org-tag-agenda
+    "J" #'toncs-avy-org-agenda)
+
+  (set-face-underline 'org-agenda-current-time nil))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org-agenda)
+;;; toncs-config-org-agenda.el ends here
+#+end_src

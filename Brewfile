@@ -1,22 +1,21 @@
 # -*- mode: ruby; -*-
 tap "d12frosted/emacs-plus"
 
-# for Treemacs
-brew "python3"
-
-# for ispell
-brew "aspell"
-
-brew "cmigemo"
-
+# Build essentials
 brew "coreutils"
 brew "findutils"
 brew "texinfo"
 
+cask "font-cica"
+
+# for Treemacs
+brew "python3"
+
+brew "cmigemo"
+
 brew "ripgrep"
 
-cask "font-cica"
-cask "marked"
+# for org-download
+brew "pngpaste"
 
-brew "emacs-plus"
-
+brew "emacs-plus", args: %w{with-ctags with-xwidgets with-modern-papirus-icon}

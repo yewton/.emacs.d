@@ -1,0 +1,25 @@
+#+TITLE: markdown-mode
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-markdown-mode.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'markdown-mode)
+
+(defun toncs-config-markdown-mode-configure ()
+  (setq markdown-command "commonmarker --extension=tagfilter,autolink,table,strikethrough")
+  (setq markdown-fontify-code-blocks-natively t)
+  (setq markdown-asymmetric-header t)
+  (setq markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+                             "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
+  (setq markdown-xhtml-header-content "<script src=\"https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script><script>hljs.initHighlightingOnLoad();</script>")
+  (setq markdown-xhtml-body-preamble "<div class=\"markdown-body\">")
+  (setq markdown-xhtml-body-epilogue "</div>"))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-markdown-mode)
+;;; toncs-config-markdown-mode.el ends here
+#+end_src

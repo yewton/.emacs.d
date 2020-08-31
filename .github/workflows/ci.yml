@@ -1,0 +1,29 @@
+name: "CI"
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - refactor
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        emacs_version: [27.1, snapshot]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: var/el-get
+        key: ${{ runner.os }}-${{ hashFiles('lisp/toncs-deps.org') }}-${{ hashFiles('etc/el-get-recipes/*.rcp') }}
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+    - run: make
+      env:
+        ERROR_ON_WARN: t
+        EL_GET_SKIP_BYTE_COMPILE: t

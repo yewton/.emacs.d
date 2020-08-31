@@ -1,0 +1,194 @@
+#+TITLE: 依存パッケージ
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-deps.el -*- lexical-binding: t;
+#+end_src
+
+* 最小限のパッケージ
+
+これが無いとニッチもサッチも行かないパッケージ達。
+
+#+begin_src emacs-lisp
+(defconst toncs-deps-minimum
+  '((:name el-get)
+    (:name exec-path-from-shell :checkout "5e355fbc50913d1ffe48bf86df0bcecd8b369ffb")
+
+    (:name no-littering :checkout "cd32b5e692cfba27cbd9dce22a9014141b637e1e")
+
+    (:name org-mode :branch "release_9.4" :shallow t)
+
+    (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
+    (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
+
+    (:name dash :checkout "b92ab5a39b987e4fe69317b9d9fda452300baf20")
+    (:name s :checkout "43ba8b563bee3426cead0e6d4ddc09398e1a349d")
+    (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
+    (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
+
+    (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
+
+    (:name amx :checkout "ccfc92c600df681df5e8b5fecec328c462ceb71e")
+
+    (:name avy :checkout "bbf1e7339eba06784dfe86643bb0fbddf5bb0342")
+
+    (:name swiper :checkout "7e4c56776f811f78b8eb95210156f8fbbdba67e7")
+
+    (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
+
+    (:name crux :checkout "3e07035660f953cb08847362378267f5859bbe69")
+
+    (:name which-key :checkout "ae59b7edb0d82aa0251803fdfbde6b865083c8b8")
+
+    (:name buffer-move :checkout "cb517ecf8409b5fdcda472d7190c6021f0c49751")
+
+    (:name powerline :checkout "e15e77ab2e589bd73f9e90498747d77d042789ea")
+    (:name spaceline :checkout "1b26af2c1a701481ac5d90928fe0200e389756c3")
+
+    (:name ddskk :checkout "a66a7b16f13533afdd03e21eebcdd6309e469a13")
+
+    (:name shackle :checkout "32a397770be30a518f5123b81a6d667d02308bfb")
+
+    (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
+
+    (:name general :checkout "a0b17d207badf462311b2eef7c065b884462cb7c")
+    (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
+
+    (:name leuven-theme :checkout "a116202c82613c087440d2e8a6a504b08f1862ce"))
+  "無いと辛すぎるパッケージ達です。")
+#+end_src
+
+* デフォルトパッケージ
+
+無くてもギリギリ生きていけるけど、あると QoL が爆上がりするパッケージ。
+
+#+begin_src emacs-lisp
+(defconst toncs-deps-default
+  '((:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
+
+    (:name diredfl :checkout "cd052dfef602fe79d8dfbcf9f06e6da74412218b")
+
+    (:name wgrep :checkout "f0ef9bfa44db503cdb2f83fcfbd2fa4e2382ef1f")
+    (:name rg :checkout "f535d4c786126693bfd5f2f377dac44c1a4344bf")
+
+    (:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
+    (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
+    ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
+
+    (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
+    (:name transient :checkout "79777324858df408bd6ba7509d9f0b6987208d98")
+    (:name magit :checkout "e5e475c61ce568a7e20ed8f795fa343a93632871")
+
+    (:name git-modes :shallow t :branch "1.2.8")
+
+    (:name diff-hl :checkout "2281a89a3ddc6616073da6f190dda08d23b18ba6")
+
+    (:name projectile :checkout "1104e448779600a6238ffc91afb7e29d6b268ef1")
+    (:name counsel-projectile :checkout "77392cbbc42e98fc137b43f1db1b111ba6e2dd75")
+
+    (:name ace-window :checkout "c7cb315c14e36fded5ac4096e158497ae974bec9")
+    (:name pfuture :checkout "d7926de3ba0105a36cfd00811fd6278aea903eef")
+    (:name treemacs :checkout "18baf5d412645ea780aec718f8960904d6bf91c1" :load-path ("src/elisp" "src/extra"))
+
+    (:name ace-link :checkout "298f02f7dd117f9ec01f6aa2a2ddfecae0efb7f4")
+
+    (:name highlight-thing :checkout "561d08a26f78f18d405d4f371f1c813db094e2f3")
+
+    (:name visual-regexp :shallow t :branch "v1.1.1")
+
+    (:name org-mru-clock :checkout "4fb77d9bb876e368e596d18324115cef6c1c71f3")
+
+    (:name emacs-async :checkout "36a10151e70e956e2f766ed9e65f4a9cfc8479b2")
+    (:name org-download :checkout "67b3c744f94cf0bf50f7052ce428e95af5a6ff3f")
+
+    (:name japanese-holidays :checkout "45e70a6eaf4a555fadc58ab731d522a037a81997")
+
+    (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
+
+    (:name pos-tip :checkout "179cc126b363f72ca12fab1e0dc462ce0ee79742")
+    (:name company-mode :checkout "0edc87d423b83c707e6c708f421d96f4d198803d")
+    (:name company-quickhelp :checkout "5a86731de461142db3b7ca26b4681756edb4b773")
+
+    (:name emacsql :checkout "6d8cd9366284b5a27268ff4b783e2c34573d5b60")
+    (:name emacsql-sqlite3 :checkout "e920671872cd8e0ef9c3646e6f0fae331bf8a7df")
+    (:name org-roam :checkout "e3ff54616ec8c7c921aee50efd1400e7514cdfb0"))
+  "あると幸せになれるパッケージ達です。")
+#+end_src
+
+* その他のパッケージ
+
+あった方が便利だけど、無くてもそこまで困らない物達。
+
+
+#+begin_src emacs-lisp
+(defconst toncs-deps-extra
+  '((:name rainbow-identifiers :shallow t :branch "0.2.2")
+    (:name rainbow-delimiters :checkout "f43d48a24602be3ec899345a3326ed0247b960c6")
+
+    (:name ivy-xref :checkout "3d4c35fe2b243d948d8fe02a1f0d76a249d63de9")
+
+    (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
+    (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")
+
+    (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
+    (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
+    (:name closql :checkout "1e78f96dc976badb59067c986f7766cce89405cc")
+    (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
+    (:name ghub :checkout "4ebe60b9522355c6ee95005bc7d8ba41df4a3c6b")
+    (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3")
+
+    (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
+
+    (:name org-superstar-mode :checkout "17481852c1bd09afea877635a3185261fc19fd64")
+
+    (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
+    (:name elisp-refs :checkout "b3634a4567c655a1cda51b217629849cba0ac6a7")
+    (:name shut-up :checkout "081d6b01e3ba0e60326558e545c4019219e046ce")
+    (:name helpful :checkout "c0662aa07266fe204f4e6d72ccaa6af089400556")
+
+    (:name emojify :checkout "d886069974d05c8c15654204f9afeaee962f3e7d")
+
+    (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
+
+    (:name org-cliplink :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
+
+    (:name ox-hugo :checkout "60b0131e2dcd3b7108a7e0fc2cf461d792796062")
+
+    (:name define-word :checkout "08c71b1ff4fd07bf0c78d1fcf77efeaafc8f7443"))
+  "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
+#+end_src
+
+* 各言語のパッケージ
+
+本当は必要に応じて入れたり入れなかったり選択出来るようにしたい物達。
+
+#+begin_src emacs-lisp
+(defconst toncs-deps-lang
+  '((:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
+    (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
+
+    (:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
+
+    (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
+
+    (:name hcl-mode :checkout "0f2c5e")
+    (:name terraform-mode :checkout "6973d1")
+    (:name company-terraform :checkout "74dad2")
+
+    (:name scala-mode :shallow t :branch "v1.0.0")
+    (:name sbt-mode :shallow t :branch "v1.0.1")
+
+    (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
+
+    (:name ssh-config-mode :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
+
+    (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df")
+
+    (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064"))
+  "各言語用のパッケージ達です。")
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-deps)
+;;; toncs-deps.el ends here
+#+end_src

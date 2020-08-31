@@ -1,0 +1,20 @@
+#+TITLE: org-attach
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org-attach.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org-attach)
+
+(defun toncs-config-org-attach-configure ()
+  (setq org-attach-store-link-p t)
+  (setq org-attach-dir-relative t)
+  (setq org-attach-use-inheritance t))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org-attach)
+;;; toncs-config-org-attach.el ends here
+#+end_src

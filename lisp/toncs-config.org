@@ -1,0 +1,857 @@
+#+TITLE: 設定
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'general)
+(require 'no-littering)
+#+end_src
+
+* 設定記述用便利マクロ定義
+
+#+begin_src emacs-lisp
+(defvar toncs-config-configure-functions nil
+  "`toncs-config-configure' によって定義される設定準備関数が登録されます。")
+
+(defvar toncs-config-prepare-functions nil
+  "`toncs-config-prepare' によって定義される設定準備関数が登録されます。")
+
+(defmacro toncs-config-configure (theme &rest body)
+  "THEME に沿った一連の設定内容を BODY に記述します。
+
+設定された内容は toncs-config-THEME-configure という設定関数として定義され、
+`toncs-config-configure-functions' に登録されます。
+THEME はこの関数名に使用されるだけなので、何でもよいです。
+自動でライブラリをロードしたりはしないので、必要な場合は別途 `require' 等を宣言して下さい。
+この設定関数は `toncs-config-install' を呼び出すことで実行されます。"
+  (declare (indent defun))
+  (let* ((theme-string (symbol-name theme))
+         (configure-func-symbol (intern (format "toncs-config-%s-configure" theme-string))))
+    `(prog1
+       (eval-and-compile
+         (fset ',configure-func-symbol
+               (lambda () ,@body)))
+       (add-to-list 'toncs-config-configure-functions #',configure-func-symbol 'append))))
+
+(defmacro toncs-config-prepare (feature &rest body)
+  "FEATURE のロード後に設定を読み込むようにします。
+
+toncs-config-FEATURE-configure という設定関数を toncs-config-FEATURE から読み込むように
+autoload が設定されるので、設定処理はそこに記述します。
+
+この設定関数を FEATURE のロード後に呼び出すような設定準備関数 toncs-config-FEATURE-prepare が定義され、
+`toncs-config-prepare-functions' に登録されます。
+この設定準備関数は `toncs-config-install' を呼び出すことで実行されます。
+
+BODY は設定準備関数の実行時に評価されるので、
+FEATURE の読み込み前に設定しておきたい変数の初期化処理やキーバインディングの設定等があればここに記述します。"
+  (declare (indent defun))
+  (let* ((feature-string (symbol-name feature))
+         (configure-func-symbol (intern (format "toncs-config-%s-configure" feature-string)))
+         (prepare-func-symbol (intern (format "toncs-config-%s-prepare" feature-string))))
+    `(prog1
+       (eval-and-compile
+         (autoload ',configure-func-symbol ,(format "toncs-config-%s" feature-string))
+         ;; https://emacs.stackexchange.com/questions/51981/making-a-dynamic-interactive-function#comment80184_51983
+         (fset ',prepare-func-symbol
+               (lambda ()
+                 ,@body
+                 (with-eval-after-load ,feature-string
+                   (funcall #',configure-func-symbol)))))
+       (add-to-list 'toncs-config-prepare-functions #',prepare-func-symbol 'append))))
+#+end_src
+
+* モードライン
+
+#+begin_src emacs-lisp
+(require 'powerline)
+(require 'spaceline-segments)
+(require 'time)
+
+;; see https://github.com/tarsius/moody/commit/a7fb64d6fae15ed6ff87e540ff177134fc0b19b5
+(defvar-local powerline--size-hacked-p nil)
+
+;; see https://github.com/tarsius/moody/commit/8f96f1ec6b331747774d84a6cc49968503bac7d0
+(defun powerline-set-selected-window1 (&optional _)
+  (if (and (fboundp 'frame-focus-state) (with-no-warnings (null (frame-focus-state))))
+      (setq powerline-selected-window nil)
+    (let ((win (selected-window)))
+      (unless (minibuffer-window-active-p win)
+        (setq powerline-selected-window win)))))
+
+(defun powerline-redisplay (&optional _force &rest _ignored)
+    "See `moody-redisplay'"
+    (when (and mode-line-format (not powerline--size-hacked-p))
+      (setq powerline--size-hacked-p t)
+      (redisplay t)))
+
+(defun toncs-force-focus ()
+  (setf (frame-parameter (selected-frame) 'last-focus-update) t))
+
+(spaceline-define-segment skk
+  "Show current SKK status."
+  (cond
+   ((not (featurep 'skk)) "--")
+   (skk-abbrev-mode skk-abbrev-mode-string)
+   (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
+   (skk-katakana skk-katakana-mode-string)
+   (skk-j-mode skk-hiragana-mode-string)
+   (skk-jisx0201-mode skk-jisx0201-mode-string)
+   (skk-latin-mode skk-latin-mode-string)
+   (t "--")))
+
+(toncs-config-configure modeline
+  (setq display-time-format "%_m月%_d日(%a) %H:%M")
+  (setq display-time-default-load-average nil)
+  (column-number-mode 1)
+  (display-time-mode 1)
+
+  (setq powerline-height (+ (frame-char-height) 10))
+
+  (setq powerline-default-separator (if window-system 'slant 'utf-8))
+
+  (setq spaceline-window-numbers-unicode t)
+  (setq spaceline-workspace-numbers-unicode t)
+  (setq spaceline-minor-modes-separator " ")
+
+  (advice-add 'skk-setup-modeline :override #'ignore)
+  (toncs-config--powerline-hacks)
+  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
+
+  (spaceline-compile
+    '(((persp-name workspace-number window-number)
+       :fallback evil-state
+       :face highlight-face
+       :priority 0)
+      (anzu :priority 4)
+      auto-compile
+      skk
+      ((buffer-modified buffer-size buffer-id remote-host)
+       :priority 5)
+      (process :when active)
+      ((flycheck-error flycheck-warning flycheck-info)
+       :when active
+       :priority 3)
+      (minor-modes :when active)
+      (mu4e-alert-segment :when active)
+      (erc-track :when active)
+      (version-control :when active :priority 7)
+      (org-pomodoro :when active)
+      (org-clock :when active)
+      nyan-cat)
+
+    '(which-function
+      (python-pyvenv :fallback python-pyenv)
+      purpose
+      (battery :when active)
+      (selection-info :priority 2)
+      input-method
+      ((buffer-encoding-abbrev
+        point-position
+        line-column)
+       :separator " | "
+       :priority 3)
+      (global :when active)
+      (buffer-position :priority 0)
+      (hud :priority 0)))
+
+  ;; macOS だと起動直後にフォーカスしていても `(frame-focus-state)' が nil になっているので暫定対応
+  (when (eq 'ns window-system)
+    (add-hook 'emacs-startup-hook #'toncs-force-focus)))
+
+;; see https://github.com/TheBB/spaceline/issues/110#issuecomment-283513541
+(defun toncs-config--powerline-hacks ()
+  (remove-hook 'window-configuration-change-hook #'powerline-set-selected-window)
+  (remove-hook 'buffer-list-update-hook #'powerline-set-selected-window)
+  (ad-disable-advice 'handle-switch-frame 'after 'powerline-handle-switch-frame)
+
+  (with-no-warnings
+    (when (boundp 'after-focus-change-function)
+      (remove-hook 'focus-out-hook #'powerline-unset-selected-window)
+      (remove-hook 'focus-in-hook #'powerline-set-selected-window)
+      (add-function :after after-focus-change-function #'powerline-set-selected-window1)))
+  (add-hook 'pre-redisplay-functions #'powerline-set-selected-window1)
+  (advice-add 'fit-window-to-buffer :before #'powerline-redisplay))
+#+end_src
+
+* Org mode
+
+#+begin_src emacs-lisp
+(toncs-config-prepare org)
+
+(toncs-config-prepare org-agenda
+  (general-def
+    "C-c a" #'org-agenda))
+
+(toncs-config-prepare org-capture
+  (general-def
+    "C-c c" #'counsel-org-capture))
+
+(toncs-config-prepare org-attach)
+
+(toncs-config-prepare org-roam
+  (add-hook 'emacs-startup-hook #'org-roam-mode))
+#+end_src
+
+* 外観
+** フォント
+
+#+begin_src emacs-lisp
+(defun toncs-config-font-configure ()
+  (let* ((fonts '(("Cica" . 140)
+                  ("Menlo" . 120)
+                  ("Myrica M" . 120)
+                  ("Monospace" . 96)))
+         (font (seq-find (lambda (f) (find-font (font-spec :name (car f)))) fonts)))
+    (when font
+      (let ((font-family (car font))
+            (font-height (cdr font)))
+        (set-face-attribute 'default nil
+                            :family font-family
+                            :height font-height)
+        (dolist (face '(variable-pitch fixed-pitch))
+          (set-face-attribute face nil
+                              :family font-family))
+        (dolist (charset '(japanese-jisx0208 japanese-jisx0208 katakana-jisx0201))
+          (when (fboundp 'set-fontset-font)
+            (set-fontset-font (frame-parameter nil 'font)
+                              charset
+                              (font-spec :family font-family))))))))
+#+end_src
+
+** その他
+
+#+begin_src emacs-lisp
+(toncs-config-configure appearance
+  (load-theme 'leuven t)
+  (blink-cursor-mode 1)
+  (menu-bar-mode 0)
+  (setq echo-keystrokes 0.2)
+  (setq use-dialog-box nil)
+  (when window-system
+    (toncs-config-font-configure)
+    (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
+    (when (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+    (add-hook 'emacs-startup-hook #'toggle-frame-maximized))
+  (dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook #'hl-line-mode)))
+#+end_src
+
+* amx
+
+#+begin_src emacs-lisp
+(defvar warning-minimum-level)
+(defun toncs-warning-suppressor (orig-fun &rest args)
+  (with-no-warnings
+    (let ((warning-minimum-level :error))
+      (apply orig-fun args))))
+
+(require 'amx)
+
+(toncs-config-configure amx
+  (setq amx-history-length 9)
+  (amx-mode 1)
+  ;; emacs -q の時に Warning が出まくってウルサイので鎮める
+  (advice-add 'amx-save-to-file :around #'toncs-warning-suppressor))
+#+end_src
+
+* winum
+
+#+begin_src emacs-lisp
+(require 'winum)
+
+(toncs-config-configure winum
+  (general-def winum-keymap
+    "M-1" #'winum-select-window-1
+    "M-2" #'winum-select-window-2
+    "M-3" #'winum-select-window-3
+    "M-4" #'winum-select-window-4
+    "M-5" #'winum-select-window-5
+    "M-6" #'winum-select-window-6
+    "M-7" #'winum-select-window-7
+    "M-8" #'winum-select-window-8
+    "M-9" #'winum-select-window-9))
+#+end_src
+
+* avy
+
+#+begin_src emacs-lisp
+(require 'avy)
+
+(toncs-config-configure avy
+  (setq avy-style 'pre)
+  (setq avy-all-windows nil)
+  (general-def
+    "C-;"  #'avy-goto-char-2
+    "C-'" #'avy-goto-line
+    "M-g g" #'avy-goto-line
+    "M-g c" #'avy-goto-char
+    "M-g e" #'avy-goto-word-0
+    "M-g w" #'avy-goto-word-1
+    "M-g P" #'avy-pop-mark))
+#+end_src
+
+* ivy
+
+#+begin_src emacs-lisp
+(require 'ivy)
+(require 'ivy-avy)
+(require 'counsel)
+(require 'swiper)
+(require 'ivy-xref)
+
+(defun toncs-open-junk-file (&optional arg)
+    "Open junk file using counsel.
+
+  When ARG is non-nil search in junk files."
+    (interactive "P")
+    (let* ((junk-root-dir (no-littering-expand-var-file-name "junk"))
+           (open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." junk-root-dir ))
+           (path (format-time-string open-junk-file-format (current-time)))
+           (file-name (file-name-nondirectory path))
+           (dir-name (file-name-directory path))
+           (default-directory dir-name))
+      (if arg
+          (counsel-rg nil junk-root-dir "" "[junk]")
+        (mkdir dir-name 'parents)
+        (counsel-find-file file-name))))
+
+(toncs-config-configure ivy+counsel+swiper
+  ;; minibuffer 内の入力も ivy で補完したい
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq counsel-describe-function-preselect 'ivy-function-called-at-point)
+  (setq counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
+  (setq counsel-rg-base-command '("rg" "-M" "240" "--with-filename" "--no-heading" "--line-number" "--color" "never" "-z" "%s"))
+  ;; xref initialization is different in Emacs 27 - there are two different
+  ;; variables which can be set rather than just one
+  (when (>= emacs-major-version 27)
+    (setq xref-show-definitions-function #'ivy-xref-show-defs))
+  ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
+  ;; commands other than xref-find-definitions (e.g. project-find-regexp)
+  ;; as well
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+  (general-def
+    "C-s" #'swiper-isearch
+    "C-r" #'swiper-isearch-backward
+    "M-x" #'counsel-M-x
+    "C-x C-f" #'counsel-find-file
+    "C-x C-r" #'counsel-recentf
+    "<help> f" #'counsel-describe-function
+    "<help> v" #'counsel-describe-variable
+    "<help> l" #'counsel-find-library
+    "<help> b" #'counsel-descbinds
+    "<help> l" #'counsel-load-library
+    "<help> a" #'counsel-apropos
+    "<help> S" #'counsel-info-lookup-symbol
+    "<help> o" #'counsel-describe-symbol
+    "M-y" #'counsel-yank-pop
+    "C-x b" #'ivy-switch-buffer
+    "C-c k" #'counsel-rg
+    "C-x z" #'toncs-open-junk-file)
+  (general-def minibuffer-local-map
+    "C-r" #'counsel-minibuffer-history)
+  (general-def ivy-minibuffer-map
+    "C-l" #'ivy-backward-delete-char)
+  (general-def org-mode-map
+    "C-c C-j" #'counsel-org-goto)
+  (delight 'ivy-mode nil "ivy")
+  (add-hook 'emacs-startup-hook #'ivy-mode))
+#+end_src
+
+* crux
+
+#+begin_src emacs-lisp
+(toncs-config-configure crux
+  (general-def
+    [remap move-beginning-of-line] #'crux-move-beginning-of-line
+    "C-c o" #'crux-open-with
+    [(shift return)] #'crux-smart-open-line
+    [remap kill-whole-line] #'crux-kill-whole-line))
+#+end_src
+
+* paren
+
+#+begin_src emacs-lisp
+(toncs-config-prepare paren)
+#+end_src
+
+* hippie-exp
+
+#+begin_src emacs-lisp
+(toncs-config-prepare hippie-exp
+  (general-def "M-/" #'hippie-expand))
+#+end_src
+
+* dired
+
+#+begin_src emacs-lisp
+(toncs-config-prepare dired)
+#+end_src
+
+* display-line-numbers
+
+#+begin_src emacs-lisp
+(toncs-config-prepare display-line-numbers
+  (dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook #'display-line-numbers-mode)))
+#+end_src
+
+* skk
+
+#+begin_src emacs-lisp
+(toncs-config-prepare skk
+  (general-def "C-x C-j" #'skk-mode))
+#+end_src
+
+* migemo
+
+#+begin_src emacs-lisp
+(require 'migemo)
+
+(defconst toncs-ivy-migemo-term-char #x3)
+(defconst toncs-ivy-migemo-term-str (char-to-string toncs-ivy-migemo-term-char))
+(defconst toncs-ivy-migemo-special-chars (concat " .+?[]^$\\" toncs-ivy-migemo-term-str))
+
+(defun toncs-ivy-migemo-re-builder (str)
+  (car (seq-reduce (lambda (acc char)
+                     (let* ((regex (car acc))
+                            (plain (cdr acc))
+                            (s (char-to-string char))
+                            (sp (cond ((eq toncs-ivy-migemo-term-char char) "")
+                                      ((eq ?  char) ".*")
+                                      (t s))))
+                       (if (seq-contains-p toncs-ivy-migemo-special-chars char)
+                           (cons (concat regex (migemo-get-pattern plain) sp) nil)
+                         (cons regex (concat plain s)))))
+                   (concat str toncs-ivy-migemo-term-str)
+                   '("" . ""))))
+
+(defun toncs-avy-goto-migemo-timer (&optional arg)
+  (interactive "P")
+  (let ((avy-all-windows (if arg
+                             (not avy-all-windows)
+                           avy-all-windows)))
+    (avy-with avy-goto-migemo-timer
+              (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
+              (avy-process avy--old-cands))))
+
+(toncs-config-configure migemo
+  (let* ((dict-candidates (list "/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict"
+                                "/usr/share/cmigemo/utf-8/migemo-dict"
+                                "/usr/local/share/migemo/utf-8/migemo-dict"))
+         (dict (seq-find #'file-readable-p dict-candidates)))
+    (when dict
+      (setq migemo-dictionary dict)))
+  (setq migemo-user-dictionary (no-littering-expand-var-file-name "migemo-user-dict"))
+  (setq migemo-regex-dictionary (no-littering-expand-var-file-name "migemo-regex-dict"))
+  (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
+
+  (dolist (caller '(org-roam--completing-read counsel-rg counsel-find-file swiper-isearch))
+    (add-to-list 'ivy-re-builders-alist `(,caller . toncs-ivy-migemo-re-builder)))
+
+  (general-def
+    "M-C-;" #'toncs-avy-goto-migemo-timer)
+
+  (add-hook 'emacs-startup-hook #'migemo-init))
+#+end_src
+
+* magit
+
+#+begin_src emacs-lisp
+(toncs-config-prepare magit)
+#+end_src
+
+* diff-hl
+
+#+begin_src emacs-lisp
+(autoload 'diff-hl-magit-pre-refresh "diff-hl")
+(autoload 'diff-hl-magit-post-refresh "diff-hl")
+
+(toncs-config-configure diff-hl
+  (unless window-system
+    (add-hook 'emacs-startup-hook #'diff-hl-margin-mode))
+  (add-hook 'emacs-startup-hook #'global-diff-hl-mode)
+  (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
+  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+#+end_src
+
+* locale
+
+#+begin_src emacs-lisp
+(toncs-config-configure locale
+  (set-language-environment 'Japanese)
+  (prefer-coding-system 'utf-8-unix)
+  (set-default-coding-systems 'utf-8-unix)
+  (setq system-time-locale "ja_JP.UTF-8"))
+#+end_src
+
+* Backspace
+
+#+begin_src emacs-lisp
+(toncs-config-configure backspace
+  (general-def key-translation-map "C-h" (kbd "DEL"))
+  (general-def "C-c h" #'help-command)
+  (general-def "C-?" #'help-command))
+#+end_src
+
+* ウインドウ/バッファ関連
+
+#+begin_src emacs-lisp
+(toncs-config-configure windows-and-buffers
+  (setq window-combination-resize t)
+  (setq scroll-preserve-screen-position t)
+  ;; spaceline がやってくれる
+  (setq winum-auto-setup-mode-line nil)
+  (winum-mode 1))
+#+end_src
+
+** uniquify
+
+#+begin_src emacs-lisp
+(require 'uniquify)
+
+(toncs-config-configure uniquify
+  (setq uniquify-buffer-name-style 'forward)
+  (setq uniquify-separator "/")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-ignore-buffers-re "^\\*")
+  (setq uniquify-min-dir-content 2))
+#+end_src
+
+** buffer-move
+
+#+begin_src emacs-lisp
+(toncs-config-configure buffer-move
+  (general-def
+    "C-S-j" #'buf-move-up
+    "C-S-k" #'buf-move-down
+    "C-S-l" #'buf-move-right
+    "C-S-h" #'buf-move-left))
+#+end_src
+
+* which-key
+
+#+begin_src emacs-lisp
+(require 'which-key)
+
+(toncs-config-configure which-key
+  (which-key-mode 1)
+  (delight 'which-key-mode nil "which-key"))
+#+end_src
+
+* サーバー
+
+#+begin_src emacs-lisp
+(require 'server)
+
+(defun toncs-server-visit-hook-function ()
+  "See https://stackoverflow.com/a/268205/2142831 ."
+  (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
+
+(toncs-config-configure server
+  (add-hook 'server-visit-hook #'toncs-server-visit-hook-function)
+  (unless (server-running-p) (server-start)))
+#+end_src
+
+* elisp-mode
+
+#+begin_src emacs-lisp
+(toncs-config-prepare elisp-mode)
+#+end_src
+
+* highlight-indent-guides
+
+#+begin_src emacs-lisp
+(toncs-config-prepare highlight-indent-guides
+  (delight 'highlight-indent-guides-mode nil "highlight-indent-guides")
+  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode))
+#+end_src
+
+* whitespace
+
+#+begin_src emacs-lisp
+(require 'whitespace)
+
+(defun toncs-setup-whitespace-face ()
+  (set-face-underline 'whitespace-space "pink")
+  (set-face-underline 'whitespace-trailing "pink"))
+
+(toncs-config-configure whitespace
+  (delight 'global-whitespace-mode nil "whitespace")
+  (delight 'whitespace-mode nil "whitespace")
+  (setq whitespace-style '(face tabs trailing spaces))
+  ;; full-width space (\u3000, 　)
+  (setq whitespace-space-regexp "\\(\u3000+\\)")
+  (global-whitespace-mode 1)
+  ;; `global-whitespace-mode' だけだと適用されないぽかった
+  (add-hook 'prog-mode-hook #'whitespace-mode)
+  (add-hook 'emacs-startup-hook #'toncs-setup-whitespace-face))
+#+end_src
+
+* auto-revert
+
+#+begin_src emacs-lisp
+(require 'autorevert)
+
+(toncs-config-configure auto-revert
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+  (setq auto-revert-mode-text nil)
+  (global-auto-revert-mode 1))
+#+end_src
+
+* recentf
+
+#+begin_src emacs-lisp
+(require 'recentf)
+
+(toncs-config-configure recentf
+  (setq recentf-max-saved-items 100)
+  (dolist (dir (list no-littering-var-directory
+                     no-littering-etc-directory))
+    (add-to-list 'recentf-exclude dir))
+  (recentf-mode 1)
+  (run-with-idle-timer 300 t #'recentf-save-list))
+#+end_src
+
+* カレンダー
+
+#+begin_src emacs-lisp
+(toncs-config-prepare calendar)
+#+end_src
+
+* ace-link
+
+#+begin_src emacs-lisp
+(toncs-config-prepare ace-link
+  (ace-link-setup-default)
+  (general-def "M-o" #'ace-link)
+  (general-def org-mode-map
+    "M-o" #'ace-link-org)
+  (general-def org-agenda-mode-map
+    "o" #'ace-link-org-agenda))
+#+end_src
+
+* helpful
+
+#+begin_src emacs-lisp
+(toncs-config-configure helpful
+  (setq counsel-describe-function-function #'helpful-callable)
+  (setq counsel-describe-variable-function #'helpful-variable)
+  (general-def
+    "C-h k" #'helpful-key))
+#+end_src
+
+* rainbow
+
+#+begin_src emacs-lisp
+(toncs-config-configure rainbow
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook #'rainbow-identifiers-mode))
+#+end_src
+
+* highlight-thing
+
+#+begin_src emacs-lisp
+(defvar highlight-thing-exclude-thing-under-point)
+
+(toncs-config-configure highlight-thing
+  (delight 'highlight-thing-mode nil "highlight-thing")
+  (add-hook 'emacs-startup-hook #'global-highlight-thing-mode)
+  (with-eval-after-load "highlight-thing"
+    (setq highlight-thing-exclude-thing-under-point t)))
+#+end_src
+
+* company
+
+#+begin_src emacs-lisp
+(require 'company)
+(require 'company-quickhelp)
+
+(toncs-config-configure company
+  (delight 'company-mode nil "company")
+  (setq company-quickhelp-use-propertized-text t)
+  (general-def company-active-map
+    [remap next-line] #'company-select-next
+    [remap previous-line] #'company-select-previous
+    "C-f" #'company-show-location
+    "M-f" #'company-show-doc-buffer)
+  (general-def company-search-map
+    [remap next-line] #'company-select-next
+    [remap previous-line] #'company-select-previous)
+  (general-def company-mode-map
+    [remap complete-symbol] #'counsel-company
+    [remap completion-at-point] #'counsel-company)
+  (add-hook 'emacs-startup-hook #'global-company-mode)
+  (add-hook 'emacs-startup-hook #'company-quickhelp-mode))
+#+end_src
+
+* rg
+
+#+begin_src emacs-lisp
+(toncs-config-prepare rg)
+#+end_src
+
+* shackle
+
+#+begin_src emacs-lisp
+(require 'shackle)
+
+(toncs-config-configure shackle
+  (dolist (rule '((compilation-mode :select nil :align 'below :size 0.2)
+                  (calendar-mode :select t :align 'below :size 0.45 :popup t)))
+    (add-to-list 'shackle-rules rule))
+  (add-hook 'emacs-startup-hook #'shackle-mode))
+#+end_src
+
+* beacon
+
+#+begin_src emacs-lisp
+(require 'beacon)
+
+(toncs-config-configure beacon
+  (setq beacon-color "#9E3699")
+  (delight 'beacon-mode nil "beacon")
+  (add-hook 'emacs-startup-hook #'beacon-mode))
+#+end_src
+
+* treemacs
+
+#+begin_src emacs-lisp
+(eval-when-compile
+  (defvar treemacs-no-load-time-warnings t))
+
+(toncs-config-prepare treemacs
+  (treemacs-icons-dired-mode)
+  (general-def
+    "M-0" #'treemacs-select-window
+    "<f8>" #'treemacs
+    "C-x t t" #'treemacs
+    "C-x t B" #'treemacs-bookmark
+    "C-x t C-t" #'treemacs-find-file
+    "C-x t M-t" #'treemacs-find-tag))
+#+end_src
+
+* projectile
+
+#+begin_src emacs-lisp
+(require 'projectile)
+(require 'treemacs-projectile)
+
+(defun toncs-projectile-ignored-project-function (truename)
+  (seq-find (lambda (dir) (file-in-directory-p truename dir))
+            (list no-littering-var-directory
+                  "/usr/local")))
+
+(toncs-config-configure projectile
+  (setq projectile-enable-caching t)
+  (setq projectile-ignored-project-function #'toncs-projectile-ignored-project-function)
+  (setq projectile-completion-system 'ivy)
+  (delight 'projectile-mode nil "projectile")
+  (general-def projectile-mode-map
+    "C-c p" #'projectile-command-map)
+  (counsel-projectile-mode 1))
+#+end_src
+
+* 各言語の設定
+
+** markdown
+
+#+begin_src emacs-lisp
+(toncs-config-prepare markdown-mode
+  (dolist (elm '(("README\\.md\\'" . gfm-mode)
+                 ("\\.md\\'" . markdown-mode)
+                 ("\\.markdown\\'" . markdown-mode)))
+    (add-to-list 'auto-mode-alist elm)))
+#+end_src
+
+** js
+
+#+begin_src emacs-lisp
+(toncs-config-prepare js)
+#+end_src
+* misc
+
+#+begin_src emacs-lisp
+(toncs-config-configure misc
+  (setq enable-local-variables :safe)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq create-lockfiles nil)
+  (setq set-mark-command-repeat-pop t)
+  (transient-mark-mode 1)
+  (setq save-abbrevs 'silently)
+  (delight 'abbrev-mode nil "abbrev")
+
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (setq-default fill-column 80)
+  (setq-default word-wrap t)
+  (delight 'visual-line-mode nil "simple")
+
+  (delight 'hi-lock-mode nil "hi-lock")
+
+  (setq require-final-newline t)
+
+  (setq kill-do-not-save-duplicates t)
+
+  (add-hook 'text-mode-hook #'visual-line-mode)
+
+  (setq help-window-select t)
+
+  (dolist (fn #'(goto-address-prog-mode
+                 bug-reference-prog-mode
+                 show-paren-mode
+                 electric-pair-mode
+                 abbrev-mode))
+    (add-hook 'prog-mode-hook fn))
+  (dolist (fn #'(goto-address-mode
+                 bug-reference-mode
+                 show-paren-mode
+                 electric-pair-mode
+                 abbrev-mode))
+    (add-hook 'text-mode-hook fn))
+
+  ;; file
+  (setq delete-by-moving-to-trash t)
+
+  ;; clipboard
+  (setq save-interprogram-paste-before-kill t)
+
+  ;; eval
+  (setq eval-expression-print-length nil)
+  (setq eval-expression-print-level nil)
+
+  ;; bells
+  (setq ring-bell-function #'ignore)
+  (setq visible-bell nil)
+
+  ;; startup
+  (setq inhibit-startup-screen t)
+  (setq initial-major-mode 'fundamental-mode)
+
+  ;; persistence
+  (auto-save-visited-mode 1)
+  (save-place-mode 1)
+  (savehist-mode 1)
+
+  (delight 'eldoc-mode nil "eldoc"))
+#+end_src
+
+* 設定の適用
+
+#+begin_src emacs-lisp
+(defun toncs-config-install ()
+  (dolist (fn (append toncs-config-configure-functions toncs-config-prepare-functions))
+    (funcall fn)))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config)
+;;; toncs-config.el ends here
+#+end_src

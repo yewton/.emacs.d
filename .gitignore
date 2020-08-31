@@ -1,8 +1,4 @@
 /var
-/el-get
-/elpa
-/eshell
+*.el
 *.elc
-/custom.el
-/lisp/ytn-init-autoloads.el
-flycheck_*.el
+\#*#

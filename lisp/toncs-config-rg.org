@@ -1,0 +1,28 @@
+#+TITLE: rg
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-rg.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'rg)
+(require 'wgrep-ag)
+(require 'counsel)
+
+(defun toncs-config-rg-configure ()
+  (setq wgrep-auto-save-buffer t)
+  (add-to-list 'rg-command-line-flags "-z")
+  (general-def grep-mode-map
+    "r" #'wgrep-change-to-wgrep-mode)
+  (general-def wgrep-mode-map
+    "C-c C-c" #'wgrep-finish-edit)
+  (general-def rg-mode-map
+    "r" #'wgrep-change-to-wgrep-mode)
+  (add-hook 'rg-mode-hook #'wgrep-ag-setup))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-rg)
+;;; toncs-config-rg.el ends here
+#+end_src

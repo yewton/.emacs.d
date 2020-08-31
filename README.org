@@ -1,21 +1,283 @@
-#+TITLE: .emacs.d
+#+begin_html
+<div align="center">
+  <img width="200px" src="res/toncs.png" alt="Banner">
+</div>
+<h1 align="center">㌧ｸｽ -- yewton's .emacs.d</h1>
+<div align="center">
+  <img src="https://img.shields.io/badge/Supports-Emacs_27.x-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white" />
+  <img src="https://img.shields.io/github/license/yewton/.emacs.d.svg" //>
+  <a href="https://github.com/yewton/.emacs.d/actions?query=workflow%3ACI">
+    <img src="https://github.com/yewton/.emacs.d/workflows/CI/badge.svg" />
+  </a>
+</div>
+#+end_html
 
-* Prerequisites
+** 使い方
+*** 事前準備
 
-#+BEGIN_SRC sh
-  brew bundle
-  gem install commonmarker # for markdown-command
-  brew info emacs-plus # and follow directions
-#+END_SRC
+依存パッケージのビルドに必要なものをインストールしておきます。
 
-* Icons
+macOS の場合はプロジェクトルートで以下を実行すると全部入ります:
 
-- (task) [[https://www.flaticon.com/free-icon/tasks_906334][Tasks Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (routine) [[https://www.flaticon.com/free-icon/recycling_806265][Recycling Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (event) [[https://www.flaticon.com/free-icon/calendar_1306294][Calendar Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (anniv) [[https://www.flaticon.com/free-icon/birthday-cake_911173][Birthday Cake Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (leave) [[https://www.flaticon.com/free-icon/beach_3076181][Beach Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (holiday) [[https://www.flaticon.com/free-icon/star_945124][Star Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (log) [[https://www.flaticon.com/free-icon/writing_1309480][Writing Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (sprint) [[https://www.flaticon.com/free-icon/running_1590970][Running Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
-- (habit) [[https://www.flaticon.com/free-icon/to-do-list_2971381][To Do List Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+#+begin_src sh
+brew bundle
+#+end_src
+
+Ubuntu の場合は以下のような感じで:
+
+#+begin_src sh
+sudp apt install -y texinfo
+#+end_src
+
+*** ビルド
+
+~make~ を実行すると、設定ファイルを生成したり、依存パッケージをインストールしたりして ~.emacs.d~ の準備を整えます。
+
+実行が終わったら、通常通り Emacs を実行すればよいです。
+
+*** お試し実行
+
+~.emacs.d~ 以外に配置して、 ~make run~ を実行すると、既存の ~.emacs.d~ を汚さずに動かせます。
+
+/この場合は ~emacs --no-init-file~ で起動するので、カスタマイズの保存は出来ません。/
+
+** 特徴
+
+*** macOS と Ubuntu(Xubuntu) で使えます
+
+普段使っている mac のバージョン情報:
+
+#+begin_src sh :exports both
+sw_vers
+#+end_src
+
+#+RESULTS:
+| ProductName:    | Mac OS X |
+| ProductVersion: | 10.14.6  |
+| BuildVersion:   | 18G1012  |
+
+Xubuntu はこっち:
+
+#+begin_src sh :exports both
+lsb_release -a
+#+end_src
+
+#+RESULTS:
+| Distributor ID: | Ubuntu             |
+| Description:    | Ubuntu 20.04.1 LTS |
+| Release:        | 20.04              |
+| Codename:       | focal              |
+
+一部依存する外部コマンドが Xfce 前提になってたりします。
+
+*** migemo に対応してます
+
+[[https://github.com/koron/cmigemo][cmigemo]] のインストールさえ済んでいれば、辞書の設定含めて ivy/swiper といい感じに動きます。
+
+*** SKK による日本語入力に対応してます
+
+[[https://github.com/skk-dev/ddskk][ddskk]] の動作に必要な基本的な辞書のダウンロードとその設定を含めて、インストール時にいい感じにします。
+
+*** いわゆる Literate Emacs Config です
+
+[[https://orgmode.org/index.html][Org mode]] でドキュメントと設定を併せて書き、 tangle して使います。
+
+でもちゃんとバイトコンパイルするし、起動時には最小限のライブラリだけ読み込むなどの
+フツーの Emacs Lisp ベストプラクティスには従うようにしています。
+
+** 起動処理
+
+*** bootstrap
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle toncs-bootstrap.el :comments both
+:END:
+
+通常起動かバッチモードかに依らず、常に実行したい処理です。
+
+ロードパスと autoload の設定が主にやりたいことです。
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-bootstrap.el -*- lexical-binding: t; no-byte-compile: t; -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(when load-file-name
+  (setq user-emacs-directory (file-name-directory load-file-name)))
+
+(defvar el-get-dir (expand-file-name "var/el-get" user-emacs-directory))
+
+(dolist (dir (list (expand-file-name "el-get" el-get-dir)
+                   (expand-file-name "lisp" user-emacs-directory)))
+    (add-to-list 'load-path dir))
+
+(setq load-prefer-newer t)
+(setq package-enable-at-startup nil)
+
+;; cf. https://emacs.stackexchange.com/a/35953/18118
+(require 'gnutls)
+(add-to-list 'gnutls-trustfiles "/private/etc/ssl/cert.pem")
+
+;; batch モードでいちいち出てくるのはウザいので…
+(when noninteractive
+  (setq byte-compile-warnings '(not obsolete)))
+
+(defvar el-get-install-skip-emacswiki-recipes t)
+(defvar el-get-install-shallow-clone t)
+(defvar el-get-byte-compile (not (getenv "EL_GET_SKIP_BYTE_COMPILE")))
+(unless (require 'el-get nil t)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(require 'toncs-el-get)
+(toncs-el-get-init)
+(el-get 'sync)
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+;;; toncs-bootstrap.el ends here
+#+end_src
+
+*** early-init
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle early-init.el :comments both
+:END:
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; early-init.el -*- lexical-binding: t; no-byte-compile: t; -*-
+#+end_src
+
+Emacs 27 以降導入された仕組みです。
+
+[[https://github.com/hlissner/doom-emacs/blob/develop/early-init.el][Doom Emacs]] を参考に、高速化や体験向上に寄与しそうな設定をしています。
+
+#+begin_src emacs-lisp
+(setq gc-cons-threshold most-positive-fixnum)
+
+(advice-add #'package--ensure-init-file :override #'ignore)
+
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+
+(setq frame-inhibit-implied-resize t)
+
+(when load-file-name
+  (setq user-emacs-directory (file-name-directory load-file-name))
+  (setq user-init-file (expand-file-name "init.el" user-emacs-directory)))
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(load (locate-user-emacs-file "toncs-bootstrap.el"))
+#+end_src
+
+#+begin_src emacs-lisp
+(defvar toncs-early-init-loaded t)
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+;;; early-init.el ends here
+#+end_src
+
+*** init
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle init.el :comments both
+:END:
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; init.el -*- lexical-binding: t; no-byte-compile: t; -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(unless (bound-and-true-p toncs-early-init-loaded)
+  (when load-file-name
+    (setq user-emacs-directory (file-name-directory load-file-name)))
+  (load (locate-user-emacs-file "early-init.el")))
+#+end_src
+
+#+begin_src emacs-lisp
+(toncs-init)
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'toncs-el-get)
+(toncs-el-get-init)
+(el-get 'sync)
+
+(when (memq window-system '(mac ns x))
+  (require 'exec-path-from-shell)
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-copy-envs '("PATH" "MANPATH" "LANG" "LC_ALL" "LC_MESSAGES")))
+
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+
+(require 'no-littering)
+
+(require 'toncs-config)
+(toncs-config-install)
+
+(load custom-file)
+
+(setq gc-cons-threshold (* 2 1000 1000))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+;;; init.el ends here
+#+end_src
+
+** クレジット
+
+*** アジェンダのカテゴリアイコン
+
+#+ATTR_ORG: :width 18
+[[file:res/task.svg]]
+
+- task :: [[https://www.flaticon.com/free-icon/tasks_906334][Tasks Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/routine.svg]]
+
+- routine :: [[https://www.flaticon.com/free-icon/recycling_806265][Recycling Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/event.svg]]
+
+- event :: [[https://www.flaticon.com/free-icon/calendar_1306294][Calendar Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/anniv.svg]]
+
+- anniv :: [[https://www.flaticon.com/free-icon/birthday-cake_911173][Birthday Cake Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/leave.svg]]
+
+- leave :: [[https://www.flaticon.com/free-icon/beach_3076181][Beach Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/holiday.svg]]
+
+- holiday :: [[https://www.flaticon.com/free-icon/star_945124][Star Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/log.svg]]
+
+- log :: [[https://www.flaticon.com/free-icon/writing_1309480][Writing Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/sprint.svg]]
+
+- sprint :: [[https://www.flaticon.com/free-icon/running_1590970][Running Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+#+ATTR_ORG: :width 18
+[[file:res/habit.svg]]
+
+- habit :: [[https://www.flaticon.com/free-icon/to-do-list_2971381][To Do List Icon]] by [[https://www.flaticon.com/authors/freepik][freepik]] from [[https://www.flaticon.com/][www.flaticon.com]]
+
+*** オシャレな ~README.org~ の書き方参考元
+
+- https://github.com/d12frosted/homebrew-emacs-plus/blob/master/README.org

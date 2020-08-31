@@ -1,0 +1,19 @@
+#+TITLE: highlight-indent-guides
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-highlight-indent-guides.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'highlight-indent-guides)
+
+(defun toncs-config-highlight-indent-guides-configure ()
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive 'stack))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-highlight-indent-guides)
+;;; toncs-config-highlight-indent-guides.el ends here
+#+end_src

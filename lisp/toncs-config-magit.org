@@ -1,0 +1,21 @@
+#+TITLE: magit
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-magit.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'magit)
+(require 'forge)
+(require 'treemacs-magit)
+
+(defun toncs-config-magit-configure ()
+  (setq magit-diff-refine-hunk 'all)
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-magit)
+;;; toncs-config-magit.el ends here
+#+end_src

@@ -1,0 +1,31 @@
+#+TITLE: elisp-mode
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-elisp-mode.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'elisp-mode)
+
+(defun toncs-elisp-get-fnsym-args-string (oldfun sym &optional index prefix)
+  (let ((orig (apply oldfun sym index prefix)))
+    (when orig
+      (concat orig " - "
+              (truncate-string-to-width
+               (replace-regexp-in-string
+                "\n" " "
+                (string-trim-left
+                 (replace-regexp-in-string "^This function has .*advice:.*$" ""
+                                           (or (ignore-errors (documentation sym)) ""))))
+               (- (frame-width) (string-width orig) 3)
+               nil nil 'ellip)))))
+
+(defun toncs-config-elisp-mode-configure ()
+  (advice-add 'elisp-get-fnsym-args-string :around #'toncs-elisp-get-fnsym-args-string))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-elisp-mode)
+;;; toncs-config-elisp-mode.el ends here
+#+end_src

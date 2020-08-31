@@ -1,0 +1,18 @@
+#+TITLE: js
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-js.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'js)
+
+(defun toncs-config-js-configure ()
+  (setq js-indent-level 2))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-js)
+;;; toncs-config-js.el ends here
+#+end_src

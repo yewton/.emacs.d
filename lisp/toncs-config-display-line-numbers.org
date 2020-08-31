@@ -1,0 +1,19 @@
+#+TITLE: display-line-numbers
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-display-line-numbers.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'display-line-numbers)
+
+(defun toncs-config-display-line-numbers-configure ()
+  (setq display-line-numbers-width-start t)
+  (setq-default display-line-numbers-widen t))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-display-line-numbers)
+;;; toncs-config-display-line-numbers.el ends here
+#+end_src

@@ -1,0 +1,67 @@
+#+TITLE: 外部パッケージに依存しない関数や変数定義
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-stdlib.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(defconst toncs-lisp-dir (expand-file-name "lisp" user-emacs-directory))
+
+(defun toncs-safe-file-in-directory-p (file dir)
+  "FILE が DIR にあるときに `t' を返します。
+
+`file-in-directory-p' との違いは FILE が `nil' のときに `nil' を返す点です。"
+  (when file
+    (file-in-directory-p file dir)))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun toncs-make-toncs ()
+  (interactive)
+  (let ((default-directory user-emacs-directory))
+    (compile "make")))
+#+end_src
+
+#+begin_src emacs-lisp
+;; https://emacs.stackexchange.com/a/33523/18118
+(defun toncs-current-time-microseconds ()
+  "Return the current time formatted to include microseconds."
+  (let* ((nowtime (current-time))
+         (now-ms (nth 2 nowtime)))
+    (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d]" now-ms))))
+
+(defun toncs-init-modifiers ()
+  (when (eq window-system 'ns)
+    (with-no-warnings
+      (setq ns-function-modifier 'hyper)
+      (setq ns-command-modifier 'meta)
+      (setq ns-alternate-modifier 'super))))
+
+(defun toncs-ad-timestamp-message (FORMAT-STRING &rest _args)
+  "Advice to run before `message' that prepends a timestamp to each message.
+
+Activate this advice with:
+(advice-add 'message :before 'toncs-ad-timestamp-message)"
+  (unless (string-equal FORMAT-STRING "%s%s")
+    (let ((deactivate-mark nil)
+          (inhibit-read-only t))
+      (save-excursion
+        (with-current-buffer "*Messages*"
+          (goto-char (point-max))
+          (if (not (bolp))
+              (newline))
+          (insert (toncs-current-time-microseconds) " "))))))
+
+(defun toncs-activate-timestamped-message ()
+  (advice-add 'message :before #'toncs-ad-timestamp-message))
+
+(defun toncs-init ()
+  (toncs-init-modifiers)
+  (toncs-activate-timestamped-message))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-stdlib)
+;;; toncs-stdlib.el ends here
+#+end_src

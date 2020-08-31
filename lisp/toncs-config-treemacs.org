@@ -1,23 +1,28 @@
-;; -*- lexical-binding: t; -*-
-(eval-when-compile (require 'use-package))
+#+TITLE: treemacs
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
 
-(require 'no-littering)
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-treemacs.el -*- lexical-binding: t -*-
+#+end_src
 
-(use-package treemacs
-  :bind (:map global-map
-              ("M-0"        . treemacs-select-window)
-              ("M-<f8> 1"   . treemacs-delete-other-windows)
-              ("<f8>"       . treemacs)
-              ("M-<f8> B"   . treemacs-bookmark)
-              ("M-<f8> C-t" . treemacs-find-file)
-              ("M-<f8> M-t" . treemacs-find-tag))
-  :defines winum-keymap
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  :commands treemacs-follow-mode treemacs-filewatch-mode treemacs-fringe-indicator-mode treemacs-git-mode
-  :config
+バッチモードでバイトコンパイルするときに無用な警告が出るのを防ぎたいので、
+ロード時の warning を抑制します。
+そうしないと以下のような出力が毎回出てしまいます…。
+
+#+begin_example
+[Treemacs] Warning: couldn’t find hl-line-mode’s background color for icons, falling back on unspecified-bg.
+#+end_example
+
+#+begin_src emacs-lisp
+(eval-when-compile
+  (defvar treemacs-no-load-time-warnings t))
+#+end_src
+
+
+#+begin_src emacs-lisp
+(require 'treemacs)
+
+(defun toncs-config-treemacs-configure ()
   (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
         treemacs-deferred-git-apply-delay      0.5
         treemacs-directory-name-transformer    #'identity
@@ -35,10 +40,10 @@
         treemacs-is-never-other-window         nil
         treemacs-max-git-entries               5000
         treemacs-missing-project-action        'ask
+        treemacs-move-forward-on-expand        nil
         treemacs-no-png-images                 nil
         treemacs-no-delete-other-windows       t
         treemacs-project-follow-cleanup        nil
-        treemacs-persist-file                  (expand-file-name "treemacs-persist" no-littering-var-directory)
         treemacs-position                      'left
         treemacs-recenter-distance             0.1
         treemacs-recenter-after-file-follow    nil
@@ -53,7 +58,14 @@
         treemacs-space-between-root-nodes      t
         treemacs-tag-follow-cleanup            t
         treemacs-tag-follow-delay              1.5
-        treemacs-width                         35)
+        treemacs-user-mode-line-format         nil
+        treemacs-user-header-line-format       nil
+        treemacs-width                         35
+        treemacs-workspace-switch-cleanup      nil)
+
+  ;; The default width and height of the icons is 22 pixels. If you are
+  ;; using a Hi-DPI display, uncomment this to double the icon size.
+  ;;(treemacs-resize-icons 44)
 
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
@@ -64,14 +76,9 @@
      (treemacs-git-mode 'deferred))
     (`(t . _)
      (treemacs-git-mode 'simple))))
+#+end_src
 
-(use-package treemacs-projectile
-  :after treemacs projectile)
-
-(use-package treemacs-icons-dired
-  :after treemacs dired
-  :commands treemacs-icons-dired-mode
-  :config (treemacs-icons-dired-mode))
-
-(use-package treemacs-magit
-  :after treemacs magit)
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-treemacs)
+;;; toncs-config-treemacs.el ends here
+#+end_src

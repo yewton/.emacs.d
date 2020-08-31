@@ -1,0 +1,46 @@
+#+TITLE: calendar
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-calendar.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'calendar)
+(require 'japanese-holidays)
+(require 'general)
+
+(defun toncs-calendar-backward () (interactive) (calendar-backward-day 1))
+(defun toncs-calendar-next () (interactive) (calendar-forward-week 1))
+(defun toncs-calendar-previous () (interactive) (calendar-backward-week 1))
+(defun toncs-calendar-forward () (interactive) (calendar-forward-day 1))
+
+(defun toncs-config-calendar-configure ()
+  (setq calendar-mark-holidays-flag t)
+  (setq calendar-day-abbrev-array ["日" "月" "火" "水" "木" "金" "土"])
+  (setq calendar-day-header-array calendar-day-abbrev-array)
+  (setq calendar-day-name-array (cl-map 'array (lambda (a) (format "%s曜日" a)) calendar-day-abbrev-array))
+  (setq calendar-month-name-array (cl-map 'array (lambda (a) (format "%2d月" a)) (number-sequence 1 12)))
+  (setq calendar-month-abbrev-array calendar-month-name-array)
+  (setq calendar-holidays japanese-holidays)
+  (setq holiday-local-holidays holiday-other-holidays)
+  ;; 土日を祝日として表示
+  (setq japanese-holiday-weekend '(0 6))
+  ;; 土曜日を水色で表示
+  (setq japanese-holiday-weekend-marker '(holiday nil nil nil nil nil japanese-holiday-saturday))
+
+  (general-def calendar-mode-map
+    "b" #'toncs-calendar-backward
+    "n" #'toncs-calendar-next
+    "p" #'toncs-calendar-previous
+    "f" #'toncs-calendar-forward)
+
+  (add-hook 'calendar-today-visible-hook #'japanese-holiday-mark-weekend)
+  (add-hook 'calendar-today-invisible-hook #'japanese-holiday-mark-weekend)
+  (add-hook 'calendar-today-visible-hook #'calendar-mark-today))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-calendar)
+;;; toncs-config-calendar.el ends here
+#+end_src
