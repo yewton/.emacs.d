@@ -4,8 +4,8 @@
 </div>
 <h1 align="center">㌧ｸｽ -- yewton's .emacs.d</h1>
 <div align="center">
-  <img src="https://img.shields.io/badge/Supports-Emacs_27.x-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white" />
-  <img src="https://img.shields.io/github/license/yewton/.emacs.d.svg" //>
+  <img src="https://img.shields.io/badge/Supports-Emacs_27.x-blueviolet.svg?style=plastic&logo=GNU%20Emacs&logoColor=white" //>
+  <img src="https://img.shields.io/github/license/yewton/.emacs.d.svg?style=plastic" //>
   <a href="https://github.com/yewton/.emacs.d/actions?query=workflow%3ACI">
     <img src="https://github.com/yewton/.emacs.d/workflows/CI/badge.svg" />
   </a>
