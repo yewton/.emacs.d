@@ -96,6 +96,17 @@
                                          ('darwin "pngpaste %s")
                                          ('gnu/linux "xclip -selection clipboard -target image/png -o > %s"))))
 
+(autoload 'org-expiry-insinuate
+  "org-expiry" "Add hooks and activate advices for org-expiry.
+If ARG, also add a hook to `before-save-hook' in `org-mode' and
+restart `org-mode' if necessary."
+  'interactive)
+
+(eval-when-compile (require 'org-expiry))
+(defun toncs-config-org-expiry-configure ()
+  (with-eval-after-load "org-expiry"
+    (setq org-expiry-inactive-timestamps t)))
+
 (defun toncs-config-org-configure ()
   (setq org-catch-invisible-edits 'show-and-error)
   (setq org-cycle-separator-lines 0)
@@ -129,6 +140,7 @@
   (toncs-config-org-duration-configure)
   (toncs-config-org-clock-configure)
   (toncs-config-org-org-download-configure)
+  (toncs-config-org-expiry-configure)
 
   (general-def
     "C-c l" #'org-store-link
