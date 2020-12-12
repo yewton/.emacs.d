@@ -451,7 +451,10 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq migemo-regex-dictionary (no-littering-expand-var-file-name "migemo-regex-dict"))
   (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
 
-  (dolist (caller '(org-roam--completing-read counsel-rg counsel-find-file swiper-isearch))
+  (dolist (caller '(org-roam--completing-read
+                    counsel-rg counsel-find-file swiper-isearch
+                    counsel-outline counsel-org-goto
+                    counsel-org-agenda-headlines counsel-org-goto-all))
     (add-to-list 'ivy-re-builders-alist `(,caller . toncs-ivy-migemo-re-builder)))
 
   (general-def
