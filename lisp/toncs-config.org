@@ -825,6 +825,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
   ;; clipboard
   (setq save-interprogram-paste-before-kill t)
+  (when (window-system 'x)
+    ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=23681
+    (setq x-select-request-type 'STRING))
 
   ;; eval
   (setq eval-expression-print-length nil)
