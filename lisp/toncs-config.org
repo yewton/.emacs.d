@@ -327,6 +327,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq counsel-describe-function-preselect 'ivy-function-called-at-point)
   (setq counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
   (setq counsel-rg-base-command '("rg" "-M" "240" "--with-filename" "--no-heading" "--line-number" "--color" "never" "-z" "%s"))
+  (setq counsel-outline-face-style 'org)
   ;; xref initialization is different in Emacs 27 - there are two different
   ;; variables which can be set rather than just one
   (when (>= emacs-major-version 27)
