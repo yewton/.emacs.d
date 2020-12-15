@@ -847,6 +847,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (save-place-mode 1)
   (savehist-mode 1)
 
+  ;; ox-hugo が conf-toml だとフロントマターだと認識してくれないので
+  (fset 'toml-mode 'conf-toml-mode)
+
   (delight 'eldoc-mode nil "eldoc"))
 #+end_src
 
