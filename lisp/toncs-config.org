@@ -243,19 +243,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * amx
 
 #+begin_src emacs-lisp
-(defvar warning-minimum-level)
-(defun toncs-warning-suppressor (orig-fun &rest args)
-  (with-no-warnings
-    (let ((warning-minimum-level :error))
-      (apply orig-fun args))))
-
 (require 'amx)
 
 (toncs-config-configure amx
   (setq amx-history-length 9)
-  (amx-mode 1)
   ;; emacs -q の時に Warning が出まくってウルサイので鎮める
-  (advice-add 'amx-save-to-file :around #'toncs-warning-suppressor))
+  (when noninteractive (setq amx-save-file nil))
+  (amx-mode 1))
 #+end_src
 
 * winum
