@@ -169,8 +169,6 @@ Emacs 27 以降導入された仕組みです。
   (setq user-init-file (expand-file-name "init.el" user-emacs-directory)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-(load (locate-user-emacs-file "toncs-bootstrap.el"))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -191,6 +189,8 @@ Emacs 27 以降導入された仕組みです。
 #+end_src
 
 #+begin_src emacs-lisp
+(load (locate-user-emacs-file "toncs-bootstrap.el"))
+
 (unless (bound-and-true-p toncs-early-init-loaded)
   (when load-file-name
     (setq user-emacs-directory (file-name-directory load-file-name)))
