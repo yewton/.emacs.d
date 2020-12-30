@@ -569,6 +569,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 #+begin_src emacs-lisp
 (toncs-config-prepare highlight-indent-guides
   (delight 'highlight-indent-guides-mode nil "highlight-indent-guides")
+  ;; バッチ実行時に無意味なエラーが出ないようにする
+  ;; https://github.com/DarthFennec/highlight-indent-guides/issues/83#issuecomment-635621246
+  (when noninteractive (defvar highlight-indent-guides-suppress-auto-error t))
   (add-hook 'prog-mode-hook #'highlight-indent-guides-mode))
 #+end_src
 
@@ -615,6 +618,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (dolist (dir (list no-littering-var-directory
                      no-littering-etc-directory))
     (add-to-list 'recentf-exclude dir))
+  (when noninteractive (setq recentf-auto-cleanup 'never))
   (recentf-mode 1)
   (run-with-idle-timer 300 t #'recentf-save-list))
 #+end_src
@@ -741,6 +745,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'projectile)
+;; 無害なはずなので...
+(when noninteractive (defvar treemacs-no-load-time-warnings t))
 (require 'treemacs-projectile)
 
 (defun toncs-projectile-ignored-project-function (truename)
