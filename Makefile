@@ -16,7 +16,7 @@ ifeq ($(OS_NAME),darwin)
     RUNEMACS := open -n -a "Emacs" --args
 endif
 
-.PHONY: all gc clean run
+.PHONY: all gc clean run test
 
 all: $(INITS) $(STATUS) $(ELCS)
 
@@ -41,6 +41,9 @@ clean: gc
 
 run: all
 	$(RUNEMACS) --no-init-file --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el >/dev/null 2>&1 &
+
+test: all
+	emacs --batch --load ert --load test/init-test.el -f ert-run-tests-batch-and-exit
 
 run-nw: all
 	emacs --no-init-file --no-window-system --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el

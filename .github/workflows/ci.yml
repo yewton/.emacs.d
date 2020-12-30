@@ -23,7 +23,7 @@ jobs:
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
-    - run: make
+    - run: make test
       env:
         ERROR_ON_WARN: t
         EL_GET_SKIP_BYTE_COMPILE: t
