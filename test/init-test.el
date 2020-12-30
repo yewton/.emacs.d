@@ -1,5 +1,7 @@
-(load (locate-user-emacs-file "toncs-bootstrap.el"))
-(load (locate-user-emacs-file "early-init.el"))
+(let ((base-directory (locate-dominating-file load-file-name "init.el")))
+  (add-to-list 'load-path base-directory)
+  (load "toncs-bootstrap")
+  (load "early-init"))
 
 (toncs-init)
 
