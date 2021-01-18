@@ -6,8 +6,9 @@ ORGS := $(wildcard ./lisp/*.org)
 INITS := toncs-bootstrap.el early-init.el init.el
 ELS := $(ORGS:.org=.el)
 ELCS := $(ELS:.el=.elc)
+DICT_DIR := ./var/skk-jisyo/
 DICTS := $(addprefix SKK-JISYO.,L jinmei geo station propernoun)
-DICT_PATHS := $(addsuffix .utf8,$(addprefix ./var/skk-jisyo/,$(DICTS)))
+DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
 STATUS := ./var/el-get/.status.el
 ERROR_ON_WARN ?= nil
 
@@ -34,8 +35,11 @@ $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/,toncs-deps toncs-st
 $(ELCS): lisp/%.elc: lisp/%.el
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" --funcall batch-byte-compile $<
 
-$(DICT_PATHS):
-	curl --silent "https://skk-dev.github.io/dict/$(basename $(@F)).gz" | gunzip -c | iconv -f euc-jisx0213 -t utf8 > $@
+$(DICT_DIR):
+	mkdir -p $@
+
+$(DICT_PATHS): | $(DICT_DIR)
+	curl --silent "https://skk-dev.github.io/dict/$(basename $(@F)).gz" | gunzip -c | sed 's/coding: euc-jp/coding: utf-8/' | iconv -f euc-jisx0213 -t utf8 > $@
 
 gc:
 	rm -vf $(ELCS)
