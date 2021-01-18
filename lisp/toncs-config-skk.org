@@ -31,6 +31,7 @@
   (dolist (dic '("jinmei" "geo" "station" "propernoun"))
     (let ((jisyo-file (expand-file-name (format "SKK-JISYO.%s.utf8" dic) skk-get-jisyo-directory)))
       (add-to-list 'skk-extra-jisyo-file-list jisyo-file)))
+  (add-to-list 'skk-extra-jisyo-file-list (expand-file-name "kaomoji.skk.utf8" skk-get-jisyo-directory))
   (set-face-attribute 'skk-show-mode-inline-face nil :foreground "black" :background "lemon chiffon")
 
   ;; Let me `newline-and-indent' in latin-mode!

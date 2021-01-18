@@ -9,6 +9,8 @@ ELCS := $(ELS:.el=.elc)
 DICT_DIR := ./var/skk-jisyo/
 DICTS := $(addprefix SKK-JISYO.,L jinmei geo station propernoun)
 DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
+KAOMOJI_DICT := $(DICT_DIR)kaomoji.skk.utf8
+KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoji.skk.utf8
 STATUS := ./var/el-get/.status.el
 ERROR_ON_WARN ?= nil
 
@@ -21,7 +23,7 @@ endif
 
 .PHONY: all gc clean run test
 
-all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS)
+all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
 
 $(INITS): %.el: README.org
 	$(tangle)
@@ -40,6 +42,9 @@ $(DICT_DIR):
 
 $(DICT_PATHS): | $(DICT_DIR)
 	curl --silent "https://skk-dev.github.io/dict/$(basename $(@F)).gz" | gunzip -c | sed 's/coding: euc-jp/coding: utf-8/' | iconv -f euc-jisx0213 -t utf8 > $@
+
+$(KAOMOJI_DICT): | $(DICT_DIR)
+	curl --silent "$(KAOMOJI_DICT_URL)" > $@
 
 gc:
 	rm -vf $(ELCS)
