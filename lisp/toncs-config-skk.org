@@ -24,14 +24,13 @@
 
   ;; 辞書関連
   (setq skk-server-host nil)
+  (setq skk-jisyo-code 'utf-8)
   (setq skk-inhibit-ja-dic-search t)
   (setq skk-get-jisyo-directory (no-littering-expand-var-file-name "skk-jisyo/"))
-  (setq skk-large-jisyo (expand-file-name "SKK-JISYO.L" skk-get-jisyo-directory))
-  (dolist (dic '("SKK-JISYO.geo" "SKK-JISYO.mazegaki" "SKK-JISYO.propernoun"
-                 "SKK-JISYO.jinmei" "SKK-JISYO.pubdic+" "SKK-JISYO.station"
-                 "SKK-JISYO.zipcode" "SKK-JISYO.lisp"))
-    (add-to-list 'skk-extra-jisyo-file-list (expand-file-name dic skk-get-jisyo-directory)))
-
+  (setq skk-large-jisyo (expand-file-name "SKK-JISYO.L.utf8" skk-get-jisyo-directory))
+  (dolist (dic '("jinmei" "geo" "station" "propernoun"))
+    (let ((jisyo-file (expand-file-name (format "SKK-JISYO.%s.utf8" dic) skk-get-jisyo-directory)))
+      (add-to-list 'skk-extra-jisyo-file-list jisyo-file)))
   (set-face-attribute 'skk-show-mode-inline-face nil :foreground "black" :background "lemon chiffon")
 
   ;; Let me `newline-and-indent' in latin-mode!
