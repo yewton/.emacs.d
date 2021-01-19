@@ -41,7 +41,7 @@ $(DICT_DIR):
 	mkdir -p $@
 
 $(DICT_PATHS): | $(DICT_DIR)
-	curl --silent "https://skk-dev.github.io/dict/$(basename $(@F)).gz" | gunzip -c | sed 's/coding: euc-jp/coding: utf-8/' | iconv -f euc-jisx0213 -t utf8 > $@
+	curl --silent "https://skk-dev.github.io/dict/$(basename $(@F)).gz" | gunzip -c | iconv -f euc-jisx0213 -t utf8 | sed 's/coding: euc-jp/coding: utf-8/' > $@
 
 $(KAOMOJI_DICT): | $(DICT_DIR)
 	curl --silent "$(KAOMOJI_DICT_URL)" > $@
