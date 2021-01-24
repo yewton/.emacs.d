@@ -134,6 +134,7 @@ restart `org-mode' if necessary."
   (setq org-image-actual-width '(300))
   (setq org-display-remote-inline-images 'cache)
   (setq org-id-link-to-org-use-id t)
+  (setq org-adapt-indentation nil)
   (dolist (item (list toncs-org-agenda-directory org-default-notes-file))
     (add-to-list 'org-agenda-files item))
 
