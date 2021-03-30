@@ -25,16 +25,16 @@ endif
 
 all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
 
-$(INITS): %.el: README.org
+$(INITS): README.org
 	$(tangle)
 
-$(ELS): lisp/%.el: lisp/%.org
+lisp/%.el: lisp/%.org
 	$(tangle)
 
-$(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/,toncs-deps toncs-stdlib toncs-el-get))
+$(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib el-get))
 	emacs --quick --batch --load toncs-bootstrap.el --load toncs-el-get --funcall toncs-el-get-install
 
-$(ELCS): lisp/%.elc: lisp/%.el
+lisp/%.elc: lisp/%.el
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" --funcall batch-byte-compile $<
 
 $(DICT_DIR):
