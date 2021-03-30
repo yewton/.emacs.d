@@ -14,8 +14,6 @@ KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoj
 STATUS := ./var/el-get/.status.el
 ERROR_ON_WARN ?= nil
 
-tangle = emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
-
 ifeq ($(OS_NAME),darwin)
 	FIND := gfind
     RUNEMACS := open -n -a "Emacs" --args
@@ -26,10 +24,10 @@ endif
 all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
 
 $(INITS): README.org
-	$(tangle)
-
 lisp/%.el: lisp/%.org
-	$(tangle)
+
+$(INITS) $(ELS):
+	emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
 
 $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib el-get))
 	emacs --quick --batch --load toncs-bootstrap.el --load toncs-el-get --funcall toncs-el-get-install
