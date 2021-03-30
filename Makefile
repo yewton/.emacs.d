@@ -24,7 +24,7 @@ endif
 all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
 
 $(INITS): README.org
-lisp/%.el: lisp/%.org
+$(ELS): %.el: %.org
 
 $(INITS) $(ELS):
 	emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
