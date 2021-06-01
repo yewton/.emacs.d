@@ -470,6 +470,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare magit)
 #+end_src
 
+* smerge
+
+#+begin_src emacs-lisp
+(toncs-config-prepare smerge-mode)
+#+end_src
+
 * diff-hl
 
 #+begin_src emacs-lisp
