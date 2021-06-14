@@ -21,7 +21,7 @@
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
 
-    (:name dash :checkout "b92ab5a39b987e4fe69317b9d9fda452300baf20")
+    (:name dash :checkout "88d799595e8f1b4154637ce8a3f81b97b0520c1a")
     (:name s :checkout "43ba8b563bee3426cead0e6d4ddc09398e1a349d")
     (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
@@ -30,9 +30,9 @@
 
     (:name amx :checkout "ccfc92c600df681df5e8b5fecec328c462ceb71e")
 
-    (:name avy :checkout "bbf1e7339eba06784dfe86643bb0fbddf5bb0342")
+    (:name avy :checkout "e92cb37457b43336b765630dbfbea8ba4be601fa")
 
-    (:name swiper :checkout "7e4c56776f811f78b8eb95210156f8fbbdba67e7")
+    (:name swiper :checkout "040d458bce4a88f37359192061bcea5ebe87007c")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -83,8 +83,8 @@
 
     (:name diff-hl :checkout "2281a89a3ddc6616073da6f190dda08d23b18ba6")
 
-    (:name projectile :checkout "1104e448779600a6238ffc91afb7e29d6b268ef1")
-    (:name counsel-projectile :checkout "77392cbbc42e98fc137b43f1db1b111ba6e2dd75")
+    (:name projectile :checkout "155fdb44176347c9599357c7935993033260a930")
+    (:name counsel-projectile :checkout "06b03c1080d3ccc3fa9b9c41b1ccbcf13f058e4b")
 
     (:name ace-window :checkout "c7cb315c14e36fded5ac4096e158497ae974bec9")
     (:name pfuture :checkout "d7926de3ba0105a36cfd00811fd6278aea903eef")
