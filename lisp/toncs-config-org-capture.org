@@ -13,6 +13,7 @@
 (defconst toncs-config-org-capture-task-template
   `("t" "タスク" entry (file "")
     "* TODO %?
+SCHEDULED: %t
 :PROPERTIES:
 :CATEGORY: task
 :CREATED: %U
