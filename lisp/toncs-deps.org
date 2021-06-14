@@ -16,7 +16,7 @@
 
     (:name no-littering :checkout "cd32b5e692cfba27cbd9dce22a9014141b637e1e")
 
-    (:name org-mode :branch "release_9.4" :shallow t)
+    (:name org-mode :branch "release_9.4.6" :shallow t)
 
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
