@@ -201,7 +201,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (defun toncs-config-font-configure ()
-  (let* ((fonts '(("Cica" . 140)
+  (let* ((fonts '(("HackgenNerd" . 110)
+                  ("Cica" . 140)
                   ("Menlo" . 120)
                   ("Myrica M" . 120)
                   ("Monospace" . 96)))
