@@ -841,7 +841,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq save-interprogram-paste-before-kill t)
   (when (eq window-system 'x)
     ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=23681
-    (setq x-select-request-type 'UTF8_STRING))
+    (setq x-select-request-type 'UTF8_STRING)
+    ;; 少なくとも Crostini 環境ではこうしないと Shit-Tab が動かなかった
+    ;; 参考 https://emacs.stackexchange.com/a/53469
+    (define-key function-key-map [(shift iso-lefttab)] [(shift tab)])
+    (define-key function-key-map [(control shift iso-lefttab)] [(control shift tab)])
+    (define-key function-key-map [(meta shift iso-lefttab)] [(meta shift tab)])
+    (define-key function-key-map [(meta control shift iso-lefttab)] [(meta control shift tab)]))
 
   ;; eval
   (setq eval-expression-print-length nil)
