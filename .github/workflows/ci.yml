@@ -19,7 +19,7 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: var/el-get
-        key: ${{ matrix.os }}-${{matrix.emacs_version}}-${{ hashFiles('lisp/toncs-deps.org') }}-${{ hashFiles('etc/el-get-recipes/*.rcp') }}
+        key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-${{ hashFiles('lisp/toncs-deps.org', 'etc/el-get-recipes/*.rcp') }}
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
