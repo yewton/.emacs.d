@@ -164,6 +164,13 @@ restart `org-mode' if necessary."
 
   (org-clock-persistence-insinuate)
 
+  (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (org . t)
+       (shell . t)
+       (plantuml . t)))
+
   (delight '((org-indent-mode nil "org-indent")
              (org-src-mode nil "org-src")))
   (add-hook 'org-mode-hook #'toncs-org-mode-hook-function)
