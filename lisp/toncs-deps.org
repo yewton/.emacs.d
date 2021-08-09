@@ -142,9 +142,9 @@
     (:name org-superstar-mode :checkout "17481852c1bd09afea877635a3185261fc19fd64")
 
     (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
-    (:name elisp-refs :checkout "b3634a4567c655a1cda51b217629849cba0ac6a7")
-    (:name shut-up :checkout "081d6b01e3ba0e60326558e545c4019219e046ce")
-    (:name helpful :checkout "c0662aa07266fe204f4e6d72ccaa6af089400556")
+    (:name elisp-refs :checkout "fdde21e34b1272783d566d8230b5ed2dc4749048")
+    (:name shut-up :checkout "ff6f06f3b080ee833a25a22da8cb5b96e911dc77")
+    (:name helpful :checkout "7e4b1f0d5572a4e2b8ee7a9b084ef863d0315a73")
 
     (:name emojify :checkout "d886069974d05c8c15654204f9afeaee962f3e7d")
 
