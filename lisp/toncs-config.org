@@ -192,8 +192,19 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 (toncs-config-prepare org-attach)
 
+(autoload 'toncs-org-roam-search "toncs-config-org-roam")
+(autoload 'toncs-org-roam-find-refs "toncs-config-org-roam")
 (toncs-config-prepare org-roam
-  (add-hook 'emacs-startup-hook #'org-roam-mode))
+  (defvar org-roam-v2-ack t)
+  (general-def
+    "C-c n f" #'org-roam-node-find
+    "C-c n g" #'org-roam-graph
+    "C-c n t" #'org-roam-dailies-goto-today
+    "C-c n c" #'org-roam-capture
+    "C-c n s" #'toncs-org-roam-search
+    "C-c n r" #'toncs-org-roam-find-refs)
+  (general-def org-mode-map
+    "C-c n i" #'org-roam-node-insert))
 #+end_src
 
 * 外観
@@ -453,7 +464,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq migemo-regex-dictionary (no-littering-expand-var-file-name "migemo-regex-dict"))
   (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
 
-  (dolist (caller '(org-roam--completing-read
+  (dolist (caller '(org-roam-node-find org-roam-node-insert
                     counsel-rg counsel-find-file swiper-isearch
                     counsel-outline counsel-org-goto
                     counsel-org-agenda-headlines counsel-org-goto-all))

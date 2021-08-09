@@ -2,4 +2,5 @@
        :description "Rudimentary Roam replica with Org-mode"
        :type github
        :depends (dash emacsql emacsql-sqlite3 f org-mode s)
-       :pkgname "org-roam/org-roam")
+       :pkgname "org-roam/org-roam"
+       :load-path ("." "extensions"))

@@ -21,9 +21,9 @@
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
 
-    (:name dash :checkout "88d799595e8f1b4154637ce8a3f81b97b0520c1a")
-    (:name s :checkout "43ba8b563bee3426cead0e6d4ddc09398e1a349d")
-    (:name f :checkout "1814209e2ff43cf2e6d38c4cd476218915f550fb")
+    (:name dash :checkout "2675596b9ac1c4b9d47b93e227f06f8ec6755ec6")
+    (:name s :checkout "08661efb075d1c6b4fa812184c1e5e90c08795a9")
+    (:name f :checkout "50af874cd19042f17c8686813d52569b1025c76a")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
@@ -76,8 +76,8 @@
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
     (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
-    (:name transient :checkout "79777324858df408bd6ba7509d9f0b6987208d98")
-    (:name magit :checkout "e5e475c61ce568a7e20ed8f795fa343a93632871")
+    (:name transient :checkout "626d105ecfb44ab9e1a4bf1fccb9340d6488b631")
+    (:name magit :checkout "14ae9f6d9016d8ced2cc8daad949a73b150c2f13")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
@@ -109,9 +109,9 @@
     (:name company-mode :checkout "0edc87d423b83c707e6c708f421d96f4d198803d")
     (:name company-quickhelp :checkout "5a86731de461142db3b7ca26b4681756edb4b773")
 
-    (:name emacsql :checkout "6d8cd9366284b5a27268ff4b783e2c34573d5b60")
-    (:name emacsql-sqlite3 :checkout "e920671872cd8e0ef9c3646e6f0fae331bf8a7df")
-    (:name org-roam :checkout "e3ff54616ec8c7c921aee50efd1400e7514cdfb0"))
+    (:name emacsql :checkout "9dca5996168c4963eb67e61c7f17fdcb8228e314")
+    (:name emacsql-sqlite3 :checkout "50aa9bdd76b0d18bf80526cff13a69fe306ee29c")
+    (:name org-roam :checkout "eb1d420c298598f6431eb15da75537c0e28aed7f"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
 
