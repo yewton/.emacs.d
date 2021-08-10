@@ -42,7 +42,8 @@
                               "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n")
            :unnarrowed t)))
   (general-def org-roam-mode-map
-    "C-c n l" #'org-roam-buffer-toggle))
+    "C-c n l" #'org-roam-buffer-toggle)
+  (org-roam-setup))
 #+end_src
 
 #+begin_src emacs-lisp :comments no
