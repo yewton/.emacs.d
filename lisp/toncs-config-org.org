@@ -170,6 +170,7 @@ restart `org-mode' if necessary."
        (org . t)
        (shell . t)
        (plantuml . t)))
+  (setq org-babel-min-lines-for-block-output 0)
 
   (delight '((org-indent-mode nil "org-indent")
              (org-src-mode nil "org-src")))
