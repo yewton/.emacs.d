@@ -363,7 +363,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-x b" #'ivy-switch-buffer
     "C-c k" #'counsel-rg
     "C-x z" #'toncs-open-junk-file
-    "C-x C-z" #'toncs-open-junk-file)
+    "C-x C-z" #'toncs-open-junk-file
+    "C-x r b" #'counsel-bookmark)
   (general-def minibuffer-local-map
     "C-r" #'counsel-minibuffer-history)
   (general-def ivy-minibuffer-map
