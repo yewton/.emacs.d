@@ -17,10 +17,6 @@
   (interactive)
   (counsel-rg nil org-roam-directory "" "[Roam]"))
 
-(defun toncs-org-roam-find-refs ()
-  (interactive)
-  (counsel-rg (file-name-nondirectory (buffer-file-name)) org-roam-directory "" "[Roam Refs]"))
-
 (defun toncs-config-org-roam-configure ()
   (delight 'org-roam-mode nil "org-roam")
   (setq org-roam-directory (expand-file-name "roam" org-directory))

@@ -193,7 +193,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare org-attach)
 
 (autoload 'toncs-org-roam-search "toncs-config-org-roam")
-(autoload 'toncs-org-roam-find-refs "toncs-config-org-roam")
 (toncs-config-prepare org-roam
   (defvar org-roam-v2-ack t)
   (general-def
@@ -201,8 +200,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-c n g" #'org-roam-graph
     "C-c n t" #'org-roam-dailies-goto-today
     "C-c n c" #'org-roam-capture
-    "C-c n s" #'toncs-org-roam-search
-    "C-c n r" #'toncs-org-roam-find-refs)
+    "C-c n s" #'toncs-org-roam-search)
   (general-def org-mode-map
     "C-c n i" #'org-roam-node-insert))
 #+end_src
