@@ -129,7 +129,7 @@ restart `org-mode' if necessary."
   (setq org-startup-with-inline-images t)
   (setq org-use-speed-commands t)
   (setq org-use-sub-superscripts nil)
-  (setq org-yank-adjusted-subtrees t)
+  (setq org-yank-adjusted-subtrees nil)
   (setq org-default-notes-file (expand-file-name "refileme.org" org-directory))
   (setq org-image-actual-width '(300))
   (setq org-display-remote-inline-images 'cache)
