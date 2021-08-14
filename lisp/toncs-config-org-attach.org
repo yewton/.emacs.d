@@ -8,7 +8,11 @@
 #+begin_src emacs-lisp
 (require 'org-attach)
 
+(defun toncs-org-attach-id-to-path (id)
+  (downcase (org-attach-id-uuid-folder-format id)))
+
 (defun toncs-config-org-attach-configure ()
+  (add-to-list 'org-attach-id-to-path-function-list #'toncs-org-attach-id-to-path)
   (setq org-attach-store-link-p t)
   (setq org-attach-dir-relative t)
   (setq org-attach-use-inheritance t))
