@@ -10,6 +10,8 @@
 
 (defun toncs-config-highlight-indent-guides-configure ()
   (setq highlight-indent-guides-method 'character)
+  ;; デフォルトの「│」だと表示が崩れたため
+  (setq highlight-indent-guides-character ?|)
   (setq highlight-indent-guides-responsive 'stack))
 #+end_src
 
