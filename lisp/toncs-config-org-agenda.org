@@ -45,7 +45,9 @@
                      ("N" "ルーチンワーク以外" todo ""
                       ((org-agenda-category-filter-preset '("-routine" "-habit"))))
                      ("A" "アーカイブ候補" tags "CLOSED<\"<-3m>\"|CREATED<\"<-3m>\"|TIMESTAMP_IA<\"<-3m>\"|TIMESTAMP<\"<-3m>\"|SCHEDULED<\"<-3m>\"|DEADLINE<\"<-3m>\"/-TODO"
-                      ((org-agenda-max-entries 500)))
+                      ((org-agenda-max-entries 500)
+                       ;; habit 用のファイルはログエントリだらけで検索が遅くなるし、基本アーカイブしない為
+                       (org-agenda-files (seq-remove (lambda (s) (string-match-p "habit" s)) (org-agenda-files)))))
                      ("R" "リファイル候補" tags "refileme"
                       ((org-tags-match-list-sublevels nil)))
                      ("D" "締切のみ" agenda ""
