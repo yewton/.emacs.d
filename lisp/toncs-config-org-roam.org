@@ -21,6 +21,8 @@
   (delight 'org-roam-mode nil "org-roam")
   (setq org-roam-directory (expand-file-name "roam" org-directory))
   (setq org-roam-db-location (no-littering-expand-var-file-name "org-roam.db"))
+  ;; Syncthing のバージョン管理用ファイルを無視したい
+  (setq org-roam-file-exclude-regexp "~[[:digit:]]+-[[:digit:]]+")
 
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
