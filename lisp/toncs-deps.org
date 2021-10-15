@@ -16,7 +16,9 @@
 
     (:name no-littering :checkout "cd32b5e692cfba27cbd9dce22a9014141b637e1e")
 
-    (:name org-mode :branch "release_9.4.6" :shallow t)
+    (:name org-mode :branch "release_9.4.6" :shallow t
+           ;; https://orgmode.org/worg/dev/org-build-system.html#org507ed6c
+           :build/windows-nt `((,el-get-emacs "--batch" "--quick" "--directory" "lisp" "--load" "../mk/org-fixup" "--funcall" "org-make-autoloads")))
 
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
@@ -32,7 +34,8 @@
 
     (:name avy :checkout "e92cb37457b43336b765630dbfbea8ba4be601fa")
 
-    (:name swiper :checkout "040d458bce4a88f37359192061bcea5ebe87007c")
+    (:name swiper :checkout "040d458bce4a88f37359192061bcea5ebe87007c"
+           :build/windows-nt `(("make" ,(format "emacs=%s -L %s" el-get-emacs (concat (file-name-as-directory el-get-dir) "avy")) "compile")))
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -64,7 +67,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
+  `((:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
 
     (:name diredfl :checkout "cd052dfef602fe79d8dfbcf9f06e6da74412218b")
 
@@ -135,7 +138,8 @@
     (:name closql :checkout "1e78f96dc976badb59067c986f7766cce89405cc")
     (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
     (:name ghub :checkout "4ebe60b9522355c6ee95005bc7d8ba41df4a3c6b")
-    (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3")
+    (:name forge :checkout "0081afd2c8afeb5ff9d0842ac5071969fd9c0fc3"
+           :build/windows-nt (("echo" "noop")))
 
     (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
 

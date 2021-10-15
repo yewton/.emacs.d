@@ -124,6 +124,7 @@ lsb_release -a
 (defvar el-get-install-skip-emacswiki-recipes t)
 (defvar el-get-install-shallow-clone t)
 (defvar el-get-byte-compile (not (getenv "EL_GET_SKIP_BYTE_COMPILE")))
+(defvar el-get-install-info nil)
 (unless (require 'el-get nil t)
   (with-current-buffer
       (url-retrieve-synchronously

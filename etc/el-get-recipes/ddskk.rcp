@@ -6,7 +6,7 @@
        :autoloads ("skk-autoloads.el")
        :info "doc/skk.info"
        :compile nil
-       :build (mapcar (lambda (args) (append `(,el-get-emacs "--batch" "--quick" "--no-init-file") args))
+       :build (mapcar (lambda (args) (append `(,el-get-emacs "--batch" "--quick") args))
                       `(("--load" "SKK-MK" "--funcall" "SKK-MK-compile")
                         ("--load" "SKK-MK" "--funcall" "SKK-MK-compile-info")
                         ("--directory" "." "--load" "skk-develop" "--eval"
