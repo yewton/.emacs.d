@@ -56,6 +56,9 @@ Activate this advice with:
 (defun toncs-activate-timestamped-message ()
   (advice-add 'message :before #'toncs-ad-timestamp-message))
 
+(defvar toncs-wsl-p (and (eq system-type 'gnu/linux)
+                         (eq 0 (call-process "grep" nil nil nil "-i" "microsoft" "/proc/version"))))
+
 (defun toncs-init ()
   (toncs-init-modifiers)
   (toncs-activate-timestamped-message))

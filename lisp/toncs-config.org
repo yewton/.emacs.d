@@ -882,9 +882,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
   (delight 'eldoc-mode nil "eldoc")
 
-  (when (and (eq system-type 'gnu/linux)
-             (eq 0 (call-process "grep" nil nil nil "-i" "microsoft" "/proc/version")))
-    ;; WSL
+  (when toncs-wsl-p
     (when (executable-find "wslview")
       (setq browse-url-generic-program "wslview")
       (setq browse-url-browser-function #'browse-url-generic))))
