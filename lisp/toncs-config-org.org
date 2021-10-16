@@ -95,7 +95,10 @@
   ;; 参考 https://zzamboni.org/post/how-to-insert-screenshots-in-org-documents-on-macos/
   (setq org-download-screenshot-method (pcase system-type
                                          ('darwin "pngpaste %s")
-                                         ('gnu/linux "xclip -selection clipboard -target image/png -o > %s"))))
+                                         ('gnu/linux
+                                          (if toncs-wsl-p
+                                              "powershell.exe '(Get-Clipboard -Format Image).Save(\"%s\")'"
+                                              "xclip -selection clipboard -target image/png -o > %s")))))
 
 (autoload 'org-expiry-insinuate
   "org-expiry" "Add hooks and activate advices for org-expiry.
