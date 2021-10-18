@@ -59,6 +59,7 @@
     (setq org-export-default-language "ja")))
 
 (require 'org-clock)
+
 (defun toncs-org-show-notification-handler (title &optional msg)
   (cond
    ((and (eq window-system 'ns) (executable-find "terminal-notifier"))
@@ -71,8 +72,16 @@
                   "-appIcon" "https://orgmode.org/img/org-mode-unicorn-logo.png"
                   "-activate" "org.gnu.Emacs"))
    ((eq window-system 'x)
-    (eval-and-compile (require 'notifications))
-    (notifications-notify :title title :body msg))
+    (if (executable-find "pwsh.exe")
+        (call-process "pwsh.exe"
+                      nil
+                      0
+                      nil
+                      "-command" "New-BurntToastNotification"
+                      ;; FIXME 文字列内にダブルクォートが入ったら壊れる…
+                      "-Text" (format "\"%s\",\"%s\"" title msg))
+      (eval-and-compile (require 'notifications))
+      (notifications-notify :title title :body msg)))
    (t (message "%s %s" title msg))))
 
 (defun toncs-config-org-clock-configure ()
