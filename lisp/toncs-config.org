@@ -819,7 +819,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
   (setq-default fill-column 80)
-  (setq-default word-wrap t)
   (delight 'visual-line-mode nil "simple")
 
   (delight 'hi-lock-mode nil "hi-lock")
@@ -827,8 +826,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq require-final-newline t)
 
   (setq kill-do-not-save-duplicates t)
-
-  (add-hook 'text-mode-hook #'visual-line-mode)
 
   (setq help-window-select t)
 
