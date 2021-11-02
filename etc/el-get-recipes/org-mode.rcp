@@ -8,6 +8,12 @@
                                (lambda (target)
                                  (list "gmake" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
                                '("oldorg"))
+       :build/darwin `,(mapcar
+                 (lambda (target)
+                   (list "make" target
+                         (concat "EMACS=" (shell-quote-argument el-get-emacs))
+                         (concat "MAKEINFO=/opt/homebrew/opt/texinfo/bin/makeinfo")))
+                 '("oldorg"))
        :build `,(mapcar
                  (lambda (target)
                    (list "make" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
