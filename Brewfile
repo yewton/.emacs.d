@@ -1,12 +1,13 @@
 # -*- mode: ruby; -*-
 tap "d12frosted/emacs-plus"
+tap "homebrew/cask-fonts"
 
 # Build essentials
 brew "coreutils"
 brew "findutils"
 brew "texinfo"
 
-cask "font-cica"
+cask "font-hackgen-nerd"
 
 # for Treemacs
 brew "python3"
@@ -18,4 +19,4 @@ brew "ripgrep"
 # for org-download
 brew "pngpaste"
 
-brew "emacs-plus", args: %w{with-ctags with-xwidgets with-modern-papirus-icon}
+brew "emacs-plus", args: %w{with-ctags with-xwidgets}
