@@ -8,15 +8,11 @@
                                (lambda (target)
                                  (list "gmake" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
                                '("oldorg"))
-       :build/darwin `,(mapcar
+       :build `,(mapcar
                  (lambda (target)
                    (list "make" target
                          (concat "EMACS=" (shell-quote-argument el-get-emacs))
-                         (concat "MAKEINFO=/opt/homebrew/opt/texinfo/bin/makeinfo")))
-                 '("oldorg"))
-       :build `,(mapcar
-                 (lambda (target)
-                   (list "make" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
+                         (concat "MAKEINFO=" (shell-quote-argument (executable-find "makeinfo")))))
                  '("oldorg"))
        :load-path ("." "contrib/lisp" "lisp")
        :autoloads ("lisp/org-loaddefs.el"))
