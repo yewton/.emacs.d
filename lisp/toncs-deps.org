@@ -111,7 +111,9 @@
 
     (:name emacsql :checkout "9dca5996168c4963eb67e61c7f17fdcb8228e314")
     (:name emacsql-sqlite3 :checkout "50aa9bdd76b0d18bf80526cff13a69fe306ee29c")
-    (:name org-roam :checkout "eb1d420c298598f6431eb15da75537c0e28aed7f"))
+    (:name org-roam :checkout "eb1d420c298598f6431eb15da75537c0e28aed7f")
+
+    (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
 

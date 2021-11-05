@@ -3,4 +3,4 @@
        :type github
        :depends (ace-window cl-lib dash f hydra pfuture s)
        :pkgname "Alexander-Miller/treemacs"
-       :load-path ("src/elisp"))
+       :load-path ("src/elisp" "src/extra"))
