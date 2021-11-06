@@ -67,114 +67,29 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * モードライン
 
 #+begin_src emacs-lisp
-(require 'powerline)
-(require 'spaceline-segments)
 (require 'time)
-
-;; see https://github.com/tarsius/moody/commit/a7fb64d6fae15ed6ff87e540ff177134fc0b19b5
-(defvar-local powerline--size-hacked-p nil)
-
-;; see https://github.com/tarsius/moody/commit/8f96f1ec6b331747774d84a6cc49968503bac7d0
-(defun powerline-set-selected-window1 (&optional _)
-  (if (and (fboundp 'frame-focus-state) (with-no-warnings (null (frame-focus-state))))
-      (setq powerline-selected-window nil)
-    (let ((win (selected-window)))
-      (unless (minibuffer-window-active-p win)
-        (setq powerline-selected-window win)))))
-
-(defun powerline-redisplay (&optional _force &rest _ignored)
-    "See `moody-redisplay'"
-    (when (and mode-line-format (not powerline--size-hacked-p))
-      (setq powerline--size-hacked-p t)
-      (redisplay t)))
-
-(defun toncs-force-focus ()
-  (setf (frame-parameter (selected-frame) 'last-focus-update) t))
-
-(spaceline-define-segment skk
-  "Show current SKK status."
-  (cond
-   ((not (featurep 'skk)) "--")
-   (skk-abbrev-mode skk-abbrev-mode-string)
-   (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
-   (skk-katakana skk-katakana-mode-string)
-   (skk-j-mode skk-hiragana-mode-string)
-   (skk-jisx0201-mode skk-jisx0201-mode-string)
-   (skk-latin-mode skk-latin-mode-string)
-   (t "--")))
 
 (toncs-config-configure modeline
   (setq display-time-format "%_m月%_d日(%a) %H:%M")
   (setq display-time-default-load-average nil)
   (column-number-mode 1)
   (display-time-mode 1)
-
-  (setq powerline-height (+ (frame-char-height) 10))
-
-  (setq powerline-default-separator (if window-system 'slant 'utf-8))
-
-  (setq spaceline-window-numbers-unicode t)
-  (setq spaceline-workspace-numbers-unicode t)
-  (setq spaceline-minor-modes-separator " ")
-
-  (advice-add 'skk-setup-modeline :override #'ignore)
-  (toncs-config--powerline-hacks)
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
-
-  (spaceline-compile
-    '(((persp-name workspace-number window-number)
-       :fallback evil-state
-       :face highlight-face
-       :priority 0)
-      (anzu :priority 4)
-      auto-compile
-      skk
-      ((buffer-modified buffer-size buffer-id remote-host)
-       :priority 5)
-      (process :when active)
-      ((flycheck-error flycheck-warning flycheck-info)
-       :when active
-       :priority 3)
-      (minor-modes :when active)
-      (mu4e-alert-segment :when active)
-      (erc-track :when active)
-      (version-control :when active :priority 7)
-      (org-pomodoro :when active)
-      (org-clock :when active)
-      nyan-cat)
-
-    '(which-function
-      (python-pyvenv :fallback python-pyenv)
-      purpose
-      (battery :when active)
-      (selection-info :priority 2)
-      input-method
-      ((buffer-encoding-abbrev
-        point-position
-        line-column)
-       :separator " | "
-       :priority 3)
-      (global :when active)
-      (buffer-position :priority 0)
-      (hud :priority 0)))
-
-  ;; macOS だと起動直後にフォーカスしていても `(frame-focus-state)' が nil になっているので暫定対応
-  (when (eq 'ns window-system)
-    (add-hook 'emacs-startup-hook #'toncs-force-focus)))
-
-;; see https://github.com/TheBB/spaceline/issues/110#issuecomment-283513541
-(defun toncs-config--powerline-hacks ()
-  (remove-hook 'window-configuration-change-hook #'powerline-set-selected-window)
-  (remove-hook 'buffer-list-update-hook #'powerline-set-selected-window)
-  (ad-disable-advice 'handle-switch-frame 'after 'powerline-handle-switch-frame)
-
-  (with-no-warnings
-    (when (boundp 'after-focus-change-function)
-      (remove-hook 'focus-out-hook #'powerline-unset-selected-window)
-      (remove-hook 'focus-in-hook #'powerline-set-selected-window)
-      (add-function :after after-focus-change-function #'powerline-set-selected-window1)))
-  (add-hook 'pre-redisplay-functions #'powerline-set-selected-window1)
-  (advice-add 'fit-window-to-buffer :before #'powerline-redisplay))
+  ;; トップレベルで (requrie 'moody) をしてしまうと CI でのバイトコンパイル時に
+  ;; Error: Symbol’s function definition is void: font-info が出てしまう為、
+  ;; `font-info' 及び依存変数・関数全ての束縛チェックをしている…。
+  (when (and (fboundp 'font-info)
+             (boundp 'x-underline-at-descent-line))
+    (require 'moody)
+    (when (and (fboundp 'moody-replace-mode-line-buffer-identification)
+               (fboundp 'moody-replace-vc-mode)
+               (fboundp 'moody-replace-eldoc-minibuffer-message-function)
+               (boundp 'moody-slant-function))
+      (setq x-underline-at-descent-line t)
+      (moody-replace-mode-line-buffer-identification)
+      (moody-replace-vc-mode)
+      (moody-replace-eldoc-minibuffer-message-function)
+      (when (eq system-type 'darwin)
+        (setq moody-slant-function 'moody-slant-apple-rgb)))))
 #+end_src
 
 * Org mode
@@ -231,6 +146,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                               charset
                               (font-spec :family font-family))))))))
 #+end_src
+** modus-themes
+
+#+begin_src emacs-lisp
+(toncs-config-prepare modus-themes)
+(require 'modus-themes)
+#+end_src
 
 ** その他
 
@@ -240,7 +161,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq-local default-text-properties '(line-spacing 0.25 line-height 1.25)))
 
 (toncs-config-configure appearance
-  (load-theme 'leuven t)
   (blink-cursor-mode 1)
   (menu-bar-mode 0)
   (setq echo-keystrokes 0.2)
@@ -527,8 +447,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure windows-and-buffers
   (setq window-combination-resize t)
   (setq scroll-preserve-screen-position t)
-  ;; spaceline がやってくれる
-  (setq winum-auto-setup-mode-line nil)
   (winum-mode 1))
 #+end_src
 

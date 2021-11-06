@@ -1,0 +1,48 @@
+#+TITLE: modus-themes
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-modus-themes.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'modus-themes)
+(require 'general)
+
+(defun toncs-config-modus-themes-configure ()
+  (setq modus-themes-italic-constructs t)
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-syntax '(faint alt-syntax green-strings yellow-comments))
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-links '(neutral-underline background))
+  (setq modus-themes-prompts '(intense background bold))
+  (setq modus-themes-mode-line '(moody accented borderless))
+  (setq modus-themes-tabs-accented t)
+  (setq modus-themes-completions 'opinionated)
+  (setq modus-themes-fringes 'intense)
+  (setq modus-themes-lang-checkers '(intense background))
+  (setq modus-themes-hl-line '(accented))
+  (setq modus-themes-intense-markup t)
+  (setq modus-themes-paren-match '(bold intense))
+  (setq modus-themes-region '(bg-only no-extend accented))
+  (setq modus-themes-org-blocks 'tinted-background)
+  (setq modus-themes-org-agenda
+        '((header-block . (scale-title variable-pitch))
+          (header-date . (bold-today scale-heading underline-today))
+          (event . (accented italic varied))
+          (scheduled . rainbow)
+          (habit . traffic-light)))
+  (setq modus-themes-headings '((t . (overline background))))
+  (setq modus-themes-scale-headings t)
+
+  (modus-themes-load-themes)
+
+  (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
+
+  (general-def "<f9>" #'modus-themes-toggle))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-modus-themes)
+;;; toncs-config-modus-themes.el ends here
+#+end_src

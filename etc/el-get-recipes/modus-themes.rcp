@@ -1,0 +1,4 @@
+(:name modus-themes
+       :type git
+       :url "https://gitlab.com/protesilaos/modus-themes.git"
+       :website "https://gitlab.com/protesilaos/modus-themes")

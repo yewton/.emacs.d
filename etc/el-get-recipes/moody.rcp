@@ -1,0 +1,5 @@
+(:name moody
+       :website "https://github.com/tarsius/moody"
+       :description "Tabs and ribbons for the mode-line"
+       :type github
+       :pkgname "tarsius/moody")
