@@ -375,7 +375,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure migemo
   (let* ((dict-candidates (list "/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict"
                                 "/usr/share/cmigemo/utf-8/migemo-dict"
-                                "/usr/local/share/migemo/utf-8/migemo-dict"))
+                                "/usr/local/share/migemo/utf-8/migemo-dict"
+                                "/opt/homebrew/share/migemo/utf-8/migemo-dict"))
          (dict (seq-find #'file-readable-p dict-candidates)))
     (when dict
       (setq migemo-dictionary dict)))
