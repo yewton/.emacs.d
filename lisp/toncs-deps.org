@@ -113,7 +113,11 @@
 
     (:name emacsql :checkout "9dca5996168c4963eb67e61c7f17fdcb8228e314")
     (:name emacsql-sqlite3 :checkout "50aa9bdd76b0d18bf80526cff13a69fe306ee29c")
-    (:name org-roam :checkout "eb1d420c298598f6431eb15da75537c0e28aed7f")
+    (:name org-roam :checkout "7ad55727411acd5f6fbc9df7363e6dc62979cfa7")
+
+    (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
+    (:name websocket :checkout "fda4455333309545c0787a79d73c19ddbeb57980")
+    (:name org-roam-ui :checkout "9ed0c5705a302a91fab2b8bcc777a12dcf9b3682")
 
     (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277"))
   "あると幸せになれるパッケージ達です。")
