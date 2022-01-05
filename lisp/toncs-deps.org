@@ -77,9 +77,9 @@
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name with-editor :checkout "7e0bf753709f1775d2bbbb6edf4482fca7fd286a")
-    (:name transient :checkout "626d105ecfb44ab9e1a4bf1fccb9340d6488b631")
-    (:name magit :checkout "14ae9f6d9016d8ced2cc8daad949a73b150c2f13")
+    (:name with-editor :checkout "36d36957628621e8340f755b22082e1f4ed8e2d7")
+    (:name transient :checkout "45241225cf6bec864964191c0b3dc8bfad989723")
+    (:name magit :checkout "2e73b66c2980abb9211d9881a8710c8ac5a33184")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
