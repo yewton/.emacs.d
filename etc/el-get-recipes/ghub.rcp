@@ -1,0 +1,7 @@
+(:name ghub
+       :type github
+       :description "Minuscule client for the Github API"
+       :pkgname "magit/ghub"
+       :load-path "lisp/"
+       :compile "lisp/"
+       :depends (treepy))
