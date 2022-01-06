@@ -79,7 +79,7 @@
 
     (:name with-editor :checkout "36d36957628621e8340f755b22082e1f4ed8e2d7")
     (:name transient :checkout "45241225cf6bec864964191c0b3dc8bfad989723")
-    (:name magit :checkout "2e73b66c2980abb9211d9881a8710c8ac5a33184")
+    (:name magit :checkout "22046b51136593d9fc607f0bb885832cc9719555")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
