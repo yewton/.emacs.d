@@ -143,6 +143,7 @@
     (:name closql :checkout "15f906c393db1a0fb6577afc3cf59466531eafef")
     (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
     (:name ghub :checkout "d36c2b2419b04d7bc559756d37d39d615add6395")
+    (:name yaml :checkout "84b88c9ed178af16da18b230c1f61c57cefedf28")
     (:name forge :checkout "0ff9b8a0dea2483203646ba82ce155bb4957a88a")
 
     (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
