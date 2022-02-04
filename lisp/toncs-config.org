@@ -798,6 +798,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
   (delight 'eldoc-mode nil "eldoc")
 
+  ;; compilation
+  (setq compilation-scroll-output 'first-error)
+
   (when toncs-wsl-p
     (when (executable-find "wslview")
       (setq browse-url-generic-program "wslview")
