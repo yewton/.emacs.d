@@ -21,7 +21,7 @@
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
 
-    (:name dash :checkout "2675596b9ac1c4b9d47b93e227f06f8ec6755ec6")
+    (:name dash :checkout "da167c51e9fd167a48d06c7c0ee8e3ac7abd9718")
     (:name s :checkout "08661efb075d1c6b4fa812184c1e5e90c08795a9")
     (:name f :checkout "50af874cd19042f17c8686813d52569b1025c76a")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
@@ -111,13 +111,13 @@
     (:name company-mode :checkout "0edc87d423b83c707e6c708f421d96f4d198803d")
     (:name company-quickhelp :checkout "5a86731de461142db3b7ca26b4681756edb4b773")
 
-    (:name emacsql :checkout "9dca5996168c4963eb67e61c7f17fdcb8228e314")
-    (:name emacsql-sqlite3 :checkout "50aa9bdd76b0d18bf80526cff13a69fe306ee29c")
-    (:name org-roam :checkout "7ad55727411acd5f6fbc9df7363e6dc62979cfa7")
+    (:name emacsql :checkout "c82a0e6b4d256a3743b718cfb640fa9efc045f6e")
+    (:name emacsql-sqlite3 :checkout "209fd0c2649db0c7532e543ec12e7ba881a3325c")
+    (:name org-roam :checkout "eed1df90f571b19cae1581e7f5d938892b00c24d")
 
     (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
     (:name websocket :checkout "fda4455333309545c0787a79d73c19ddbeb57980")
-    (:name org-roam-ui :checkout "9ed0c5705a302a91fab2b8bcc777a12dcf9b3682")
+    (:name org-roam-ui :checkout "309fe3c58c7081de4e2c9c64f7b40ea291926048")
 
     (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277"))
   "あると幸せになれるパッケージ達です。")
