@@ -119,7 +119,9 @@
     (:name websocket :checkout "fda4455333309545c0787a79d73c19ddbeb57980")
     (:name org-roam-ui :checkout "309fe3c58c7081de4e2c9c64f7b40ea291926048")
 
-    (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277"))
+    (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277")
+
+    (:name good-scroll :checkout "a7ffd5c0e5935cebd545a0570f64949077f71ee3"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
 

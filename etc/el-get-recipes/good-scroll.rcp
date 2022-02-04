@@ -1,0 +1,5 @@
+(:name good-scroll
+       :website "https://github.com/io12/good-scroll.el"
+       :description "Attempt at good pixel-based smooth scrolling in Emacs"
+       :type github
+       :pkgname "io12/good-scroll.el")

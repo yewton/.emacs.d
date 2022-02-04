@@ -445,9 +445,16 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * ウインドウ/バッファ関連
 
 #+begin_src emacs-lisp
+(require 'good-scroll)
+
 (toncs-config-configure windows-and-buffers
   (setq window-combination-resize t)
   (setq scroll-preserve-screen-position t)
+  (setq scroll-conservatively 1000)
+  (general-def
+    "C-v" #'good-scroll-up-full-screen
+    "M-v" #'good-scroll-down-full-screen)
+  (good-scroll-mode 1)
   (winum-mode 1))
 #+end_src
 
