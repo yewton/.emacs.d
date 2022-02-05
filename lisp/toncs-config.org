@@ -312,13 +312,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare paren)
 #+end_src
 
-* hippie-exp
-
-#+begin_src emacs-lisp
-(toncs-config-prepare hippie-exp
-  (general-def "M-/" #'hippie-expand))
-#+end_src
-
 * dired
 
 #+begin_src emacs-lisp
@@ -619,28 +612,26 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (setq highlight-thing-exclude-thing-under-point t)))
 #+end_src
 
-* company
+* corfu
 
 #+begin_src emacs-lisp
-(require 'company)
-(require 'company-quickhelp)
+(require 'corfu)
+(require 'corfu-doc)
 
-(toncs-config-configure company
-  (delight 'company-mode nil "company")
-  (setq company-quickhelp-use-propertized-text t)
-  (general-def company-active-map
-    [remap next-line] #'company-select-next
-    [remap previous-line] #'company-select-previous
-    "C-f" #'company-show-location
-    "M-f" #'company-show-doc-buffer)
-  (general-def company-search-map
-    [remap next-line] #'company-select-next
-    [remap previous-line] #'company-select-previous)
-  (general-def company-mode-map
-    [remap complete-symbol] #'counsel-company
-    [remap completion-at-point] #'counsel-company)
-  (add-hook 'emacs-startup-hook #'global-company-mode)
-  (add-hook 'emacs-startup-hook #'company-quickhelp-mode))
+(toncs-config-configure corfu
+  (setq corfu-cycle t)
+  (setq corfu-auto t)
+  (setq corfu-commit-predicate nil)
+  (setq corfu-quit-no-match t)
+  (setq corfu-scroll-margin 5)
+  (general-def
+    "M-/" #'dabbrev-completion
+    "C-M-/" #'dabbrev-expand)
+  (general-def corfu-map
+    "M-p" #'corfu-doc-scroll-down
+    "M-n" #'corfu-doc-scroll-up)
+  (corfu-global-mode 1)
+  (add-hook 'corfu-mode-hook #'corfu-doc-mode))
 #+end_src
 
 * rg

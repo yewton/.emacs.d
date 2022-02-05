@@ -107,9 +107,8 @@
 
     (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
 
-    (:name pos-tip :checkout "179cc126b363f72ca12fab1e0dc462ce0ee79742")
-    (:name company-mode :checkout "0edc87d423b83c707e6c708f421d96f4d198803d")
-    (:name company-quickhelp :checkout "5a86731de461142db3b7ca26b4681756edb4b773")
+    (:name "corfu" :checkout "0e84ebc579936ebcf34e8f87b619ad7207c9cc3b")
+    (:name "corfu-doc" :checkout "45853ecb531e08d3b1ce5426bee6807e35c4fade")
 
     (:name emacsql :checkout "c82a0e6b4d256a3743b718cfb640fa9efc045f6e")
     (:name emacsql-sqlite3 :checkout "209fd0c2649db0c7532e543ec12e7ba881a3325c")
@@ -184,7 +183,6 @@
 
     (:name hcl-mode :checkout "0f2c5e")
     (:name terraform-mode :checkout "6973d1")
-    (:name company-terraform :checkout "74dad2")
 
     (:name scala-mode :shallow t :branch "v1.0.0")
     (:name sbt-mode :shallow t :branch "v1.0.1")
