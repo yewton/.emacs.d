@@ -1,0 +1,6 @@
+(:name cape
+       :website "https://github.com/minad/cape"
+       :description "Completion At Point Extensions"
+       :type github
+       :pkgname "minad/cape"
+       :minimum-emacs-version "27.1")

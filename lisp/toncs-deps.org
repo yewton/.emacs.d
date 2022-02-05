@@ -109,6 +109,7 @@
 
     (:name "corfu" :checkout "0e84ebc579936ebcf34e8f87b619ad7207c9cc3b")
     (:name "corfu-doc" :checkout "45853ecb531e08d3b1ce5426bee6807e35c4fade")
+    (:name "cape" :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
 
     (:name emacsql :checkout "c82a0e6b4d256a3743b718cfb640fa9efc045f6e")
     (:name emacsql-sqlite3 :checkout "209fd0c2649db0c7532e543ec12e7ba881a3325c")

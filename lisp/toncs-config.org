@@ -634,6 +634,18 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-hook 'corfu-mode-hook #'corfu-doc-mode))
 #+end_src
 
+* cape
+
+#+begin_src emacs-lisp
+(require 'cape)
+
+(toncs-config-configure cape
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-tex)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
+#+end_src
+
 * rg
 
 #+begin_src emacs-lisp
