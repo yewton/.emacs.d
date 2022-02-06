@@ -1,0 +1,6 @@
+(:name embark
+       :website "https://github.com/oantolin/embark"
+       :description "Conveniently act on minibuffer completions"
+       :type github
+       :pkgname "oantolin/embark"
+       :minimum-emacs-version "26.1")

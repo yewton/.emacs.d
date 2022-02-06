@@ -1,0 +1,7 @@
+(:name all-the-icons-completion
+       :website "https://github.com/iyefrat/all-the-icons-completion"
+       :description "Add icons to completion candidates"
+       :type github
+       :pkgname "iyefrat/all-the-icons-completion"
+       :depends (all-the-icons)
+       :minimum-emacs-version "26.1")

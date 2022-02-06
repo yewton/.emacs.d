@@ -1,0 +1,7 @@
+(:name vertico
+       :website "https://github.com/minad/vertico"
+       :description "VERTical Interactive COmpletion"
+       :type github
+       :pkgname "minad/vertico"
+       :load-path ("." "extensions")
+       :minimum-emacs-version "27.1")

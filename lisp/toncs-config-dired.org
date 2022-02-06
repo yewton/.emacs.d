@@ -16,6 +16,7 @@
 
 (defun toncs-config-dired-configure ()
   (setq dired-dwim-target t)
+  (defvar dired-bind-jump nil) ; 何かの拍子に dired-x ロードされても、 C-x C-j は SKK の為に取っておきたい
   (let ((gls (executable-find "gls")))
     (when gls
       (setq insert-directory-program gls)))

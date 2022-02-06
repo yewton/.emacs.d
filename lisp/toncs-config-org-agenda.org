@@ -8,7 +8,6 @@
 #+begin_src emacs-lisp
 (require 'org-agenda)
 (require 'org-habit)
-(require 'counsel)
 (require 'avy)
 
 (defconst toncs-agenda-categories
@@ -100,7 +99,6 @@
   (toncs-setup-custom-agenda-commands)
 
   (general-def org-agenda-mode-map
-    "C-c C-q" #'counsel-org-tag-agenda
     "J" #'toncs-avy-org-agenda)
 
   (set-face-underline 'org-agenda-current-time nil))

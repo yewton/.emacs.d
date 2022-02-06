@@ -72,7 +72,7 @@ lsb_release -a
 
 *** migemo に対応してます
 
-[[https://github.com/koron/cmigemo][cmigemo]] のインストールさえ済んでいれば、辞書の設定含めて ivy/swiper といい感じに動きます。
+[[https://github.com/koron/cmigemo][cmigemo]] のインストールさえ済んでいれば、辞書の設定含めて consult/orderless といい感じに動きます。
 
 *** SKK による日本語入力に対応してます
 
