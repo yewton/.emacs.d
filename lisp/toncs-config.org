@@ -103,7 +103,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 (toncs-config-prepare org-capture
   (general-def
-    "C-c c" #'counsel-org-capture))
+    "C-c c" #'org-capture))
 
 (toncs-config-prepare org-attach)
 
@@ -177,7 +177,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 * amx
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (require 'amx)
 
 (toncs-config-configure amx
@@ -223,76 +223,159 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "M-g P" #'avy-pop-mark))
 #+end_src
 
-* ivy
+* marginalia
 
 #+begin_src emacs-lisp
-(require 'ivy)
-(require 'ivy-avy)
-(require 'counsel)
-(require 'swiper)
-(require 'ivy-xref)
+(require 'marginalia)
+(toncs-config-configure marginalia
+  (general-def minibuffer-local-map
+    "M-A" #'marginalia-cycle)
+  (dolist (command-category '((projectile-find-file . project-file)
+                      (projectile-find-dir . project-file)
+                      (projectile-switch-project . file)
+                      (consult-projectile . file)))
+    (add-to-list 'marginalia-command-categories command-category))
+  (marginalia-mode)
+  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
+#+end_src
+
+** embark
+
+#+begin_src emacs-lisp
+(require 'embark-consult)
+
+(defun embark-magit-status (file)
+  "Run `magit-status` on repo containing the embark target."
+  (interactive "GFile: ")
+  (magit-status (locate-dominating-file file ".git")))
+
+(toncs-config-configure embark
+  (general-def
+    "<help> b" #'embark-bindings
+    "C-." #'embark-act
+    "M-." #'embark-dwim)
+  (general-def embark-file-map
+    "v" #'embark-magit-status)
+  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+#+end_src
+
+* vertico + orderless + consult
+
+#+begin_src emacs-lisp
+(require 'vertico)
+(require 'vertico-buffer)
+(require 'vertico-directory)
+(require 'vertico-indexed)
+(require 'vertico-multiform)
+(require 'vertico-quick)
+(require 'orderless)
+(require 'consult)
+(require 'consult-xref)
+(require 'consult-imenu)
 
 (defun toncs-open-junk-file (&optional arg)
-    "Open junk file using counsel.
+  "Open junk file.
 
   When ARG is non-nil search in junk files."
-    (interactive "P")
-    (let* ((junk-root-dir (no-littering-expand-var-file-name "junk"))
-           (open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." junk-root-dir ))
-           (path (format-time-string open-junk-file-format (current-time)))
-           (file-name (file-name-nondirectory path))
-           (dir-name (file-name-directory path))
-           (default-directory dir-name))
-      (if arg
-          (counsel-rg nil junk-root-dir "" "[junk]")
-        (mkdir dir-name 'parents)
-        (counsel-find-file file-name))))
+  (interactive "P")
+  (let* ((junk-root-dir (no-littering-expand-var-file-name "junk/"))
+         (open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." junk-root-dir ))
+         (path (format-time-string open-junk-file-format (current-time)))
+         (file-name (file-name-nondirectory path))
+         (dir-name (file-name-directory path))
+         (default-directory dir-name))
+    (if arg
+        (consult-ripgrep junk-root-dir)
+      (mkdir dir-name 'parents)
+      (find-file (read-file-name "[junk] " junk-root-dir nil nil file-name)))))
 
-(toncs-config-configure ivy+counsel+swiper
-  ;; minibuffer 内の入力も ivy で補完したい
+(defun consult--migemo-regexp-compiler (input type)
+  "`consult--default-regexp-compiler' の migemo 対応版。"
+  (setq input (mapcar #'migemo-get-pattern (consult--split-escaped input)))
+  (cons (mapcar (lambda (x) (consult--convert-regexp x type)) input)
+        (when-let (regexps (seq-filter #'consult--valid-regexp-p input))
+          (lambda (str)
+            (consult--highlight-regexps regexps str)))))
+
+(toncs-config-configure vertico+orderless+consult
+  (general-def vertico-map
+    "C-v" #'vertico-scroll-up
+    "M-v" #'vertico-scroll-down
+    "C-'" #'vertico-quick-insert
+    "C-q" #'vertico-quick-exit
+    "C-j" #'vertico-directory-enter
+    "DEL" #'vertico-directory-delete-char
+    "M-d" #'vertico-directory-delete-word)
+
+  (setq completion-styles '(orderless))
+  (setq completion-category-defaults nil)
+  (setq completion-category-overrides '((file (styles partial-completion))))
+  (setq minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
   (setq enable-recursive-minibuffers t)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq counsel-describe-function-preselect 'ivy-function-called-at-point)
-  (setq counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(?:\\.elc\\'\\)")
-  (setq counsel-rg-base-command '("rg" "--max-columns" "240" "--max-columns-preview" "--with-filename" "--no-heading" "--line-number" "--color" "never" "-z" "%s"))
-  (setq counsel-outline-face-style 'org)
-  ;; xref initialization is different in Emacs 27 - there are two different
-  ;; variables which can be set rather than just one
-  (when (>= emacs-major-version 27)
-    (setq xref-show-definitions-function #'ivy-xref-show-defs))
-  ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
-  ;; commands other than xref-find-definitions (e.g. project-find-regexp)
-  ;; as well
-  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+
+  (setq consult-project-root-function #'projectile-project-root)
+  (setq consult--regexp-compiler #'consult--migemo-regexp-compiler)
+
+  (setq orderless-component-separator #'orderless-escapable-split-on-space)
+
+  (setq xref-show-xrefs-function #'consult-xref)
+  (setq xref-show-definitions-function #'consult-xref)
+
+  (general-def isearch-mode-map
+    "M-e" #'consult-isearch-history
+    "M-s e" #'consult-isearch-history
+    "M-s l" #'consult-line
+    "M-s L" #'consult-line-multi)
+
   (general-def
-    "C-s" #'swiper-isearch
-    "C-r" #'swiper-isearch-backward
-    "M-x" #'counsel-M-x
-    "C-x C-f" #'counsel-find-file
-    "C-x C-r" #'counsel-recentf
-    "<help> f" #'counsel-describe-function
-    "<help> v" #'counsel-describe-variable
-    "<help> l" #'counsel-find-library
-    "<help> b" #'counsel-descbinds
-    "<help> l" #'counsel-load-library
-    "<help> a" #'counsel-apropos
-    "<help> S" #'counsel-info-lookup-symbol
-    "<help> o" #'counsel-describe-symbol
-    "M-y" #'counsel-yank-pop
-    "C-x b" #'ivy-switch-buffer
-    "C-c k" #'counsel-rg
+    "C-c m" #'consult-mode-command
+    "C-c k" #'consult-kmacro
+    "C-x M-:" #'consult-complex-command
+    "C-x b" #'consult-buffer
+    "C-x C-r" #'consult-recent-file
+    "C-x 4 b" #'consult-buffer-other-window
+    "C-x 5 b" #'consult-buffer-other-frame
+    "C-x r b" #'consult-bookmark
+    "M-y" #'consult-yank-pop
+    "<help> a" #'consult-apropos
+    "M-g e" #'consult-compile-error
+    "M-g f" #'consult-flymake
+    "M-g g" #'consult-goto-line
+    "M-g M-g" #'consult-goto-line
+    "M-g o" #'consult-outline
+    "M-g m" #'consult-mark
+    "M-g k" #'consult-global-mark
+    "M-g i" #'consult-imenu
+    "M-g I" #'consult-imenu-multi
+    "M-s d" #'consult-find
+    "M-s D" #'consult-locate
+    "M-s g" #'consult-grep
+    "M-s G" #'consult-git-grep
+    "M-s r" #'consult-ripgrep
+    "M-s l" #'consult-line
+    "M-s L" #'consult-line-multi
+    "M-s m" #'consult-multi-occur
+    "M-s k" #'consult-keep-lines
+    "M-s u" #'consult-focus-lines
+    "M-s e" #'consult-isearch-history
     "C-x z" #'toncs-open-junk-file
-    "C-x C-z" #'toncs-open-junk-file
-    "C-x r b" #'counsel-bookmark)
-  (general-def minibuffer-local-map
-    "C-r" #'counsel-minibuffer-history)
-  (general-def ivy-minibuffer-map
-    "C-l" #'ivy-backward-delete-char)
-  (general-def org-mode-map
-    "C-c C-j" #'counsel-org-goto)
-  (delight 'ivy-mode nil "ivy")
-  (add-hook 'emacs-startup-hook #'ivy-mode))
+    "C-x C-z" #'toncs-open-junk-file)
+
+  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
+  (vertico-mode)
+  (vertico-multiform-mode 1)
+  (setq vertico-multiform-commands
+        '((consult-imenu buffer indexed)
+          (consult-ripgrep buffer)
+          (consult-git-grep buffer)))
+  (consult-customize
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+   :preview-key (kbd "M-.")))
 #+end_src
 
 * crux
@@ -338,23 +421,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 #+begin_src emacs-lisp
 (require 'migemo)
 
-(defconst toncs-ivy-migemo-term-char #x3)
-(defconst toncs-ivy-migemo-term-str (char-to-string toncs-ivy-migemo-term-char))
-(defconst toncs-ivy-migemo-special-chars (concat " .+?[]^$\\" toncs-ivy-migemo-term-str))
-
-(defun toncs-ivy-migemo-re-builder (str)
-  (car (seq-reduce (lambda (acc char)
-                     (let* ((regex (car acc))
-                            (plain (cdr acc))
-                            (s (char-to-string char))
-                            (sp (cond ((eq toncs-ivy-migemo-term-char char) "")
-                                      ((eq ?  char) ".*")
-                                      (t s))))
-                       (if (seq-contains-p toncs-ivy-migemo-special-chars char)
-                           (cons (concat regex (migemo-get-pattern plain) sp) nil)
-                         (cons regex (concat plain s)))))
-                   (concat str toncs-ivy-migemo-term-str)
-                   '("" . ""))))
+(defun toncs-orderless-migemo (component)
+  "Match COMPONENT as a migemo input."
+  (let ((pattern (migemo-get-pattern component)))
+    (condition-case nil
+        (progn (string-match-p pattern "") pattern)
+      (invalid-regexp nil))))
 
 (defun toncs-avy-goto-migemo-timer (&optional arg)
   (interactive "P")
@@ -377,11 +449,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq migemo-regex-dictionary (no-littering-expand-var-file-name "migemo-regex-dict"))
   (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
 
-  (dolist (caller '(org-roam-node-find org-roam-node-insert
-                    counsel-rg counsel-find-file swiper-isearch
-                    counsel-outline counsel-org-goto
-                    counsel-org-agenda-headlines counsel-org-goto-all))
-    (add-to-list 'ivy-re-builders-alist `(,caller . toncs-ivy-migemo-re-builder)))
+  (setq orderless-matching-styles '(toncs-orderless-migemo))
 
   (general-def
     "M-C-;" #'toncs-avy-goto-migemo-timer)
@@ -445,8 +513,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq scroll-preserve-screen-position t)
   (setq scroll-conservatively 1000)
   (general-def
-    "C-v" #'good-scroll-up-full-screen
-    "M-v" #'good-scroll-down-full-screen)
+    "<up>" #'good-scroll-down
+    "<down>" #'good-scroll-up)
   (good-scroll-mode 1)
   (winum-mode 1))
 #+end_src
@@ -586,9 +654,10 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (toncs-config-configure helpful
-  (setq counsel-describe-function-function #'helpful-callable)
-  (setq counsel-describe-variable-function #'helpful-variable)
   (general-def
+    "C-c C-d" #'helpful-at-point
+    "C-h f" #'helpful-callable
+    "C-h v" #'helpful-variable
     "C-h k" #'helpful-key))
 #+end_src
 
@@ -646,9 +715,15 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-to-list 'completion-at-point-functions #'cape-keyword))
 #+end_src
 
-* rg
+* wgrep/rg
 
 #+begin_src emacs-lisp
+(require 'wgrep)
+
+(toncs-config-configure wgrep
+  (general-def grep-mode-map
+    "r" #'wgrep-change-to-wgrep-mode))
+
 (toncs-config-prepare rg)
 #+end_src
 
@@ -659,8 +734,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 (toncs-config-configure shackle
   (dolist (rule '((compilation-mode :select nil :align below :size 0.2)
-                  (calendar-mode :select t :align below :size 0.45 :popup t)
-                  (org-roam-mode :select nil :align right :size 0.33 :popup t)))
+                  (calendar-mode :select t :align below :popup t)
+                  (org-roam-mode :select nil :align right :size 0.33 :popup t)
+                  (helpful-mode :select t :align right :size 0.33 :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
 #+end_src
@@ -697,6 +773,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'projectile)
+(require 'consult-projectile)
+
 ;; 無害なはずなので...
 (when noninteractive (defvar treemacs-no-load-time-warnings t))
 (require 'treemacs-projectile)
@@ -709,11 +787,14 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure projectile
   (setq projectile-enable-caching t)
   (setq projectile-ignored-project-function #'toncs-projectile-ignored-project-function)
-  (setq projectile-completion-system 'ivy)
+  (setq projectile-switch-project-action #'projectile-dired)
+  (setq consult-projectile-sources '(consult-projectile--source-projectile-project consult-projectile--source-projectile-buffer consult-projectile--source-projectile-file))
   (delight 'projectile-mode nil "projectile")
+  (projectile-mode 1)
   (general-def projectile-mode-map
     "C-c p" #'projectile-command-map)
-  (counsel-projectile-mode 1))
+  (general-def projectile-command-map
+    "p" #'consult-projectile))
 #+end_src
 
 * 各言語の設定
@@ -810,6 +891,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
   ;; compilation
   (setq compilation-scroll-output 'first-error)
+
+  (all-the-icons-completion-mode 1)
 
   (when toncs-wsl-p
     (when (executable-find "wslview")

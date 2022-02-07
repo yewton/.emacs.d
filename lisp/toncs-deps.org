@@ -28,11 +28,11 @@
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
 
-    (:name amx :checkout "ccfc92c600df681df5e8b5fecec328c462ceb71e")
-
     (:name avy :checkout "e92cb37457b43336b765630dbfbea8ba4be601fa")
 
-    (:name swiper :checkout "040d458bce4a88f37359192061bcea5ebe87007c")
+    (:name "vertico" :checkout "1bd5438da9c661e2df5e9516f36d9cbc6d100a34")
+    (:name "consult" :checkout "1a6ed29e92f00266daff4ff5f62602f53ef7d158")
+    (:name "orderless" :checkout "ce462a63e32dd32bceea041f656bb79da953d62f")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -86,7 +86,11 @@
     (:name diff-hl :checkout "2281a89a3ddc6616073da6f190dda08d23b18ba6")
 
     (:name projectile :checkout "155fdb44176347c9599357c7935993033260a930")
-    (:name counsel-projectile :checkout "06b03c1080d3ccc3fa9b9c41b1ccbcf13f058e4b")
+    (:name consult-projectile :checkout "655b328ce3fe51a8ff89d7b0a839bc8dfe9e51c0")
+
+    (:name "embark" :checkout "e8ef9424b3d8852935f7c547093bc2ebc23aeab5")
+
+    (:name "marginalia" :checkout "e9540a7b80f9c4d044748b88720e5cba3e30c20a")
 
     (:name ace-window :checkout "c7cb315c14e36fded5ac4096e158497ae974bec9")
     (:name pfuture :checkout "d7926de3ba0105a36cfd00811fd6278aea903eef")
@@ -119,7 +123,8 @@
     (:name websocket :checkout "fda4455333309545c0787a79d73c19ddbeb57980")
     (:name org-roam-ui :checkout "309fe3c58c7081de4e2c9c64f7b40ea291926048")
 
-    (:name all-the-icons :checkout "b7002b5aa152b56a2a852c3aae2f2e1a0e963277")
+    (:name all-the-icons :checkout "2c963ebb75f211d2f7ac3d2db5f4a9ee2f3e27da")
+    (:name all-the-icons-completion :checkout "9e7d456b0934ecb568b6f05a8445e3f4ce32261f")
 
     (:name good-scroll :checkout "a7ffd5c0e5935cebd545a0570f64949077f71ee3"))
   "あると幸せになれるパッケージ達です。")
@@ -134,8 +139,6 @@
 (defconst toncs-deps-extra
   '((:name rainbow-identifiers :shallow t :branch "0.2.2")
     (:name rainbow-delimiters :checkout "f43d48a24602be3ec899345a3326ed0247b960c6")
-
-    (:name ivy-xref :checkout "3d4c35fe2b243d948d8fe02a1f0d76a249d63de9")
 
     (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
     (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")

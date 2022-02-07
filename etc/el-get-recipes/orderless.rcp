@@ -1,0 +1,6 @@
+(:name orderless
+       :website "https://github.com/oantolin/orderless"
+       :description "Completion style for matching regexps in any order"
+       :type github
+       :pkgname "oantolin/orderless"
+       :minimum-emacs-version "26.1")

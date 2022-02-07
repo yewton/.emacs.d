@@ -7,7 +7,6 @@
 
 #+begin_src emacs-lisp
 (require 'org)
-(require 'counsel)
 
 (require 'org-checklist)
 (require 'org-protocol)
@@ -165,7 +164,6 @@ restart `org-mode' if necessary."
   (general-def org-mode-map
     "C-'" #'avy-goto-line
     "<f5>" #'toncs-org-babel-load-buffer-file
-    "C-c C-q" #'counsel-org-tag
     ;; `org-cycle-agenda-files' は以下をやろうとして暴発した経験しかない為
     "C-," #'org-insert-structure-template)
   (general-def org-read-date-minibuffer-local-map

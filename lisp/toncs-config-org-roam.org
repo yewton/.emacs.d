@@ -10,12 +10,11 @@
 (require 'org-roam)
 (require 'org-roam-dailies)
 (require 'org-roam-protocol)
-(require 'counsel)
 (require 'no-littering)
 
 (defun toncs-org-roam-search ()
   (interactive)
-  (counsel-rg nil org-roam-directory "" "[Roam]"))
+  (consult-ripgrep org-roam-directory))
 
 (defun toncs-config-org-roam-configure ()
   (delight 'org-roam-mode nil "org-roam")
