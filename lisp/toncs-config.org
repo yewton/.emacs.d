@@ -307,7 +307,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "DEL" #'vertico-directory-delete-char
     "M-d" #'vertico-directory-delete-word)
 
-  (setq completion-styles '(orderless))
+  (setq completion-styles '(substring initials orderless))
   (setq completion-category-defaults nil)
   (setq completion-category-overrides '((file (styles partial-completion))))
   (setq minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt))
