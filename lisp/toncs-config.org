@@ -642,7 +642,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * link-hint
 
 #+begin_src emacs-lisp
-(toncs-config-prepare link-hint
+(toncs-config-configure link-hint
   (general-def "M-o" #'link-hint-open-link)
   (general-def org-mode-map
     "M-o" #'link-hint-open-link)
