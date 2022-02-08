@@ -639,16 +639,15 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare calendar)
 #+end_src
 
-* ace-link
+* link-hint
 
 #+begin_src emacs-lisp
-(toncs-config-prepare ace-link
-  (ace-link-setup-default)
-  (general-def "M-o" #'ace-link)
+(toncs-config-prepare link-hint
+  (general-def "M-o" #'link-hint-open-link)
   (general-def org-mode-map
-    "M-o" #'ace-link-org)
+    "M-o" #'link-hint-open-link)
   (general-def org-agenda-mode-map
-    "o" #'ace-link-org-agenda))
+    "o" #'link-hint-open-link))
 #+end_src
 
 * helpful
