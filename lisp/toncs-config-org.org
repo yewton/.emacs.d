@@ -99,7 +99,7 @@
           (format org-download-link-format
                   (org-link-escape
                    (funcall org-download-abbreviate-filename-function filename)))))
-  (setq org-download-annotate-function (lambda (_link) "#+ATTR_ORG: :width 500\n"))
+  (setq org-download-image-org-width 300)
   ;; 参考 https://zzamboni.org/post/how-to-insert-screenshots-in-org-documents-on-macos/
   (setq org-download-screenshot-method (pcase system-type
                                          ('darwin "pngpaste %s")
