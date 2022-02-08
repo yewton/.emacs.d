@@ -30,9 +30,9 @@
 
     (:name avy :checkout "ba5f035be33693d1a136a5cbeedb24327f551a92")
 
-    (:name "vertico" :checkout "1bd5438da9c661e2df5e9516f36d9cbc6d100a34")
-    (:name "consult" :checkout "1a6ed29e92f00266daff4ff5f62602f53ef7d158")
-    (:name "orderless" :checkout "ce462a63e32dd32bceea041f656bb79da953d62f")
+    (:name vertico :checkout "1bd5438da9c661e2df5e9516f36d9cbc6d100a34")
+    (:name consult :checkout "1a6ed29e92f00266daff4ff5f62602f53ef7d158")
+    (:name orderless :checkout "ce462a63e32dd32bceea041f656bb79da953d62f")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -88,9 +88,9 @@
     (:name projectile :checkout "155fdb44176347c9599357c7935993033260a930")
     (:name consult-projectile :checkout "655b328ce3fe51a8ff89d7b0a839bc8dfe9e51c0")
 
-    (:name "embark" :checkout "e8ef9424b3d8852935f7c547093bc2ebc23aeab5")
+    (:name embark :checkout "e8ef9424b3d8852935f7c547093bc2ebc23aeab5")
 
-    (:name "marginalia" :checkout "e9540a7b80f9c4d044748b88720e5cba3e30c20a")
+    (:name marginalia :checkout "e9540a7b80f9c4d044748b88720e5cba3e30c20a")
 
     (:name ace-window :checkout "c7cb315c14e36fded5ac4096e158497ae974bec9")
     (:name pfuture :checkout "d7926de3ba0105a36cfd00811fd6278aea903eef")
@@ -111,9 +111,9 @@
 
     (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
 
-    (:name "corfu" :checkout "0e84ebc579936ebcf34e8f87b619ad7207c9cc3b")
-    (:name "corfu-doc" :checkout "45853ecb531e08d3b1ce5426bee6807e35c4fade")
-    (:name "cape" :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
+    (:name corfu :checkout "0e84ebc579936ebcf34e8f87b619ad7207c9cc3b")
+    (:name corfu-doc :checkout "45853ecb531e08d3b1ce5426bee6807e35c4fade")
+    (:name cape :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
 
     (:name emacsql :checkout "c82a0e6b4d256a3743b718cfb640fa9efc045f6e")
     (:name emacsql-sqlite3 :checkout "209fd0c2649db0c7532e543ec12e7ba881a3325c")
