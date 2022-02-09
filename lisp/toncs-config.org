@@ -164,10 +164,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ** その他
 
 #+begin_src emacs-lisp
-;; https://github.com/syl20bnr/spacemacs/issues/10502#issuecomment-404453194
-(defun toncs-set-bigger-spacing ()
-  (setq-local default-text-properties '(line-spacing 0.25 line-height 1.25)))
-
 (toncs-config-configure appearance
   (blink-cursor-mode 1)
   (menu-bar-mode 0)
@@ -178,9 +174,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
     (when (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
     (add-hook 'emacs-startup-hook #'toggle-frame-maximized))
+  (setq-default line-spacing 0.25)
   (dolist (hook '(prog-mode-hook text-mode-hook))
-    (add-hook hook #'hl-line-mode)
-    (add-hook hook #'toncs-set-bigger-spacing)))
+    (add-hook hook #'hl-line-mode)))
 #+end_src
 
 * amx
