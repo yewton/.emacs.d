@@ -160,7 +160,7 @@
     (:name shut-up :checkout "ff6f06f3b080ee833a25a22da8cb5b96e911dc77")
     (:name helpful :checkout "7e4b1f0d5572a4e2b8ee7a9b084ef863d0315a73")
 
-    (:name emojify :checkout "d886069974d05c8c15654204f9afeaee962f3e7d")
+    (:name emojify :branch "fix-line-spacing")
 
     (:name beacon :checkout "bde78180c678b233c94321394f46a81dc6dce1da")
 
