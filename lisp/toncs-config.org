@@ -173,8 +173,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (toncs-config-font-configure)
     (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
     (when (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+    (setq-default line-spacing 0.25)
+    (set-frame-parameter nil 'internal-border-width 3)
     (add-hook 'emacs-startup-hook #'toggle-frame-maximized))
-  (setq-default line-spacing 0.25)
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook #'hl-line-mode)))
 #+end_src
