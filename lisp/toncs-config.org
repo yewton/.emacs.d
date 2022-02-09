@@ -144,7 +144,15 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
           (when (fboundp 'set-fontset-font)
             (set-fontset-font (frame-parameter nil 'font)
                               charset
-                              (font-spec :family font-family))))))))
+                              (font-spec :family font-family)))))))
+  ;; see https://www.reddit.com/r/emacs/comments/ggd90c/color_emoji_in_emacs_27/
+  (let* ((emoji-fonts '("Apple Color Emoji"
+                        "Noto Color Emoji"
+                        "Segoe UI Emoji"
+                        "Symbola"))
+         (emoji-font (seq-find (lambda (f) (find-font (font-spec :name f))) emoji-fonts)))
+    (when emoji-font
+      (set-fontset-font t 'symbol emoji-font))))
 #+end_src
 ** modus-themes
 
