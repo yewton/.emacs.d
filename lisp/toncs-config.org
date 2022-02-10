@@ -124,35 +124,35 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ** フォント
 
 #+begin_src emacs-lisp
-(defun toncs-config-font-configure ()
-  (let* ((fonts '(("HackgenNerd" . 130)
-                  ("Cica" . 140)
-                  ("Menlo" . 120)
-                  ("Myrica M" . 120)
-                  ("Monospace" . 96)))
-         (font (seq-find (lambda (f) (find-font (font-spec :name (car f)))) fonts)))
-    (when font
-      (let ((font-family (car font))
-            (font-height (cdr font)))
-        (set-face-attribute 'default nil
-                            :family font-family
-                            :height font-height)
-        (dolist (face '(variable-pitch fixed-pitch))
-          (set-face-attribute face nil
-                              :family font-family))
-        (dolist (charset '(japanese-jisx0208 japanese-jisx0208 katakana-jisx0201))
-          (when (fboundp 'set-fontset-font)
-            (set-fontset-font (frame-parameter nil 'font)
-                              charset
-                              (font-spec :family font-family)))))))
-  ;; see https://www.reddit.com/r/emacs/comments/ggd90c/color_emoji_in_emacs_27/
-  (let* ((emoji-fonts '("Apple Color Emoji"
-                        "Noto Color Emoji"
-                        "Segoe UI Emoji"
-                        "Symbola"))
-         (emoji-font (seq-find (lambda (f) (find-font (font-spec :name f))) emoji-fonts)))
-    (when emoji-font
-      (set-fontset-font t 'symbol emoji-font))))
+(defconst toncs-config-font-candidates '(("HackGenNerd" . 17)
+                                         ("Noto Sans Mono" . 14)))
+
+(defconst toncs-config-emojifont-candidates '("Apple Color Emoji"
+                                              "Segoe UI Emoji"
+                                              "Noto Color Emoji"
+                                              "Noto Emoji"))
+
+;; 参考元 https://github.com/hlissner/doom-emacs/blob/4a6de2419c81d120ce363a2ba189789c7a2424d4/core/core-ui.el#L529
+(defun toncs-config-font-configure (&optional reload)
+  (interactive "P")
+  (let* ((font-specs (mapcar (lambda (elt) (font-spec :family (car elt) :size (cdr elt)))
+                             toncs-config-font-candidates))
+         (font-spec (seq-find #'find-font font-specs))
+         (emojifont (seq-find (lambda (elt) (member elt (font-family-list)))
+                              toncs-config-emojifont-candidates)))
+    (when (fboundp 'set-fontset-font)
+      (when emojifont
+        (set-fontset-font t 'unicode emojifont)))
+    (custom-set-faces
+     `(fixed-pitch
+       ((t . (:font ,font-spec :weight unspecified :slant unspecified :width unspecified)))))
+    (cond
+     (font-spec
+      (if reload
+          (set-frame-font font-spec t t)
+        (setf (alist-get 'font default-frame-alist) (font-xlfd-name font-spec))))
+     ((display-graphic-p)
+      (setq font-use-system-font t)))))
 #+end_src
 ** modus-themes
 
