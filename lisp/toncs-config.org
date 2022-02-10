@@ -151,7 +151,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
       (if reload
           (set-frame-font font-spec t t)
         (setf (alist-get 'font default-frame-alist) (font-xlfd-name font-spec))))
-     ((display-graphic-p)
+     ((boundp 'font-use-system-font)
       (setq font-use-system-font t)))))
 #+end_src
 ** modus-themes
