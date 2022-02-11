@@ -135,6 +135,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ;; 参考元 https://github.com/hlissner/doom-emacs/blob/4a6de2419c81d120ce363a2ba189789c7a2424d4/core/core-ui.el#L529
 (defun toncs-config-font-configure (&optional reload)
   (interactive "P")
+  ;; see https://misohena.jp/blog/2017-09-26-symbol-font-settings-for-emacs25.html
+  (setq use-default-font-for-symbols nil)
   (let* ((font-specs (mapcar (lambda (elt) (font-spec :family (car elt) :size (cdr elt)))
                              toncs-config-font-candidates))
          (font-spec (seq-find #'find-font font-specs))
