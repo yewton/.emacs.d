@@ -124,7 +124,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ** フォント
 
 #+begin_src emacs-lisp
-(defconst toncs-config-font-candidates '(("HackGenNerd" . 17)
+(defconst toncs-config-font-candidates '(("HackGen" . 17)
                                          ("Noto Sans Mono" . 14)))
 
 (defconst toncs-config-emojifont-candidates '("Apple Color Emoji"
