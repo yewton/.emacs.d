@@ -17,6 +17,8 @@
 (require 'toncs-stdlib)
 #+end_src
 
+* 便利定数・関数定義
+
 #+begin_src emacs-lisp
 (defconst toncs-org-agenda-directory (expand-file-name "agenda/" org-directory)
   "アジェンダに含めるディレクトリです。")
@@ -41,24 +43,40 @@
 (defun toncs-org-read-date-next () (interactive) (org-eval-in-calendar '(calendar-forward-week 1)))
 (defun toncs-org-read-date-previous () (interactive) (org-eval-in-calendar '(calendar-backward-week 1)))
 (defun toncs-org-read-date-forward () (interactive) (org-eval-in-calendar '(calendar-forward-day 1)))
+#+end_src
 
+* org-duration
+
+#+begin_src emacs-lisp
 (eval-when-compile (require 'org-duration))
 (defun toncs-config-org-duration-configure ()
   (with-eval-after-load "org-duration"
     (setq org-duration-format '((special . h:mm)))))
+#+end_src
 
+* org-refile
+
+#+begin_src emacs-lisp
 (eval-when-compile (require 'org-refile))
 (defun toncs-config-org-refile-configure ()
   (with-eval-after-load "org-refile"
     (setq org-outline-path-complete-in-steps nil)
     (setq org-refile-use-outline-path 'file)
     (setq org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))))
+#+end_src
 
+* org-export
+
+#+begin_src emacs-lisp
 (eval-when-compile (require 'ox))
 (defun toncs-config-ox-configure ()
   (with-eval-after-load "ox"
     (setq org-export-default-language "ja")))
+#+end_src
 
+* org-clock
+
+#+begin_src emacs-lisp
 (require 'org-clock)
 
 (defun toncs-org-show-notification-handler (title &optional msg)
@@ -90,8 +108,13 @@
   (setq org-clock-persist t)
   (setq org-show-notification-handler #'toncs-org-show-notification-handler)
   (add-to-list 'org-clock-clocktable-language-setup
-               '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "集計時刻")))
+               '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "集計時刻"))
+  (org-clock-persistence-insinuate))
+#+end_src
 
+* org-download
+
+#+begin_src emacs-lisp
 (require 'org-download)
 (defun toncs-config-org-org-download-configure ()
   (setq org-download-method 'attach)
@@ -109,7 +132,11 @@
                                           (if toncs-wsl-p
                                               "powershell.exe '(Get-Clipboard -Format Image).Save(\"%s\")'"
                                               "xclip -selection clipboard -target image/png -o > %s")))))
+#+end_src
 
+* org-expiry
+
+#+begin_src emacs-lisp
 (autoload 'org-expiry-insinuate
   "org-expiry" "Add hooks and activate advices for org-expiry.
 If ARG, also add a hook to `before-save-hook' in `org-mode' and
@@ -120,7 +147,11 @@ restart `org-mode' if necessary."
 (defun toncs-config-org-expiry-configure ()
   (with-eval-after-load "org-expiry"
     (setq org-expiry-inactive-timestamps t)))
+#+end_src
 
+* その他の設定
+
+#+begin_src emacs-lisp
 (defun toncs-config-org-configure ()
   (setq org-catch-invisible-edits 'show-and-error)
   (setq org-cycle-separator-lines 0)
@@ -177,8 +208,6 @@ restart `org-mode' if necessary."
     "n" #'toncs-org-read-date-next
     "p" #'toncs-org-read-date-previous
     "f" #'toncs-org-read-date-forward)
-
-  (org-clock-persistence-insinuate)
 
   (org-babel-do-load-languages
      'org-babel-load-languages
