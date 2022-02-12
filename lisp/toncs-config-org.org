@@ -14,6 +14,8 @@
 
 (require 'ob-shell)
 
+(require 'consult-org)
+
 (require 'toncs-stdlib)
 #+end_src
 
@@ -190,6 +192,7 @@ restart `org-mode' if necessary."
   (toncs-config-org-clock-configure)
   (toncs-config-org-org-download-configure)
   (toncs-config-org-expiry-configure)
+  (toncs-config-org-appear)
 
   (general-def
     "C-c l" #'org-store-link
@@ -197,6 +200,7 @@ restart `org-mode' if necessary."
   (general-def org-mode-map
     "C-'" #'avy-goto-line
     "<f5>" #'toncs-org-babel-load-buffer-file
+    "C-c C-j" #'consult-org-heading
     ;; `org-cycle-agenda-files' は以下をやろうとして暴発した経験しかない為
     "C-," #'org-insert-structure-template)
   (general-def org-read-date-minibuffer-local-map
