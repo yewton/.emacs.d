@@ -1,5 +1,5 @@
 #+TITLE: markdown-mode
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+#+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-config-markdown-mode.el -*- lexical-binding: t -*-

@@ -1,5 +1,5 @@
 #+TITLE: Org mode 読み込み後の初期設定
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+#+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-config-org.el -*- lexical-binding: t -*-
@@ -15,7 +15,9 @@
 (require 'ob-shell)
 
 (require 'toncs-stdlib)
+#+end_src
 
+#+begin_src emacs-lisp
 (defconst toncs-org-agenda-directory (expand-file-name "agenda/" org-directory)
   "アジェンダに含めるディレクトリです。")
 

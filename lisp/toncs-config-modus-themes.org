@@ -1,5 +1,5 @@
 #+TITLE: modus-themes
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+#+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-config-modus-themes.el -*- lexical-binding: t -*-

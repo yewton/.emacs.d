@@ -1,5 +1,5 @@
 #+TITLE: paren
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+#+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-config-paren.el -*- lexical-binding: t -*-

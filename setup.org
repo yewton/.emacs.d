@@ -1,0 +1,1 @@
+#+property: header-args:emacs-lisp :tangle yes :comments both :lexical t

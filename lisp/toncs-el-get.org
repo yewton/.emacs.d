@@ -1,5 +1,5 @@
 #+TITLE: el-get 関連
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments both
+#+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-el-get.el -*- lexical-binding: t -*-
