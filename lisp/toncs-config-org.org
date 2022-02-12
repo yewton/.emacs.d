@@ -151,6 +151,17 @@ restart `org-mode' if necessary."
     (setq org-expiry-inactive-timestamps t)))
 #+end_src
 
+* org-appear
+
+#+begin_src emacs-lisp
+(require 'org-appear)
+
+(defun toncs-config-org-appear ()
+  (setq org-appear-autosubmarkers t)
+  (setq org-appear-autoentities t)
+  (add-hook 'org-mode-hook 'org-appear-mode))
+#+end_src
+
 * その他の設定
 
 #+begin_src emacs-lisp
