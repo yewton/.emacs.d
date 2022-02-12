@@ -19,4 +19,7 @@ brew "ripgrep"
 # for org-download
 brew "pngpaste"
 
+# for dirvish
+brew "exa"
+
 brew "emacs-plus", args: %w{with-ctags with-xwidgets}

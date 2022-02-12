@@ -26,7 +26,7 @@ brew bundle
 Ubuntu の場合は以下のような感じで:
 
 #+begin_src sh
-sudp apt install -y texinfo
+sudp apt install -y texinfo exa
 #+end_src
 
 *** ビルド

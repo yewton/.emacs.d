@@ -172,7 +172,10 @@
 
     (:name olivetti :checkout "a31ac05a161a91fe5c157930b62a6c07037982ee")
 
-    (:name org-appear :checkout "ffbd742267ff81ba8433177fac5d7fe22b6d68a9"))
+    (:name org-appear :checkout "ffbd742267ff81ba8433177fac5d7fe22b6d68a9")
+    
+    (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
+    (:name dirvish :checkout "75f34ac85c2958ed9813805e02bd860c4f13085d"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 

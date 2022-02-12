@@ -1,0 +1,7 @@
+(:name dirvish
+       :website "https://github.com/alexluigit/dirvish"
+       :description "A modern file manager based on dired mode"
+       :type github
+       :pkgname "alexluigit/dirvish"
+       :load-path ("." "extensions")
+       :minimum-emacs-version "27.1")

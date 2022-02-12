@@ -13,6 +13,14 @@
 (require 'dired)
 (require 'org-download)
 (require 'general)
+(require 'dirvish)
+(require 'embark)
+
+(defun toncs-ad-dirvish-activate (&rest _)
+  (setq dirvish-saved-display-buffer-alist display-buffer-alist))
+
+(defun toncs-ad-dirvish-deactivate (&rest _)
+  (setq display-buffer-alist dirvish-saved-display-buffer-alist))
 
 (defun toncs-config-dired-configure ()
   (setq dired-dwim-target t)
@@ -20,10 +28,29 @@
   (let ((gls (executable-find "gls")))
     (when gls
       (setq insert-directory-program gls)))
-  (setq dired-listing-switches "-aBhl --group-directories-first")
-  (general-def dired-mode-map
-    "r"  #'wdired-change-to-wdired-mode)
+  (setq dired-listing-switches "-AGhlv --group-directories-first --time-style=long-iso")
   (diredfl-global-mode)
+
+  ;; Dirvish に display-buffer-alist を消去されないようにする
+  ;; see https://github.com/alexluigit/dirvish/issues/9
+  (advice-add 'dirvish-activate :before #'toncs-ad-dirvish-activate)
+  (advice-add 'dirvish-deactivate :before #'toncs-ad-dirvish-deactivate)
+
+  (dirvish-override-dired-mode 1)
+  (dirvish-peek-mode 1)
+
+  (general-def dired-mode-map
+    "SPC" #'dirvish-show-history
+    "f"   #'dirvish-menu-file-info-cmds
+    "r"  #'wdired-change-to-wdired-mode
+    "N" #'dired-narrow
+    "TAB" #'dired-subtree-toggle
+    "M-c" #'dirvish-ui-config
+    "M-m" #'dirvish-toggle-fullscreen
+    [remap dired-summary] #'dirvish-dispatch
+    [remap dired-do-copy] #'dirvish-yank
+    [remap mode-line-other-buffer] #'dirvish-other-buffer)
+
   (add-hook 'dired-mode-hook #'org-download-enable))
 #+end_src
 

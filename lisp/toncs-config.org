@@ -782,7 +782,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (defvar treemacs-no-load-time-warnings t))
 
 (toncs-config-prepare treemacs
-  (treemacs-icons-dired-mode)
   (general-def
     "M-0" #'treemacs-select-window
     "<f8>" #'treemacs
