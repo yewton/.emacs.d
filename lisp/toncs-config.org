@@ -554,6 +554,19 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-S-h" #'buf-move-left))
 #+end_src
 
+** winner-mode
+
+#+begin_src emacs-lisp
+(require 'winner)
+
+(toncs-config-configure winner-mode
+  (setq winner-dont-bind-my-keys t)
+  (general-def
+    "C-s-<left>" #'winner-undo
+    "C-s-<right>" #'winner-redo)
+  (winner-mode 1))
+#+end_src
+
 * which-key
 
 #+begin_src emacs-lisp
