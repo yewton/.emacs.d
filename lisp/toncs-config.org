@@ -255,7 +255,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (defun embark-magit-status (file)
   "Run `magit-status` on repo containing the embark target."
   (interactive "GFile: ")
-  (magit-status (locate-dominating-file file ".git")))
+  (magit-status-setup-buffer (locate-dominating-file file ".git")))
 
 (toncs-config-configure embark
   (setq embark-prompter 'embark-completing-read-prompter)
