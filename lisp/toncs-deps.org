@@ -175,7 +175,7 @@
     (:name org-appear :checkout "ffbd742267ff81ba8433177fac5d7fe22b6d68a9")
 
     (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
-    (:name dirvish :checkout "75f34ac85c2958ed9813805e02bd860c4f13085d")
+    (:name dirvish :checkout "17c434783ff8eb4e3546ec731284717391a1cad1")
 
     (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
