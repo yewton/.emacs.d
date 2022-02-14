@@ -47,7 +47,7 @@
 
     (:name ddskk :checkout "a66a7b16f13533afdd03e21eebcdd6309e469a13")
 
-    (:name shackle :checkout "32a397770be30a518f5123b81a6d667d02308bfb")
+    (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
 
     (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
 
