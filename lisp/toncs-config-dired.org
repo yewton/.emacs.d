@@ -27,8 +27,6 @@
 
   (dirvish-override-dired-mode 1)
   (dirvish-peek-mode 1)
-  ;; see https://github.com/alexluigit/dirvish/issues/9
-  (add-hook 'window-buffer-change-functions #'dirvish-rebuild-parents-h)
 
   (general-def dired-mode-map
     "SPC" #'dirvish-show-history
