@@ -45,7 +45,7 @@
     (:name powerline :checkout "e15e77ab2e589bd73f9e90498747d77d042789ea")
     (:name spaceline :checkout "1b26af2c1a701481ac5d90928fe0200e389756c3")
 
-    (:name ddskk :checkout "a66a7b16f13533afdd03e21eebcdd6309e469a13")
+    (:name ddskk :checkout "eede626d70953715d2405b325dcb151b7cb597e7")
 
     (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
 
