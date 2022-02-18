@@ -68,28 +68,20 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'time)
+(require 'moody)
 
 (toncs-config-configure modeline
   (setq display-time-format "%_m月%_d日(%a) %H:%M")
   (setq display-time-default-load-average nil)
   (column-number-mode 1)
   (display-time-mode 1)
-  ;; トップレベルで (requrie 'moody) をしてしまうと CI でのバイトコンパイル時に
-  ;; Error: Symbol’s function definition is void: font-info が出てしまう為、
-  ;; `font-info' 及び依存変数・関数全ての束縛チェックをしている…。
-  (when (and (fboundp 'font-info)
-             (boundp 'x-underline-at-descent-line))
-    (require 'moody)
-    (when (and (fboundp 'moody-replace-mode-line-buffer-identification)
-               (fboundp 'moody-replace-vc-mode)
-               (fboundp 'moody-replace-eldoc-minibuffer-message-function)
-               (boundp 'moody-slant-function))
-      (setq x-underline-at-descent-line t)
-      (moody-replace-mode-line-buffer-identification)
-      (moody-replace-vc-mode)
-      (moody-replace-eldoc-minibuffer-message-function)
-      (when (eq system-type 'darwin)
-        (setq moody-slant-function 'moody-slant-apple-rgb)))))
+  (when (boundp 'x-underline-at-descent-line)
+    (setq x-underline-at-descent-line t))
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (moody-replace-eldoc-minibuffer-message-function)
+  (when (eq system-type 'darwin)
+    (setq moody-slant-function 'moody-slant-apple-rgb)))
 #+end_src
 
 * Org mode
