@@ -23,7 +23,7 @@
   (mapcar #'el-get-source-name source))
 
 (defun toncs-el-get-init ()
-  (setq el-get-verbose (not noninteractive))
+  (setq el-get-verbose t)
   (setq el-get-autoload-file (expand-file-name "el-get-autoloads.el" el-get-dir))
   (setq el-get-is-lazy t)
   (toncs-el-get-compile-sources)
