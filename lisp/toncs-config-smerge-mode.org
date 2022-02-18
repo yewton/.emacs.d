@@ -52,5 +52,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 #+begin_src emacs-lisp :comments no
 (provide 'toncs-config-smerge-mode)
+;; Local Variables:
+;; byte-compile-warnings: (not docstrings)
+;; End:
 ;;; toncs-config-smerge-mode.el ends here
 #+end_src
