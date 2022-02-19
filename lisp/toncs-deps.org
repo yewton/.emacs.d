@@ -177,7 +177,9 @@
     (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
     (:name dirvish :checkout "55d0a5cbfcf2c4d14ce049eece102c48bdc774b2")
 
-    (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8"))
+    (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8")
+
+    (:name minions :checkout "fca3ba548dccc6e553affca8068c9aecb6a9a789"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
