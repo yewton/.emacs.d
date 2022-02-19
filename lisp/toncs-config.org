@@ -748,14 +748,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'shackle)
-(defvar dirvish-display-buffer-alist)
-(defvar dirvish-saved-display-buffer-alist)
-
-(defun dirvish-update-display-buffer-alists ()
-  (setq dirvish-display-buffer-alist
-        (append '(("^\\*F\\(?:d\\|ind\\)\\*$" (display-buffer-same-window)))
-                display-buffer-alist))
-  (setq dirvish-saved-display-buffer-alist display-buffer-alist))
 
 (toncs-config-configure shackle
   (dolist (rule '((compilation-mode :select nil :align below :size 0.2)
@@ -763,8 +755,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   (org-roam-mode :select nil :align right :size 0.33 :popup t)
                   (helpful-mode :select t :align right :size 0.33 :popup t)))
     (add-to-list 'shackle-rules rule))
-  (add-hook 'emacs-startup-hook #'shackle-mode)
-  (add-hook 'shackle-mode-hook #'dirvish-update-display-buffer-alists))
+  (add-hook 'emacs-startup-hook #'shackle-mode))
 #+end_src
 
 * beacon

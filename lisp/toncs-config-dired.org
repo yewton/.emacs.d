@@ -39,6 +39,8 @@
     [remap dired-summary] #'dirvish-dispatch
     [remap dired-do-copy] #'dirvish-yank
     [remap mode-line-other-buffer] #'dirvish-other-buffer)
+  (general-def
+    "<f12>" #'dirvish)
 
   (add-hook 'dired-mode-hook #'org-download-enable))
 #+end_src
