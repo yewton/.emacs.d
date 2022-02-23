@@ -13,6 +13,8 @@
 (require 'org-id)
 
 (require 'ob-shell)
+(require 'ob-restclient)
+(require 'ob-jq)
 
 (require 'consult-org)
 
@@ -230,7 +232,9 @@ restart `org-mode' if necessary."
      '((emacs-lisp . t)
        (org . t)
        (shell . t)
-       (plantuml . t)))
+       (plantuml . t)
+       (restclient .t)
+       (jq . t)))
   (setq org-babel-min-lines-for-block-output 0)
 
   (delight '((org-indent-mode nil "org-indent")

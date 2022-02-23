@@ -1,0 +1,6 @@
+(:name jq-mode
+       :website "https://github.com/ljos/jq-mode"
+       :description "Edit jq scripts."
+       :type github
+       :pkgname "ljos/jq-mode"
+       :minimum-emacs-version "25.1")

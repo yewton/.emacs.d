@@ -1,0 +1,6 @@
+(:name ob-restclient
+       :website "https://github.com/alf/ob-restclient.el"
+       :description "org-babel functions for restclient-mode"
+       :type github
+       :pkgname "alf/ob-restclient.el"
+       :depends (restclient))
