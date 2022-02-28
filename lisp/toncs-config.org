@@ -117,7 +117,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ** フォント
 
 #+begin_src emacs-lisp
-(defconst toncs-config-font-candidates `(("PlemolJP" . 17)
+(defconst toncs-config-font-candidates `(("PlemolJP" . ,(pcase (window-system)
+                                                          ('ns 13)
+                                                          (_ 17)))
                                          ("HackGen" . ,(pcase (window-system)
                                                          ('ns 13)
                                                          (_ 17)))
