@@ -143,7 +143,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                               toncs-config-emojifont-candidates)))
     (when (fboundp 'set-fontset-font)
       (when emojifont
-        (set-fontset-font t 'unicode emojifont)))
+        (set-fontset-font t 'symbol emojifont)))
     (custom-set-faces
      `(fixed-pitch
        ((t . (:font ,font-spec :weight unspecified :slant unspecified :width unspecified)))))
