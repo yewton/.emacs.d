@@ -83,7 +83,7 @@
 
     (:name git-modes :shallow t :branch "1.2.8")
 
-    (:name diff-hl :checkout "2281a89a3ddc6616073da6f190dda08d23b18ba6")
+    (:name diff-hl :checkout "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
 
     (:name projectile :checkout "155fdb44176347c9599357c7935993033260a930")
     (:name consult-projectile :checkout "655b328ce3fe51a8ff89d7b0a839bc8dfe9e51c0")

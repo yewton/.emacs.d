@@ -485,9 +485,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (autoload 'diff-hl-magit-post-refresh "diff-hl")
 
 (toncs-config-configure diff-hl
-  (unless window-system
-    (add-hook 'emacs-startup-hook #'diff-hl-margin-mode))
   (add-hook 'emacs-startup-hook #'global-diff-hl-mode)
+  (add-hook 'emacs-startup-hook #'diff-hl-margin-mode)
+  (add-hook 'emacs-startup-hook #'diff-hl-flydiff-mode)
   (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
