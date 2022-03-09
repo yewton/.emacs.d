@@ -11,6 +11,7 @@
 (require 'org-roam-dailies)
 (require 'org-roam-protocol)
 (require 'no-littering)
+(require 'general)
 
 (defun toncs-org-roam-search ()
   (interactive)
