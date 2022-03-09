@@ -9,6 +9,7 @@
 (require 'org-agenda)
 (require 'org-habit)
 (require 'avy)
+(require 'general)
 
 (defconst toncs-agenda-categories
   (list "task" "routine" "event" "leave" "anniv" "log" "holiday" "sprint" "habit")

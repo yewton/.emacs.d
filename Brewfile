@@ -22,4 +22,4 @@ brew "pngpaste"
 # for dirvish
 brew "exa"
 
-brew "emacs-plus", args: %w{with-ctags with-xwidgets}
+brew "emacs-plus@28", args: %w{with-ctags with-xwidgets with-imagemagick with-native-comp}

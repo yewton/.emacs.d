@@ -18,6 +18,8 @@
 
 (require 'consult-org)
 
+(require 'general)
+
 (require 'toncs-stdlib)
 #+end_src
 
