@@ -18,6 +18,8 @@
 
 (defun toncs-config-dired-configure ()
   (setq dired-dwim-target t)
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
   (defvar dired-bind-jump nil) ; 何かの拍子に dired-x ロードされても、 C-x C-j は SKK の為に取っておきたい
   (let ((gls (executable-find "gls")))
     (when gls
@@ -27,15 +29,18 @@
 
   (dirvish-override-dired-mode 1)
   (dirvish-peek-mode 1)
+  (setq dirvish-attributes '(all-the-icons file-size))
 
   (general-def dired-mode-map
     "SPC" #'dirvish-show-history
-    "f"   #'dirvish-menu-file-info-cmds
+    "f" #' dirvish-file-info-menu
     "r"  #'wdired-change-to-wdired-mode
     "N" #'dired-narrow
     "TAB" #'dired-subtree-toggle
-    "M-c" #'dirvish-ui-config
-    "M-m" #'dirvish-toggle-fullscreen
+    "M-a" #'dirvish-mark-actions-menu
+    "M-s" #'dirvish-setup-menu
+    "M-c" #'dired-collapse-mode
+    "M-f" #'dirvish-toggle-fullscreen
     [remap dired-summary] #'dirvish-dispatch
     [remap dired-do-copy] #'dirvish-yank
     [remap mode-line-other-buffer] #'dirvish-other-buffer)
