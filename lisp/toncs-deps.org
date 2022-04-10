@@ -14,7 +14,7 @@
   '((:name el-get)
     (:name exec-path-from-shell :checkout "6336db9be13d46e2d4bc3b50bc37a3fbf30fdc9e")
 
-    (:name no-littering :checkout "e0f8daa7c374cd91d9c4e89cbdda6e0e7fe24317")
+    (:name no-littering :checkout "2d7237a49ad6a9b6425e68fa4d3245cbe5a7169d")
 
     (:name org-mode :branch "release_9.5.2" :shallow t)
     (:name org-contrib :checkout "8c138dc5375dc13a0d1952e61c638ef4d57df368")
