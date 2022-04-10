@@ -12,7 +12,7 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
   '((:name el-get)
-    (:name exec-path-from-shell :checkout "5e355fbc50913d1ffe48bf86df0bcecd8b369ffb")
+    (:name exec-path-from-shell :checkout "6336db9be13d46e2d4bc3b50bc37a3fbf30fdc9e")
 
     (:name no-littering :checkout "e0f8daa7c374cd91d9c4e89cbdda6e0e7fe24317")
 
