@@ -35,7 +35,7 @@ $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib e
 lisp/toncs-el-get.elc: lisp/toncs-stdlib.elc lisp/toncs-deps.elc
 lisp/toncs-config-org.elc:  lisp/toncs-stdlib.elc
 
-lisp/%.elc: lisp/%.el toncs-bootstrap.el
+lisp/%.elc: lisp/%.el toncs-bootstrap.el lisp/toncs-deps.el
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" --funcall batch-byte-compile $<
 
 $(DICT_DIR):
