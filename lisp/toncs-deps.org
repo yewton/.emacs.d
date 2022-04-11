@@ -47,7 +47,7 @@
     (:name powerline :checkout "e15e77ab2e589bd73f9e90498747d77d042789ea")
     (:name spaceline :checkout "1b26af2c1a701481ac5d90928fe0200e389756c3")
 
-    (:name ddskk :checkout "eede626d70953715d2405b325dcb151b7cb597e7")
+    (:name ddskk :checkout "5c209e0306364118abf9d9440d7b8b9613183072")
 
     (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
 
@@ -70,7 +70,7 @@
 (defconst toncs-deps-default
   '((:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
 
-    (:name diredfl :checkout "cd052dfef602fe79d8dfbcf9f06e6da74412218b")
+    (:name diredfl :checkout "59f8e5bf5c2991aa54a471f61f14d77976db194a")
 
     (:name wgrep :checkout "f0ef9bfa44db503cdb2f83fcfbd2fa4e2382ef1f")
     (:name rg :checkout "f535d4c786126693bfd5f2f377dac44c1a4344bf")
@@ -140,7 +140,7 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-extra
   '((:name rainbow-identifiers :shallow t :branch "0.2.2")
-    (:name rainbow-delimiters :checkout "f43d48a24602be3ec899345a3326ed0247b960c6")
+    (:name rainbow-delimiters :checkout "a32b39bdfe6c61c322c37226d66e1b6d4f107ed0")
 
     (:name avy-menu :checkout "990cc94d708c923f761be083b3a57f6f844566c8")
     (:name ace-popup-menu :checkout "7b8ad628a058d32c420f7615927a34a5d51a7ad3")
@@ -177,7 +177,7 @@
     (:name org-appear :checkout "ffbd742267ff81ba8433177fac5d7fe22b6d68a9")
 
     (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
-    (:name dirvish :checkout "08688a8f94eac5ebcff7108a241012c8be2325b6")
+    (:name dirvish :checkout "5966b0587449d0f0b3c57ee987b2b411ce446b6c")
 
     (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8")
 
