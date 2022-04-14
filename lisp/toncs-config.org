@@ -297,13 +297,14 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
       (mkdir dir-name 'parents)
       (find-file (read-file-name "[junk] " junk-root-dir nil nil file-name)))))
 
-(defun consult--migemo-regexp-compiler (input type)
+(defun consult--migemo-regexp-compiler (input type ignore-case)
   "`consult--default-regexp-compiler' の migemo 対応版。"
   (setq input (mapcar #'migemo-get-pattern (consult--split-escaped input)))
   (cons (mapcar (lambda (x) (consult--convert-regexp x type)) input)
         (when-let (regexps (seq-filter #'consult--valid-regexp-p input))
           (lambda (str)
-            (consult--highlight-regexps regexps str)))))
+            (let ((case-fold-search ignore-case))
+              (consult--highlight-regexps regexps str))))))
 
 (toncs-config-configure vertico+orderless+consult
   (general-def vertico-map
