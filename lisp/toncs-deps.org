@@ -23,7 +23,7 @@
     (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
     (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
 
-    (:name dash :checkout "dc61f4641779616122692e34a32ba2a158ee034c")
+    (:name dash :checkout "7fd71338dce041b352f84e7939f6966f4d379459")
     (:name s :checkout "08661efb075d1c6b4fa812184c1e5e90c08795a9")
     (:name f :checkout "50af874cd19042f17c8686813d52569b1025c76a")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
@@ -117,13 +117,13 @@
     (:name corfu-doc :checkout "348fc32035e0655864280e80310b4349e339a13e")
     (:name cape :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
 
-    (:name emacsql :checkout "c82a0e6b4d256a3743b718cfb640fa9efc045f6e")
-    (:name emacsql-sqlite3 :checkout "209fd0c2649db0c7532e543ec12e7ba881a3325c")
-    (:name org-roam :checkout "eed1df90f571b19cae1581e7f5d938892b00c24d")
+    (:name emacsql :checkout "373975cbccf7776af771e23f86043b236a330702")
+    (:name emacsql-sqlite3 :checkout "2113618732665f2112cb932a66c0e89c404d8777")
+    (:name org-roam :checkout "b948cfbe3763f49346f89523845d65ef4baf3aed")
 
     (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
-    (:name websocket :checkout "fda4455333309545c0787a79d73c19ddbeb57980")
-    (:name org-roam-ui :checkout "309fe3c58c7081de4e2c9c64f7b40ea291926048")
+    (:name websocket :checkout "82b370602fa0158670b1c6c769f223159affce9b")
+    (:name org-roam-ui :checkout "9474a254390b1e42488a1801fed5826b32a8030b")
 
     (:name all-the-icons :checkout "2c963ebb75f211d2f7ac3d2db5f4a9ee2f3e27da")
     (:name all-the-icons-completion :checkout "9e7d456b0934ecb568b6f05a8445e3f4ce32261f")
