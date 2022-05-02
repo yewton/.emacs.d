@@ -9,30 +9,44 @@
 * テンプレ
 
 ** タスク
-#+begin_src emacs-lisp
-(defconst toncs-config-org-capture-task-template
-  `("t" "タスク" entry (file "")
-    "* TODO %?
+
+#+name: task
+#+begin_src
+,* TODO %?
 SCHEDULED: %t
 :PROPERTIES:
 :CATEGORY: task
 :CREATED: %U
-:END:"
+:END:
+#+end_src
+
+#+begin_src emacs-lisp
+(defconst toncs-config-org-capture-task-template
+  `("t" "タスク" entry (file "")
+    "\
+<<task>>\
+"
     :empty-lines 1
     :prepend t))
 #+end_src
 
 ** ログ系
 
-#+begin_src emacs-lisp
-(defconst toncs-config-org-capture-clock-in-template
-  `("i" "Clock-in" entry (file "")
-    "* %?
+#+name: clock-in
+#+begin_src org
+,* %?
 :PROPERTIES:
 :CATEGORY: log
 :CREATED: %U
 :END:
-%T"
+#+end_src
+
+#+begin_src emacs-lisp
+(defconst toncs-config-org-capture-clock-in-template
+  `("i" "Clock-in" entry (file "")
+    "\
+<<clock-in>>\
+"
     :clock-in t
     :clock-keep t
     :empty-lines 1
@@ -40,58 +54,85 @@ SCHEDULED: %t
     :jump-to-captured t))
 #+end_src
 
-#+begin_src emacs-lisp
-(defconst toncs-config-org-capture-log-template
-  `("l" "ログ" entry (file "")
-    "* %?
+#+name: log
+#+begin_src org
+,* %?
 :PROPERTIES:
 :CATEGORY: log
 :CREATED: %U
 :END:
-%T"
+%T
+#+end_src
+
+#+begin_src emacs-lisp
+(defconst toncs-config-org-capture-log-template
+  `("l" "ログ" entry (file "")
+    "\
+<<log>>\
+"
     :empty-lines 1
     :prepend t))
 #+end_src
 
 ** イベント系
 
-#+begin_src emacs-lisp
-(defconst toncs-config-org-capture-allday-event-template
-  `("e" "終日イベント" entry (file "")
-    "* %^{イベント名}
+#+name: allday-event
+#+begin_src org :tangle no
+,* %^{イベント名}
 :PROPERTIES:
 :CATEGORY: event
 :CREATED: %U
 :END:
-%^{日付}t"
+#+end_src
+
+#+begin_src emacs-lisp :noweb yes
+(defconst toncs-config-org-capture-allday-event-template
+  `("e" "終日イベント" entry (file "")
+    "\
+<<allday-event>>\
+"
     :empty-lines 1
     :prepend t
     :immediate-finish t))
+#+end_src
+
+#+name: event
+#+begin_src org
+,* %^{イベント名}
+:PROPERTIES:
+:CATEGORY: event
+:CREATED: %U
+:END:
+%^{時刻}T
 #+end_src
 
 #+begin_src emacs-lisp
 (defconst toncs-config-org-capture-event-template
   `("E" "イベント" entry (file "")
-    "* %^{イベント名}
-:PROPERTIES:
-:CATEGORY: event
-:CREATED: %U
-:END:
-%^{時刻}T"
+    "\
+<<event>>\
+"
     :empty-lines 1
     :prepend t
     :immediate-finish t))
 #+end_src
 
-#+begin_src emacs-lisp
-(defconst toncs-config-org-capture-leave-template
-  `("L" "休暇" entry (file "")
-    "* %^{イベント名}
+#+name: holiday
+#+begin_src org
+,* %^{イベント名}
 :PROPERTIES:
 :CATEGORY: leave
 :CREATED: %U
 :END:
-%^{日付}t"
+%^{日付}t
+#+end_src
+
+#+begin_src emacs-lisp
+(defconst toncs-config-org-capture-leave-template
+  `("L" "休暇" entry (file "")
+    "\
+<<holiday>>\
+"
     :empty-lines 1
     :prepend t
     :immediate-finish t))
