@@ -104,7 +104,7 @@
 
     (:name visual-regexp :shallow t :branch "v1.1.1")
 
-    (:name org-mru-clock :checkout "4fb77d9bb876e368e596d18324115cef6c1c71f3")
+    (:name org-mru-clock :checkout "a74322f0cfd6e52151f9bb8d4f90833330f69120")
 
     (:name emacs-async :checkout "36a10151e70e956e2f766ed9e65f4a9cfc8479b2")
     (:name org-download :checkout "67b3c744f94cf0bf50f7052ce428e95af5a6ff3f")

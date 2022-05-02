@@ -84,6 +84,7 @@
 
 #+begin_src emacs-lisp
 (require 'org-clock)
+(require 'org-mru-clock)
 
 (defun toncs-org-show-notification-handler (title &optional msg)
   (cond
@@ -115,7 +116,13 @@
   (setq org-show-notification-handler #'toncs-org-show-notification-handler)
   (add-to-list 'org-clock-clocktable-language-setup
                '("ja" "ファイル" "レベル" "タイムスタンプ" "見出し" "工数" "全て" "合計" "ファイル計" "集計時刻"))
-  (org-clock-persistence-insinuate))
+  (org-clock-persistence-insinuate)
+
+  (general-def 'override
+    "C-c C-x i" #'org-mru-clock-in
+    "C-c C-x C-j" #'org-mru-clock-select-recent-task)
+  (setq org-mru-clock-how-many 100)
+  (add-hook 'minibuffer-setup-hook #'org-mru-clock-embark-minibuffer-hook))
 #+end_src
 
 * org-download
