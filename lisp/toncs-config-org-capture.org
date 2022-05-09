@@ -11,7 +11,7 @@
 ** タスク
 
 #+name: task
-#+begin_src
+#+begin_src org
 ,* TODO %?
 SCHEDULED: %t
 :PROPERTIES:
@@ -85,7 +85,7 @@ SCHEDULED: %t
 :END:
 #+end_src
 
-#+begin_src emacs-lisp :noweb yes
+#+begin_src emacs-lisp
 (defconst toncs-config-org-capture-allday-event-template
   `("e" "終日イベント" entry (file "")
     "\
