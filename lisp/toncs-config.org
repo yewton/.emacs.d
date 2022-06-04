@@ -415,7 +415,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (toncs-config-prepare display-line-numbers
-  (dolist (hook '(prog-mode-hook text-mode-hook))
+  (dolist (hook '(prog-mode-hook))
     (add-hook hook #'display-line-numbers-mode)))
 #+end_src
 
