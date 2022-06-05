@@ -63,10 +63,10 @@ lsb_release -a
 #+end_src
 
 #+RESULTS:
-| Distributor ID: | Ubuntu             |
-| Description:    | Ubuntu 20.04.1 LTS |
-| Release:        | 20.04              |
-| Codename:       | focal              |
+| Distributor ID: | Ubuntu           |
+| Description:    | Ubuntu 22.04 LTS |
+| Release:        | 22.04            |
+| Codename:       | jammy            |
 
 一部依存する外部コマンドが Xfce 前提になってたりします。
 
