@@ -117,13 +117,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 ** フォント
 
 #+begin_src emacs-lisp
-(defconst toncs-config-font-candidates `(("PlemolJP" . ,(pcase (window-system)
-                                                          ('ns 13)
-                                                          (_ 17)))
-                                         ("HackGen" . ,(pcase (window-system)
-                                                         ('ns 13)
-                                                         (_ 17)))
-                                         ("Noto Sans Mono" . 14)))
+;; サイズはポイント指定したいので Float で定義(整数だとピクセルサイズ指定になる)
+(defconst toncs-config-font-candidates `(("PlemolJP" . 13.0)
+                                         ("Noto Sans Mono" . 14.0)))
 
 (defconst toncs-config-emojifont-candidates '("Apple Color Emoji"
                                               "Segoe UI Emoji"
@@ -141,9 +137,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
          (font-spec (seq-find #'find-font font-specs))
          (emojifont (seq-find (lambda (elt) (member elt (font-family-list)))
                               toncs-config-emojifont-candidates)))
-    (when (fboundp 'set-fontset-font)
-      (when emojifont
-        (set-fontset-font t 'symbol emojifont)))
+    (when (and (fboundp 'set-fontset-font) emojifont)
+      (set-fontset-font t 'symbol emojifont))
     (custom-set-faces
      `(fixed-pitch
        ((t . (:font ,font-spec :weight unspecified :slant unspecified :width unspecified)))))
