@@ -42,7 +42,7 @@
   "Advice to run before `message' that prepends a timestamp to each message.
 
 Activate this advice with:
-(advice-add 'message :before 'toncs-ad-timestamp-message)"
+\(advice-add 'message :before 'toncs-ad-timestamp-message)"
   (unless (string-equal FORMAT-STRING "%s%s")
     (let ((deactivate-mark nil)
           (inhibit-read-only t))
