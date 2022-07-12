@@ -63,7 +63,7 @@
 
   (modus-themes-load-themes)
 
-  (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
+  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
 
   (general-def "<f9>" #'modus-themes-toggle))
 #+end_src
