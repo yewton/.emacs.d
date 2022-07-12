@@ -830,6 +830,15 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "T" #'gts-do-translate))
 #+end_src
 
+* vterm
+
+#+begin_src emacs-lisp
+(require 'vterm)
+
+(toncs-config-configure vterm
+  (setq vterm-buffer-name-string "vterm %s"))
+#+end_src
+
 * 各言語の設定
 
 ** markdown

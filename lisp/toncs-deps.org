@@ -187,7 +187,9 @@
     (:name jq-mode :checkout "1af31ba701cf844f938f840ed78867c9a28174b6")
     (:name restclient :checkout "9e2cfa86529133eba6c9ef53794be182f15e4c21"
            :compile "restclient.el")
-    (:name ob-restclient :checkout "586f1fa07f76aaca13cb3f86945759f4b9fb8db7"))
+    (:name ob-restclient :checkout "586f1fa07f76aaca13cb3f86945759f4b9fb8db7")
+
+    (:name vterm :checkout "3155a477b43c1567d754768f5be79296440ebaf8"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
