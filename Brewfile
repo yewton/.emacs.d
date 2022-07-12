@@ -1,13 +1,11 @@
 # -*- mode: ruby; -*-
 tap "d12frosted/emacs-plus"
-tap "homebrew/cask-fonts"
 
 # Build essentials
 brew "coreutils"
 brew "findutils"
 brew "texinfo"
 
-cask "font-hackgen-nerd"
 
 # for Treemacs
 brew "python3"
