@@ -56,8 +56,7 @@
     (:name general :checkout "a0b17d207badf462311b2eef7c065b884462cb7c")
     (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
 
-    (:name leuven-theme :checkout "a116202c82613c087440d2e8a6a504b08f1862ce")
-    (:name modus-themes :checkout "91ef46502c277f325ddd757806667dfa741a64cc")
+    (:name modus-themes :checkout "fc936326f9486cfda0c9113dc4a3054e9971447d")
     (:name moody :checkout "aa6666eb344947bf1eb9d14619f4249403048321"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src
