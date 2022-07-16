@@ -26,7 +26,7 @@
 
   (setq modus-themes-markup '(background intense))
 
-  (setq modus-themes-syntax '(faint alt-syntax green-strings yellow-comments))
+  (setq modus-themes-syntax '(alt-syntax green-strings yellow-comments))
 
   (setq modus-themes-hl-line '(accented))
 
@@ -59,7 +59,7 @@
         '((1 . (background overline 1.3))
           (2 . (background overline rainbow 1.2))
           (3 . (background overline 1.1))
-          (t . (background monochrome))))
+          (t . (background overline))))
 
   (modus-themes-load-themes)
 
