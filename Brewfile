@@ -20,4 +20,8 @@ brew "pngpaste"
 # for dirvish
 brew "exa"
 
+# for emacs-libvterm
+brew "cmake"
+brew "libtool"
+
 brew "emacs-plus@28", args: %w{with-ctags with-xwidgets with-imagemagick with-native-comp}
