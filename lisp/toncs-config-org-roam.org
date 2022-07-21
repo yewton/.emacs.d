@@ -26,22 +26,22 @@
 
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                               "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n")
            :unnarrowed t)))
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
          "* %?"
-         :if-new (file+head "%<%Y-%m-%d>.org"
+         :target (file+head "%<%Y-%m-%d>.org"
                             "#+setupfile: ../../roam-setup.org\n#+title: %<%Y-%m-%d>\n\n* Notes\n"))))
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain
-           :if-new (file+head "${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+setupfile: ../roam-setup.org\n#+title: ${title}\n\n* Inbox\n")
            :unnarrowed t)))
   (general-def org-mode-map
     "C-c n l" #'org-roam-buffer-toggle)
-  (org-roam-setup))
+  (org-roam-db-autosync-enable))
 #+end_src
 
 #+begin_src emacs-lisp :comments no
