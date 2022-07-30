@@ -189,7 +189,10 @@
            :compile "restclient.el")
     (:name ob-restclient :checkout "586f1fa07f76aaca13cb3f86945759f4b9fb8db7")
 
-    (:name vterm :checkout "3155a477b43c1567d754768f5be79296440ebaf8"))
+    (:name vterm :checkout "3155a477b43c1567d754768f5be79296440ebaf8")
+
+    (:name svg-lib :checkout "303f690389f71fd8efb8f43931e835d8b3db28d4")
+    (:name svg-tag-mode :checkout "efd22edf650fb25e665269ba9fed7ccad0771a2f"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 

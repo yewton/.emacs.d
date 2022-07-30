@@ -157,6 +157,14 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (require 'modus-themes)
 #+end_src
 
+** svg-tag-mode
+
+#+begin_src emacs-lisp
+(autoload 'svg-tag-mode "svg-tag-mode")
+(toncs-config-prepare svg-tag-mode
+  (add-hook 'org-mode-hook #'svg-tag-mode))
+#+end_src
+
 ** その他
 
 #+begin_src emacs-lisp

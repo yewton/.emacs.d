@@ -1,0 +1,8 @@
+(:name svg-tag-mode
+       :website "https://github.com/rougier/svg-tag-mode"
+       :description "Replace keywords with SVG tags"
+       :type github
+       :pkgname "rougier/svg-tag-mode"
+       :depends (svg-lib)
+       :compile "svg-tag-mode.el"
+       :minimum-emacs-version "27.1")
