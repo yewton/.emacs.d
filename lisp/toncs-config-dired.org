@@ -15,7 +15,6 @@
 (require 'general)
 (require 'dirvish)
 (require 'dirvish-subtree)
-(require 'dirvish-menu)
 (require 'embark)
 
 (defun toncs-config-dired-configure ()
@@ -45,10 +44,7 @@
     "v" #'dirvish-vc-menu      ; remapped `dired-view-file'
     "r" #'wdired-change-to-wdired-mode
     "TAB" #'dired-subtree-toggle
-    "M-a" #'dirvish-mark-actions-menu
-    "M-s" #'dirvish-setup-menu
     "M-c" #'dired-collapse-mode
-    "M-f" #'dirvish-toggle-fullscreen
     "M-f" #'dirvish-history-go-forward
     "M-b" #'dirvish-history-go-backward
     "M-l" #'dirvish-ls-switches-menu
