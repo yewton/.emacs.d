@@ -165,7 +165,7 @@
 
     (:name emojify :branch "fix-line-spacing")
 
-    (:name beacon :branch "fix-define-minor-mode")
+    (:name beacon :checkout "85261a928ae0ec3b41e639f05291ffd6bf7c231c")
 
     (:name org-cliplink :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
 
