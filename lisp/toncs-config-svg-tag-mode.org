@@ -2,7 +2,7 @@
 #+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
-;;; toncs-config-tag-mode.el -*- lexical-binding: t -*-
+;;; toncs-config-svg-tag-mode.el -*- lexical-binding: t -*-
 #+end_src
 
 #+begin_src emacs-lisp
