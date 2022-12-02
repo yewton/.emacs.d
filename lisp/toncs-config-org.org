@@ -89,14 +89,15 @@
 (defun toncs-org-show-notification-handler (title &optional msg)
   (cond
    ((and (eq window-system 'ns) (executable-find "terminal-notifier"))
-    (call-process "terminal-notifier"
-                  nil ; /dev/null
-                  0 ; discard and don't wait for the program to terminate
-                  nil ; do not display
-                  "-title" title
-                  "-message" (or msg "")
-                  "-appIcon" "https://orgmode.org/img/org-mode-unicorn-logo.png"
-                  "-activate" "org.gnu.Emacs"))
+    (let ((sender-or-activate (if (frame-focus-state) "-activate" "-sender")))
+      (call-process "terminal-notifier"
+                    nil ; /dev/null
+                    0 ; discard and don't wait for the program to terminate
+                    nil ; do not display
+                    "-title" title
+                    "-group" "toncs-org-show-notification"
+                    "-message" (or msg "")
+                    sender-or-activate "org.gnu.Emacs")))
    ((eq window-system 'x)
     (if (executable-find "pwsh.exe")
         (call-process "pwsh.exe"
