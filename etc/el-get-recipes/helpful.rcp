@@ -2,5 +2,5 @@
        :description "A better Emacs *help* buffer"
        :type github
        :depends (dash elisp-refs s shut-up)
-       :pkgname "DamienCassou/helpful"
+       :pkgname "Wilfred/helpful"
        :compile "helpful.el")
