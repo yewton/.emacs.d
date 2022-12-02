@@ -173,6 +173,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (menu-bar-mode 0)
   (setq echo-keystrokes 0.2)
   (setq use-dialog-box nil)
+  (setq word-wrap-by-category t)
   (when window-system
     (toncs-config-font-configure)
     (when (fboundp 'tool-bar-mode) (tool-bar-mode 0))
