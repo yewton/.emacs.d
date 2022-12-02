@@ -156,7 +156,6 @@
 
     (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
 
-    (:name org-superstar-mode :checkout "17481852c1bd09afea877635a3185261fc19fd64")
 
     (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
     (:name elisp-refs :checkout "fdde21e34b1272783d566d8230b5ed2dc4749048")
