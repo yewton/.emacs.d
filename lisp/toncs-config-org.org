@@ -253,6 +253,7 @@ restart `org-mode' if necessary."
   (delight '((org-indent-mode nil "org-indent")
              (org-src-mode nil "org-src")))
   (add-hook 'org-mode-hook #'toncs-org-mode-hook-function)
+  (add-hook 'org-mode-hook #'org-modern-mode)
   (add-hook 'org-src-mode-hook #'toncs-org-src-mode-hook-function))
 #+end_src
 

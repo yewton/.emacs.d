@@ -1,0 +1,6 @@
+(:name org-modern
+       :website "https://github.com/minad/org-modern"
+       :description "Modern looks for Org"
+       :type github
+       :pkgname "minad/org-modern"
+       :minimum-emacs-version "27.1")

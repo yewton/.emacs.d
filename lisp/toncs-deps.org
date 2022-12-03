@@ -191,8 +191,7 @@
 
     (:name vterm :checkout "3155a477b43c1567d754768f5be79296440ebaf8")
 
-    (:name svg-lib :checkout "303f690389f71fd8efb8f43931e835d8b3db28d4")
-    (:name svg-tag-mode :checkout "efd22edf650fb25e665269ba9fed7ccad0771a2f"))
+    (:name org-modern :checkout "7d037569bc4a05f40262ea110c4cda05c69b5c52"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 

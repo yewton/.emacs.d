@@ -102,7 +102,9 @@
   (general-def org-agenda-mode-map
     "J" #'toncs-avy-org-agenda)
 
-  (set-face-underline 'org-agenda-current-time nil))
+  (set-face-underline 'org-agenda-current-time nil)
+
+  (add-hook 'org-agenda-finalize-hook #'org-modern-agenda))
 #+end_src
 
 #+begin_src emacs-lisp :comments no
