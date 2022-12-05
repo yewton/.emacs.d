@@ -52,9 +52,9 @@ sw_vers
 #+end_src
 
 #+RESULTS:
-| ProductName:    | macOS |
-| ProductVersion: | 12.1  |
-| BuildVersion:   | 21C52 |
+| ProductName:    | macOS  |
+| ProductVersion: | 12.5.1 |
+| BuildVersion:   | 21G83  |
 
 Xubuntu はこっち:
 
