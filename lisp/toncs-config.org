@@ -111,6 +111,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-c n s" #'toncs-org-roam-search)
   (general-def org-mode-map
     "C-c n i" #'org-roam-node-insert))
+
+(toncs-config-prepare org-modern)
 #+end_src
 
 * 外観
@@ -162,6 +164,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
      ((boundp 'font-use-system-font)
       (setq font-use-system-font t)))))
 #+end_src
+
 ** modus-themes
 
 #+begin_src emacs-lisp

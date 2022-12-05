@@ -1,0 +1,20 @@
+#+TITLE: org-modern
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org-modern.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org-modern)
+
+(defun toncs-config-org-modern-configure ()
+  (setq org-modern-star '("■" "▢" "♦" "♢" "★" "☆")) ; PlemolJP にある文字で構成
+  (setq org-modern-list nil)
+  (setq org-modern-hide-stars nil))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org-modern)
+;;; toncs-config-org-modern.el ends here
+#+end_src
