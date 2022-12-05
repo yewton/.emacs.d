@@ -126,6 +126,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                                               "Noto Color Emoji"
                                               "Noto Emoji"))
 
+(defconst toncs-config-symbolsfont-candidates '("Noto Sans Symbols2"))
+
+(defun toncs-find-font (candidates)
+  "CANDIDATES の中から有効なフォントを返します。"
+  (seq-find (lambda (elt) (member elt (font-family-list)))
+            candidates))
+
 ;; 参考元 https://github.com/hlissner/doom-emacs/blob/4a6de2419c81d120ce363a2ba189789c7a2424d4/core/core-ui.el#L529
 (defun toncs-config-font-configure (&optional reload)
   (interactive "P")
@@ -135,13 +142,18 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (let* ((font-specs (mapcar (lambda (elt) (font-spec :family (car elt) :size (cdr elt)))
                              toncs-config-font-candidates))
          (font-spec (seq-find #'find-font font-specs))
-         (emojifont (seq-find (lambda (elt) (member elt (font-family-list)))
-                              toncs-config-emojifont-candidates)))
-    (when (and (fboundp 'set-fontset-font) emojifont)
-      (set-fontset-font t 'symbol emojifont))
-    (custom-set-faces
-     `(fixed-pitch
-       ((t . (:font ,font-spec :weight unspecified :slant unspecified :width unspecified)))))
+         (emojifont (toncs-find-font toncs-config-emojifont-candidates))
+         (symbolsfont (toncs-find-font toncs-config-symbolsfont-candidates)))
+    (when (fboundp 'set-fontset-font)
+      (set-fontset-font t 'symbol font-spec) ;; 記号系もデフォルトはメインのフォントにする
+      ;; メインのフォントに無い記号のフォールバック設定
+      (dolist (font (list emojifont symbolsfont))
+        (when font
+          (set-fontset-font t 'symbol font nil 'append))))
+    (dolist (face '(default fixed-pitch))
+      (custom-set-faces
+       `(,face
+         ((t (:family ,font-spec :weight unspecified :slant unspecified :width unspecified))))))
     (cond
      (font-spec
       (if reload
