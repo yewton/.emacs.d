@@ -11,7 +11,9 @@
 (defun toncs-config-org-modern-configure ()
   (setq org-modern-star '("■" "▢" "♦" "♢" "★" "☆")) ; PlemolJP にある文字で構成
   (setq org-modern-list nil)
-  (setq org-modern-hide-stars nil))
+  (setq org-modern-hide-stars nil)
+  ;; variable-pitch と相性が悪い為 https://github.com/minad/org-modern/issues/5
+  (setq org-modern-table nil))
 #+end_src
 
 #+begin_src emacs-lisp :comments no
