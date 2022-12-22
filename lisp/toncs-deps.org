@@ -23,7 +23,7 @@
     (:name auto-compile :checkout "f0690b770c71d0a25957b48b8952190eb3fe4111")
 
     (:name dash :checkout "0ac1ecf6b56eb67bb81a3cf70f8d4354b5782341")
-    (:name s :checkout "08661efb075d1c6b4fa812184c1e5e90c08795a9")
+    (:name s :checkout "e957dcb0677da18b2bb60ad867db5df5c35b5616")
     (:name f :checkout "d2019d4f9625bcc44349c69fe46d6645fd9ff4ff")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
