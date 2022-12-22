@@ -30,7 +30,7 @@
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
 
-    (:name avy :checkout "ba5f035be33693d1a136a5cbeedb24327f551a92")
+    (:name avy :checkout "955c8dedd68c74f3cf692c1249513f048518c4c9")
 
     (:name vertico :checkout "1bd5438da9c661e2df5e9516f36d9cbc6d100a34")
     (:name consult :checkout "0e6d3ef3c87c68b57db5b118ea6cb541055f87cc")
