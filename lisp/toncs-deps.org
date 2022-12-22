@@ -20,8 +20,7 @@
            :url "https://git.savannah.gnu.org/git/emacs/org-mode.git")
     (:name org-contrib :checkout "223390ea2c2f728ca4bfd1c4a33cac25d003693a")
 
-    (:name packed :checkout "94ea12b9d44bfa42c28d0548199f2fcd19e4aa6a")
-    (:name auto-compile :checkout "8d117868a0a091389d528428136e60f951e9c550")
+    (:name auto-compile :checkout "f0690b770c71d0a25957b48b8952190eb3fe4111")
 
     (:name dash :checkout "0ac1ecf6b56eb67bb81a3cf70f8d4354b5782341")
     (:name s :checkout "08661efb075d1c6b4fa812184c1e5e90c08795a9")
