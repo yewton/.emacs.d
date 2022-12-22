@@ -124,8 +124,8 @@
     (:name websocket :checkout "82b370602fa0158670b1c6c769f223159affce9b")
     (:name org-roam-ui :checkout "2cd93bfa517d51b4c97d42817713ca5ce61cb0df")
 
-    (:name all-the-icons :checkout "2c963ebb75f211d2f7ac3d2db5f4a9ee2f3e27da")
-    (:name all-the-icons-completion :checkout "9e7d456b0934ecb568b6f05a8445e3f4ce32261f")
+    (:name all-the-icons :checkout "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
+    (:name all-the-icons-completion :checkout "4da28584a1b36b222e0e78d46fd8d46bbd9116c7")
 
     (:name good-scroll :checkout "a7ffd5c0e5935cebd545a0570f64949077f71ee3")
 
