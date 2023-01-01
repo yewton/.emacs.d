@@ -174,7 +174,7 @@
     (:name org-appear :checkout "ffbd742267ff81ba8433177fac5d7fe22b6d68a9")
 
     (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
-    (:name dirvish :checkout "3c3618cd22dec2e6c3eff212ec83a5a0c961836e")
+    (:name dirvish :checkout "ec4100612b2e93d9e188e7eab4c144b45f3547ee")
 
     (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8")
 
