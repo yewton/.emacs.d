@@ -782,7 +782,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure beacon
   (setq beacon-color "#9E3699")
   (delight 'beacon-mode nil "beacon")
-  (add-hook 'emacs-startup-hook #'beacon-mode))
+  (add-hook 'emacs-startup-hook #'beacon-mode)
+  (add-to-list 'beacon-dont-blink-major-modes 'dired-mode))
 #+end_src
 
 * treemacs
