@@ -1,0 +1,7 @@
+(:name compat
+       :website "https://git.sr.ht/~pkal/compat"
+       :description "Compatibility Library for Emacs Lisp"
+       :type git
+       :url "https://git.sr.ht/~pkal/compat"
+       :depends (nadvice)
+       :minimum-emacs-version "24.3")

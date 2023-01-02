@@ -1,0 +1,4 @@
+(:name nadvice
+       :description "Forward compatibility for Emacs-24.4's nadvice"
+       :type http
+       :url "https://elpa.gnu.org/packages/nadvice-0.3.el")
