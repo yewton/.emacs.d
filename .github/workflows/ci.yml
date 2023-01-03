@@ -15,8 +15,9 @@ jobs:
         emacs_version: [28.2, snapshot]
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v2
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      id: cache-el-get
       with:
         path: var/el-get
         key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-${{ hashFiles('lisp/toncs-deps.org', 'etc/el-get-recipes/*.rcp') }}
