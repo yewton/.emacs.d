@@ -7,7 +7,7 @@
 
 * 最小限のパッケージ
 
-これが無いとニッチもサッチも行かないパッケージ達。
+これが無いとニッチもサッチも行かないパッケージ達。 
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
