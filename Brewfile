@@ -24,6 +24,10 @@ brew "exa"
 brew "cmake"
 brew "libtool"
 
+# for doc-view
+brew "mupdf-tools" # mutool
+cask "libreoffice" # soffice
+
 # fonts
 cask "font-noto-sans-symbols-2"
 cask "font-plemol-jp"
