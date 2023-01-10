@@ -531,9 +531,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq window-combination-resize t)
   (setq scroll-preserve-screen-position t)
   (setq scroll-conservatively 1000)
-  (general-def
-    "<up>" #'good-scroll-down
-    "<down>" #'good-scroll-up)
   (setq scroll-margin 5)
   (good-scroll-mode 1)
   (winum-mode 1))
