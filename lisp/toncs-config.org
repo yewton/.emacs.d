@@ -534,6 +534,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (general-def
     "<up>" #'good-scroll-down
     "<down>" #'good-scroll-up)
+  (setq scroll-margin 5)
   (good-scroll-mode 1)
   (winum-mode 1))
 #+end_src
