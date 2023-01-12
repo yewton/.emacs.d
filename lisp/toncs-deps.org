@@ -7,7 +7,7 @@
 
 * 最小限のパッケージ
 
-これが無いとニッチもサッチも行かないパッケージ達。 
+これが無いとニッチもサッチも行かないパッケージ達。
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
@@ -24,7 +24,7 @@
 
     (:name dash :checkout "3df46d7d9fe74f52a661565888e4d31fd760f0df")
     (:name s :checkout "e957dcb0677da18b2bb60ad867db5df5c35b5616")
-    (:name f :checkout "d50dca48929575642912bb5bbb2585709ba38f82")
+    (:name f :checkout "eccb51da6825b5d87bd9222d8d1dd616d22fb5f7")
     (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
@@ -112,13 +112,13 @@
     (:name corfu-doc :checkout "348fc32035e0655864280e80310b4349e339a13e")
     (:name cape :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
 
-    (:name emacsql :checkout "373975cbccf7776af771e23f86043b236a330702")
-    (:name emacsql-sqlite3 :checkout "2113618732665f2112cb932a66c0e89c404d8777")
-    (:name org-roam :checkout "c3867619147175faf89ed8f3e90a1e67a4fd9655")
+    (:name sqlite3 :checkout "ad6dc366b7cc7587965a7eeb7c1fb8b83679f81e")
+    (:name emacsql :checkout "6b2e65bdf785364cf7c34c31fea5812e1e58c657")
+    (:name org-roam :checkout "74422df546a515bc984c2f3d3a681c09d6f43916")
 
     (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
-    (:name websocket :checkout "82b370602fa0158670b1c6c769f223159affce9b")
-    (:name org-roam-ui :checkout "2cd93bfa517d51b4c97d42817713ca5ce61cb0df")
+    (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
+    (:name org-roam-ui :checkout "5ac74960231db0bf7783c2ba7a19a60f582e91ab")
 
     (:name all-the-icons :checkout "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
     (:name all-the-icons-completion :checkout "4da28584a1b36b222e0e78d46fd8d46bbd9116c7")

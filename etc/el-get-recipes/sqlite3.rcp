@@ -1,0 +1,8 @@
+(:name sqlite3
+       :description "Direct access to the core SQLite3 API"
+       :type github
+       :pkgname "pekingduck/emacs-sqlite3-api"
+       :build (("make" "all"))
+       :compile "."
+       :load-path "."
+       :minimum-emacs-version "25.1")
