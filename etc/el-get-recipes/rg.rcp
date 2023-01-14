@@ -1,6 +1,6 @@
 (:name rg
        :description "Emacs frontend to ripgrep"
        :type github
-       :depends (s)
+       :depends (wgrep transient)
        :compile ("rg.el")
        :pkgname "dajva/rg.el")

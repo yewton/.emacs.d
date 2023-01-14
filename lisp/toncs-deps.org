@@ -67,16 +67,17 @@
 
     (:name diredfl :checkout "59f8e5bf5c2991aa54a471f61f14d77976db194a")
 
-    (:name wgrep :checkout "f0ef9bfa44db503cdb2f83fcfbd2fa4e2382ef1f")
-    (:name rg :checkout "f535d4c786126693bfd5f2f377dac44c1a4344bf")
+    (:name wgrep :checkout "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
+    (:name rg :checkout "14d4c6a754d127c5cacd58fb66bb0992faff68e4")
 
     (:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name with-editor :checkout "36d36957628621e8340f755b22082e1f4ed8e2d7")
-    (:name transient :checkout "45241225cf6bec864964191c0b3dc8bfad989723")
-    (:name magit :checkout "22046b51136593d9fc607f0bb885832cc9719555")
+    (:name compat :checkout "8a32564247ad3baee571252a2004c3d347962d01")
+    (:name with-editor :checkout "84ba06ed513e97223630905f4788370e18116f40")
+    (:name transient :checkout "239be53b01e003c5206087d850d9672a42dc4b32")
+    (:name magit :checkout "b908c79b44f5c282eec44f19fc1d9967f041dd5c")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
@@ -144,11 +145,11 @@
 
     (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
     (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
-    (:name closql :checkout "15f906c393db1a0fb6577afc3cf59466531eafef")
-    (:name treepy :checkout "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")
-    (:name ghub :checkout "d36c2b2419b04d7bc559756d37d39d615add6395")
-    (:name yaml :checkout "84b88c9ed178af16da18b230c1f61c57cefedf28")
-    (:name forge :checkout "0ff9b8a0dea2483203646ba82ce155bb4957a88a")
+    (:name closql :checkout "689c16f5360457accc571fd5bd947d06b30777cd")
+    (:name treepy :checkout "7c4a0d21322506a4d4b2301b4274ec955b429b47")
+    (:name ghub :checkout "1ff2574b598d460617ac3e61058964e96678ad4a")
+    (:name yaml :checkout "73fde9d8fbbaf2596449285df9eb412ae9dd74d9")
+    (:name forge :checkout "d752022c0a14bb55c57589f81b51c7e561c2e74f")
 
     (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
 
@@ -198,7 +199,7 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-lang
   '((:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
-    (:name markdown-mode :checkout "1c343f5ce4213e6a6e9562c4ab621a1f8e6c31c5" :prepare nil)
+    (:name markdown-mode :checkout "6024f2d78e1c3e8e4fb4a9cb375291baa44c7cf2" :prepare nil)
 
     (:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 

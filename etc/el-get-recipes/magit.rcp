@@ -13,7 +13,10 @@
        ;; handle compilation and autoloads on its own.  Create an
        ;; empty autoloads file because magit.el explicitly checks for
        ;; a file of that name.
-       :build `(("make" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
+       :build `( ;; https://github.com/melpa/melpa/blob/cebfd6d6356a70955f518c785ec9258305de9415/recipes/magit#L11-L12
+                ,@(mapcar (lambda (file) `(,el-get-emacs "--batch" "-Q" "--eval" ,(format "(delete-file \"%s\")" file)))
+                          (list "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el"))
+                ("make" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
                 ("touch" "lisp/magit-autoloads.el"))
        :build/berkeley-unix `(("gmake" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
                               ("touch" "lisp/magit-autoloads.el"))

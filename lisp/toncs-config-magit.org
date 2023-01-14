@@ -7,6 +7,12 @@
 
 #+begin_src emacs-lisp
 (require 'magit)
+
+;; This must be set before forge is loaded.
+;; https://github.com/magit/forge/blob/9fc07458edf446aed1d30a5360b780ba3b42c3c0/docs/forge.org#other-options
+(defvar forge-database-connector)
+(setq forge-database-connector
+      (if (version< emacs-version "29") 'sqlite-module 'sqlite-builtin))
 (require 'forge)
 (require 'treemacs-magit)
 
