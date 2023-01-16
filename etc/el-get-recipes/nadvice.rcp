@@ -1,4 +1,4 @@
 (:name nadvice
        :description "Forward compatibility for Emacs-24.4's nadvice"
        :type http
-       :url "https://elpa.gnu.org/packages/nadvice-0.3.el")
+       :url "https://raw.githubusercontent.com/emacs-mirror/emacs/bcaa63ac506dc070b29db13326801ff978e8b00d/lisp/emacs-lisp/nadvice.el")
