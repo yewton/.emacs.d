@@ -90,10 +90,6 @@
 
     (:name marginalia :checkout "e9540a7b80f9c4d044748b88720e5cba3e30c20a")
 
-    (:name ace-window :checkout "c7cb315c14e36fded5ac4096e158497ae974bec9")
-    (:name pfuture :checkout "d7926de3ba0105a36cfd00811fd6278aea903eef")
-    (:name treemacs :checkout "18baf5d412645ea780aec718f8960904d6bf91c1" :load-path ("src/elisp" "src/extra"))
-
     (:name link-hint :checkout "676dac6621e321b33a8d396fa27dd0ea619d21e3")
 
     (:name highlight-thing :checkout "561d08a26f78f18d405d4f371f1c813db094e2f3")

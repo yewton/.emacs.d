@@ -14,7 +14,6 @@
 (setq forge-database-connector
       (if (version< emacs-version "29") 'sqlite-module 'sqlite-builtin))
 (require 'forge)
-(require 'treemacs-magit)
 
 (defun toncs-config-magit-configure ()
   (setq magit-diff-refine-hunk 'all)

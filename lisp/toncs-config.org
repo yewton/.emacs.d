@@ -789,31 +789,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-to-list 'beacon-dont-blink-major-modes 'dired-mode))
 #+end_src
 
-* treemacs
-
-#+begin_src emacs-lisp
-(eval-when-compile
-  (defvar treemacs-no-load-time-warnings t))
-
-(toncs-config-prepare treemacs
-  (general-def
-    "M-0" #'treemacs-select-window
-    "<f8>" #'treemacs
-    "C-x t t" #'treemacs
-    "C-x t B" #'treemacs-bookmark
-    "C-x t C-t" #'treemacs-find-file
-    "C-x t M-t" #'treemacs-find-tag))
-#+end_src
-
 * projectile
 
 #+begin_src emacs-lisp
 (require 'projectile)
 (require 'consult-projectile)
-
-;; 無害なはずなので...
-(when noninteractive (defvar treemacs-no-load-time-warnings t))
-(require 'treemacs-projectile)
 
 (defun toncs-projectile-ignored-project-function (truename)
   (seq-find (lambda (dir) (file-in-directory-p truename dir))
