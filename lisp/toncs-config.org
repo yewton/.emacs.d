@@ -296,15 +296,14 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   When ARG is non-nil search in junk files."
   (interactive "P")
   (let* ((junk-root-dir (no-littering-expand-var-file-name "junk/"))
-         (open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." junk-root-dir ))
+         (open-junk-file-format (expand-file-name "junk/%Y/%m/%d-%H%M%S." junk-root-dir))
          (path (format-time-string open-junk-file-format (current-time)))
-         (file-name (file-name-nondirectory path))
+         (file-prefix (file-name-nondirectory path))
          (dir-name (file-name-directory path))
          (default-directory dir-name))
-    (if arg
-        (consult-ripgrep junk-root-dir)
+    (if arg (consult-ripgrep junk-root-dir)
       (mkdir dir-name 'parents)
-      (find-file (read-file-name "[junk] " junk-root-dir nil nil file-name)))))
+      (find-file (read-string (format "[junk] %s" dir-name) file-prefix)))))
 
 (defun consult--migemo-regexp-compiler (input type ignore-case)
   "`consult--default-regexp-compiler' の migemo 対応版。"
