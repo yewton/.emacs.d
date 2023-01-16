@@ -335,6 +335,10 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq consult--regexp-compiler #'consult--migemo-regexp-compiler)
   (setq consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --max-columns-preview --path-separator /   --smart-case --no-heading --line-number .")
 
+  (consult-customize
+   consult-line
+   :add-history (seq-some #'thing-at-point '(region symbol)))
+
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
 
   (setq xref-show-xrefs-function #'consult-xref)
