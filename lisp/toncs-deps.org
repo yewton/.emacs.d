@@ -173,7 +173,7 @@
     (:name dired-hacks :checkout "7c0ef09d57a80068a11edc74c3568e5ead5cc15a")
     (:name dirvish :checkout "ec4100612b2e93d9e188e7eab4c144b45f3547ee")
 
-    (:name go-translate :checkout "b6a5842fdd08872d9243375c46cd549f1399e5b8")
+    (:name go-translate :checkout "e8343e7d41af67f55c2da9231fb275a93382a4c8")
 
     (:name minions :checkout "fca3ba548dccc6e553affca8068c9aecb6a9a789")
 
