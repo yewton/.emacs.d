@@ -685,11 +685,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * helpful
 
 #+begin_src emacs-lisp
- (when (version<= "29" emacs-version)
-    (defvar read-symbol-positions-list nil))
-
 (toncs-config-configure helpful
-  ;; see https://github.com/Wilfred/elisp-refs/issues/35
   (general-def
     "C-c C-d" #'helpful-at-point
     "C-h f" #'helpful-callable

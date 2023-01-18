@@ -151,10 +151,10 @@
 
     (:name org-super-agenda :checkout "f4f528985397c833c870967884b013cf91a1da4a")
 
-    (:name loop :checkout "e22807f83a0890dc8a904c51ee0742c34efccc6c")
-    (:name elisp-refs :checkout "fdde21e34b1272783d566d8230b5ed2dc4749048")
+    (:name loop :checkout "9db6372791bbd0cf3fa907ed0ae3e6b7bcf6cc57")
+    (:name elisp-refs :checkout "af73739084637c8ebadad337a8fe58ff4f1d2ec1")
     (:name shut-up :checkout "ff6f06f3b080ee833a25a22da8cb5b96e911dc77")
-    (:name helpful :checkout "4a8d5765c97bdd3103cc921d740b93bf3fc1c162")
+    (:name helpful :checkout "94c25337b2de2f9da60914a7c0c6cca9584c0231")
 
     (:name emojify :branch "fix-line-spacing")
 
