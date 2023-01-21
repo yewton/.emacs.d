@@ -80,7 +80,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (moody-replace-mode-line-buffer-identification)
   (moody-replace-vc-mode)
   (moody-replace-eldoc-minibuffer-message-function)
-  (minions-mode 1))
+  (minions-mode 1)
+  (recursion-indicator-mode))
 #+end_src
 
 * Org mode

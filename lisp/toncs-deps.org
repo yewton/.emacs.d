@@ -186,7 +186,9 @@
 
     (:name org-modern :checkout "7d037569bc4a05f40262ea110c4cda05c69b5c52")
 
-    (:name goggles :checkout "ab7d0ce3c049d72f97d87ddc15064bb527c0e990"))
+    (:name goggles :checkout "ab7d0ce3c049d72f97d87ddc15064bb527c0e990")
+
+    (:name recursion-indicator :checkout "86cc7bc8ca15bfaa2b767ff332c1f72d1b4975cf"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
