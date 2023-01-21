@@ -187,7 +187,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (set-frame-parameter nil 'internal-border-width 3)
     (add-hook 'emacs-startup-hook #'toggle-frame-maximized))
   (dolist (hook '(prog-mode-hook text-mode-hook))
-    (add-hook hook #'hl-line-mode)))
+    (add-hook hook #'hl-line-mode)
+    (add-hook hook #'goggles-mode)))
 #+end_src
 
 * amx
