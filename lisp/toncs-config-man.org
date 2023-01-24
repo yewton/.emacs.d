@@ -1,0 +1,24 @@
+#+TITLE: man
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-man.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'man)
+
+(defun toncs-config-man-configure ()
+  (when (eq system-type 'darwin)
+    (setq manual-program "gman")
+    (dolist (elem '(("gsed" . Man-sed-command)
+                    ("gawk" . Man-awk-command)))
+      (let ((cmd (car elem))
+            (sym (cdr elem)))
+        (when (executable-find cmd) (set sym cmd))))))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-man)
+;;; toncs-config-man.el ends here
+#+end_src

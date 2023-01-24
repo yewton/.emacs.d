@@ -28,6 +28,9 @@ brew "libtool"
 brew "mupdf-tools" # mutool
 cask "libreoffice" # soffice
 
+# for man
+brew "man-db"
+
 # fonts
 cask "font-noto-sans-symbols-2"
 cask "font-plemol-jp"

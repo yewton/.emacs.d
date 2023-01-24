@@ -29,6 +29,12 @@ Ubuntu の場合は以下のような感じで:
 sudo apt install -y texinfo exa cmake libtool libtool-bin
 #+end_src
 
+macOS の場合は、以下のようにして =man= のページインデックスキャッシュを作っておくとよいです:
+
+#+begin_src sh
+sudo mandb $(gmanpath)
+#+end_src
+
 *** ビルド
 
 ~make~ を実行すると、設定ファイルを生成したり、依存パッケージをインストールしたりして ~.emacs.d~ の準備を整えます。

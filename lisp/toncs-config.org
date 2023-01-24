@@ -425,6 +425,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare dired)
 #+end_src
 
+* man
+
+#+begin_src emacs-lisp
+(toncs-config-prepare man)
+#+end_src
+
 * display-line-numbers
 
 #+begin_src emacs-lisp
