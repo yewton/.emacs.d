@@ -74,7 +74,7 @@
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name compat :checkout "8a32564247ad3baee571252a2004c3d347962d01")
+    (:name compat :checkout "1e63bef4e03e20758be49af077e51351f4689410")
     (:name with-editor :checkout "84ba06ed513e97223630905f4788370e18116f40")
     (:name transient :checkout "239be53b01e003c5206087d850d9672a42dc4b32")
     (:name magit :checkout "b908c79b44f5c282eec44f19fc1d9967f041dd5c")
