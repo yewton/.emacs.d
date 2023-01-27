@@ -39,7 +39,7 @@
 
     (:name crux :checkout "3e07035660f953cb08847362378267f5859bbe69")
 
-    (:name which-key :checkout "ae59b7edb0d82aa0251803fdfbde6b865083c8b8")
+    (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf")
 
     (:name buffer-move :checkout "cb517ecf8409b5fdcda472d7190c6021f0c49751")
 
