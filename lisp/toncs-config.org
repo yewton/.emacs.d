@@ -313,8 +313,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (cons (mapcar (lambda (x) (consult--convert-regexp x type)) input)
         (when-let (regexps (seq-filter #'consult--valid-regexp-p input))
           (lambda (str)
-            (let ((case-fold-search ignore-case))
-              (consult--highlight-regexps regexps str))))))
+              (consult--highlight-regexps regexps ignore-case str)))))
 
 (toncs-config-configure vertico+orderless+consult
   (general-def vertico-map
@@ -362,7 +361,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-x 5 b" #'consult-buffer-other-frame
     "C-x r b" #'consult-bookmark
     "M-y" #'consult-yank-pop
-    "<help> a" #'consult-apropos
+    "<help> a" #'describe-symbol
     "M-g e" #'consult-compile-error
     "M-g f" #'consult-flymake
     "M-g g" #'consult-goto-line
@@ -379,14 +378,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "M-s r" #'consult-ripgrep
     "M-s l" #'consult-line
     "M-s L" #'consult-line-multi
-    "M-s m" #'consult-multi-occur
     "M-s k" #'consult-keep-lines
     "M-s u" #'consult-focus-lines
     "M-s e" #'consult-isearch-history
     "C-x z" #'toncs-open-junk-file
     "C-x C-z" #'toncs-open-junk-file)
 
-  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
   (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
   (vertico-mode)

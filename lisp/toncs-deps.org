@@ -31,9 +31,9 @@
 
     (:name avy :checkout "955c8dedd68c74f3cf692c1249513f048518c4c9")
 
-    (:name vertico :checkout "1bd5438da9c661e2df5e9516f36d9cbc6d100a34")
-    (:name consult :checkout "0e6d3ef3c87c68b57db5b118ea6cb541055f87cc")
-    (:name orderless :checkout "ce462a63e32dd32bceea041f656bb79da953d62f")
+    (:name vertico :checkout "6b7d7e6220459e8d9869eaaa8bca34e303e02980")
+    (:name consult :checkout "53673a2985e84cc35d0d4603caa53f4c4dc71a30")
+    (:name orderless :checkout "847694e78c12d903d5e3f6cb365a5d3b984db537")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -83,8 +83,8 @@
 
     (:name diff-hl :checkout "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
 
-    (:name projectile :checkout "defce6e6bb504bdfab1e091550e2f709310327b9")
-    (:name consult-projectile :checkout "df85d0f83c323f4672221c9e78d84027bcb9d96f")
+    (:name projectile :checkout "e18ad4d6111eb9e975ccce028baf5e4bb786bfcf")
+    (:name consult-projectile :checkout "5ef1ada3be767ea766255801050210f5d796deec")
 
     (:name embark :checkout "e8ef9424b3d8852935f7c547093bc2ebc23aeab5")
 
