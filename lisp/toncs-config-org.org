@@ -21,6 +21,7 @@
 (require 'general)
 
 (require 'toncs-stdlib)
+(require 'embark-org)
 #+end_src
 
 * 便利定数・関数定義

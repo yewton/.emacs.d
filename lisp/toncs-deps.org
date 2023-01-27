@@ -86,9 +86,9 @@
     (:name projectile :checkout "e18ad4d6111eb9e975ccce028baf5e4bb786bfcf")
     (:name consult-projectile :checkout "5ef1ada3be767ea766255801050210f5d796deec")
 
-    (:name embark :checkout "e8ef9424b3d8852935f7c547093bc2ebc23aeab5")
+    (:name embark :checkout "ba30b46502a90baec42e51f0e8017e7a4997c4f4")
 
-    (:name marginalia :checkout "e9540a7b80f9c4d044748b88720e5cba3e30c20a")
+    (:name marginalia :checkout "18b3fcfba0c4af8b7bcff99ebf5891e8c0037bca")
 
     (:name link-hint :checkout "676dac6621e321b33a8d396fa27dd0ea619d21e3")
 
