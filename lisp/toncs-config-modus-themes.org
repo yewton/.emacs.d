@@ -41,7 +41,7 @@
           (bg-hover-secondary bg-magenta-subtle)
           ,@modus-themes-preset-overrides-intense))
 
-  (modus-themes-load-theme 'modus-vivendi-tinted)
+  (modus-themes-load-theme 'modus-operandi-tinted)
   (setq modus-themes-to-toggle '(modus-operandi-tinted modus-vivendi-tinted))
 
   (general-def "<f9>" #'modus-themes-toggle))
