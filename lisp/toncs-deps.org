@@ -25,7 +25,7 @@
     (:name dash :checkout "3df46d7d9fe74f52a661565888e4d31fd760f0df")
     (:name s :checkout "e957dcb0677da18b2bb60ad867db5df5c35b5616")
     (:name f :checkout "eccb51da6825b5d87bd9222d8d1dd616d22fb5f7")
-    (:name ht :checkout "66c5f9131242697fabaede5566d87ecda4c14b1f")
+    (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
 
@@ -149,6 +149,7 @@
 
     (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
 
+    (:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")
     (:name org-super-agenda :checkout "f4f528985397c833c870967884b013cf91a1da4a")
 
     (:name loop :checkout "9db6372791bbd0cf3fa907ed0ae3e6b7bcf6cc57")
