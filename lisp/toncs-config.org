@@ -142,24 +142,23 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (setq use-default-font-for-symbols nil))
   (let* ((font-specs (mapcar (lambda (elt) (font-spec :family (car elt) :size (cdr elt)))
                              toncs-config-font-candidates))
-         (font-spec (seq-find #'find-font font-specs))
+         (font-entity (seq-find #'find-font font-specs))
          (emojifont (toncs-find-font toncs-config-emojifont-candidates))
          (symbolsfont (toncs-find-font toncs-config-symbolsfont-candidates)))
     (when (fboundp 'set-fontset-font)
-      (set-fontset-font t 'symbol font-spec) ;; 記号系もデフォルトはメインのフォントにする
+      (set-fontset-font t 'symbol font-entity) ;; 記号系もデフォルトはメインのフォントにする
       ;; メインのフォントに無い記号のフォールバック設定
       (dolist (font (list emojifont symbolsfont))
         (when font
           (set-fontset-font t 'symbol font nil 'append))))
-    (dolist (face '(default fixed-pitch))
-      (custom-set-faces
-       `(,face
-         ((t (:family ,font-spec :weight unspecified :slant unspecified :width unspecified))))))
+    (when font-entity
+      (dolist (face '(default fixed-pitch))
+        (set-face-attribute face nil :font font-entity)))
     (cond
-     (font-spec
+     (font-entity
       (if reload
-          (set-frame-font font-spec t t)
-        (setf (alist-get 'font default-frame-alist) (font-xlfd-name font-spec))))
+          (set-frame-font font-entity t t)
+        (setf (alist-get 'font default-frame-alist) (font-xlfd-name font-entity))))
      ((boundp 'font-use-system-font)
       (setq font-use-system-font t)))))
 #+end_src
