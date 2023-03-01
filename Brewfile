@@ -35,5 +35,6 @@ brew "man-db"
 cask "font-noto-sans-symbols-2"
 cask "font-plemol-jp"
 cask "font-plemol-jp-hs"
+cask "font-ibm-plex-sans-jp"
 
 brew "emacs-plus@28", args: %w{with-ctags with-xwidgets with-imagemagick with-native-comp}
