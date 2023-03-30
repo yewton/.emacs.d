@@ -945,6 +945,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (all-the-icons-completion-mode 1)
 
   (setq isearch-allow-scroll t)
+  (setq help-at-pt-display-when-idle t)
 
   (when toncs-wsl-p
     (when (executable-find "wslview")
