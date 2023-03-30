@@ -177,6 +177,19 @@ restart `org-mode' if necessary."
   (add-hook 'org-mode-hook 'org-appear-mode))
 #+end_src
 
+* org-link
+
+#+begin_src emacs-lisp
+(defun toncs-config-org-link ()
+  (dolist (type (org-link-types))
+    (org-link-set-parameters type
+                             :activate-func
+                             (lambda (start end path bracketp)
+                               (when (and org-link-descriptive bracketp)
+                                 (let ((overlay (make-overlay start end)))
+                                   (overlay-put overlay 'before-string (format "%s:" (upcase type)))))))))
+#+end_src
+
 * その他の設定
 
 #+begin_src emacs-lisp
@@ -222,6 +235,7 @@ restart `org-mode' if necessary."
   (toncs-config-org-org-download-configure)
   (toncs-config-org-expiry-configure)
   (toncs-config-org-appear)
+  (toncs-config-org-link)
 
   (general-def
     "C-c l" #'org-store-link
