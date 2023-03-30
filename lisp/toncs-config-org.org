@@ -184,7 +184,7 @@ restart `org-mode' if necessary."
   (dolist (type (org-link-types))
     (org-link-set-parameters type
                              :activate-func
-                             (lambda (start end path bracketp)
+                             (lambda (start end _path bracketp)
                                (when (and org-link-descriptive bracketp)
                                  (let ((overlay (make-overlay start end)))
                                    (overlay-put overlay 'before-string (format "%s:" (upcase type)))))))))
