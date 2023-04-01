@@ -190,6 +190,7 @@ restart `org-mode' if necessary."
                                     ("https" . "🌐")
                                     ("http" . "🌐")
                                     ("help" . "❓")
+                                    ("info" . "ℹ")
                                     ("elisp" . "⚡")))
 
 (defun toncs-org-link-activate (type start end bracketp)
