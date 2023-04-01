@@ -193,6 +193,9 @@ restart `org-mode' if necessary."
                                     ("info" . "ℹ")
                                     ("elisp" . "⚡")))
 
+(defun toncs-org-link-on-modification (ov changed _start _end &optional _len)
+  (when changed (delete-overlay ov)))
+
 (defun toncs-org-link-activate (type start end bracketp)
   (remove-overlays start end 'org-link-prefix t)
   (when (and org-link-descriptive bracketp)
@@ -201,7 +204,9 @@ restart `org-mode' if necessary."
            (ov (make-overlay start end))
            (props `((org-link-prefix . t)
                     (before-string . ,prefix)
-                    (evaporate . t))))
+                    (evaporate . t)
+                    (modification-hooks . ,(list #'toncs-org-link-on-modification))
+                    (insert-in-front-hooks . ,(list #'toncs-org-link-on-modification)))))
       (dolist (prop props)
         (overlay-put ov (car prop) (cdr prop))))))
 
