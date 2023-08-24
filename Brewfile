@@ -37,4 +37,5 @@ cask "font-plemol-jp"
 cask "font-plemol-jp-hs"
 cask "font-ibm-plex-sans-jp"
 
-brew "emacs-plus@28", args: %w{with-ctags with-xwidgets with-imagemagick with-native-comp}
+brew "emacs-plus@29", args: %w{with-ctags with-no-frame-refocus with-xwidgets with-imagemagick with-native-comp with-poll}
+
