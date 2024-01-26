@@ -2,7 +2,7 @@
 #+setupfile: ../setup.org
 
 #+begin_src emacs-lisp :comments no :padline no
-;;; toncs-deps.el -*- lexical-binding: t;
+;;; toncs-deps.el -*- lexical-binding: t -*-
 #+end_src
 
 * 最小限のパッケージ
