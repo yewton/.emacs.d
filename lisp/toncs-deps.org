@@ -20,20 +20,20 @@
            :url "https://git.savannah.gnu.org/git/emacs/org-mode.git")
     (:name org-contrib :checkout "223390ea2c2f728ca4bfd1c4a33cac25d003693a")
 
-    (:name auto-compile :checkout "f0690b770c71d0a25957b48b8952190eb3fe4111")
+    (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
-    (:name dash :checkout "3df46d7d9fe74f52a661565888e4d31fd760f0df")
-    (:name s :checkout "e957dcb0677da18b2bb60ad867db5df5c35b5616")
-    (:name f :checkout "eccb51da6825b5d87bd9222d8d1dd616d22fb5f7")
+    (:name dash :checkout "13f9fcd09d40132e9e1346a69e7b293d835a85f2")
+    (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")
+    (:name f :checkout "4f03d7bb724a9049b0ab9ef86127694756f99656")
     (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
 
-    (:name avy :checkout "955c8dedd68c74f3cf692c1249513f048518c4c9")
+    (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
-    (:name vertico :checkout "6b7d7e6220459e8d9869eaaa8bca34e303e02980")
-    (:name consult :checkout "53673a2985e84cc35d0d4603caa53f4c4dc71a30")
-    (:name orderless :checkout "847694e78c12d903d5e3f6cb365a5d3b984db537")
+    (:name vertico :checkout "4a7da56b02c6aefff8f6b4574a530a7cb54bc21a")
+    (:name consult :checkout "8cb56f8d6637e55340271274a20dfc163d77fff5")
+    (:name orderless :checkout "b24748093b00b37c3a572c4909f61c08fa27504f")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -83,8 +83,8 @@
 
     (:name diff-hl :checkout "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
 
-    (:name projectile :checkout "e18ad4d6111eb9e975ccce028baf5e4bb786bfcf")
-    (:name consult-projectile :checkout "5ef1ada3be767ea766255801050210f5d796deec")
+    (:name projectile :checkout "ec4cb8d4d6aa836668bfef860a2f59d2e30d8cba")
+    (:name consult-projectile :checkout "400439c56d17bca7888f7d143d8a11f84900a406")
 
     (:name embark :checkout "ba30b46502a90baec42e51f0e8017e7a4997c4f4")
 
@@ -117,8 +117,8 @@
     (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
     (:name org-roam-ui :checkout "5ac74960231db0bf7783c2ba7a19a60f582e91ab")
 
-    (:name all-the-icons :checkout "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
-    (:name all-the-icons-completion :checkout "4da28584a1b36b222e0e78d46fd8d46bbd9116c7")
+    (:name all-the-icons :checkout "ee414384938ccf2ce93c77d717b85dc5538a257d")
+    (:name all-the-icons-completion :checkout "4c8bcad8033f5d0868ce82ea3807c6cd46c4a198")
 
     (:name good-scroll :checkout "a7ffd5c0e5935cebd545a0570f64949077f71ee3")
 
@@ -135,9 +135,6 @@
 (defconst toncs-deps-extra
   '((:name rainbow-identifiers :shallow t :branch "0.2.2")
     (:name rainbow-delimiters :checkout "a32b39bdfe6c61c322c37226d66e1b6d4f107ed0")
-
-    (:name avy-menu :checkout "9d25b6cf9ffd1bb82eab1a8ace73df0080229055")
-    (:name ace-popup-menu :checkout "e837c3dd4aaa5db869a4bb23ca7653a190a458a3")
 
     (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
     (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
