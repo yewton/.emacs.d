@@ -3,4 +3,5 @@
        :type github
        :depends (dash emacsql f org-mode s)
        :pkgname "org-roam/org-roam"
+       :compile ("." "extensions")
        :load-path ("." "extensions"))

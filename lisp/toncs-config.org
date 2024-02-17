@@ -726,22 +726,19 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'corfu)
-(require 'corfu-doc)
+(require 'corfu-popupinfo)
 
 (toncs-config-configure corfu
   (setq corfu-cycle t)
   (setq corfu-auto t)
-  (setq corfu-commit-predicate nil)
+  (setq corfu-separator ?\s)
   (setq corfu-quit-no-match t)
   (setq corfu-scroll-margin 5)
   (general-def
     "M-/" #'dabbrev-completion
     "C-M-/" #'dabbrev-expand)
-  (general-def corfu-map
-    "M-p" #'corfu-doc-scroll-down
-    "M-n" #'corfu-doc-scroll-up)
-  (corfu-global-mode 1)
-  (add-hook 'corfu-mode-hook #'corfu-doc-mode))
+  (global-corfu-mode 1)
+  (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode))
 #+end_src
 
 * cape

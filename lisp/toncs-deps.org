@@ -22,7 +22,7 @@
 
     (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
-    (:name dash :checkout "13f9fcd09d40132e9e1346a69e7b293d835a85f2")
+    (:name dash :checkout "5df7605da5a080df769d4f260034fb0e5e86a7a4")
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")
     (:name f :checkout "4f03d7bb724a9049b0ab9ef86127694756f99656")
     (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
@@ -31,9 +31,9 @@
 
     (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
-    (:name vertico :checkout "4a7da56b02c6aefff8f6b4574a530a7cb54bc21a")
-    (:name consult :checkout "8cb56f8d6637e55340271274a20dfc163d77fff5")
-    (:name orderless :checkout "b24748093b00b37c3a572c4909f61c08fa27504f")
+    (:name vertico :checkout "c7ed4310a25114344a2efc90cfb031fc35f26a29")
+    (:name consult :checkout "de0ed457dca05565c85ff16769aa9d51038c05ab")
+    (:name orderless :checkout "61aed3e622f90ee8ace44a84a05abc1074567b74")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
@@ -41,7 +41,7 @@
 
     (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf")
 
-    (:name buffer-move :checkout "cb517ecf8409b5fdcda472d7190c6021f0c49751")
+    (:name buffer-move :checkout "e7800b3ab1bd76ee475ef35507ec51ecd5a3f065")
 
     (:name ddskk :checkout "5c209e0306364118abf9d9440d7b8b9613183072")
 
@@ -75,9 +75,9 @@
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
     (:name compat :checkout "1e63bef4e03e20758be49af077e51351f4689410")
-    (:name with-editor :checkout "84ba06ed513e97223630905f4788370e18116f40")
-    (:name transient :checkout "239be53b01e003c5206087d850d9672a42dc4b32")
-    (:name magit :checkout "b908c79b44f5c282eec44f19fc1d9967f041dd5c")
+    (:name with-editor :checkout "5db5f0eb2202f52d44f529fe00654c866bb64eb1")
+    (:name transient :checkout "85ecbc66b68207275f81de4f9bd321474a6c8c61")
+    (:name magit :checkout "12c5a9dc202f8b8b57c18956db120ffb6e952b21")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
@@ -105,13 +105,12 @@
 
     (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
 
-    (:name corfu :checkout "0e84ebc579936ebcf34e8f87b619ad7207c9cc3b")
-    (:name corfu-doc :checkout "348fc32035e0655864280e80310b4349e339a13e")
-    (:name cape :checkout "dba8492f70a46fde51d6269ae971693fd1777575")
+    (:name corfu :checkout "ba38c4d75018908e7140e7fc5c1b3b6fa939c304")
+    (:name cape :checkout "c56cd95f6df003f8928f11e8776d3a9a3eca6890")
 
-    (:name sqlite3 :checkout "ad6dc366b7cc7587965a7eeb7c1fb8b83679f81e")
-    (:name emacsql :checkout "6b2e65bdf785364cf7c34c31fea5812e1e58c657")
-    (:name org-roam :checkout "74422df546a515bc984c2f3d3a681c09d6f43916")
+    (:name sqlite3 :checkout "a601c9965e4d0178705a64b7d4f88709ca9aea66")
+    (:name emacsql :checkout "fdcf44749650b978532e056dc8e108c3c1741ed3")
+    (:name org-roam :checkout "8667e441876cd2583fbf7282a65796ea149f0e5f")
 
     (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
     (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
@@ -134,15 +133,15 @@
   '((:name rainbow-identifiers :shallow t :branch "0.2.2")
     (:name rainbow-delimiters :checkout "a32b39bdfe6c61c322c37226d66e1b6d4f107ed0")
 
-    (:name pcsv :checkout "798e0933f8d0818beb17aebf3b1056bbf74e03d0")
+    (:name pcsv :checkout "aa421d12c0da0adb9bc74a050a591dcbabf934ae")
     (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
-    (:name closql :checkout "689c16f5360457accc571fd5bd947d06b30777cd")
-    (:name treepy :checkout "7c4a0d21322506a4d4b2301b4274ec955b429b47")
-    (:name ghub :checkout "1ff2574b598d460617ac3e61058964e96678ad4a")
+    (:name closql :checkout "81f04f60aab27c0d9161746384d4eeb0633202e2")
+    (:name treepy :checkout "75fe3ec37e6f9b2bdfd6d0584efd984d0c00a43e")
+    (:name ghub :checkout "af4bf6172f8522173a725ed83e04a7d8e591fe63")
     (:name yaml :checkout "70c4fcead97e9bd6594e418c922ae769818f4245")
-    (:name forge :checkout "d752022c0a14bb55c57589f81b51c7e561c2e74f")
+    (:name forge :checkout "8d159dc3e3f5a147872ba776825124492e899bbd")
 
-    (:name browse-at-remote :checkout "31dcf77d7c89a12f230e2b2332585db2c44530ef")
+    (:name browse-at-remote :checkout "76aa27dfd469fcae75ed7031bb73830831aaccbf")
 
     (:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")
     (:name org-super-agenda :checkout "f4f528985397c833c870967884b013cf91a1da4a")
@@ -195,7 +194,7 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-lang
   '((:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
-    (:name markdown-mode :checkout "6024f2d78e1c3e8e4fb4a9cb375291baa44c7cf2" :prepare nil)
+    (:name markdown-mode :checkout "e096bb97a91fcd4dc2b46d8b6e093194b03b7364" :prepare nil)
 
     (:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 
