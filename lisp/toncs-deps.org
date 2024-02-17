@@ -120,8 +120,6 @@
     (:name all-the-icons :checkout "ee414384938ccf2ce93c77d717b85dc5538a257d")
     (:name all-the-icons-completion :checkout "4c8bcad8033f5d0868ce82ea3807c6cd46c4a198")
 
-    (:name good-scroll :checkout "a7ffd5c0e5935cebd545a0570f64949077f71ee3")
-
     (:name org-tree-slide :checkout "3faa042393ebfe5699a3bffce775f039d7416ceb"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
