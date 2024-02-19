@@ -341,7 +341,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
   (setq consult-project-function (lambda (_) (projectile-project-root)))
   (setq consult--regexp-compiler #'consult--migemo-regexp-compiler)
-  (setq consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --max-columns-preview --path-separator /   --smart-case --no-heading --line-number .")
+  (setq consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --max-columns-preview --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip")
 
   (consult-customize
    consult-line
