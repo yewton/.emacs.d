@@ -18,7 +18,7 @@ brew "ripgrep"
 brew "pngpaste"
 
 # for dirvish
-brew "exa"
+brew "eza"
 
 # for emacs-libvterm
 brew "cmake"
@@ -38,4 +38,3 @@ cask "font-plemol-jp-hs"
 cask "font-ibm-plex-sans-jp"
 
 brew "emacs-plus@29", args: %w{with-ctags with-no-frame-refocus with-xwidgets with-imagemagick with-native-comp with-poll}
-
