@@ -74,10 +74,10 @@
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name compat :checkout "1e63bef4e03e20758be49af077e51351f4689410")
+    (:name compat :checkout "e398e1a8f098359c768b2a8e2e99d6e1d31e3c57")
     (:name with-editor :checkout "5db5f0eb2202f52d44f529fe00654c866bb64eb1")
     (:name transient :checkout "85ecbc66b68207275f81de4f9bd321474a6c8c61")
-    (:name magit :checkout "12c5a9dc202f8b8b57c18956db120ffb6e952b21")
+    (:name magit :checkout "f5ddce8c8459ffcbb2bd3ae759259d6b627c69cd")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
