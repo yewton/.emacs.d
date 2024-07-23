@@ -22,9 +22,10 @@
 
     (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
-    (:name dash :checkout "5df7605da5a080df769d4f260034fb0e5e86a7a4")
+    (:name dash :checkout "1de9dcb83eacfb162b6d9a118a4770b1281bcd84")
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")
-    (:name f :checkout "4f03d7bb724a9049b0ab9ef86127694756f99656")
+    (:name f :checkout "1e7020dc0d4c52d3da9bd610d431cab13aa02d8c")
+    
     (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
 
     (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
@@ -32,7 +33,7 @@
     (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
     (:name vertico :checkout "c7ed4310a25114344a2efc90cfb031fc35f26a29")
-    (:name consult :checkout "de0ed457dca05565c85ff16769aa9d51038c05ab")
+    (:name consult :checkout "936862c8f80ce44769bf3d30679e9aa78fbf1d1a")
     (:name orderless :checkout "61aed3e622f90ee8ace44a84a05abc1074567b74")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
@@ -74,10 +75,10 @@
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name compat :checkout "e398e1a8f098359c768b2a8e2e99d6e1d31e3c57")
-    (:name with-editor :checkout "5db5f0eb2202f52d44f529fe00654c866bb64eb1")
-    (:name transient :checkout "85ecbc66b68207275f81de4f9bd321474a6c8c61")
-    (:name magit :checkout "f5ddce8c8459ffcbb2bd3ae759259d6b627c69cd")
+    (:name compat :checkout "09dce8a193c5a70277512263782b82fa1cba84c0")
+    (:name with-editor :checkout "97dd5dd4b69a040506f4fc104dc0b855e84c1c0f")
+    (:name transient :checkout "2a680c21e2be0b055e0e801d43c92792e5305acc")
+    (:name magit :checkout "f31cf79b2731765d63899ef16bc8be0fa2cc7d32")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
@@ -86,11 +87,11 @@
     (:name projectile :checkout "ec4cb8d4d6aa836668bfef860a2f59d2e30d8cba")
     (:name consult-projectile :checkout "400439c56d17bca7888f7d143d8a11f84900a406")
 
-    (:name embark :checkout "ba30b46502a90baec42e51f0e8017e7a4997c4f4")
+    (:name embark :checkout "4ddbe6326bc596a05b574cf0109acdb5a79bc748")
 
     (:name marginalia :checkout "18b3fcfba0c4af8b7bcff99ebf5891e8c0037bca")
 
-    (:name link-hint :checkout "676dac6621e321b33a8d396fa27dd0ea619d21e3")
+    (:name link-hint :checkout "391930f2010014b9b5bc16bb431db01dd21ca7bd")
 
     (:name highlight-thing :checkout "b9bb6e49fc20d2e1f688c2645f6f6653208145de")
 
@@ -109,8 +110,8 @@
     (:name cape :checkout "c56cd95f6df003f8928f11e8776d3a9a3eca6890")
 
     (:name sqlite3 :checkout "a601c9965e4d0178705a64b7d4f88709ca9aea66")
-    (:name emacsql :checkout "fdcf44749650b978532e056dc8e108c3c1741ed3")
-    (:name org-roam :checkout "8667e441876cd2583fbf7282a65796ea149f0e5f")
+    (:name emacsql :checkout "8aeffcfc3f5700af7a6216889610330cb438d3b9")
+    (:name org-roam :checkout "0b9fcbc97b65b349826e63bad89ca121a08fd2be")
 
     (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
     (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
@@ -144,7 +145,7 @@
     (:name browse-at-remote :checkout "76aa27dfd469fcae75ed7031bb73830831aaccbf")
 
     (:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")
-    (:name org-super-agenda :checkout "f4f528985397c833c870967884b013cf91a1da4a")
+    (:name org-super-agenda :checkout "05a710065af5ee4b3982f9619f864f7af12ca1d3")
 
     (:name loop :checkout "9db6372791bbd0cf3fa907ed0ae3e6b7bcf6cc57")
     (:name elisp-refs :checkout "af73739084637c8ebadad337a8fe58ff4f1d2ec1")

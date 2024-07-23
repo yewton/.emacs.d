@@ -16,9 +16,12 @@
        :build `( ;; https://github.com/melpa/melpa/blob/cebfd6d6356a70955f518c785ec9258305de9415/recipes/magit#L11-L12
                 ,@(mapcar (lambda (file) `(,el-get-emacs "--batch" "-Q" "--eval" ,(format "(delete-file \"%s\")" file)))
                           (list "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el"))
-                ("make" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
+                ;; sed が非互換
+                ;; ("make" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
                 ("touch" "lisp/magit-autoloads.el"))
-       :build/berkeley-unix `(("gmake" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
+       :build/berkeley-unix `(
+                              ;; sed が非互換
+                              ;; ("gmake" ,(format "EMACSBIN=%s" el-get-emacs) "docs")
                               ("touch" "lisp/magit-autoloads.el"))
        ;; assume windows lacks make and makeinfo
        :build/windows-nt (with-temp-file "lisp/magit-autoloads.el" nil))
