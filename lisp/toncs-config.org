@@ -180,6 +180,22 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (require 'modus-themes)
 #+end_src
 
+** spacious-padding
+
+#+begin_src emacs-lisp
+(require 'spacious-padding)
+
+(setq spacious-padding-widths
+      '(:internal-border-width 8
+        :header-line-width 8
+        :tab-width 4
+        :right-divider-width 8
+        :scroll-bar-width 0
+        :fringe-width 16))
+
+(spacious-padding-mode 1)
+#+end_src
+
 ** その他
 
 #+begin_src emacs-lisp
