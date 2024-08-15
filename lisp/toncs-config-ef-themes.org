@@ -1,0 +1,33 @@
+#+TITLE: ef-themes
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-ef-themes.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'ef-themes)
+(require 'general)
+
+(defun toncs-config-ef-themes-configure ()
+  (setq ef-themes-headings
+      '((1 variable-pitch 1.3)
+        (2 variable-pitch 1.2)
+        (agenda-date 1.3)
+        (agenda-structure variable-pitch light 1.3)
+        (t variable-pitch 1.1)))
+  (setq ef-themes-common-palette-overrides
+        '((bg-region bg-cyan-intense)
+          (fg-region fg-intense)))
+  (setq ef-themes-mixed-fonts t
+        ef-themes-variable-pitch-ui t)
+  (mapc #'disable-theme custom-enabled-themes)
+  (setq ef-themes-to-toggle '(ef-duo-light ef-duo-dark))
+  (ef-themes-select 'ef-duo-light)
+  (general-def "<f9>" #'ef-themes-toggle))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-ef-themes)
+;;; toncs-config-ef-themes.el ends here
+#+end_src

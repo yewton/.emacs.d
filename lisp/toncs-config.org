@@ -173,11 +173,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
       (setq font-use-system-font t)))))
 #+end_src
 
-** modus-themes
+** ef-themes
 
 #+begin_src emacs-lisp
-(toncs-config-prepare modus-themes)
-(require 'modus-themes)
+(toncs-config-prepare ef-themes)
+(require 'ef-themes)
 #+end_src
 
 ** spacious-padding
@@ -189,6 +189,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
       '(:internal-border-width 8
         :header-line-width 8
         :tab-width 4
+        :mode-line-width 0 ;; moody に任せる
         :right-divider-width 8
         :scroll-bar-width 0
         :fringe-width 16))
@@ -430,6 +431,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure crux
   (general-def
     [remap move-beginning-of-line] #'crux-move-beginning-of-line
+    "C-a" #'crux-move-beginning-of-line
     "C-c o" #'crux-open-with
     [(shift return)] #'crux-smart-open-line
     [remap kill-whole-line] #'crux-kill-whole-line))

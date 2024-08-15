@@ -53,7 +53,7 @@
     (:name general :checkout "a0b17d207badf462311b2eef7c065b884462cb7c")
     (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
 
-    (:name modus-themes :checkout "57539cad169a0383a0197015b748a4c075cb3fb8")
+    (:name ef-themes :checkout "675eb261ea44560686c653ca3142d269f6465ba1")
     (:name moody :checkout "546472d1cabafa092fbc24f467e2acc02fe713ec"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src
