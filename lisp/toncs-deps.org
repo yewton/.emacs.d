@@ -106,8 +106,8 @@
 
     (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
 
-    (:name corfu :checkout "ba38c4d75018908e7140e7fc5c1b3b6fa939c304")
-    (:name cape :checkout "c56cd95f6df003f8928f11e8776d3a9a3eca6890")
+    (:name corfu :checkout "5e3a959766d2313651c5db3beedd937bfc27b57a")
+    (:name cape :checkout "5c468d6d657e8dc604ddf3feb80f70e1e05ac0a1")
 
     (:name sqlite3 :checkout "a601c9965e4d0178705a64b7d4f88709ca9aea66")
     (:name emacsql :checkout "3d9622aabbf3ab925beadd12ce928370d7704573")
