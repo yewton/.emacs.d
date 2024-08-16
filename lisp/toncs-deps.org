@@ -12,7 +12,7 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
   '((:name el-get)
-    (:name exec-path-from-shell :checkout "6336db9be13d46e2d4bc3b50bc37a3fbf30fdc9e")
+    (:name exec-path-from-shell :checkout "72ede29a0e0467b3b433e8edbee3c79bab005884")
 
     (:name no-littering :checkout "2d7237a49ad6a9b6425e68fa4d3245cbe5a7169d")
 
@@ -33,7 +33,7 @@
     (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
     (:name vertico :checkout "c7ed4310a25114344a2efc90cfb031fc35f26a29")
-    (:name consult :checkout "936862c8f80ce44769bf3d30679e9aa78fbf1d1a")
+    (:name consult :checkout "3d0fc6a8c6a74b21ca854b8632b3f58e0e513b85")
     (:name orderless :checkout "61aed3e622f90ee8ace44a84a05abc1074567b74")
 
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
@@ -54,7 +54,8 @@
     (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
 
     (:name ef-themes :checkout "675eb261ea44560686c653ca3142d269f6465ba1")
-    (:name moody :checkout "546472d1cabafa092fbc24f467e2acc02fe713ec"))
+
+    (:name moody :checkout "2f249978531ff1ec9f601c1e8f2ce83a1b50520e"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src
 
@@ -64,7 +65,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name migemo :checkout "f42832c8ac462ecbec9a16eb781194f876fba64a")
+  '((:name migemo :checkout "7d78901773da3b503e5c0d5fa14a53ad6060c97f")
 
     (:name diredfl :checkout "59f8e5bf5c2991aa54a471f61f14d77976db194a")
 
@@ -82,9 +83,9 @@
 
     (:name git-modes :shallow t :branch "1.2.8")
 
-    (:name diff-hl :checkout "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
+    (:name diff-hl :checkout "b80ff9b4a772f7ea000e86fbf88175104ddf9557")
 
-    (:name projectile :checkout "ec4cb8d4d6aa836668bfef860a2f59d2e30d8cba")
+    (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
     (:name consult-projectile :checkout "400439c56d17bca7888f7d143d8a11f84900a406")
 
     (:name embark :checkout "4ddbe6326bc596a05b574cf0109acdb5a79bc748")
@@ -148,9 +149,9 @@
     (:name org-super-agenda :checkout "05a710065af5ee4b3982f9619f864f7af12ca1d3")
 
     (:name loop :checkout "9db6372791bbd0cf3fa907ed0ae3e6b7bcf6cc57")
-    (:name elisp-refs :checkout "af73739084637c8ebadad337a8fe58ff4f1d2ec1")
-    (:name shut-up :checkout "ff6f06f3b080ee833a25a22da8cb5b96e911dc77")
-    (:name helpful :checkout "94c25337b2de2f9da60914a7c0c6cca9584c0231")
+    (:name elisp-refs :checkout "541a064c3ce27867872cf708354a65d83baf2a6d")
+    (:name shut-up :checkout "ed62a7fefdf04c81346061016f1bc69ca045aaf6")
+    (:name helpful :checkout "4ba24cac9fb14d5fdc32582cd947572040e82b2c")
 
     (:name emojify :branch "fix-line-spacing")
 
@@ -162,7 +163,7 @@
 
     (:name define-word :checkout "08c71b1ff4fd07bf0c78d1fcf77efeaafc8f7443")
 
-    (:name olivetti :checkout "a31ac05a161a91fe5c157930b62a6c07037982ee")
+    (:name olivetti :checkout "1a6a521273e70173af6dcf34e3c9f8bb97dd7afc")
 
     (:name org-appear :checkout "eb9f9db40aa529fe4b977235d86494b115281d17")
 
@@ -171,7 +172,7 @@
 
     (:name go-translate :checkout "bdea7a7326a667b82c57e458e27deb95894f72df")
 
-    (:name minions :checkout "fca3ba548dccc6e553affca8068c9aecb6a9a789")
+    (:name minions :checkout "413b95a0d1c7c10d0f8d440d1982062b73d5ea4a")
 
     (:name jq-mode :checkout "1af31ba701cf844f938f840ed78867c9a28174b6")
     (:name restclient :checkout "9e2cfa86529133eba6c9ef53794be182f15e4c21"
@@ -180,7 +181,7 @@
 
     (:name vterm :checkout "c3a3a23a5eace137947524c93644204bf6b56cff")
 
-    (:name org-modern :checkout "7d037569bc4a05f40262ea110c4cda05c69b5c52")
+    (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974")
 
     (:name spacious-padding :checkout "a3151f3c99d6b3b2d4644da88546476b3d31f0fe")
 

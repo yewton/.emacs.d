@@ -532,6 +532,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure diff-hl
   (add-hook 'emacs-startup-hook #'global-diff-hl-mode)
   (add-hook 'emacs-startup-hook #'diff-hl-flydiff-mode)
+  (add-hook 'emacs-startup-hook #'global-diff-hl-show-hunk-mouse-mode)
   (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
