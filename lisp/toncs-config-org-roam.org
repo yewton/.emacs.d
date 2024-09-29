@@ -11,6 +11,8 @@
 (require 'org-roam-protocol)
 (require 'no-littering)
 (require 'general)
+(require 'org-node)
+(require 'org-node-fakeroam)
 
 (defun toncs-org-roam-search ()
   (interactive)
@@ -42,7 +44,14 @@
            :unnarrowed t)))
   (general-def org-mode-map
     "C-c n l" #'org-roam-buffer-toggle)
-  (org-roam-db-autosync-enable))
+
+  (org-roam-db-autosync-enable)
+  (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
+  (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
+  (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
+
+  (add-to-list 'org-node-extra-id-dirs org-roam-directory)
+  (org-node-cache-mode))
 #+end_src
 
 #+begin_src emacs-lisp :comments no

@@ -1,0 +1,5 @@
+(:name persist
+       :description "Persist Variables between Emacs Sessions"
+       :url "https://elpa.gnu.org/packages/persist-0.6.1.tar"
+       :options ("xf")
+       :type http-tar)
