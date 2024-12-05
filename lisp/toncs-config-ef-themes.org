@@ -22,8 +22,9 @@
   (setq ef-themes-mixed-fonts t
         ef-themes-variable-pitch-ui t)
   (mapc #'disable-theme custom-enabled-themes)
-  (setq ef-themes-to-toggle '(ef-duo-light ef-duo-dark))
-  (ef-themes-select 'ef-duo-light)
+  (setq ef-themes-to-toggle '(ef-duo-dark ef-duo-light))
+  ;; こうしないと、部分的にテーマが反映されなくなる
+  (add-hook 'emacs-startup-hook (lambda () (ef-themes-select 'ef-duo-dark)))
   (general-def "<f9>" #'ef-themes-toggle))
 #+end_src
 
