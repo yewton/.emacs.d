@@ -33,8 +33,14 @@ brew "man-db"
 
 # fonts
 cask "font-noto-sans-symbols-2"
-cask "font-plemol-jp"
-cask "font-plemol-jp-hs"
 cask "font-ibm-plex-sans-jp"
+
+cask "font-moralerspace"
+cask "font-moralerspace-jpdoc"
+cask "font-moralerspace-nf"
+
+cask "font-moralerspace-hw"
+cask "font-moralerspace-hw-jpdoc"
+cask "font-moralerspace-hw-nf"
 
 brew "emacs-plus@29", args: %w{with-ctags with-no-frame-refocus with-xwidgets with-imagemagick with-native-comp with-poll}
