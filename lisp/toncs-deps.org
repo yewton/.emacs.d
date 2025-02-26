@@ -16,9 +16,9 @@
 
     (:name no-littering :checkout "2d7237a49ad6a9b6425e68fa4d3245cbe5a7169d")
 
-    (:name org-mode :checkout "release_9.7.6"
+    (:name org-mode :checkout "release_9.7.23"
            :url "https://git.savannah.gnu.org/git/emacs/org-mode.git")
-    (:name org-contrib :checkout "release_0.5")
+    (:name org-contrib :checkout "release_0.6")
 
     (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
