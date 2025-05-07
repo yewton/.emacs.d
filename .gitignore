@@ -4,3 +4,4 @@
 \#*#
 !/test/*.el
 /eln-cache/
+/epkgs/

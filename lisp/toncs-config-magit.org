@@ -17,7 +17,12 @@
 
 (defun toncs-config-magit-configure ()
   (setq magit-diff-refine-hunk 'all)
-  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
+  ;; https://emacsmirror.net/manual/borg/Bootstrapping-from-scratch.html
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-modules
+                          'magit-insert-stashes
+                          'append))
 #+end_src
 
 #+begin_src emacs-lisp :comments no

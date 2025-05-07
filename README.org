@@ -223,7 +223,21 @@ Emacs 27 以降導入された仕組みです。
 
 (require 'toncs-config)
 (toncs-config-install)
+#+end_src
 
+一部のパッケージは [[https://emacsmirror.net/manual/borg][Borg]] で管理しているので、その設定。
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
+(require 'borg)
+(setq borg-rewrite-urls-alist
+      '(("git@github.com:" . "https://github.com/")
+        ("git@gitlab.com:" . "https://gitlab.com/")))
+(setq borg-emacs-arguments '("-Q" "--load" "toncs-bootstrap.el")) ;; borg.mk にも設定
+(borg-initialize)
+#+end_src
+
+#+begin_src emacs-lisp
 (load custom-file)
 
 (setq gc-cons-threshold (* 2 1000 1000))
