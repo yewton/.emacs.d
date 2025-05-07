@@ -1,5 +1,7 @@
 name: "CI"
 on:
+  schedule:
+    - cron: "0 15 * * 5"
   pull_request:
   push:
     branches:
