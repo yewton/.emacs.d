@@ -19,9 +19,9 @@ ifeq ($(OS_NAME),darwin)
     RUNEMACS := open -n -a "Emacs" --args
 endif
 
-.PHONY: all gc clean run test
+.PHONY: all gc clean run test borg
 
-all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
+all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT) borg
 
 $(INITS): README.org
 $(ELS): %.el: %.org
@@ -62,3 +62,7 @@ test: all
 
 run-nw: all
 	emacs --no-init-file --no-window-system --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el
+
+borg:
+	make -f borg.mk bootstrap-borg
+	make -f borg.mk bootstrap
