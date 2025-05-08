@@ -233,7 +233,7 @@ Emacs 27 以降導入された仕組みです。
 (setq borg-rewrite-urls-alist
       '(("git@github.com:" . "https://github.com/")
         ("git@gitlab.com:" . "https://gitlab.com/")))
-(setq borg-emacs-arguments '("-Q" "--load" "toncs-bootstrap.el")) ;; borg.mk にも設定
+(setq borg-emacs-arguments `("-Q" "--load" ,(expand-file-name "toncs-bootstrap.el" user-emacs-directory))) ;; borg.mk にも設定
 (borg-initialize)
 #+end_src
 
