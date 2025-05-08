@@ -43,4 +43,4 @@ cask "font-moralerspace-hw"
 cask "font-moralerspace-hw-jpdoc"
 cask "font-moralerspace-hw-nf"
 
-brew "emacs-plus@29", args: %w{with-ctags with-no-frame-refocus with-xwidgets with-imagemagick with-native-comp with-poll}
+brew "emacs-plus@30", args: %w{with-ctags with-no-frame-refocus with-xwidgets with-imagemagick with-native-comp}
