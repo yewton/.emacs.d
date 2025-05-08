@@ -1,6 +1,21 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "ellama"]
+	path = lib/ellama
+	url = https://github.com/s-kostyaev/ellama
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "llm"]
+	path = lib/llm
+	url = https://github.com/ahyatt/llm
+[submodule "plz"]
+	path = lib/plz
+	url = https://github.com/alphapapa/plz.el
+[submodule "plz-event-source"]
+	path = lib/plz-event-source
+	url = https://github.com/r0man/plz-event-source
+[submodule "plz-media-type"]
+	path = lib/plz-media-type
+	url = https://github.com/r0man/plz-media-type
