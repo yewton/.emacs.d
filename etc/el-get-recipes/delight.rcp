@@ -1,4 +1,5 @@
 (:name delight
-       :type git
-       :url "https://git.savannah.gnu.org/git/delight.git"
-       :website "https://git.savannah.gnu.org/cgit/delight.git")
+       :website "https://savannah.nongnu.org/projects/delight/"
+       :type github
+       :pkgname "emacsmirror/delight")
+
