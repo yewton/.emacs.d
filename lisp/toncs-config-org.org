@@ -22,6 +22,7 @@
 
 (require 'toncs-stdlib)
 (require 'embark-org)
+(require 'no-littering)
 #+end_src
 
 * 便利定数・関数定義
@@ -36,9 +37,15 @@
   (when buffer-file-name
     (org-babel-load-file buffer-file-name 'compile)))
 
+(defun toncs-should-make-toncs (file)
+  (and
+   (file-exists-p file)
+   (toncs-safe-file-in-directory-p file user-emacs-directory)
+   (not (string-prefix-p (expand-file-name no-littering-var-directory) file))))
+
 (defun toncs-org-mode-hook-function ()
   (let ((file buffer-file-name))
-    (when (and file (toncs-safe-file-in-directory-p file user-emacs-directory))
+    (when (toncs-should-make-toncs file)
       (add-hook 'after-save-hook #'toncs-make-toncs nil t))))
 
 (defun toncs-org-src-mode-hook-function ()
