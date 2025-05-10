@@ -18,7 +18,15 @@ jobs:
         emacs_version: [29.2, 30.1, snapshot]
 
     steps:
+      # https://github.com/actions/checkout/issues/1314#issuecomment-1587229152
+    - uses: actions/cache@v3
+      id: cache-git-folder
+      with:
+        path: .git
+        key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-git-folder
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
     - uses: actions/cache@v3
       id: cache-el-get
       with:
