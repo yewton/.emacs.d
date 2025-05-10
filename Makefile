@@ -19,6 +19,8 @@ ifeq ($(OS_NAME),darwin)
     RUNEMACS := open -n -a "Emacs" --args
 endif
 
+MAKEFLAGS += --no-builtin-rules
+.SUFFIXES:
 .PHONY: all gc clean run test borg
 
 all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
