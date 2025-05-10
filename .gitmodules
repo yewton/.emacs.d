@@ -1,12 +1,21 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "closql"]
+	path = lib/closql
+	url = https://github.com/magit/closql
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "forge"]
+	path = lib/forge
+	url = https://github.com/magit/forge
+[submodule "ghub"]
+	path = lib/ghub
+	url = https://github.com/magit/ghub
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
@@ -19,3 +28,9 @@
 [submodule "plz-media-type"]
 	path = lib/plz-media-type
 	url = https://github.com/r0man/plz-media-type
+[submodule "treepy"]
+	path = lib/treepy
+	url = https://github.com/volrath/treepy.el
+[submodule "yaml"]
+	path = lib/yaml
+	url = https://github.com/zkry/yaml.el

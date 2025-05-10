@@ -135,14 +135,6 @@
   '((:name rainbow-identifiers :shallow t :branch "0.2.2")
     (:name rainbow-delimiters :checkout "a32b39bdfe6c61c322c37226d66e1b6d4f107ed0")
 
-    (:name pcsv :checkout "aa421d12c0da0adb9bc74a050a591dcbabf934ae")
-    (:name esqlite :checkout "08a779a821f8d32c1a1985d8d9eb6cf21646ce2e")
-    (:name closql :checkout "c1a346d56ecee16d1f0d7707f0d62c72604a8802")
-    (:name treepy :checkout "75fe3ec37e6f9b2bdfd6d0584efd984d0c00a43e")
-    (:name ghub :checkout "e48fa7c9c824678e2ea68971464971dc4730dedd")
-    (:name yaml :checkout "70c4fcead97e9bd6594e418c922ae769818f4245")
-    (:name forge :checkout "22a7aa5f0fe8cad99770fdcdb163de919a74ba76")
-
     (:name browse-at-remote :checkout "76aa27dfd469fcae75ed7031bb73830831aaccbf")
 
     (:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")

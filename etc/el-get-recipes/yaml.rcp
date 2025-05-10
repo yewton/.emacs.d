@@ -1,5 +1,0 @@
-(:name yaml
-       :website "https://github.com/zkry/yaml.el"
-       :description "YAML parser in Elisp"
-       :type github
-       :pkgname "zkry/yaml.el")
