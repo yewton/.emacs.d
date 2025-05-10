@@ -21,7 +21,7 @@ endif
 
 .PHONY: all gc clean run test borg
 
-all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT) borg
+all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
 
 $(INITS): README.org
 $(ELS): %.el: %.org
@@ -35,8 +35,13 @@ $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib e
 lisp/toncs-el-get.elc: lisp/toncs-stdlib.elc lisp/toncs-deps.elc
 lisp/toncs-config-org.elc:  lisp/toncs-stdlib.elc
 
-lisp/%.elc: lisp/%.el toncs-bootstrap.el lisp/toncs-deps.el
-	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" --funcall batch-byte-compile $<
+lib/borg/borg.el:
+	make -f borg.mk bootstrap-borg
+	make -f borg.mk bootstrap # 本当は要らないけど elc 作成に必要になるのでついでにやっちゃう
+
+lisp/%.elc: lisp/%.el toncs-bootstrap.el lisp/toncs-deps.el | lib/borg/borg.el
+	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
+	-L lib/borg --load borg --funcall borg-initialize --funcall batch-byte-compile $<
 
 $(DICT_DIR):
 	mkdir -p $@
@@ -62,7 +67,3 @@ test: all
 
 run-nw: all
 	emacs --no-init-file --no-window-system --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el
-
-borg:
-	make -f borg.mk bootstrap-borg
-	make -f borg.mk bootstrap
