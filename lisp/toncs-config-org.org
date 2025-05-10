@@ -40,6 +40,7 @@
 
 (defun toncs-should-make-toncs (file)
   (and
+   file
    (file-exists-p file)
    (toncs-safe-file-in-directory-p file user-emacs-directory)
    (not (string-prefix-p (expand-file-name no-littering-var-directory) file))))
