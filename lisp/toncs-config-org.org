@@ -11,6 +11,7 @@
 (require 'org-checklist)
 (require 'org-protocol)
 (require 'org-id)
+(require 'org-fold)
 
 (require 'ob-shell)
 (require 'ob-restclient)
@@ -230,7 +231,7 @@ restart `org-mode' if necessary."
 
 #+begin_src emacs-lisp
 (defun toncs-config-org-configure ()
-  (setq org-catch-invisible-edits 'show-and-error)
+  (setq org-fold-catch-invisible-edits 'show-and-error)
   (setq org-cycle-separator-lines 0)
   (setq org-edit-src-content-indentation 0)
   (setq org-ellipsis "…")
