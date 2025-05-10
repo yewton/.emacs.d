@@ -59,7 +59,7 @@ gc:
 	$(FIND) . -name '*~' -delete -print
 
 clean: gc
-	rm -vfr ./var $(INITS) $(ELS) $(ELCS)
+	rm -vfr $(INITS) $(ELS)
 
 run: all
 	$(RUNEMACS) --no-init-file --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el >/dev/null 2>&1 &
