@@ -22,7 +22,7 @@
 
     (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
-    (:name dash :checkout "1de9dcb83eacfb162b6d9a118a4770b1281bcd84")
+    (:name dash :checkout "fcb5d831fc08a43f984242c7509870f30983c27c")
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")
     (:name f :checkout "1e7020dc0d4c52d3da9bd610d431cab13aa02d8c")
 
@@ -76,10 +76,10 @@
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
-    (:name compat :checkout "e9203e164903a6bb7de3e58aa0d653bbcff9d3d1")
-    (:name with-editor :checkout "d30a96c7b24947c3651c6d65a40b9b67aa110971")
-    (:name transient :checkout "3915d727f80e8b8ce137b701bbdc00b28ce463d8")
-    (:name magit :checkout "07142e2b5b5a8381308535ace8aca1f8cb204b93")
+    (:name compat :checkout "7179960b7c82a7cca6bac60d79dd7fe09ae390a0")
+    (:name with-editor :checkout "cc86ac08bdea5bbe2503ac1df3506b5e81330e16")
+    (:name transient :checkout "902121268d72045da53c711932ff72017a33ce6c")
+    (:name magit :checkout "5876192dc6e048ba2ad5576e7a4789e22beb9877")
 
     (:name git-modes :shallow t :branch "1.2.8")
 
