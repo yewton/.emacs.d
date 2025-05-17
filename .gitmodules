@@ -28,6 +28,9 @@
 [submodule "plz-media-type"]
 	path = lib/plz-media-type
 	url = https://github.com/r0man/plz-media-type
+[submodule "posframe"]
+	path = lib/posframe
+	url = https://github.com/tumashu/posframe
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
