@@ -225,9 +225,6 @@ Emacs 27 以降導入された仕組みです。
 (auto-compile-on-save-mode)
 
 (require 'no-littering)
-
-(require 'toncs-config)
-(toncs-config-install)
 #+end_src
 
 一部のパッケージは [[https://emacsmirror.net/manual/borg][Borg]] で管理しているので、その設定。
@@ -243,6 +240,8 @@ Emacs 27 以降導入された仕組みです。
 #+end_src
 
 #+begin_src emacs-lisp
+(require 'toncs-config)
+(toncs-config-install)
 (load custom-file)
 
 (setq gc-cons-threshold (* 2 1000 1000))
