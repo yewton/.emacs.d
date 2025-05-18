@@ -16,6 +16,9 @@
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
+[submodule "gptel"]
+	path = lib/gptel
+	url = https://github.com/karthink/gptel
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
