@@ -10,6 +10,10 @@
 (toncs-el-get-init)
 (el-get 'sync)
 
+(add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
+(require 'borg)
+(borg-initialize)
+
 (require 'toncs-config)
 
 (toncs-config-install)
