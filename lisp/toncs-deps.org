@@ -118,9 +118,6 @@
     (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
     (:name org-roam-ui :checkout "5ac74960231db0bf7783c2ba7a19a60f582e91ab")
 
-    (:name all-the-icons :checkout "ee414384938ccf2ce93c77d717b85dc5538a257d")
-    (:name all-the-icons-completion :checkout "4c8bcad8033f5d0868ce82ea3807c6cd46c4a198")
-
     (:name org-tree-slide :checkout "3faa042393ebfe5699a3bffce775f039d7416ceb"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
