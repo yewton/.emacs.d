@@ -30,6 +30,7 @@ $(ELS): %.el: %.org
 
 $(INITS) $(ELS):
 	emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
+	touch "$@"
 
 $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib el-get))
 	emacs --quick --batch --load toncs-bootstrap.el --load toncs-el-get --funcall toncs-el-get-install
