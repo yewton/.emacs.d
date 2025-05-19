@@ -5,7 +5,6 @@ RUNEMACS := emacs
 ORGS := $(wildcard ./lisp/*.org)
 INITS := toncs-bootstrap.el early-init.el init.el
 ELS := $(ORGS:.org=.el)
-ELCS := $(ELS:.el=.elc)
 DICT_DIR := ./var/skk-jisyo/
 DICTS := $(addprefix SKK-JISYO.,L jinmei geo station propernoun)
 DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
@@ -21,9 +20,9 @@ endif
 
 MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
-.PHONY: all gc clean run test borg
+.PHONY: all gc clean run test borg lisp
 
-all: $(INITS) $(STATUS) $(ELCS) $(DICT_PATHS) $(KAOMOJI_DICT)
+all: lisp $(DICT_PATHS) $(KAOMOJI_DICT)
 
 $(INITS): README.org
 $(ELS): %.el: %.org
@@ -35,16 +34,13 @@ $(INITS) $(ELS):
 $(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib el-get))
 	emacs --quick --batch --load toncs-bootstrap.el --load toncs-el-get --funcall toncs-el-get-install
 
-lisp/toncs-el-get.elc: lisp/toncs-stdlib.elc lisp/toncs-deps.elc
-lisp/toncs-config-org.elc:  lisp/toncs-stdlib.elc
-
 lib/borg/borg.el:
 	make -f borg.mk bootstrap-borg
-	make -f borg.mk bootstrap # 本当は要らないけど elc 作成に必要になるのでついでにやっちゃう
 
-lisp/%.elc: lisp/%.el toncs-bootstrap.el lisp/toncs-deps.el | lib/borg/borg.el
+lisp: $(ELS) toncs-bootstrap.el lib/borg/borg.el
+	make -f borg.mk bootstrap
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
-	-L lib/borg --load borg --funcall borg-initialize --funcall batch-byte-compile $<
+	-L lib/borg --load borg --funcall borg-initialize --eval "(batch-byte-recompile-directory 0)" lisp
 
 $(DICT_DIR):
 	mkdir -p $@
