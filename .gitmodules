@@ -10,6 +10,9 @@
 [submodule "avy-menu"]
 	path = lib/avy-menu
 	url = https://github.com/mrkkrp/avy-menu
+[submodule "beacon"]
+	path = lib/beacon
+	url = https://github.com/Malabarba/beacon
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
