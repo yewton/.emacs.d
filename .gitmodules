@@ -7,6 +7,9 @@
 [submodule "all-the-icons-completion"]
 	path = lib/all-the-icons-completion
 	url = https://github.com/iyefrat/all-the-icons-completion
+[submodule "avy-menu"]
+	path = lib/avy-menu
+	url = https://github.com/mrkkrp/avy-menu
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
