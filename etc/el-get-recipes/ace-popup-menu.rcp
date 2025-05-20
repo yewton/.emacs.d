@@ -1,5 +1,0 @@
-(:name ace-popup-menu
-       :description "Replace GUI popup menu in Emacs with something more efficient"
-       :type github
-       :depends (avy-menu)
-       :pkgname "mrkkrp/ace-popup-menu")
