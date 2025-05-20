@@ -25,8 +25,6 @@ jobs:
         path: .git
         key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-git-folder
     - uses: actions/checkout@v3
-      with:
-        submodules: recursive
     - uses: actions/cache@v3
       id: cache-el-get
       with:
