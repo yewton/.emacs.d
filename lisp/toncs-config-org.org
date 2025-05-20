@@ -24,6 +24,10 @@
 (require 'toncs-stdlib)
 (require 'embark-org)
 (require 'no-littering)
+(require 'delight)
+(require 'avy)
+
+(require 'org-modern)
 #+end_src
 
 * 便利定数・関数定義
