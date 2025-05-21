@@ -7,6 +7,7 @@
 
 #+begin_src emacs-lisp
 (require 'general)
+(require 'delight)
 (require 'no-littering)
 (require 'skk)
 (require 'context-skk)
