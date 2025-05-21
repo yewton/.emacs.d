@@ -1,3 +1,5 @@
+[include]
+	path = .borgconfig
 [submodule "all-the-icons"]
 	path = lib/all-the-icons
 	url = https://github.com/domtronn/all-the-icons.el
@@ -13,9 +15,15 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "cape"]
+	path = lib/cape
+	url = https://github.com/minad/cape
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql
+[submodule "corfu"]
+	path = lib/corfu
+	url = https://github.com/minad/corfu
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama

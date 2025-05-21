@@ -101,9 +101,6 @@
 
     (:name yasnippet :checkout "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
 
-    (:name corfu :checkout "5e3a959766d2313651c5db3beedd937bfc27b57a")
-    (:name cape :checkout "5c468d6d657e8dc604ddf3feb80f70e1e05ac0a1")
-
     (:name sqlite3 :checkout "a601c9965e4d0178705a64b7d4f88709ca9aea66")
     (:name emacsql :checkout "3d9622aabbf3ab925beadd12ce928370d7704573")
     (:name org-roam :checkout "0b9fcbc97b65b349826e63bad89ca121a08fd2be")
