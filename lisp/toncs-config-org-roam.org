@@ -11,8 +11,10 @@
 (require 'org-roam-protocol)
 (require 'no-littering)
 (require 'general)
+(require 'delight)
 (require 'org-node)
 (require 'org-node-fakeroam)
+(require 'consult)
 
 (defun toncs-org-roam-search ()
   (interactive)
