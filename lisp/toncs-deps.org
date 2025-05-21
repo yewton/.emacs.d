@@ -12,15 +12,9 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
   '((:name el-get)
-    (:name exec-path-from-shell :checkout "72ede29a0e0467b3b433e8edbee3c79bab005884")
-
-    (:name no-littering :checkout "2d7237a49ad6a9b6425e68fa4d3245cbe5a7169d")
-
     (:name org-mode :checkout "release_9.7.23"
            :url "https://github.com/emacsmirror/org.git")
     (:name org-contrib :checkout "release_0.6")
-
-    (:name auto-compile :checkout "c4a267daf97dfc42472ea7e99fae3d7dbb6ac812")
 
     (:name dash :checkout "fcb5d831fc08a43f984242c7509870f30983c27c")
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")

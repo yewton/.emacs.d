@@ -214,17 +214,6 @@ Emacs 27 以降導入された仕組みです。
 (require 'toncs-el-get)
 (toncs-el-get-init)
 (el-get 'sync)
-
-(when (memq window-system '(mac ns x))
-  (require 'exec-path-from-shell)
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-copy-envs '("PATH" "MANPATH" "LANG" "LC_ALL" "LC_MESSAGES")))
-
-(require 'auto-compile)
-(auto-compile-on-load-mode)
-(auto-compile-on-save-mode)
-
-(require 'no-littering)
 #+end_src
 
 一部のパッケージは [[https://emacsmirror.net/manual/borg][Borg]] で管理しているので、その設定。
@@ -238,6 +227,23 @@ Emacs 27 以降導入された仕組みです。
 (setq borg-emacs-arguments `("-Q" "--load" ,(expand-file-name "toncs-bootstrap.el" user-emacs-directory))) ;; borg.mk にも設定
 (borg-initialize)
 #+end_src
+
+色々やる前にやっといた方がいい系の処理たち。
+
+#+begin_src emacs-lisp
+(when (memq window-system '(mac ns x))
+  (require 'exec-path-from-shell)
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-copy-envs '("PATH" "MANPATH" "LANG" "LC_ALL" "LC_MESSAGES")))
+
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+
+(require 'no-littering)
+#+end_src
+
+各種設定を読み込む。
 
 #+begin_src emacs-lisp
 (require 'toncs-config)

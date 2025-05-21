@@ -4,6 +4,9 @@
 [submodule "all-the-icons-completion"]
 	path = lib/all-the-icons-completion
 	url = https://github.com/iyefrat/all-the-icons-completion
+[submodule "auto-compile"]
+	path = lib/auto-compile
+	url = https://github.com/emacscollective/auto-compile
 [submodule "beacon"]
 	path = lib/beacon
 	url = https://github.com/Malabarba/beacon
@@ -19,6 +22,9 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "exec-path-from-shell"]
+	path = lib/exec-path-from-shell
+	url = https://github.com/purcell/exec-path-from-shell
 [submodule "forge"]
 	path = lib/forge
 	url = https://github.com/magit/forge
@@ -31,6 +37,9 @@
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
+[submodule "no-littering"]
+	path = lib/no-littering
+	url = https://github.com/emacscollective/no-littering
 [submodule "plz"]
 	path = lib/plz
 	url = https://github.com/alphapapa/plz.el
