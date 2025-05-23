@@ -36,8 +36,6 @@
 
     (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf")
 
-    (:name buffer-move :checkout "e7800b3ab1bd76ee475ef35507ec51ecd5a3f065")
-
     (:name ddskk :checkout "5c209e0306364118abf9d9440d7b8b9613183072")
 
     (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
