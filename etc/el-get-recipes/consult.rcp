@@ -1,6 +1,0 @@
-(:name consult
-       :website "https://github.com/minad/consult"
-       :description "Consulting completing-read"
-       :type github
-       :pkgname "minad/consult"
-       :minimum-emacs-version "26.1")

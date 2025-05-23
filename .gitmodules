@@ -27,6 +27,9 @@
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql
+[submodule "consult"]
+	path = lib/consult
+	url = https://github.com/minad/consult
 [submodule "corfu"]
 	path = lib/corfu
 	url = https://github.com/minad/corfu
