@@ -1,7 +1,0 @@
-(:name consult-projectile
-       :website "https://gitlab.com/OlMon/consult-projectile"
-       :description "Consult integration for porjectile"
-       :type git
-       :url "https://gitlab.com/OlMon/consult-projectile.git"
-       :depends (consult projectile)
-       :minimum-emacs-version "25.1")

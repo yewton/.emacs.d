@@ -275,8 +275,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "M-A" #'marginalia-cycle)
   (dolist (command-category '((projectile-find-file . project-file)
                       (projectile-find-dir . project-file)
-                      (projectile-switch-project . file)
-                      (consult-projectile . file)))
+                      (projectile-switch-project . file)))
     (add-to-list 'marginalia-command-categories command-category))
   (marginalia-mode)
   (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
@@ -815,7 +814,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'projectile)
-(require 'consult-projectile)
 
 (defun toncs-projectile-ignored-project-function (truename)
   (seq-find (lambda (dir) (file-in-directory-p truename dir))
@@ -826,13 +824,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq projectile-enable-caching t)
   (setq projectile-ignored-project-function #'toncs-projectile-ignored-project-function)
   (setq projectile-switch-project-action #'projectile-dired)
-  (setq consult-projectile-sources '(consult-projectile--source-projectile-project consult-projectile--source-projectile-buffer consult-projectile--source-projectile-file))
   (delight 'projectile-mode nil "projectile")
+  (setq consult-project-function #'projectile-project-root)
   (projectile-mode 1)
   (general-def projectile-mode-map
-    "C-c p" #'projectile-command-map)
-  (general-def projectile-command-map
-    "p" #'consult-projectile))
+    "C-c p" #'projectile-command-map))
 #+end_src
 
 * go-translate

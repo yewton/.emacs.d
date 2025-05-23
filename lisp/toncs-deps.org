@@ -78,7 +78,6 @@
     (:name diff-hl :checkout "b80ff9b4a772f7ea000e86fbf88175104ddf9557")
 
     (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
-    (:name consult-projectile :checkout "400439c56d17bca7888f7d143d8a11f84900a406")
 
     (:name embark :checkout "4ddbe6326bc596a05b574cf0109acdb5a79bc748")
 
