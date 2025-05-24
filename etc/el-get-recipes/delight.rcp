@@ -1,5 +1,0 @@
-(:name delight
-       :website "https://savannah.nongnu.org/projects/delight/"
-       :type github
-       :pkgname "emacsmirror/delight")
-

@@ -36,6 +36,9 @@
 [submodule "crux"]
 	path = lib/crux
 	url = https://github.com/bbatsov/crux
+[submodule "delight"]
+	path = lib/delight
+	url = https://github.com/emacsmirror/delight
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
