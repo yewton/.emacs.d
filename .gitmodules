@@ -33,6 +33,9 @@
 [submodule "corfu"]
 	path = lib/corfu
 	url = https://github.com/minad/corfu
+[submodule "crux"]
+	path = lib/crux
+	url = https://github.com/bbatsov/crux
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama

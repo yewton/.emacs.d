@@ -1,5 +1,0 @@
-(:name crux
-       :description "A Collection of Ridiculously Useful eXtensions for Emacs"
-       :type github
-       :depends (seq)
-       :pkgname "bbatsov/crux")
