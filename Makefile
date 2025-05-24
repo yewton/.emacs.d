@@ -38,7 +38,7 @@ lib/borg/borg.el:
 	make -f borg.mk bootstrap-borg
 
 lisp: $(ELS) toncs-bootstrap.el lib/borg/borg.el
-	make -f borg.mk bootstrap
+	make -f borg.mk bootstrap-fast
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
 	-L lib/borg --load borg --funcall borg-initialize --eval "(batch-byte-recompile-directory 0)" lisp
 
