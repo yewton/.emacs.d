@@ -798,16 +798,29 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-hook 'emacs-startup-hook #'shackle-mode))
 #+end_src
 
-* beacon
+* pulsar
 
 #+begin_src emacs-lisp
-(require 'beacon)
+(require 'pulsar)
 
-(toncs-config-configure beacon
-  (setq beacon-color "#9E3699")
-  (delight 'beacon-mode nil "beacon")
-  (add-hook 'emacs-startup-hook #'beacon-mode)
-  (add-to-list 'beacon-dont-blink-major-modes 'dired-mode))
+(toncs-config-configure pulsar
+  (setq pulsar-pulse t)
+  (setq pulsar-delay 0.05)
+  (setq pulsar-iterations 20)
+  (setq pulsar-face 'pulsar-blue)
+  (setq pulsar-highlight-face 'pulsar-yellow)
+  (setq pulsar-pulse-on-window-change t)
+  (pulsar-global-mode 1)
+
+  (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
+
+  ;; integration with the `consult' package:
+  (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
+  (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
+
+  ;; integration with the built-in `imenu':
+  (add-hook 'imenu-after-jump-hook #'pulsar-recenter-top)
+  (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry))
 #+end_src
 
 * projectile

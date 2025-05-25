@@ -9,9 +9,6 @@
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = https://github.com/emacscollective/auto-compile
-[submodule "beacon"]
-	path = lib/beacon
-	url = https://github.com/Malabarba/beacon
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
@@ -78,6 +75,9 @@
 [submodule "posframe"]
 	path = lib/posframe
 	url = https://github.com/tumashu/posframe
+[submodule "pulsar"]
+	path = lib/pulsar
+	url = https://github.com/protesilaos/pulsar
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
