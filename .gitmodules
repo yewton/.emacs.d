@@ -39,6 +39,9 @@
 [submodule "delight"]
 	path = lib/delight
 	url = https://github.com/emacsmirror/delight
+[submodule "diff-hl"]
+	path = lib/diff-hl
+	url = https://github.com/dgutov/diff-hl
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
