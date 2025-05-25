@@ -39,6 +39,9 @@
 [submodule "diff-hl"]
 	path = lib/diff-hl
 	url = https://github.com/dgutov/diff-hl
+[submodule "ef-themes"]
+	path = lib/ef-themes
+	url = https://github.com/protesilaos/ef-themes
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
