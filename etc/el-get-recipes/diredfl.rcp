@@ -1,4 +1,0 @@
-(:name diredfl
-       :description "Extra Emacs font lock rules for a more colourful dired"
-       :type github
-       :pkgname "purcell/diredfl")
