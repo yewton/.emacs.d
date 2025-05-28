@@ -48,7 +48,6 @@
     "M-l" #'dirvish-ls-switches-menu
     "M-m" #'dirvish-mark-menu
     "M-t" #'dirvish-layout-toggle
-    "M-s" #'dirvish-setup-menu
     "M-e" #'dirvish-emerge-menu
     "<mouse-1>" #'dirvish-subtree-toggle-or-open
     "<mouse-2>" #'dired-mouse-find-file-other-window
