@@ -39,6 +39,9 @@
 [submodule "diff-hl"]
 	path = lib/diff-hl
 	url = https://github.com/dgutov/diff-hl
+[submodule "dirvish"]
+	path = lib/dirvish
+	url = https://github.com/alexluigit/dirvish
 [submodule "ef-themes"]
 	path = lib/ef-themes
 	url = https://github.com/protesilaos/ef-themes

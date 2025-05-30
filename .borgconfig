@@ -1,3 +1,6 @@
 [submodule "corfu"]
 	load-path = .
 	load-path = extensions
+[submodule "dirvish"]
+	load-path = .
+	load-path = extensions
