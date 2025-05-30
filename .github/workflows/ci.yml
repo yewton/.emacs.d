@@ -25,6 +25,8 @@ jobs:
         path: .git
         key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-${{ hashFiles('.gitmodules') }}-git-folder
     - uses: actions/checkout@v3
+    - run: git submodule init
+    - run: git submodule update lib/borg
     - uses: actions/cache@v3
       id: cache-el-get
       with:
@@ -43,7 +45,6 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: echo "/usr/local/opt/texinfo/bin" >> $GITHUB_PATH
     - run: make ./var/el-get/.status.el
-    - run: make -f borg.mk bootstrap-borg
     - run: make -f borg.mk bootstrap
     - run: make test
       env:
