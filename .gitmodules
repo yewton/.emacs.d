@@ -78,9 +78,6 @@
 [submodule "plz-media-type"]
 	path = lib/plz-media-type
 	url = https://github.com/r0man/plz-media-type
-[submodule "posframe"]
-	path = lib/posframe
-	url = https://github.com/tumashu/posframe
 [submodule "pulsar"]
 	path = lib/pulsar
 	url = https://github.com/protesilaos/pulsar
