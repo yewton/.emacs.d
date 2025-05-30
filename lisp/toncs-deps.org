@@ -33,8 +33,6 @@
 
     (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf")
 
-    (:name ddskk :checkout "5c209e0306364118abf9d9440d7b8b9613183072")
-
     (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
 
     (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
