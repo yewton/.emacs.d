@@ -23,7 +23,7 @@ jobs:
       id: cache-git-folder
       with:
         path: .git
-        key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-git-folder
+        key: ${{ matrix.os }}-emacs-${{ matrix.emacs_version }}-${{ hashFiles('.gitmodules') }}-git-folder
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
       id: cache-el-get
