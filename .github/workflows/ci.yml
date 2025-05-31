@@ -19,8 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: git submodule init
-    - run: git submodule update lib/borg
+    - run: git -c submodule.fetchJobs=0 -c fetch.parallel=0 submodule update --init --depth 1
     - uses: actions/cache@v3
       id: cache-el-get
       with:
