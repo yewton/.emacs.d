@@ -14,6 +14,7 @@
 (require 'delight)
 (require 'org-node)
 (require 'org-mem)
+(require 'org-mem-roamy)
 (require 'consult)
 
 (defun toncs-org-roam-search ()
@@ -21,6 +22,7 @@
   (consult-ripgrep org-roam-directory))
 
 (defun toncs-config-org-roam-configure ()
+  (setq org-mem-do-sync-with-org-id t)
   (delight 'org-roam-mode nil "org-roam")
   (setq org-roam-directory (expand-file-name "roam" org-directory))
   (setq org-roam-db-location (no-littering-expand-var-file-name "org-roam.db"))
@@ -46,7 +48,9 @@
   (general-def org-mode-map
     "C-c n l" #'org-roam-buffer-toggle)
 
-  (org-roam-db-autosync-enable)
+  (setq org-roam-db-update-on-save nil)
+  (setq org-mem-roamy-do-overwrite-real-db t)
+  (org-mem-roamy-db-mode)
   (setq org-node-creation-fn #'org-node-new-via-roam-capture)
   (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
   (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
