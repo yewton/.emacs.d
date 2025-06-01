@@ -4,3 +4,13 @@
 [submodule "dirvish"]
 	load-path = .
 	load-path = extensions
+[submodule "org-mem"]
+	load-path = .
+	load-path = lisp
+[submodule "org-node"]
+	no-maketexi = README.org
+[submodule "org-roam"]
+	load-path = .
+	load-path = extensions
+[submodule "emacsql"]
+	no-byte-compile = emacsql-pg.el

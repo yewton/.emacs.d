@@ -13,7 +13,7 @@
 (require 'general)
 (require 'delight)
 (require 'org-node)
-(require 'org-node-fakeroam)
+(require 'org-mem)
 (require 'consult)
 
 (defun toncs-org-roam-search ()
@@ -22,10 +22,9 @@
 
 (defun toncs-config-org-roam-configure ()
   (delight 'org-roam-mode nil "org-roam")
-  (setq org-roam-database-connector
-        (if (version< emacs-version "29") 'sqlite-module 'sqlite-builtin))
   (setq org-roam-directory (expand-file-name "roam" org-directory))
   (setq org-roam-db-location (no-littering-expand-var-file-name "org-roam.db"))
+  (setq org-mem-watch-dirs (list org-roam-directory))
   ;; Syncthing のバージョン管理用ファイルとコンフリクトファイルを無視したい
   (setq org-roam-file-exclude-regexp "\\(~[[:digit:]]+-[[:digit:]]+\\|\\.sync-conflict\.\\)")
 
@@ -48,11 +47,12 @@
     "C-c n l" #'org-roam-buffer-toggle)
 
   (org-roam-db-autosync-enable)
-  (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
-  (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
-  (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
+  (setq org-node-creation-fn #'org-node-new-via-roam-capture)
+  (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
+  (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
 
   (add-to-list 'org-node-extra-id-dirs org-roam-directory)
+  (org-mem-updater-mode)
   (org-node-cache-mode))
 #+end_src
 

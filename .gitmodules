@@ -48,6 +48,9 @@
 [submodule "ef-themes"]
 	path = lib/ef-themes
 	url = https://github.com/protesilaos/ef-themes
+[submodule "el-job"]
+	path = lib/el-job
+	url = https://github.com/meedstrom/el-job
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
@@ -72,6 +75,15 @@
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering
+[submodule "org-mem"]
+	path = lib/org-mem
+	url = https://github.com/meedstrom/org-mem
+[submodule "org-node"]
+	path = lib/org-node
+	url = https://github.com/meedstrom/org-node
+[submodule "org-roam"]
+	path = lib/org-roam
+	url = https://github.com/org-roam/org-roam
 [submodule "plz"]
 	path = lib/plz
 	url = https://github.com/alphapapa/plz.el
@@ -90,3 +102,6 @@
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
+[submodule "emacsql"]
+	path = lib/emacsql
+	url = https://github.com/magit/emacsql.git
