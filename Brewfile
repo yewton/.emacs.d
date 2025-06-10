@@ -1,6 +1,5 @@
 # -*- mode: ruby; -*-
 tap "d12frosted/emacs-plus"
-tap "homebrew/cask-fonts"
 
 # Build essentials
 brew "coreutils"

@@ -3,9 +3,6 @@
     "tap": {
       "d12frosted/emacs-plus": {
         "revision": "cc3280dfdf7562dd69c97d0dfa872b1c3313a18a"
-      },
-      "homebrew/cask-fonts": {
-        "revision": "0ed20f35d21ebc3f4f829689b101078718ad5ce1"
       }
     },
     "brew": {
