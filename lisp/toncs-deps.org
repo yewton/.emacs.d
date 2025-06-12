@@ -115,8 +115,6 @@
     (:name shut-up :checkout "ed62a7fefdf04c81346061016f1bc69ca045aaf6")
     (:name helpful :checkout "4ba24cac9fb14d5fdc32582cd947572040e82b2c")
 
-    (:name emojify :branch "fix-line-spacing")
-
     (:name org-cliplink :checkout "82402cae7e118d67de7328417fd018a18f95fac2")
 
     (:name ox-hugo :checkout "60b0131e2dcd3b7108a7e0fc2cf461d792796062")

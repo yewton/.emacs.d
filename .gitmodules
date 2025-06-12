@@ -60,6 +60,9 @@
 [submodule "embark"]
 	path = lib/embark
 	url = https://github.com/oantolin/embark
+[submodule "emojify"]
+	path = lib/emojify
+	url = https://github.com/iqbalansari/emacs-emojify
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
