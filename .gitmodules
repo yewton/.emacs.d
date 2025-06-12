@@ -69,6 +69,9 @@
 [submodule "exec-path-from-shell"]
 	path = lib/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell
+[submodule "f"]
+	path = lib/f
+	url = https://github.com/rejeep/f.el
 [submodule "forge"]
 	path = lib/forge
 	url = https://github.com/magit/forge
