@@ -36,9 +36,6 @@
 
     (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
 
-    (:name general :checkout "a0b17d207badf462311b2eef7c065b884462cb7c")
-    (:name delight :checkout "5a0cd5ccb650d7bba1c1ea02cf67b71d7cfa6e9a")
-
     (:name moody :checkout "2f249978531ff1ec9f601c1e8f2ce83a1b50520e"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src

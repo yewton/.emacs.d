@@ -75,6 +75,9 @@
 [submodule "forge"]
 	path = lib/forge
 	url = https://github.com/magit/forge
+[submodule "general"]
+	path = lib/general
+	url = https://github.com/noctuid/general.el
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
