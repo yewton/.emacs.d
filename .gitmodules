@@ -54,6 +54,12 @@
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
+[submodule "emacsql"]
+	path = lib/emacsql
+	url = https://github.com/magit/emacsql.git
+[submodule "embark"]
+	path = lib/embark
+	url = https://github.com/oantolin/embark
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
@@ -102,6 +108,3 @@
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
-[submodule "emacsql"]
-	path = lib/emacsql
-	url = https://github.com/magit/emacsql.git
