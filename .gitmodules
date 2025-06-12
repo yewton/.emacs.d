@@ -81,6 +81,9 @@
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
+[submodule "git-modes"]
+	path = lib/git-modes
+	url = https://github.com/magit/git-modes
 [submodule "gptel"]
 	path = lib/gptel
 	url = https://github.com/karthink/gptel

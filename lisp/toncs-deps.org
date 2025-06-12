@@ -60,8 +60,6 @@
     (:name transient :checkout "902121268d72045da53c711932ff72017a33ce6c")
     (:name magit :checkout "5876192dc6e048ba2ad5576e7a4789e22beb9877")
 
-    (:name git-modes :shallow t :branch "1.2.8")
-
     (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 
     (:name marginalia :checkout "18b3fcfba0c4af8b7bcff99ebf5891e8c0037bca")
