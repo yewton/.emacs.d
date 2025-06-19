@@ -90,6 +90,9 @@
 [submodule "gptel"]
 	path = lib/gptel
 	url = https://github.com/karthink/gptel
+[submodule "kotlin-ts-mode"]
+	path = lib/kotlin-ts-mode
+	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
@@ -120,6 +123,9 @@
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
+[submodule "treesit-auto"]
+	path = lib/treesit-auto
+	url = https://github.com/renzmann/treesit-auto
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el

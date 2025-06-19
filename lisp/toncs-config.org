@@ -870,6 +870,20 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq vterm-buffer-name-string "vterm %s"))
 #+end_src
 
+* treesit-auto
+
+#+begin_src emacs-lisp
+(require 'treesit-auto)
+
+(toncs-config-configure treesit-auto
+  (setq treesit-auto-install t)
+  (global-treesit-auto-mode)
+  (setq treesit-font-lock-level 4)
+  (add-to-list 'treesit-language-source-alist
+               '(kotlin . ("https://github.com/fwcd/tree-sitter-kotlin")))
+  (treesit-auto-add-to-auto-mode-alist))
+#+end_src
+
 * 各言語の設定
 
 ** markdown
@@ -887,6 +901,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 #+begin_src emacs-lisp
 (toncs-config-prepare js)
 #+end_src
+
 * misc
 
 #+begin_src emacs-lisp
