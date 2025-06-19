@@ -165,9 +165,7 @@
 
     (:name ssh-config-mode :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
 
-    (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df")
-
-    (:name go-mode :checkout "53c76cddf54638dea5e4cae99ce0181de28e1064"))
+    (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df"))
   "各言語用のパッケージ達です。")
 #+end_src
 
