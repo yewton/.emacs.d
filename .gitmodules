@@ -51,6 +51,9 @@
 [submodule "el-job"]
 	path = lib/el-job
 	url = https://github.com/meedstrom/el-job
+[submodule "elisp-refs"]
+	path = lib/elisp-refs
+	url = https://github.com/Wilfred/elisp-refs
 [submodule "ellama"]
 	path = lib/ellama
 	url = https://github.com/s-kostyaev/ellama
@@ -90,6 +93,9 @@
 [submodule "gptel"]
 	path = lib/gptel
 	url = https://github.com/karthink/gptel
+[submodule "helpful"]
+	path = lib/helpful
+	url = https://github.com/Wilfred/helpful
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
