@@ -99,6 +99,9 @@
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
+[submodule "llama"]
+	path = lib/llama
+	url = https://github.com/tarsius/llama
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm

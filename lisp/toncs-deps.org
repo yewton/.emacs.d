@@ -129,11 +129,7 @@
 
     (:name goggles :checkout "ab7d0ce3c049d72f97d87ddc15064bb527c0e990")
 
-    (:name recursion-indicator :checkout "86cc7bc8ca15bfaa2b767ff332c1f72d1b4975cf")
-
-    (:name llama :checkout "48e5bc4919a4a29665362832d59ade8e248b0c3e")
-    (:name org-node :checkout "3ca5a95ca95ba09514df40e57d8f25fffe6e03ea")
-    (:name org-node-fakeroam :checkout "d570c9f6b70bb28faed928eb8c80b932c446ef53"))
+    (:name recursion-indicator :checkout "86cc7bc8ca15bfaa2b767ff332c1f72d1b4975cf"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
