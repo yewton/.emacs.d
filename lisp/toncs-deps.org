@@ -148,8 +148,6 @@
     (:name scala-mode :shallow t :branch "v1.0.0")
     (:name sbt-mode :shallow t :branch "v1.0.1")
 
-    (:name groovy-emacs-mode :checkout "0aea74def58791b2343a8f0139c2f2a6a0941877")
-
     (:name ssh-config-mode :checkout "e9f009c064f63ca488c89c30ab0d3857a0155f86")
 
     (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df"))
