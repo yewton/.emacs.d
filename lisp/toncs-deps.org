@@ -34,8 +34,6 @@
 
     (:name shackle :checkout "f1467db75a8fa5d51c676181fb308ccbf7b05e6f")
 
-    (:name highlight-indentation-guides :checkout "a4f771418e4eed1f3f7879a43af28cf97747d41c")
-
     (:name moody :checkout "2f249978531ff1ec9f601c1e8f2ce83a1b50520e"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src

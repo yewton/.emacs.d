@@ -102,6 +102,9 @@
 [submodule "helpful"]
 	path = lib/helpful
 	url = https://github.com/Wilfred/helpful
+[submodule "highlight-indent-guides"]
+	path = lib/highlight-indent-guides
+	url = https://github.com/DarthFennec/highlight-indent-guides
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
