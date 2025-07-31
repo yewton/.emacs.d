@@ -90,6 +90,9 @@
 [submodule "go-mode"]
 	path = lib/go-mode
 	url = https://github.com/dominikh/go-mode.el
+[submodule "goggles"]
+	path = lib/goggles
+	url = https://github.com/minad/goggles
 [submodule "gptel"]
 	path = lib/gptel
 	url = https://github.com/karthink/gptel
