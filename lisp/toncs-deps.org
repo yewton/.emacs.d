@@ -112,8 +112,6 @@
 
     (:name org-appear :checkout "eb9f9db40aa529fe4b977235d86494b115281d17")
 
-    (:name go-translate :checkout "bdea7a7326a667b82c57e458e27deb95894f72df")
-
     (:name minions :checkout "413b95a0d1c7c10d0f8d440d1982062b73d5ea4a")
 
     (:name jq-mode :checkout "1af31ba701cf844f938f840ed78867c9a28174b6")
