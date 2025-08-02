@@ -64,8 +64,6 @@
 
     (:name link-hint :checkout "391930f2010014b9b5bc16bb431db01dd21ca7bd")
 
-    (:name highlight-thing :checkout "b9bb6e49fc20d2e1f688c2645f6f6653208145de")
-
     (:name visual-regexp :shallow t :branch "v1.1.1")
 
     (:name org-mru-clock :checkout "a74322f0cfd6e52151f9bb8d4f90833330f69120")

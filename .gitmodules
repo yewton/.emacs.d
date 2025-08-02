@@ -105,6 +105,9 @@
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = https://github.com/DarthFennec/highlight-indent-guides
+[submodule "highlight-thing"]
+	path = lib/highlight-thing
+	url = https://github.com/fgeller/highlight-thing.el
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
