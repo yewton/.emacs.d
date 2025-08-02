@@ -114,6 +114,9 @@
 [submodule "japanese-holidays"]
 	path = lib/japanese-holidays
 	url = https://github.com/emacs-jp/japanese-holidays
+[submodule "jq-mode"]
+	path = lib/jq-mode
+	url = https://github.com/ljos/jq-mode
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode
@@ -126,6 +129,9 @@
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering
+[submodule "ob-restclient"]
+	path = lib/ob-restclient
+	url = https://github.com/alf/ob-restclient.el
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
@@ -147,6 +153,9 @@
 [submodule "pulsar"]
 	path = lib/pulsar
 	url = https://github.com/protesilaos/pulsar
+[submodule "restclient"]
+	path = lib/restclient
+	url = https://github.com/pashky/restclient.el
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el

@@ -106,11 +106,6 @@
 
     (:name minions :checkout "413b95a0d1c7c10d0f8d440d1982062b73d5ea4a")
 
-    (:name jq-mode :checkout "1af31ba701cf844f938f840ed78867c9a28174b6")
-    (:name restclient :checkout "9e2cfa86529133eba6c9ef53794be182f15e4c21"
-           :compile "restclient.el")
-    (:name ob-restclient :checkout "586f1fa07f76aaca13cb3f86945759f4b9fb8db7")
-
     (:name vterm :checkout "c3a3a23a5eace137947524c93644204bf6b56cff")
 
     (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974")
