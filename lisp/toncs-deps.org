@@ -120,10 +120,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-lang
-  '((:name edit-indirect :checkout "032ac0ec690d4999d564fd882588c7a197efe8dd")
-    (:name markdown-mode :checkout "8a7773f87733866a961ea4c518a4a2f283f21970" :prepare nil)
-
-    (:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
+  '((:name plantuml-mode :checkout "ea45a13707abd2a70df183f1aec6447197fc9ccc")
 
     (:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
 

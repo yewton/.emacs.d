@@ -45,6 +45,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "edit-indirect"]
+	path = lib/edit-indirect
+	url = https://github.com/Fanael/edit-indirect
 [submodule "ef-themes"]
 	path = lib/ef-themes
 	url = https://github.com/protesilaos/ef-themes
@@ -129,6 +132,9 @@
 [submodule "marginalia"]
 	path = lib/marginalia
 	url = https://github.com/minad/marginalia
+[submodule "markdown-mode"]
+	path = lib/markdown-mode
+	url = https://github.com/jrblevin/markdown-mode
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering
