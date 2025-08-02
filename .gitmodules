@@ -108,6 +108,9 @@
 [submodule "highlight-thing"]
 	path = lib/highlight-thing
 	url = https://github.com/fgeller/highlight-thing.el
+[submodule "hydra"]
+	path = lib/hydra
+	url = https://github.com/abo-abo/hydra
 [submodule "kotlin-ts-mode"]
 	path = lib/kotlin-ts-mode
 	url = https://gitlab.com/bricka/emacs-kotlin-ts-mode

@@ -21,8 +21,6 @@
 
     (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
 
-    (:name hydra :checkout "112e689f75b59398d8eca79ac6562dca12b8a959")
-
     (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
     (:name vertico :checkout "c7ed4310a25114344a2efc90cfb031fc35f26a29")
