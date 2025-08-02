@@ -126,6 +126,9 @@
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
+[submodule "marginalia"]
+	path = lib/marginalia
+	url = https://github.com/minad/marginalia
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering

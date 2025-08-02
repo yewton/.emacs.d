@@ -58,8 +58,6 @@
 
     (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 
-    (:name marginalia :checkout "18b3fcfba0c4af8b7bcff99ebf5891e8c0037bca")
-
     (:name link-hint :checkout "391930f2010014b9b5bc16bb431db01dd21ca7bd")
 
     (:name visual-regexp :shallow t :branch "v1.1.1")
