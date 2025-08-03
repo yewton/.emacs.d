@@ -135,6 +135,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "migemo"]
+	path = lib/migemo
+	url = https://github.com/emacs-jp/migemo
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering
