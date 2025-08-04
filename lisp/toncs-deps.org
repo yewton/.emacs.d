@@ -100,8 +100,6 @@
 
     (:name org-appear :checkout "eb9f9db40aa529fe4b977235d86494b115281d17")
 
-    (:name minions :checkout "413b95a0d1c7c10d0f8d440d1982062b73d5ea4a")
-
     (:name vterm :checkout "c3a3a23a5eace137947524c93644204bf6b56cff")
 
     (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974")
