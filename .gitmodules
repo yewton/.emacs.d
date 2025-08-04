@@ -150,6 +150,9 @@
 [submodule "ob-restclient"]
 	path = lib/ob-restclient
 	url = https://github.com/alf/ob-restclient.el
+[submodule "olivetti"]
+	path = lib/olivetti
+	url = https://github.com/rnkn/olivetti
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem

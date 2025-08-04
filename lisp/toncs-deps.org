@@ -94,8 +94,6 @@
 
     (:name ox-hugo :checkout "60b0131e2dcd3b7108a7e0fc2cf461d792796062")
 
-    (:name olivetti :checkout "1a6a521273e70173af6dcf34e3c9f8bb97dd7afc")
-
     (:name org-appear :checkout "eb9f9db40aa529fe4b977235d86494b115281d17")
 
     (:name vterm :checkout "c3a3a23a5eace137947524c93644204bf6b56cff")
