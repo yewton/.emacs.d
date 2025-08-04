@@ -153,6 +153,9 @@
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
+[submodule "orderless"]
+	path = lib/orderless
+	url = https://github.com/oantolin/orderless
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
