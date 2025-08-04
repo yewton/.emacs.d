@@ -141,6 +141,9 @@
 [submodule "minions"]
 	path = lib/minions
 	url = https://github.com/tarsius/minions
+[submodule "moody"]
+	path = lib/moody
+	url = https://github.com/tarsius/moody
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = https://github.com/emacscollective/no-littering
