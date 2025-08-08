@@ -83,10 +83,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-extra
-  '((:name rainbow-identifiers :shallow t :branch "0.2.2")
-    (:name rainbow-delimiters :checkout "a32b39bdfe6c61c322c37226d66e1b6d4f107ed0")
-
-    (:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")
+  '((:name ts :checkout "552936017cfdec89f7fc20c254ae6b37c3f22c5b")
     (:name org-super-agenda :checkout "05a710065af5ee4b3982f9619f864f7af12ca1d3")
 
     (:name org-cliplink :checkout "82402cae7e118d67de7328417fd018a18f95fac2")

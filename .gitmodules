@@ -183,6 +183,12 @@
 [submodule "pulsar"]
 	path = lib/pulsar
 	url = https://github.com/protesilaos/pulsar
+[submodule "rainbow-delimiters"]
+	path = lib/rainbow-delimiters
+	url = https://github.com/Fanael/rainbow-delimiters
+[submodule "rainbow-identifiers"]
+	path = lib/rainbow-identifiers
+	url = https://github.com/Fanael/rainbow-identifiers
 [submodule "restclient"]
 	path = lib/restclient
 	url = https://github.com/pashky/restclient.el
