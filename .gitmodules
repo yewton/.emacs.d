@@ -195,6 +195,9 @@
 [submodule "restclient"]
 	path = lib/restclient
 	url = https://github.com/pashky/restclient.el
+[submodule "rg"]
+	path = lib/rg
+	url = https://github.com/dajva/rg.el
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el

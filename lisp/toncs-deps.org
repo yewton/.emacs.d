@@ -40,7 +40,6 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
   '((:name wgrep :checkout "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
-    (:name rg :checkout "14d4c6a754d127c5cacd58fb66bb0992faff68e4")
 
     (:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
