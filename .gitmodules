@@ -189,6 +189,9 @@
 [submodule "rainbow-identifiers"]
 	path = lib/rainbow-identifiers
 	url = https://github.com/Fanael/rainbow-identifiers
+[submodule "recursion-indicator"]
+	path = lib/recursion-indicator
+	url = https://github.com/minad/recursion-indicator
 [submodule "restclient"]
 	path = lib/restclient
 	url = https://github.com/pashky/restclient.el

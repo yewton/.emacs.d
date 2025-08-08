@@ -96,9 +96,7 @@
 
     (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974")
 
-    (:name spacious-padding :checkout "a3151f3c99d6b3b2d4644da88546476b3d31f0fe")
-
-    (:name recursion-indicator :checkout "86cc7bc8ca15bfaa2b767ff332c1f72d1b4975cf"))
+    (:name spacious-padding :checkout "a3151f3c99d6b3b2d4644da88546476b3d31f0fe"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
