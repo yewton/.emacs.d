@@ -36,6 +36,9 @@
 [submodule "ddskk"]
 	path = lib/ddskk
 	url = https://github.com/skk-dev/ddskk
+[submodule "deflate"]
+	path = lib/deflate
+	url = https://github.com/skuro/deflate.git
 [submodule "delight"]
 	path = lib/delight
 	url = https://github.com/emacsmirror/delight
@@ -165,6 +168,9 @@
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
+[submodule "plantuml-mode"]
+	path = lib/plantuml-mode
+	url = https://github.com/skuro/plantuml-mode
 [submodule "plz"]
 	path = lib/plz
 	url = https://github.com/alphapapa/plz.el
