@@ -204,6 +204,9 @@
 [submodule "spacious-padding"]
 	path = lib/spacious-padding
 	url = https://github.com/protesilaos/spacious-padding
+[submodule "sqlite3"]
+	path = lib/sqlite3
+	url = https://github.com/pekingduck/emacs-sqlite3-api
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
