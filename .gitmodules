@@ -207,6 +207,9 @@
 [submodule "sqlite3"]
 	path = lib/sqlite3
 	url = https://github.com/pekingduck/emacs-sqlite3-api
+[submodule "ssh-config-mode"]
+	path = lib/ssh-config-mode
+	url = https://github.com/peterhoeg/ssh-config-mode-el
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
