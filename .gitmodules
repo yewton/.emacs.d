@@ -198,6 +198,9 @@
 [submodule "rg"]
 	path = lib/rg
 	url = https://github.com/dajva/rg.el
+[submodule "shackle"]
+	path = lib/shackle
+	url = https://depp.brause.cc/shackle.git
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
