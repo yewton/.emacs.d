@@ -219,6 +219,9 @@
 [submodule "vertico"]
 	path = lib/vertico
 	url = https://github.com/minad/vertico
+[submodule "visual-regexp"]
+	path = lib/visual-regexp
+	url = https://github.com/benma/visual-regexp.el
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
