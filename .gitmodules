@@ -201,6 +201,9 @@
 [submodule "shackle"]
 	path = lib/shackle
 	url = https://depp.brause.cc/shackle.git
+[submodule "spacious-padding"]
+	path = lib/spacious-padding
+	url = https://github.com/protesilaos/spacious-padding
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el

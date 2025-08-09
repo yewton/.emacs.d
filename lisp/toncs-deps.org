@@ -87,9 +87,7 @@
 
     (:name vterm :checkout "c3a3a23a5eace137947524c93644204bf6b56cff")
 
-    (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974")
-
-    (:name spacious-padding :checkout "a3151f3c99d6b3b2d4644da88546476b3d31f0fe"))
+    (:name org-modern :checkout "e306c7df4985f77e5c4e2146900259a23a76c974"))
   "無くてもそこまで困らないけど、あるとちょっと便利なパッケージ達です。")
 #+end_src
 
