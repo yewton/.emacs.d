@@ -23,8 +23,6 @@
 
     (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
 
-    (:name vertico :checkout "c7ed4310a25114344a2efc90cfb031fc35f26a29")
-
     (:name winum :checkout "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")
 
     (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf"))

@@ -14,3 +14,7 @@
 	load-path = extensions
 [submodule "emacsql"]
 	no-byte-compile = emacsql-pg.el
+[submodule "vertico"]
+	load-path = .
+	load-path = extensions
+

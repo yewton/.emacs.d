@@ -216,6 +216,9 @@
 [submodule "treesit-auto"]
 	path = lib/treesit-auto
 	url = https://github.com/renzmann/treesit-auto
+[submodule "vertico"]
+	path = lib/vertico
+	url = https://github.com/minad/vertico
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
