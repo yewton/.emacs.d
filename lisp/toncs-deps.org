@@ -65,10 +65,6 @@
     (:name emacsql :checkout "3d9622aabbf3ab925beadd12ce928370d7704573")
     (:name org-roam :checkout "0b9fcbc97b65b349826e63bad89ca121a08fd2be")
 
-    (:name simple-httpd :checkout "22ce66ea43e0eadb9ec1d691a35d9695fc29cee6")
-    (:name websocket :checkout "8604982b1207fafdef7ecdc4ba54541c1ea87212")
-    (:name org-roam-ui :checkout "5ac74960231db0bf7783c2ba7a19a60f582e91ab")
-
     (:name org-tree-slide :checkout "3faa042393ebfe5699a3bffce775f039d7416ceb"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
