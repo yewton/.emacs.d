@@ -21,9 +21,7 @@
 
     (:name ht :checkout "e83fdb8bc0a3cc8cd2687a947e2610b20b68b7d3")
 
-    (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe")
-
-    (:name which-key :checkout "8093644032854b1cdf3245ce4e3c7b6673f741bf"))
+    (:name avy :checkout "be612110cb116a38b8603df367942e2bb3d9bdbe"))
   "無いと辛すぎるパッケージ達です。")
 #+end_src
 
