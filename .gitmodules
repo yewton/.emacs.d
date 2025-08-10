@@ -225,6 +225,9 @@
 [submodule "vterm"]
 	path = lib/vterm
 	url = https://github.com/akermu/emacs-libvterm
+[submodule "wgrep"]
+	path = lib/wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el

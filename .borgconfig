@@ -21,4 +21,11 @@
 [submodule "vertico"]
 	load-path = .
 	load-path = extensions
-
+[submodule "wgrep"]
+	no-byte-compile = wgrep-ack.el
+	no-byte-compile = wgrep-deadgrep.el
+	no-byte-compile = wgrep-helm.el
+	no-byte-compile = wgrep-pt.el
+	no-byte-compile = wgrep-subtest.el
+	no-byte-compile = wgrep-test-helper.el
+	no-byte-compile = wgrep-test.el

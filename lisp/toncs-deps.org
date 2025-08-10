@@ -35,9 +35,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name wgrep :checkout "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
-
-    (:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
+  '((:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
     (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
