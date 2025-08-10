@@ -21,6 +21,10 @@
 [submodule "vertico"]
 	load-path = .
 	load-path = extensions
+[submodule "vterm"]
+	build-step = borg-update-autoloads
+	build-step = borg-compile
+	build-step = (progn (setq vterm-always-compile-module t) (require 'vterm) (vterm-module-compile))
 [submodule "wgrep"]
 	no-byte-compile = wgrep-ack.el
 	no-byte-compile = wgrep-deadgrep.el
