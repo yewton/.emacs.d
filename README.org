@@ -167,7 +167,9 @@ Emacs 27 以降導入された仕組みです。
 (push '(vertical-scroll-bars) default-frame-alist)
 
 ;; https://www.reddit.com/r/emacs/comments/1j0m18u/comment/mfch9mt/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+(push '(foreground-color . "#cccccc") default-frame-alist)
 (push '(background-color . "#000000") default-frame-alist)
+(push '(background-mode . dark) default-frame-alist)
 (push '(ns-appearance . dark) default-frame-alist)
 (push '(ns-transparent-titlebar . t) default-frame-alist)
 
