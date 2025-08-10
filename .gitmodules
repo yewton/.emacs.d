@@ -228,6 +228,9 @@
 [submodule "wgrep"]
 	path = lib/wgrep
 	url = https://github.com/mhayashi1120/Emacs-wgrep
+[submodule "winum"]
+	path = lib/winum
+	url = https://github.com/deb0ch/emacs-winum
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
