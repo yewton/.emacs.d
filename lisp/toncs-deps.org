@@ -42,8 +42,6 @@
 
     (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 
-    (:name link-hint :checkout "391930f2010014b9b5bc16bb431db01dd21ca7bd")
-
     (:name org-mru-clock :checkout "a74322f0cfd6e52151f9bb8d4f90833330f69120")
 
     (:name emacs-async :checkout "36a10151e70e956e2f766ed9e65f4a9cfc8479b2")
