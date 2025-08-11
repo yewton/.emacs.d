@@ -14,7 +14,6 @@
   '((:name el-get)
     (:name org-mode :checkout "release_9.7.23"
            :url "https://github.com/emacsmirror/org.git")
-    (:name org-contrib :checkout "release_0.6")
 
     (:name dash :checkout "fcb5d831fc08a43f984242c7509870f30983c27c")
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d")

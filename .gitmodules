@@ -165,6 +165,9 @@
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "org-contrib"]
+	path = lib/org-contrib
+	url = https://git.sr.ht/~bzg/org-contrib
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
