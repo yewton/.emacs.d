@@ -177,6 +177,9 @@
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
+[submodule "org-modern"]
+	path = lib/org-modern
+	url = https://github.com/minad/org-modern
 [submodule "org-node"]
 	path = lib/org-node
 	url = https://github.com/meedstrom/org-node
