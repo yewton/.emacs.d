@@ -162,6 +162,9 @@
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless
+[submodule "org-appear"]
+	path = lib/org-appear
+	url = https://github.com/awth13/org-appear
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
