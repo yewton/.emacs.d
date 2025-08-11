@@ -186,6 +186,9 @@
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
+[submodule "org-super-agenda"]
+	path = lib/org-super-agenda
+	url = https://github.com/alphapapa/org-super-agenda
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
@@ -234,6 +237,9 @@
 [submodule "treesit-auto"]
 	path = lib/treesit-auto
 	url = https://github.com/renzmann/treesit-auto
+[submodule "ts"]
+	path = lib/ts
+	url = https://github.com/alphapapa/ts.el
 [submodule "vertico"]
 	path = lib/vertico
 	url = https://github.com/minad/vertico
