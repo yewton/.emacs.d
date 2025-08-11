@@ -6,6 +6,9 @@
 [submodule "all-the-icons-completion"]
 	path = lib/all-the-icons-completion
 	url = https://github.com/iyefrat/all-the-icons-completion
+[submodule "async"]
+	path = lib/async
+	url = https://github.com/jwiegley/emacs-async
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = https://github.com/emacscollective/auto-compile
@@ -168,6 +171,9 @@
 [submodule "org-contrib"]
 	path = lib/org-contrib
 	url = https://git.sr.ht/~bzg/org-contrib
+[submodule "org-download"]
+	path = lib/org-download
+	url = https://github.com/abo-abo/org-download
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
