@@ -120,6 +120,9 @@
 [submodule "highlight-thing"]
 	path = lib/highlight-thing
 	url = https://github.com/fgeller/highlight-thing.el
+[submodule "ht"]
+	path = lib/ht
+	url = https://github.com/Wilfred/ht.el
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
