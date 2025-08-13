@@ -31,9 +31,6 @@
     ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
 
     (:name compat :checkout "7179960b7c82a7cca6bac60d79dd7fe09ae390a0")
-    (:name with-editor :checkout "cc86ac08bdea5bbe2503ac1df3506b5e81330e16")
-    (:name transient :checkout "902121268d72045da53c711932ff72017a33ce6c")
-    (:name magit :checkout "5876192dc6e048ba2ad5576e7a4789e22beb9877")
 
     (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 

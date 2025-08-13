@@ -144,6 +144,9 @@
 [submodule "llm"]
 	path = lib/llm
 	url = https://github.com/ahyatt/llm
+[submodule "magit"]
+	path = lib/magit
+	url = https://github.com/magit/magit
 [submodule "marginalia"]
 	path = lib/marginalia
 	url = https://github.com/minad/marginalia
@@ -237,6 +240,9 @@
 [submodule "ssh-config-mode"]
 	path = lib/ssh-config-mode
 	url = https://github.com/peterhoeg/ssh-config-mode-el
+[submodule "transient"]
+	path = lib/transient
+	url = https://github.com/magit/transient
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el
@@ -264,6 +270,9 @@
 [submodule "winum"]
 	path = lib/winum
 	url = https://github.com/deb0ch/emacs-winum
+[submodule "with-editor"]
+	path = lib/with-editor
+	url = https://github.com/magit/with-editor
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
