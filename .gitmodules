@@ -204,6 +204,12 @@
 [submodule "org-super-agenda"]
 	path = lib/org-super-agenda
 	url = https://github.com/alphapapa/org-super-agenda
+[submodule "org-tree-slide"]
+	path = lib/org-tree-slide
+	url = https://github.com/takaxp/org-tree-slide
+[submodule "ox-hugo"]
+	path = lib/ox-hugo
+	url = https://github.com/kaushalmodi/ox-hugo
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
@@ -246,6 +252,12 @@
 [submodule "ssh-config-mode"]
 	path = lib/ssh-config-mode
 	url = https://github.com/peterhoeg/ssh-config-mode-el
+[submodule "toc-org"]
+	path = lib/toc-org
+	url = https://github.com/snosov1/toc-org
+[submodule "tomelr"]
+	path = lib/tomelr
+	url = https://github.com/kaushalmodi/tomelr
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient

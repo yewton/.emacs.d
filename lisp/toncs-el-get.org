@@ -17,7 +17,7 @@
 (require 'toncs-deps)
 
 (defun toncs-el-get-compile-sources ()
-  (setq el-get-sources (append toncs-deps-minimum toncs-deps-default toncs-deps-extra toncs-deps-lang)))
+  (setq el-get-sources (append toncs-deps-minimum toncs-deps-default toncs-deps-lang)))
 
 (defun toncs-el-get-source-names (source)
   (mapcar #'el-get-source-name source))
