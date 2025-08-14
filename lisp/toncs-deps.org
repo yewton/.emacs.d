@@ -28,8 +28,6 @@
 (defconst toncs-deps-default
   '((:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 
-    (:name org-mru-clock :checkout "a74322f0cfd6e52151f9bb8d4f90833330f69120")
-
     (:name org-tree-slide :checkout "3faa042393ebfe5699a3bffce775f039d7416ceb"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
