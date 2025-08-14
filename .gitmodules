@@ -30,6 +30,9 @@
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql
+[submodule "compat"]
+	path = lib/compat
+	url = https://github.com/emacs-compat/compat
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
