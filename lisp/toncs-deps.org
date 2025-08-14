@@ -26,13 +26,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name epl :checkout "78ab7a85c08222cd15582a298a364774e3282ce6")
-    (:name pkg-info :checkout "76ba7415480687d05a4353b27fea2ae02b8d9d61")
-    ;; (:name flycheck :checkout "806f2a8c21231a0dddd0a48d27fa4021729ee365")
-
-    (:name compat :checkout "7179960b7c82a7cca6bac60d79dd7fe09ae390a0")
-
-    (:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
+  '((:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
 
     (:name org-mru-clock :checkout "a74322f0cfd6e52151f9bb8d4f90833330f69120")
 
