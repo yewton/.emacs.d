@@ -42,6 +42,9 @@
 [submodule "crux"]
 	path = lib/crux
 	url = https://github.com/bbatsov/crux
+[submodule "dash"]
+	path = lib/dash
+	url = https://github.com/magnars/dash.el
 [submodule "ddskk"]
 	path = lib/ddskk
 	url = https://github.com/skk-dev/ddskk
