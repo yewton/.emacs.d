@@ -228,6 +228,9 @@
 [submodule "plz-media-type"]
 	path = lib/plz-media-type
 	url = https://github.com/r0man/plz-media-type
+[submodule "projectile"]
+	path = lib/projectile
+	url = https://github.com/bbatsov/projectile
 [submodule "pulsar"]
 	path = lib/pulsar
 	url = https://github.com/protesilaos/pulsar

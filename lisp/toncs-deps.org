@@ -23,7 +23,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218"))
+  '()
   "あると幸せになれるパッケージ達です。")
 #+end_src
 
