@@ -117,6 +117,9 @@
 [submodule "groovy-mode"]
 	path = lib/groovy-mode
 	url = https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes
+[submodule "hcl-mode"]
+	path = lib/hcl-mode
+	url = https://github.com/hcl-emacs/hcl-mode
 [submodule "helpful"]
 	path = lib/helpful
 	url = https://github.com/Wilfred/helpful
@@ -252,6 +255,12 @@
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
+[submodule "sbt-mode"]
+	path = lib/sbt-mode
+	url = https://github.com/hvesalai/emacs-sbt-mode
+[submodule "scala-mode"]
+	path = lib/scala-mode
+	url = https://github.com/hvesalai/emacs-scala-mode
 [submodule "shackle"]
 	path = lib/shackle
 	url = https://depp.brause.cc/shackle.git
@@ -264,6 +273,12 @@
 [submodule "ssh-config-mode"]
 	path = lib/ssh-config-mode
 	url = https://github.com/peterhoeg/ssh-config-mode-el
+[submodule "swift-mode"]
+	path = lib/swift-mode
+	url = https://github.com/swift-emacs/swift-mode
+[submodule "terraform-mode"]
+	path = lib/terraform-mode
+	url = https://github.com/hcl-emacs/terraform-mode
 [submodule "toc-org"]
 	path = lib/toc-org
 	url = https://github.com/snosov1/toc-org
@@ -306,6 +321,9 @@
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
+[submodule "yaml-mode"]
+	path = lib/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet

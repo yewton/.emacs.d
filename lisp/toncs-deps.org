@@ -31,15 +31,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-lang
-  '((:name yaml-mode :checkout "3fc5a33760b0bbb6e67adbce48ab3dc4ae34b847")
-
-    (:name hcl-mode :checkout "0f2c5e")
-    (:name terraform-mode :checkout "6973d1")
-
-    (:name scala-mode :shallow t :branch "v1.0.0")
-    (:name sbt-mode :shallow t :branch "v1.0.1")
-
-    (:name swift-mode :checkout "1268425311ab20f1618df4e52cb1b79e28b553df"))
+  '()
   "各言語用のパッケージ達です。")
 #+end_src
 
