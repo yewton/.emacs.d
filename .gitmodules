@@ -180,6 +180,9 @@
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless
+[submodule "org"]
+	path = lib/org
+	url = https://github.com/emacsmirror/org.git
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear

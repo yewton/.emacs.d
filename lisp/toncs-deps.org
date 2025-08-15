@@ -12,8 +12,6 @@
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
   '((:name el-get)
-    (:name org-mode :checkout "release_9.7.23"
-           :url "https://github.com/emacsmirror/org.git")
 
     (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d"))
   "無いと辛すぎるパッケージ達です。")
@@ -25,9 +23,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-default
-  '((:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218")
-
-    (:name org-tree-slide :checkout "3faa042393ebfe5699a3bffce775f039d7416ceb"))
+  '((:name projectile :checkout "01fb6a5ef023bcfc52b209586dcb4fd13db00218"))
   "あると幸せになれるパッケージ達です。")
 #+end_src
 
