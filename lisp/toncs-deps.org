@@ -11,9 +11,7 @@
 
 #+begin_src emacs-lisp
 (defconst toncs-deps-minimum
-  '((:name el-get)
-
-    (:name s :checkout "dda84d38fffdaf0c9b12837b504b402af910d01d"))
+  '((:name el-get))
   "無いと辛すぎるパッケージ達です。")
 #+end_src
 

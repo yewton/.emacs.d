@@ -249,6 +249,9 @@
 [submodule "rg"]
 	path = lib/rg
 	url = https://github.com/dajva/rg.el
+[submodule "s"]
+	path = lib/s
+	url = https://github.com/magnars/s.el
 [submodule "shackle"]
 	path = lib/shackle
 	url = https://depp.brause.cc/shackle.git
