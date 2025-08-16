@@ -1,6 +1,0 @@
-(:name spacious-padding
-       :website "https://github.com/protesilaos/spacious-padding"
-       :description "Increase the padding/spacing of frames and windows"
-       :type github
-       :pkgname "protesilaos/spacious-padding"
-       :minimum-emacs-version "28.1")

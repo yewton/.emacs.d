@@ -1,9 +1,0 @@
-(:name emacsql
-       :description "High-level SQL database front-end."
-       :type github
-       :pkgname "magit/emacsql"
-       :compile "."
-       :build (when (version< emacs-version "29")
-                `((,el-get-emacs "--batch" "-Q" "--eval" "(delete-file \"emacsql-sqlite-builtin.el\")")))
-       :depends (sqlite3)
-       :minimum-emacs-version "25.1")

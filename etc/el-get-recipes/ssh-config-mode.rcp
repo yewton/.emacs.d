@@ -1,3 +1,0 @@
-(:name ssh-config-mode
-       :pkgname "jhgorrell/ssh-config-mode-el"
-       :type github)

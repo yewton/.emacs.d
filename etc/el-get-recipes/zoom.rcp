@@ -1,4 +1,0 @@
-(:name zoom
-       :description "Fixed and automatic balanced window layout for Emacs"
-       :type github
-       :pkgname "cyrus-and/zoom")

@@ -1,7 +1,0 @@
-(:name org-node-fakeroam
-       :website "https://github.com/meedstrom/org-node-fakeroam"
-       :description "Stand-ins for org-roam-autosync-mode"
-       :type github
-       :pkgname "meedstrom/org-node-fakeroam"
-       :depends (compat org-node org-roam emacsql persist)
-       :minimum-emacs-version "28.1")

@@ -1,6 +1,0 @@
-(:name go-translate
-       :website "https://github.com/lorniu/go-translate"
-       :description "Translation framework supports multiple engines such as Google/Bing/DeepL"
-       :type github
-       :pkgname "lorniu/go-translate"
-       :minimum-emacs-version "27.1")

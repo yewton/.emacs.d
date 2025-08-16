@@ -1,6 +1,0 @@
-(:name compat
-       :website "https://github.com/emacs-compat/compat"
-       :description "Compatibility Library for Emacs Lisp"
-       :type github
-       :pkgname "emacs-compat/compat"
-       :minimum-emacs-version "24.3")

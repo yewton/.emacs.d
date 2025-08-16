@@ -1,6 +1,0 @@
-(:name ef-themes
-       :website "https://protesilaos.com/emacs/ef-themes"
-       :description "Colorful and legible themes"
-       :type github
-       :pkgname "protesilaos/ef-themes"
-       :minimum-emacs-version "27.1")

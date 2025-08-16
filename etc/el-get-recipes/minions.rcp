@@ -1,6 +1,0 @@
-(:name minions
-       :website "https://github.com/tarsius/minions"
-       :description "A minor-mode menu for the mode line"
-       :type github
-       :pkgname "tarsius/minions"
-        :minimum-emacs-version "25.2")

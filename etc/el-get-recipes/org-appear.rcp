@@ -1,7 +1,0 @@
-(:name org-appear
-       :website "https://github.com/awth13/org-appear"
-       :description "Auto-toggle Org elements"
-       :type github
-       :pkgname "awth13/org-appear"
-       :depends (org-mode)
-       :minimum-emacs-version "25.1")

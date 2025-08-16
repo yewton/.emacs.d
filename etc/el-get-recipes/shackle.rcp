@@ -1,5 +1,0 @@
-(:name shackle
-       :description "Enforce rules for popups."
-       :website "https://depp.brause.cc/shackle/"
-       :type git
-       :url "https://depp.brause.cc/shackle.git")

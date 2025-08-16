@@ -1,7 +1,0 @@
-(:name svg-lib
-       :website "https://github.com/rougier/svg-lib"
-       :description "SVG tags, progress bars & icons"
-       :type github
-       :pkgname "rougier/svg-lib"
-       :compile "svg-lib.el"
-       :minimum-emacs-version "27.1")

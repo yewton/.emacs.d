@@ -100,7 +100,7 @@ lsb_release -a
 
 通常起動かバッチモードかに依らず、常に実行したい処理です。
 
-ロードパスと autoload の設定が主にやりたいことです。
+ロードパス設定が主にやりたいことです。
 
 #+begin_src emacs-lisp :comments no :padline no
 ;;; toncs-bootstrap.el -*- lexical-binding: t; no-byte-compile: t; -*-
@@ -110,11 +110,7 @@ lsb_release -a
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(defvar el-get-dir (expand-file-name "var/el-get" user-emacs-directory))
-
-(dolist (dir (list (expand-file-name "el-get" el-get-dir)
-                   (expand-file-name "lisp" user-emacs-directory)))
-    (add-to-list 'load-path dir))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (setq load-prefer-newer t)
 (setq package-enable-at-startup nil)
@@ -126,20 +122,6 @@ lsb_release -a
 ;; batch モードでいちいち出てくるのはウザいので…
 (when noninteractive
   (setq byte-compile-warnings '(not obsolete)))
-
-(defvar el-get-install-skip-emacswiki-recipes t)
-(defvar el-get-install-shallow-clone t)
-(defvar el-get-byte-compile (not (getenv "EL_GET_SKIP_BYTE_COMPILE")))
-(unless (require 'el-get nil t)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/yewton/el-get/yewton-test/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(require 'toncs-el-get)
-(toncs-el-get-init)
-(el-get 'sync)
 #+end_src
 
 #+begin_src emacs-lisp :comments no
@@ -209,16 +191,11 @@ Emacs 27 以降導入された仕組みです。
 #+end_src
 
 #+begin_src emacs-lisp
+(require 'toncs-stdlib)
 (toncs-init)
 #+end_src
 
-#+begin_src emacs-lisp
-(require 'toncs-el-get)
-(toncs-el-get-init)
-(el-get 'sync)
-#+end_src
-
-一部のパッケージは [[https://emacsmirror.net/manual/borg][Borg]] で管理しているので、その設定。
+パッケージの依存関係は [[https://emacsmirror.net/manual/borg][Borg]] で管理しているので、その設定。
 
 #+begin_src emacs-lisp
 (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))

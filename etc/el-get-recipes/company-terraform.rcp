@@ -1,4 +1,0 @@
-(:name company-terraform
-       :pkgname "rafalcieslak/emacs-company-terraform"
-       :type github
-       :depends (company-mode terraform-mode))

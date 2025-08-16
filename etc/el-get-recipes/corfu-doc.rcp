@@ -1,7 +1,0 @@
-(:name corfu-doc
-       :website "https://github.com/galeo/corfu-doc"
-       :description "Documentation popup for Corfu"
-       :type github
-       :pkgname "galeo/corfu-doc"
-       :depends (corfu)
-       :minimum-emacs-version "26.0")

@@ -3,12 +3,8 @@
   (load "toncs-bootstrap")
   (load "early-init"))
 
+(require 'toncs-stdlib)
 (toncs-init)
-
-(require 'toncs-el-get)
-
-(toncs-el-get-init)
-(el-get 'sync)
 
 (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
 (require 'borg)

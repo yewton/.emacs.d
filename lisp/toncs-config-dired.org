@@ -5,10 +5,6 @@
 ;;; toncs-config-dired.el -*- lexical-binding: t -*-
 #+end_src
 
-本来は明示的に ~dired~ を呼ぶまではロードされないはずだから、
-こういう風にファイルを分けておくのは良いことなのだけれど、
-~el-get-core~ が ~(require 'dired)~ してしまっているので、起動時には必ずロードされてしまっている…。
-
 #+begin_src emacs-lisp
 (require 'dired)
 (require 'org-download)

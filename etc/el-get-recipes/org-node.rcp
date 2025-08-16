@@ -1,9 +1,0 @@
-(:name org-node
-       :website "https://github.com/meedstrom/org-node"
-       :description "Link org-id entries into a network"
-       :type github
-       :pkgname "meedstrom/org-node"
-       :depends (compat llama)
-       :compile ("\\.el$")
-       :load-path (".")
-       :minimum-emacs-version "28.1")

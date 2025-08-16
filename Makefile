@@ -10,7 +10,6 @@ DICTS := $(addprefix SKK-JISYO.,L jinmei geo station propernoun)
 DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
 KAOMOJI_DICT := $(DICT_DIR)kaomoji.skk.utf8
 KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoji.skk.utf8
-STATUS := ./var/el-get/.status.el
 ERROR_ON_WARN ?= nil
 
 ifeq ($(OS_NAME),darwin)
@@ -30,9 +29,6 @@ $(ELS): %.el: %.org
 $(INITS) $(ELS):
 	emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
 	touch "$@"
-
-$(STATUS): $(addsuffix .el,toncs-bootstrap $(addprefix lisp/toncs-,deps stdlib el-get))
-	emacs --quick --batch --load toncs-bootstrap.el --load toncs-el-get --funcall toncs-el-get-install
 
 lib/borg/borg.el:
 	make -f borg.mk bootstrap-borg

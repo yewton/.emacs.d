@@ -1,4 +1,0 @@
-(:name company-org-roam
-       :pkgname "org-roam/company-org-roam"
-       :depends (company-mode dash org-roam)
-       :type github)

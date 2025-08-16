@@ -1,7 +1,0 @@
-(:name org-roam
-       :description "Rudimentary Roam replica with Org-mode"
-       :type github
-       :depends (dash emacsql f org-mode s)
-       :pkgname "org-roam/org-roam"
-       :compile ("\\.el$" "extensions")
-       :load-path ("." "extensions"))

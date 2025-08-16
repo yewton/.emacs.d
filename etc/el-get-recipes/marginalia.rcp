@@ -1,7 +1,0 @@
-(:name marginalia
-       :website "https://github.com/minad/marginalia"
-       :description "Enrich existing commands with completion annotations"
-       :type github
-       :pkgname "minad/marginalia"
-       :depends (compat)
-       :minimum-emacs-version "26.1")

@@ -1,7 +1,0 @@
-(:name corfu
-       :website "https://github.com/minad/corfu"
-       :description "Completion Overlay Region FUnction"
-       :type github
-       :pkgname "minad/corfu"
-       :load-path ("." "extensions")
-       :minimum-emacs-version "27.1")

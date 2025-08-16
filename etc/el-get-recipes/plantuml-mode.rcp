@@ -1,4 +1,0 @@
-(:name plantuml-mode
-       :description "Major mode for PlantUML."
-       :type github
-       :pkgname "skuro/plantuml-mode")
