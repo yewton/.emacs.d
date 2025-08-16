@@ -37,8 +37,7 @@
     "s" #'dirvish-quicksort    ; remapped `dired-sort-toggle-or-edit'
     "v" #'dirvish-vc-menu      ; remapped `dired-view-file'
     "r" #'wdired-change-to-wdired-mode
-    "TAB" #'dired-subtree-toggle
-    "M-c" #'dired-collapse-mode
+    "TAB" #'dirvish-subtree-toggle
     "M-f" #'dirvish-history-go-forward
     "M-b" #'dirvish-history-go-backward
     "M-l" #'dirvish-ls-switches-menu
