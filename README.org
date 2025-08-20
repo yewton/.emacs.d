@@ -69,10 +69,10 @@ lsb_release -a
 #+end_src
 
 #+RESULTS:
-| Distributor ID: | Ubuntu           |
-| Description:    | Ubuntu 22.04 LTS |
-| Release:        | 22.04            |
-| Codename:       | jammy            |
+| Distributor ID: | Ubuntu             |
+| Description:    | Ubuntu 24.04.3 LTS |
+| Release:        | 24.04              |
+| Codename:       | noble              |
 
 一部依存する外部コマンドが Xfce 前提になってたりします。
 
