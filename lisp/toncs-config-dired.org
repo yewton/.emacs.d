@@ -25,6 +25,7 @@
 
   (dirvish-override-dired-mode 1)
   (dirvish-peek-mode 1)
+  (setq dirvish-peek-key (list :debounce 0.5 'any))
   (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
   (setq dirvish-mode-line-format '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
   (setq mouse-1-click-follows-link nil)
@@ -48,7 +49,7 @@
     "<mouse-2>" #'dired-mouse-find-file-other-window
     "<mouse-3>" #'dired-mouse-find-file)
   (general-def
-    "<f12>" #'dirvish)
+    "<f12>" #'dirvish-side)
 
   (dirvish-define-preview eza (file)
     "Use `exa' to generate directory preview."
