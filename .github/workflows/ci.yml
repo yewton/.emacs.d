@@ -25,7 +25,7 @@ jobs:
         version: ${{ matrix.emacs_version }}
     - name: Install Homebrew dependencies (on macOS)
       if: matrix.os == 'macos-latest'
-      run: env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo cmake libtool --formula
+      run: env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool --formula
     - name: Install Homebrew dependencies (on Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: sudo apt install cmake libtool libtool-bin -y
