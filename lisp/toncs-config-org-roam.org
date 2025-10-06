@@ -57,7 +57,8 @@
 
   (add-to-list 'org-node-extra-id-dirs org-roam-directory)
   (org-mem-updater-mode)
-  (org-node-cache-mode))
+  (org-node-cache-mode)
+  (org-node-roam-accelerator-mode))
 #+end_src
 
 #+begin_src emacs-lisp :comments no
