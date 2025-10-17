@@ -847,10 +847,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * vterm
 
 #+begin_src emacs-lisp
-(require 'vterm)
-
-(toncs-config-configure vterm
-  (setq vterm-buffer-name-string "vterm %s"))
+(toncs-config-prepare vterm)
 #+end_src
 
 * treesit-auto

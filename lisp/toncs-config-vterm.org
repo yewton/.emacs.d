@@ -1,0 +1,127 @@
+#+TITLE: vterm
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-vterm.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'vterm)
+(require 'general)
+
+(defun toncs-config-vterm-configure ()
+  (setq vterm-buffer-name-string "vterm %s")
+  (setq vterm-copy-mode-remove-fake-newlines t)
+  (general-def vterm-mode-map
+    "C-c '" #'vterm-send-edit-popup)
+  (add-hook 'vterm-copy-mode-hook #'toncs-on-vterm-copy-mode))
+
+(defun toncs-on-vterm-copy-mode ()
+  ;; コピーモード時にカーソルが描画されない問題の対応
+  (if vterm-copy-mode
+      (setq cursor-type t)
+    (setq cursor-type nil)))
+
+;; 1. カスタマイズ変数の定義 (defgroup と defcustom)
+(defgroup vterm-send-edit nil
+  "Customizations for vterm-send-edit."
+  :group 'applications
+  :prefix "vterm-send-edit-")
+
+(defcustom vterm-send-edit-default-major-mode 'markdown-mode
+  "The default major mode for the edit buffer."
+  :type 'symbol
+  :group 'vterm-send-edit)
+
+(defcustom vterm-send-edit-buffer-name "*vterm-edit*"
+  "The name of the temporary buffer for editing."
+  :type 'string
+  :group 'vterm-send-edit)
+
+(defun vterm-send-edit--get-major-mode-list ()
+  "Return a list of major mode command names for completion."
+  (let (modes)
+    (mapatoms (lambda (s)
+                (when (and (commandp s) (string-match-p "-mode$" (symbol-name s)))
+                  (push (symbol-name s) modes))))
+    (sort modes #'string<)))
+
+;; 3. 構造化（マイナーモードと関連コマンドの導入）
+
+;; 送信元バッファを保持するためのバッファローカル変数
+(defvar-local vterm-send-edit--source-buffer nil
+  "The source buffer to send the string to.")
+
+(defun vterm-send-edit--send-and-kill ()
+  "Send the content to the source buffer's process and kill the edit buffer."
+  (interactive)
+  (let ((content (buffer-string)))
+    (if-let* ((source-buffer vterm-send-edit--source-buffer)
+              (source-buffer-live (buffer-live-p source-buffer)))
+        (with-current-buffer source-buffer
+          (vterm-send-string content 'paste))
+      (warn "Source buffer is no longer live. %s" vterm-send-edit--source-buffer))
+    (vterm-send-edit--quit)
+    (message "String sent.")))
+
+(defun vterm-send-edit--cancel-and-kill ()
+  "Cancel editing and kill the edit buffer."
+  (interactive)
+  (vterm-send-edit--quit)
+  (message "Canceled."))
+
+(defun vterm-send-edit--quit ()
+  (if (eq (window-buffer (selected-window))
+          (current-buffer))
+      (quit-window t)
+    (kill-buffer)))
+
+;; ポップアップバッファ専用のマイナーモード
+(define-minor-mode vterm-send-edit-mode
+  "Minor mode for the vterm edit buffer.
+Provides C-c C-c to send and C-c C-k to cancel."
+  :init-value nil
+  :lighter " vterm-edit"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-c C-c") #'vterm-send-edit--send-and-kill)
+            (define-key map (kbd "C-c C-k") #'vterm-send-edit--cancel-and-kill)
+            map)
+  ;; org-src-mode-hook を参考にしたフック
+  :global nil)
+
+;; ユーザーカスタマイズ用のフック変数
+(defvar vterm-send-edit-mode-hook nil
+  "Hook run when `vterm-send-edit-mode' is enabled.")
+
+;; 4. メインとなるインタラクティブコマンド
+(defun vterm-send-edit-popup (edit-mode)
+  "Pop up a temporary buffer to edit text and send it
+to the current buffer's process."
+  (interactive
+   (list
+    (if current-prefix-arg
+        (intern (completing-read "Major mode: "
+                                 (vterm-send-edit--get-major-mode-list)
+                                 nil t nil nil (symbol-name vterm-send-edit-default-major-mode)))
+      vterm-send-edit-default-major-mode)))
+
+  (let ((source-buffer (current-buffer)))
+    ;; ポップアップバッファを準備
+    (with-current-buffer (get-buffer-create vterm-send-edit-buffer-name)
+      (erase-buffer)
+      ;; 指定されたメジャーモードを有効化
+      (funcall edit-mode)
+      ;; 送信先バッファの情報をバッファローカル変数にセット
+      (setq vterm-send-edit--source-buffer source-buffer)
+      ;; 専用のマイナーモードを有効化（キーバインドが適用される）
+      (vterm-send-edit-mode 1)
+      ;; ユーザーカスタマイズ用のフックを実行
+      (run-hooks 'vterm-send-edit-mode-hook))
+    ;; バッファを表示
+    (pop-to-buffer vterm-send-edit-buffer-name nil t)))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-vterm)
+;;; toncs-config-vterm.el ends here
+#+end_src
