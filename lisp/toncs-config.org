@@ -790,10 +790,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (require 'shackle)
 
 (toncs-config-configure shackle
-  (dolist (rule '((compilation-mode :select nil :align below :size 0.2)
+  (dolist (rule `((compilation-mode :select nil :align below :size 0.2)
                   (calendar-mode :select t :align below :popup t)
                   (org-roam-mode :select nil :align right :size 0.33 :popup t)
-                  (helpful-mode :select t :align right :size 0.33 :popup t)))
+                  (helpful-mode :select t :align right :size 0.33 :popup t)
+                  ("*vterm-edit*" :select t :align below :popup t)
+                  ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
 #+end_src
