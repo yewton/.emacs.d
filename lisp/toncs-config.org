@@ -8,6 +8,7 @@
 #+begin_src emacs-lisp
 (require 'general)
 (require 'no-littering)
+(require 'toncs-stdlib)
 #+end_src
 
 * 設定記述用便利マクロ定義
@@ -887,6 +888,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * misc
 
 #+begin_src emacs-lisp
+(require 'browse-url)
+
 (toncs-config-configure misc
   (setq enable-local-variables :safe)
   (fset 'yes-or-no-p 'y-or-n-p)
