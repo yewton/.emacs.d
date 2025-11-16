@@ -6,26 +6,28 @@
 #+end_src
 
 #+begin_src emacs-lisp
+(require 'modus-themes)
 (require 'ef-themes)
 (require 'general)
 
 (defun toncs-config-ef-themes-configure ()
-  (setq ef-themes-headings
+  (setq modus-themes-headings
       '((1 variable-pitch 1.3)
         (2 variable-pitch 1.2)
         (agenda-date 1.3)
         (agenda-structure variable-pitch light 1.3)
         (t variable-pitch 1.1)))
-  (setq ef-themes-common-palette-overrides
+  (setq modus-themes-common-palette-overrides
         '((bg-region bg-cyan-intense)
           (fg-region fg-intense)))
-  (setq ef-themes-mixed-fonts t
-        ef-themes-variable-pitch-ui t)
+  (setq modus-themes-mixed-fonts t
+        modus-themes-variable-pitch-ui t)
   (mapc #'disable-theme custom-enabled-themes)
-  (setq ef-themes-to-toggle '(ef-duo-dark ef-duo-light))
+  (setq modus-themes-to-toggle '(ef-duo-dark ef-duo-light))
+  (modus-themes-include-derivatives-mode +1)
   ;; こうしないと、部分的にテーマが反映されなくなる
-  (add-hook 'emacs-startup-hook (lambda () (ef-themes-select 'ef-duo-dark)))
-  (general-def "<f9>" #'ef-themes-toggle))
+  (add-hook 'emacs-startup-hook (lambda () (modus-themes-load-theme 'ef-duo-dark)))
+  (general-def "<f9>" #'modus-themes-toggle))
 #+end_src
 
 #+begin_src emacs-lisp :comments no

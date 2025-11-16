@@ -168,6 +168,9 @@
 [submodule "minions"]
 	path = lib/minions
 	url = https://github.com/tarsius/minions
+[submodule "modus-themes"]
+	path = lib/modus-themes
+	url = https://github.com/protesilaos/modus-themes
 [submodule "moody"]
 	path = lib/moody
 	url = https://github.com/tarsius/moody
