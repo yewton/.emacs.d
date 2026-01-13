@@ -120,11 +120,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 ;; サイズはポイント指定したいので Float で定義(整数だとピクセルサイズ指定になる)
-(defconst toncs-config-font-candidates '(("Moralerspace Neon HW" . 13.0)
-                                         ("PlemolJP" . 13.0)
+(defconst toncs-config-font-candidates '(;("Moralerspace Neon HW" . 13.0)
+                                         ("PlemolJP Console NF" . 13.0)
                                          ("Noto Sans Mono" . 14.0)))
 
-(defconst toncs-config-vp-font-candidates '(("Moralerspace Xenon JPDOC" . 13.0)
+(defconst toncs-config-vp-font-candidates '(;("Moralerspace Xenon JPDOC" . 13.0)
+                                            ("PlemolJP35" . 13.0)
                                             ("IBM Plex Sans JP" . 13.0)
                                             ("Noto Sans CJK JP" . 14.0)))
 
