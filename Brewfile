@@ -37,4 +37,4 @@ cask "font-ibm-plex-sans-jp"
 cask "font-plemol-jp"
 cask "font-plemol-jp-nf"
 
-brew "emacs-plus@30", args: %w{with-ctags with-xwidgets with-imagemagick}
+cask "emacs-plus-app"
