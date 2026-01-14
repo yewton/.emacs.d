@@ -18,8 +18,14 @@ jobs:
         emacs_version: [29.2, 30.1, 30.2, snapshot]
 
     steps:
+    - name: Cache git folder
+      uses: actions/cache@v3
+      with:
+        path: ./.git
+        key: git-folder
     - uses: actions/checkout@v3
-    - run: git -c submodule.fetchJobs=0 -c fetch.parallel=0 submodule update --init --depth 1
+      with:
+        submodules: recursive
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
