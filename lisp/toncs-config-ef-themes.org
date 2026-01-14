@@ -25,6 +25,7 @@
   (mapc #'disable-theme custom-enabled-themes)
   (setq modus-themes-to-toggle '(ef-duo-dark ef-duo-light))
   (modus-themes-include-derivatives-mode +1)
+  (modus-themes-load-theme 'ef-duo-dark)
   ;; こうしないと、部分的にテーマが反映されなくなる
   (add-hook 'emacs-startup-hook (lambda () (modus-themes-load-theme 'ef-duo-dark)))
   (general-def "<f9>" #'modus-themes-toggle))
