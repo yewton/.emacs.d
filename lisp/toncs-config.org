@@ -134,7 +134,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                                               "Noto Color Emoji"
                                               "Noto Emoji"))
 
-(defconst toncs-config-symbolsfont-candidates '("Noto Sans Symbols2"))
+(defconst toncs-config-symbolsfont-candidates '("Noto Sans Symbols2" "Noto Sans Symbols 2"))
 
 (defun toncs-find-font (candidates)
   "CANDIDATES の中から有効なフォントを返します。"
