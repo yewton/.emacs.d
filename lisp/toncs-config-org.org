@@ -109,6 +109,7 @@
                     0 ; discard and don't wait for the program to terminate
                     nil ; do not display
                     "-title" title
+                    "-sound" "Purr"
                     "-group" "toncs-org-show-notification"
                     "-message" (or msg "")
                     sender-or-activate "org.gnu.Emacs")))
