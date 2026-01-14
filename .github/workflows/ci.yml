@@ -32,6 +32,7 @@ jobs:
     - name: Add texinfo path
       if: matrix.os == 'macos-latest'
       run: echo "/usr/local/opt/texinfo/bin" >> $GITHUB_PATH
+    - run: make -f borg.mk bootstrap-fast
     - run: make test
       env:
         ERROR_ON_WARN: t

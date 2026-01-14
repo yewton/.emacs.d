@@ -1,6 +1,6 @@
 DRONES_DIR = $(shell git config "borg.drones-directory" || echo "lib")
 INIT_FILES = borg-init.el
-EMACS_ARGUMENTS = -Q --batch --load toncs-bootstrap.el
+EMACS_ARGUMENTS = -Q --batch
 MAKE = make -f borg.mk
 
 -include $(DRONES_DIR)/borg/borg.mk
