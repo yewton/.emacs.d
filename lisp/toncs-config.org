@@ -503,6 +503,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (setq migemo-user-dictionary (no-littering-expand-var-file-name "migemo-user-dict"))
   (setq migemo-regex-dictionary (no-littering-expand-var-file-name "migemo-regex-dict"))
   (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
+  (setq migemo-use-default-isearch-keybinding nil)
 
   (setq orderless-matching-styles '(toncs-orderless-migemo))
 
