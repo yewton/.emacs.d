@@ -13,6 +13,7 @@
   (setq vterm-buffer-name-string "vterm %s")
   (setq vterm-copy-mode-remove-fake-newlines t)
   (general-def vterm-mode-map
+    "C-q" #'vterm-send-next-key
     "C-c '" #'vterm-send-edit-popup)
   (add-hook 'vterm-copy-mode-hook #'toncs-on-vterm-copy-mode))
 

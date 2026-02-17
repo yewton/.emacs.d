@@ -626,8 +626,23 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   "See https://stackoverflow.com/a/268205/2142831 ."
   (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
 
+(defun toncs-server-gemini-edit-setup()
+  (when (and buffer-file-name (string-match-p "/gemini-edit-.+/buffer\\.txt\\'" buffer-file-name))
+    (general-def 'local
+      "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer-and-window))
+      "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer-and-window)))
+    ;; どんな手段でバッファが kill されてもウィンドウを追従させる
+    (add-hook 'kill-buffer-hook
+              (lambda ()
+                (let ((window (get-buffer-window (current-buffer))))
+                  (when (and window (window-parent window))
+                    (delete-window window))))
+              nil 'local)))
+
 (toncs-config-configure server
   (add-hook 'server-visit-hook #'toncs-server-visit-hook-function)
+  (setq server-window #'pop-to-buffer)
+  (add-hook 'markdown-mode-hook #'toncs-server-gemini-edit-setup)
   (unless (server-running-p) (server-start)))
 #+end_src
 
@@ -798,6 +813,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   (org-roam-mode :select nil :align right :size 0.33 :popup t)
                   (helpful-mode :select t :align right :size 0.33 :popup t)
                   ("*vterm-edit*" :select t :align below :popup t)
+                  ("/gemini-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
