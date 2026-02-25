@@ -629,8 +629,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (defun toncs-server-gemini-edit-setup()
   (when (and buffer-file-name (string-match-p "/gemini-edit-.+/buffer\\.txt\\'" buffer-file-name))
     (general-def 'local
-      "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer-and-window))
-      "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer-and-window)))
+      "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer (current-buffer)))
+      "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer (current-buffer))))
     ;; どんな手段でバッファが kill されてもウィンドウを追従させる
     (add-hook 'kill-buffer-hook
               (lambda ()
