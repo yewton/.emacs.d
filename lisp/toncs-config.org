@@ -643,6 +643,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-hook 'server-visit-hook #'toncs-server-visit-hook-function)
   (setq server-window #'pop-to-buffer)
   (add-hook 'markdown-mode-hook #'toncs-server-gemini-edit-setup)
+  (add-to-list 'auto-mode-alist
+             '("/gemini-edit-.*/buffer\\.txt\\'" . markdown-mode))
   (unless (server-running-p) (server-start)))
 #+end_src
 
