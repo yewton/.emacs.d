@@ -626,8 +626,10 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   "See https://stackoverflow.com/a/268205/2142831 ."
   (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
 
-(defun toncs-server-gemini-edit-setup()
-  (when (and buffer-file-name (string-match-p "/gemini-edit-.+/buffer\\.txt\\'" buffer-file-name))
+(defun toncs-server-prompt-edit-setup()
+  (when (and buffer-file-name (or
+                               (string-match-p "/gemini-edit-.+/buffer\\.txt\\'" buffer-file-name)
+                               (string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" buffer-file-name)))
     (general-def 'local
       "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer (current-buffer)))
       "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer (current-buffer))))
@@ -642,9 +644,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure server
   (add-hook 'server-visit-hook #'toncs-server-visit-hook-function)
   (setq server-window #'pop-to-buffer)
-  (add-hook 'markdown-mode-hook #'toncs-server-gemini-edit-setup)
   (add-to-list 'auto-mode-alist
              '("/gemini-edit-.*/buffer\\.txt\\'" . markdown-mode))
+  (add-hook 'markdown-mode-hook #'toncs-server-prompt-edit-setup)
   (unless (server-running-p) (server-start)))
 #+end_src
 
@@ -816,6 +818,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   (helpful-mode :select t :align right :size 0.33 :popup t)
                   ("*vterm-edit*" :select t :align below :popup t)
                   ("/gemini-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
+                  ("/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" :regexp t :select t :align below :popup t)
                   ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
