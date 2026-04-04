@@ -820,6 +820,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   ("*vterm-edit*" :select t :align below :popup t)
                   ("/gemini-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" :regexp t :select t :align below :popup t)
+                  ("/claude-prompt-.+\\.md\\'" :regexp t :select t :align below :popup t)
                   ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
