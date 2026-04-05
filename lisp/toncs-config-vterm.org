@@ -9,13 +9,43 @@
 (require 'vterm)
 (require 'general)
 
+;; PlemolJP Console NF が持たない Dingbats 文字（Claude Code スピナー等）を
+;; 視覚的に近い収録済み文字へ置換する display-table。
+;; 全 vterm バッファで共有するため定数として一度だけ生成する。
+(defconst toncs-vterm-display-table
+  (let ((dt (make-display-table)))
+    (dolist (pair '((#x2722 . ?✚)   ; ✢→✚ 4スポーク系     U+271A HEAVY GREEK CROSS
+                    (#x2731 . ?∗)   ; ✱→∗ アスタリスク系  U+2217 ASTERISK OPERATOR
+                    (#x2732 . ?∗)   ; ✲→∗
+                    (#x2733 . ?∗)   ; ✳→∗
+                    (#x2734 . ?★)   ; ✴→★ 星形            U+2605 BLACK STAR
+                    (#x2735 . ?★)   ; ✵→★
+                    (#x2736 . ?★)   ; ✶→★
+                    (#x2737 . ?★)   ; ✷→★
+                    (#x2738 . ?★)   ; ✸→★
+                    (#x2739 . ?★)   ; ✹→★
+                    (#x273A . ?∗)   ; ✺→∗
+                    (#x273B . ?∗)   ; ✻→∗
+                    (#x273C . ?✿)   ; ✼→✿ 花形            U+273F BLACK FLORETTE
+                    (#x273D . ?✿)   ; ✽→✿
+                    (#x273E . ?✿))) ; ✾→✿
+      (aset dt (car pair) (vector (make-glyph-code (cdr pair) 'default))))
+    dt))
+
+(defun toncs-vterm-setup-display-table ()
+  "vterm でシンボルフォントへのフォールバックを防ぎ行高ガタつきを解消する。
+PlemolJP Console NF が持たない Dingbats 文字（Claude Code スピナー等）を
+`toncs-vterm-display-table' で置換し、フォントフォールバック自体を抑止する。"
+  (setq buffer-display-table toncs-vterm-display-table))
+
 (defun toncs-config-vterm-configure ()
   (setq vterm-buffer-name-string "vterm %s")
   (setq vterm-copy-mode-remove-fake-newlines t)
   (general-def vterm-mode-map
     "C-q" #'vterm-send-next-key
     "C-c '" #'vterm-send-edit-popup)
-  (add-hook 'vterm-copy-mode-hook #'toncs-on-vterm-copy-mode))
+  (add-hook 'vterm-copy-mode-hook #'toncs-on-vterm-copy-mode)
+  (add-hook 'vterm-mode-hook #'toncs-vterm-setup-display-table))
 
 (defun toncs-on-vterm-copy-mode ()
   ;; コピーモード時にカーソルが描画されない問題の対応

@@ -158,9 +158,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (when (fboundp 'set-fontset-font)
       (set-fontset-font t 'symbol font-entity) ;; 記号系もデフォルトはメインのフォントにする
       ;; メインのフォントに無い記号のフォールバック設定
-      (dolist (font (list emojifont symbolsfont))
-        (when font
-          (set-fontset-font t 'symbol font nil 'append))))
+      ;; サイズをメインフォントと揃えることで行高ガタつきを防ぐ
+      (let ((size (font-get font-entity :size)))
+        (dolist (font (list emojifont symbolsfont))
+          (when font
+            (set-fontset-font t 'symbol (font-spec :family font :size size) nil 'append)))))
     (when font-entity
       (dolist (face '(default fixed-pitch))
         (set-face-attribute face nil :font font-entity)))
