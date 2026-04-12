@@ -17,7 +17,6 @@
 (defconst toncs-vterm-display-table
   (let ((dt (make-display-table)))
     (dolist (pair '((#xb7 . ?) ; ·→
-                    (#x2a . ?) ; *→
                     (#x273B . ?) ; ✻→
                     (#x273D . ?) ; ✽→
                     (#x2736 . ?) ; ✶→
