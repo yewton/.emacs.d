@@ -136,6 +136,7 @@
 
   (general-def 'override
     "C-c C-x i" #'org-mru-clock-in
+    "C-c C-x C-g" #'org-mru-clock-goto
     "C-c C-x C-j" #'org-mru-clock-select-recent-task)
   (setq org-mru-clock-how-many 100)
   (add-hook 'minibuffer-setup-hook #'org-mru-clock-embark-minibuffer-hook))
