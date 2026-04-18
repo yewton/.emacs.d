@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -qE '\"file_path\"[[:space:]]*:[[:space:]]*\"[^\"]*\\.org\"' && make lisp 2>/dev/null || true",
+            "timeout": 60,
+            "statusMessage": "Tangling .org file..."
+          }
+        ]
+      }
+    ]
+  }
+}

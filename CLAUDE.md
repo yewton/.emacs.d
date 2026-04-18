@@ -6,6 +6,13 @@
 
 **㌧ｸｽ** — yewton の個人 Emacs 設定 (`~/.emacs.d`) です。Org mode を使った Literate Emacs Config であり、設定は `.org` ファイルに記述され、`org-babel-tangle` によって `.el` ファイルに変換されます。パッケージは [Borg](https://emacsmirror.net/manual/borg)（`lib/` 配下の git サブモジュール）で管理されます。
 
+対応 Emacs バージョンは @.github/workflows/ci.yml の `emacs_version` マトリクスを参照してください。
+
+## 作業スタイル
+
+- 実装前に計画を提案し、承認を得てから着手すること
+- 回答は簡潔に
+
 ## よく使うコマンド
 
 ```sh
@@ -60,6 +67,10 @@ make -f borg.mk bootstrap-fast
 - **`toncs-config-prepare FEATURE &rest BODY`** — `toncs-config-FEATURE` から `toncs-config-FEATURE-configure` を autoload し、`FEATURE` のロード後に実行されるよう設定します。BODY は即時評価されます（キーバインド設定など）。
 
 `toncs-config-install` は登録された configure / prepare 関数をすべて実行します。
+
+### コーディング規則
+
+- 独自シンボルには `toncs-` プレフィクスを付ける（例: `toncs-config-configure`）
 
 ### パッケージ管理（Borg）
 
