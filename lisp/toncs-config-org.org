@@ -42,18 +42,6 @@
   (when buffer-file-name
     (org-babel-load-file buffer-file-name 'compile)))
 
-(defun toncs-should-make-toncs (file)
-  (and
-   file
-   (file-exists-p file)
-   (toncs-safe-file-in-directory-p file user-emacs-directory)
-   (not (string-prefix-p (expand-file-name no-littering-var-directory) file))))
-
-(defun toncs-org-mode-hook-function ()
-  (let ((file buffer-file-name))
-    (when (toncs-should-make-toncs file)
-      (add-hook 'after-save-hook #'toncs-make-toncs nil t))))
-
 (defun toncs-org-src-mode-hook-function ()
   (when (and (eq major-mode 'emacs-lisp-mode)
              (boundp 'flycheck-disabled-checkers))
@@ -312,7 +300,6 @@ restart `org-mode' if necessary."
 
   (delight '((org-indent-mode nil "org-indent")
              (org-src-mode nil "org-src")))
-  (add-hook 'org-mode-hook #'toncs-org-mode-hook-function)
   (add-hook 'org-mode-hook #'org-modern-mode)
   (add-hook 'org-src-mode-hook #'toncs-org-src-mode-hook-function))
 #+end_src
