@@ -216,6 +216,9 @@
 [submodule "org-node"]
 	path = lib/org-node
 	url = https://github.com/meedstrom/org-node
+[submodule "org-node-ui-lite"]
+	path = lib/org-node-ui-lite
+	url = https://github.com/yewton/org-node-ui-lite.git
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
@@ -276,6 +279,9 @@
 [submodule "shell-maker"]
 	path = lib/shell-maker
 	url = https://github.com/xenodium/shell-maker
+[submodule "simple-httpd"]
+	path = lib/simple-httpd
+	url = https://github.com/skeeto/emacs-web-server
 [submodule "spacious-padding"]
 	path = lib/spacious-padding
 	url = https://github.com/protesilaos/spacious-padding
