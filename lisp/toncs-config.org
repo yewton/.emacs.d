@@ -222,18 +222,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     (add-hook hook #'goggles-mode)))
 #+end_src
 
-* amx
-
-#+begin_src emacs-lisp :tangle no
-(require 'amx)
-
-(toncs-config-configure amx
-  (setq amx-history-length 9)
-  ;; emacs -q の時に Warning が出まくってウルサイので鎮める
-  (when noninteractive (setq amx-save-file nil))
-  (amx-mode 1))
-#+end_src
-
 * winum
 
 #+begin_src emacs-lisp
