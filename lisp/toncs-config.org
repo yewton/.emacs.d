@@ -862,6 +862,34 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-c p" #'projectile-command-map))
 #+end_src
 
+* side panel
+
+#+begin_src emacs-lisp
+(defun toncs-side-panel--toggle (side alist)
+  "SIDE のサイドウィンドウにカレントバッファを表示／削除する。"
+  (let ((win (get-window-with-predicate
+              (lambda (w) (eq (window-parameter w 'window-side) side)))))
+    (if win
+        (delete-window win)
+      (let ((buf (current-buffer))
+            (w (display-buffer-in-side-window
+                (current-buffer)
+                `((side . ,side) (slot . 0) ,@alist))))
+        (set-window-parameter w 'no-delete-other-windows t)
+        (set-window-dedicated-p w buf)
+        (select-window w)))))
+
+(defun toncs-side-panel-bottom ()
+  "ボトムパネルをトグルする。"
+  (interactive)
+  (toncs-side-panel--toggle 'bottom '((window-height . 0.3))))
+
+(defun toncs-side-panel-right ()
+  "ライトパネルをトグルする。"
+  (interactive)
+  (toncs-side-panel--toggle 'right '((window-width . 0.4))))
+#+end_src
+
 * vterm
 
 #+begin_src emacs-lisp
