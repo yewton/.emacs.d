@@ -16,14 +16,14 @@
 ## よく使うコマンド
 
 ```sh
-# .org ファイルを tangle して .el を生成し、lisp/ をバイトコンパイル
+# .org ファイルを tangle して .el を生成し、lisp/ をバイトコンパイル（+ 辞書ファイル生成）
 make
+
+# tangle + バイトコンパイル（辞書ファイル生成を除く）
+make lisp
 
 # テスト実行（バッチ Emacs で ERT）
 make test
-
-# tangle のみ（バイトコンパイルをスキップ）
-make lisp
 
 # 生成ファイルの削除
 make clean
@@ -35,7 +35,11 @@ make run
 make -f borg.mk bootstrap-fast
 ```
 
-`ERROR_ON_WARN=t make test` はバイトコンパイル警告をエラーとして扱います（CI と同様）。
+`ERROR_ON_WARN=t make test` はバイトコンパイル警告をエラーとして扱います（CI と同様）。`/verify` スキルはこのコマンドを実行します。
+
+### .org ファイルでの特殊文字
+
+PUA 領域（NerdFont 等、U+E000〜U+F8FF や U+F0000〜）の文字を `.org` ファイルに書く場合、文字リテラル（`?文字`）は書き込みツールによって欠落する場合があります。数値コードポイント（例: `#xf444`）を使ってください。
 
 ## アーキテクチャ
 
