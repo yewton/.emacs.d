@@ -896,6 +896,12 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-prepare vterm)
 #+end_src
 
+* ghostel
+
+#+begin_src emacs-lisp
+(toncs-config-prepare ghostel)
+#+end_src
+
 * treesit-auto
 
 #+begin_src emacs-lisp

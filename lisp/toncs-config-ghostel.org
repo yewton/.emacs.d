@@ -1,0 +1,42 @@
+#+TITLE: ghostel
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-ghostel.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'ghostel)
+
+;; PlemolJP Console NF が持たない Dingbats 文字（Claude Code スピナー等）を
+;; 視覚的に近い収録済み文字へ置換する display-table。
+;; https://medium.com/@kyletmartinez/reverse-engineering-claudes-ascii-spinner-animation-eec2804626e0
+;; https://github.com/anthropics/claude-code/issues/41007
+(defconst toncs-ghostel-display-table
+  (let ((dt (make-display-table)))
+    (dolist (pair '((#xb7   . #xf444)  ; ·→
+                    (#x23FA . #xf444)  ; ⏺→
+                    (#x273B . #xf2dc)  ; ✻→
+                    (#x273D . #xeeb1)  ; ✽→
+                    (#x2736 . #xf069)  ; ✶→
+                    (#x2733 . #xf06c4) ; ✳→󰛄
+                    (#x2722 . #xe36f)  ; ✢→
+                    ))
+      (aset dt (car pair) (vector (make-glyph-code (cdr pair) 'default))))
+    dt))
+
+(defun toncs-ghostel-mode-setup ()
+  "ghostel バッファの初期設定を行う。
+シンボルフォントへのフォールバックによる行高のガタつきを抑制し、
+行間設定を無効化してアスキーアート等の表示崩れを防ぐ。"
+  (setq buffer-display-table toncs-ghostel-display-table)
+  (setq line-spacing 0))
+
+(defun toncs-config-ghostel-configure ()
+  (add-hook 'ghostel-mode-hook #'toncs-ghostel-mode-setup))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-ghostel)
+;;; toncs-config-ghostel.el ends here
+#+end_src

@@ -105,6 +105,9 @@
 [submodule "general"]
 	path = lib/general
 	url = https://github.com/noctuid/general.el
+[submodule "ghostel"]
+	path = lib/ghostel
+	url = https://github.com/dakra/ghostel
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
