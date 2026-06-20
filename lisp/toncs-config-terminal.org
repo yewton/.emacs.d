@@ -1,0 +1,40 @@
+#+TITLE: terminal
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-terminal.el -*- lexical-binding: t -*-
+#+end_src
+
+ターミナル系（vterm・ghostel）で共有する表示設定をまとめた共通ライブラリ。
+
+#+begin_src emacs-lisp
+;; PlemolJP Console NF が持たない Dingbats 文字（Claude Code スピナー等）を
+;; 視覚的に近い収録済み文字へ置換する display-table。
+;; https://medium.com/@kyletmartinez/reverse-engineering-claudes-ascii-spinner-animation-eec2804626e0
+;; https://github.com/anthropics/claude-code/issues/41007
+;; 全ターミナルバッファで共有するため定数として一度だけ生成する。
+(defconst toncs-terminal-display-table
+  (let ((dt (make-display-table)))
+    (dolist (pair '((#xb7   . #xf444)  ; ·→
+                    (#x23FA . #xf444)  ; ⏺→
+                    (#x273B . #xf2dc)  ; ✻→
+                    (#x273D . #xeeb1)  ; ✽→
+                    (#x2736 . #xf069)  ; ✶→
+                    (#x2733 . #xf06c4) ; ✳→󰛄
+                    (#x2722 . #xe36f)  ; ✢→
+                    ))
+      (aset dt (car pair) (vector (make-glyph-code (cdr pair) 'default))))
+    dt))
+
+(defun toncs-terminal-mode-setup ()
+  "ターミナルバッファの初期設定を行う。
+シンボルフォントへのフォールバックによる行高のガタつきを抑制し、
+行間設定を無効化してアスキーアート等の表示崩れを防ぐ。"
+  (setq buffer-display-table toncs-terminal-display-table)
+  (setq line-spacing 0))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-terminal)
+;;; toncs-config-terminal.el ends here
+#+end_src

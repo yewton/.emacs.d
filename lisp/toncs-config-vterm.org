@@ -8,31 +8,7 @@
 #+begin_src emacs-lisp
 (require 'vterm)
 (require 'general)
-
-;; PlemolJP Console NF が持たない Dingbats 文字（Claude Code スピナー等）を
-;; 視覚的に近い収録済み文字へ置換する display-table。
-;; https://medium.com/@kyletmartinez/reverse-engineering-claudes-ascii-spinner-animation-eec2804626e0
-;; https://github.com/anthropics/claude-code/issues/41007
-;; 全 vterm バッファで共有するため定数として一度だけ生成する。
-(defconst toncs-vterm-display-table
-  (let ((dt (make-display-table)))
-    (dolist (pair '((#xb7 . ?) ; ·→
-                    (#x23FA . ?) ; ⏺→
-                    (#x273B . ?) ; ✻→
-                    (#x273D . ?) ; ✽→
-                    (#x2736 . ?) ; ✶→
-                    (#x2733 . ?󰛄) ; ✳→󰛄
-                    (#x2722 . ?) ; ✢→
-                    ))
-      (aset dt (car pair) (vector (make-glyph-code (cdr pair) 'default))))
-    dt))
-
-(defun toncs-vterm-mode-setup ()
-  "vterm バッファの初期設定を行う。
-シンボルフォントへのフォールバックによる行高のガタつきを抑制し、
-行間設定を無効化してアスキーアート等の表示崩れを防ぐ。"
-  (setq buffer-display-table toncs-vterm-display-table)
-  (setq line-spacing 0))
+(require 'toncs-config-terminal)
 
 (defun toncs-config-vterm-configure ()
   (setq vterm-buffer-name-string "vterm %s")
@@ -41,7 +17,7 @@
     "C-q" #'vterm-send-next-key
     "C-c '" #'vterm-send-edit-popup)
   (add-hook 'vterm-copy-mode-hook #'toncs-on-vterm-copy-mode)
-  (add-hook 'vterm-mode-hook #'toncs-vterm-mode-setup))
+  (add-hook 'vterm-mode-hook #'toncs-terminal-mode-setup))
 
 (defun toncs-on-vterm-copy-mode ()
   ;; コピーモード時にカーソルが描画されない問題の対応
