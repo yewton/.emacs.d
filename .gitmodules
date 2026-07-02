@@ -349,3 +349,6 @@
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
+[submodule "spinner"]
+	path = lib/spinner
+	url = https://github.com/emacsmirror/spinner
