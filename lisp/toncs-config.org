@@ -609,16 +609,60 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 #+begin_src emacs-lisp
 (require 'server)
+(require 'cape)
 
 (defun toncs-server-visit-hook-function ()
   "See https://stackoverflow.com/a/268205/2142831 ."
   (remove-hook 'kill-emacs-query-functions #'server-kill-emacs-query-function))
 
-(defun toncs-server-prompt-edit-setup()
-  (when (and buffer-file-name (or
-                               (string-match-p "/gemini-edit-.+/buffer\\.txt\\'" buffer-file-name)
-                               (string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" buffer-file-name)
-                               (string-match-p "/claude-prompt-.+\\.md\\'" buffer-file-name)))
+(defun toncs-server-prompt-root ()
+  "emacsclient 接続時に送られてくる `-dir' (呼び出し元 cwd) を返す。"
+  (and server-buffer-clients
+       (process-get (car server-buffer-clients) 'server-client-directory)))
+
+(defun toncs-claude-command-names-in (dir)
+  "DIR (.claude/commands 相当) 以下の *.md からコマンド名一覧を作る。"
+  (when (file-directory-p dir)
+    (mapcar (lambda (file)
+              (string-replace
+               "/" ":" (file-name-sans-extension (file-relative-name file dir))))
+            (directory-files-recursively dir "\\.md\\'"))))
+
+(defun toncs-claude-skill-names-in (dir)
+  "DIR (.claude/skills 相当) 直下から SKILL.md を持つスキル名一覧を作る。"
+  (when (file-directory-p dir)
+    (seq-filter
+     (lambda (name)
+       (file-exists-p (expand-file-name (concat name "/SKILL.md") dir)))
+     (directory-files dir nil "\\`[^.]"))))
+
+(defun toncs-claude-command-candidates ()
+  "プロジェクト・ユーザ双方から利用可能なスラッシュコマンド名一覧を返す。"
+  (let ((root (or (toncs-server-prompt-root) default-directory)))
+    (delete-dups
+     (append
+      (toncs-claude-command-names-in (expand-file-name ".claude/commands" root))
+      (toncs-claude-command-names-in (expand-file-name "~/.claude/commands"))
+      (toncs-claude-skill-names-in (expand-file-name ".claude/skills" root))
+      (toncs-claude-skill-names-in (expand-file-name "~/.claude/skills"))))))
+
+(defun toncs-claude-command-capf ()
+  "バッファ先頭が / で始まる場合にスラッシュコマンド名を補完する。"
+  (when (save-excursion (goto-char (point-min)) (looking-at-p "/"))
+    (let* ((beg (1+ (point-min)))
+           (end (point)))
+      (when (and (<= beg end)
+                 (not (string-match-p "[ \t\n]"
+                                       (buffer-substring-no-properties beg end))))
+        (list beg end (toncs-claude-command-candidates) :exclusive 'no)))))
+
+(defun toncs-server-prompt-edit-setup ()
+  "See https://stackoverflow.com/a/268205/2142831 ."
+  (when-let* ((file buffer-file-name)
+              (kind (cond
+                     ((string-match-p "/gemini-edit-.+/buffer\\.txt\\'" file) 'gemini)
+                     ((string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" file) 'copilot)
+                     ((string-match-p "/claude-prompt-.+\\.md\\'" file) 'claude))))
     (general-def 'local
       "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer (current-buffer)))
       "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer (current-buffer))))
@@ -628,7 +672,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                 (let ((window (get-buffer-window (current-buffer))))
                   (when (and window (window-parent window))
                     (delete-window window))))
-              nil 'local)))
+              nil 'local)
+    ;; ファイル名補完をポップアップ元 (プロジェクトルート) 基準にする
+    (setq-local cape-file-directory
+                (lambda () (or (toncs-server-prompt-root) default-directory)))
+    (when (eq kind 'claude)
+      (setq-local cape-file-prefix (cons "@" (ensure-list cape-file-prefix)))
+      (add-hook 'completion-at-point-functions #'toncs-claude-command-capf nil t))))
 
 (toncs-config-configure server
   (add-hook 'server-visit-hook #'toncs-server-visit-hook-function)
