@@ -7,11 +7,27 @@
 
 #+begin_src emacs-lisp
 (require 'dired)
+(require 'dired-aux)
 (require 'org-download)
 (require 'general)
 (require 'dirvish)
 (require 'dirvish-subtree)
 (require 'embark)
+
+(defun toncs-dired-add-entry (oldfun &rest args)
+  "`dirvish-subtree' で展開したディレクトリは `dired-subdir-alist' に
+登録されないため、そこへドラッグ&ドロップ等でファイルを追加すると
+`dired-add-entry' が \"This cannot happen\" エラーを送出する
+（ファイル自体は正しい場所に配置済み）。その場合は差分更新を諦めて
+バッファ全体を revert する。無関係なエラーまで握り潰さないよう、
+サブツリー展開中かつこのエラーメッセージのときだけフォールバックする。"
+  (condition-case err
+      (apply oldfun args)
+    (error
+     (if (and (bound-and-true-p dirvish-subtree--overlays)
+              (equal (error-message-string err) "This cannot happen"))
+         (revert-buffer)
+       (signal (car err) (cdr err))))))
 
 (defun toncs-config-dired-configure ()
   (setq dired-dwim-target t)
@@ -22,6 +38,8 @@
     (when gls
       (setq insert-directory-program gls)))
   (setq dired-listing-switches "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
+
+  (advice-add 'dired-add-entry :around #'toncs-dired-add-entry)
 
   (dirvish-override-dired-mode 1)
   (dirvish-peek-mode 1)
