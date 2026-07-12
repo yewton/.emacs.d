@@ -27,6 +27,12 @@ make lisp
 # テスト実行（バッチ Emacs で ERT）
 make test
 
+# 単一テストの実行（SELECTOR は ERT セレクタ。テスト名の正規表現など。事前に make でビルドしておくこと）
+emacs --batch --load ert --load test/init-test.el --eval '(ert-run-tests-batch-and-exit "SELECTOR")'
+
+# ターミナル内でこの設定の Emacs を起動（make run の -nw 版）
+make run-nw
+
 # 生成ファイルの削除
 make clean
 
@@ -90,12 +96,15 @@ git submodule add <url> lib/<pkg>
 make -f borg.mk build-fast
 ```
 
+Claude Code からの追加は `/add-drone` スキル（`.claude/skills/add-drone`）を使ってください。
+
 ### ディレクトリ構成
 
 - `lib/` — Borg ドローンパッケージ（git サブモジュール）
 - `lisp/` — ユーザ設定の `.org` ファイルと生成された `.el` ファイル
 - `var/` — ランタイムデータ（SKK 辞書、el-get、ellama セッション等）
-- `test/` — ERT テスト（`init-test.el`）
+- `test/` — ERT テスト（`init-test.el`。bootstrap から `toncs-config-install` まで実際の起動処理を通すスモークテスト）
+- `openspec/` — OpenSpec による変更提案・スペック管理（`/opsx:*` スキルが使用）
 - `res/` — 静的アセット（Org agenda 用 SVG アイコン）
 - `etc/` — その他の設定データ
 - `tree-sitter/` — tree-sitter 文法ファイル
