@@ -30,7 +30,20 @@ $(INITS) $(ELS):
 	emacs --quick --batch --load "ob" --eval "(org-babel-tangle-file \"$<\")"
 	touch "$@"
 
-lisp: $(ELS) toncs-bootstrap.el
+# drone (lib/ 配下の submodule) が index の記録とずれているときだけ同期する。
+# git diff / git submodule update はどちらも index と比較するので、
+# 意図的に進めた drone は `git add lib/<drone>` でステージしておけば同期対象にならない。
+borg:
+	@sync=0; \
+	git diff --quiet --ignore-submodules=dirty -- lib 2>/dev/null || sync=1; \
+	for p in lib/*/; do [ -e "$$p.git" ] || sync=1; done; \
+	if [ "$$sync" = 1 ]; then \
+		printf "\n=== Syncing drones ===\n\n"; \
+		git submodule update --init; \
+		$(MAKE) -f borg.mk build-fast; \
+	fi
+
+lisp: borg $(ELS) toncs-bootstrap.el
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
 	-L lib/borg --load borg --funcall borg-initialize --eval "(batch-byte-recompile-directory 0)" lisp
 

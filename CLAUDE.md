@@ -17,6 +17,8 @@
 
 ```sh
 # .org ファイルを tangle して .el を生成し、lisp/ をバイトコンパイル（+ 辞書ファイル生成）
+# drone が index の記録とずれていれば git submodule update --init と drone のビルドも行う
+# （意図的に進めた drone は git add lib/<drone> でステージしておけば同期対象にならない）
 make
 
 # tangle + バイトコンパイル（辞書ファイル生成を除く）
