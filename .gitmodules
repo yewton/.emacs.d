@@ -39,6 +39,9 @@
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat
+[submodule "cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
@@ -289,6 +292,9 @@
 [submodule "spacious-padding"]
 	path = lib/spacious-padding
 	url = https://github.com/protesilaos/spacious-padding
+[submodule "spinner"]
+	path = lib/spinner
+	url = https://github.com/emacsmirror/spinner
 [submodule "sqlite3"]
 	path = lib/sqlite3
 	url = https://github.com/pekingduck/emacs-sqlite3-api
@@ -349,6 +355,3 @@
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
-[submodule "spinner"]
-	path = lib/spinner
-	url = https://github.com/emacsmirror/spinner
