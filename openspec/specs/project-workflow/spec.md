@@ -38,6 +38,15 @@ magit-status（`embark-magit-status`）が起動できること。
 - **WHEN** `C-x p p` の補完候補上で `embark-act`（`C-.`）を実行し `v` を押す
 - **THEN** その候補のリポジトリで magit-status が開く
 
+### Requirement: プロジェクトの VC 操作は magit で行う
+`project-prefix-map` の `v` は素の `project-vc-dir` ではなく
+`magit-project-status` にバインドされ、プロジェクトルートで magit-status を
+開かなければならない（MUST）。
+
+#### Scenario: プロジェクトの magit-status を開く
+- **WHEN** プロジェクト内で `C-x p v` を実行する
+- **THEN** そのプロジェクトルートの magit-status バッファが開く
+
 ### Requirement: consult のプロジェクト検出は project.el に従う
 consult のプロジェクト検出（`consult-project-function`）はデフォルト値のまま
 project.el ベースで動作しなければならない（MUST）。独自の上書きを行わない。

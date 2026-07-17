@@ -887,8 +887,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * project
 
 #+begin_src emacs-lisp
+(require 'project)
+
 (toncs-config-configure project
-  (setq project-switch-commands #'project-dired))
+  (setq project-switch-commands #'project-dired)
+  ;; projectile-vc の手癖を引き継ぎ、素の vc-dir ではなく magit を開く
+  (general-def project-prefix-map
+    "v" #'magit-project-status))
 #+end_src
 
 * side panel
