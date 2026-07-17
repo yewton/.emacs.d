@@ -21,6 +21,12 @@
 [submodule "vertico"]
 	load-path = .
 	load-path = extensions
+[submodule "ghostel"]
+	build-step = borg-update-autoloads
+	build-step = borg-compile
+	build-step = borg-maketexi
+	build-step = borg-makeinfo
+	build-step = (progn (require 'ghostel-module-install) (ghostel--download-module (ghostel--module-directory) nil t))
 [submodule "vterm"]
 	build-step = borg-update-autoloads
 	build-step = borg-compile
