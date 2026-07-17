@@ -285,8 +285,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-." #'embark-act
     "M-." #'embark-dwim)
   (general-def embark-file-map
-    "v" #'embark-magit-status)
-  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+    "v" #'embark-magit-status))
 #+end_src
 
 * vertico + orderless + consult
@@ -395,7 +394,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     "C-x C-z" #'toncs-open-junk-file)
 
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-  (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
   (vertico-mode)
   (vertico-multiform-mode 1)
   (setq vertico-multiform-commands
@@ -405,7 +403,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
-   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+   consult-source-recent-file consult-source-project-recent-file consult-source-bookmark
    :preview-key "M-."))
 #+end_src
 
