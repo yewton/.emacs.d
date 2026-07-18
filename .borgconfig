@@ -6,7 +6,6 @@
 	load-path = extensions
 [submodule "org-mem"]
 	load-path = .
-	load-path = lisp
 [submodule "org-node"]
 	no-maketexi = README.org
 [submodule "org-roam"]
