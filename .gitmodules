@@ -319,6 +319,9 @@
 [submodule "treesit-auto"]
 	path = lib/treesit-auto
 	url = https://github.com/renzmann/treesit-auto
+[submodule "truename-cache"]
+	path = lib/truename-cache
+	url = https://github.com/meedstrom/truename-cache
 [submodule "ts"]
 	path = lib/ts
 	url = https://github.com/alphapapa/ts.el
