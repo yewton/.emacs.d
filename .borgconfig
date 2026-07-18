@@ -5,6 +5,13 @@
 	load-path = .
 	load-path = extensions
 [submodule "org-mem"]
+	# デフォルト値と同じだが意図的に明示している。borg-load-path の
+	# フォールバックは lisp/ ディレクトリが存在するとそれ「だけ」を
+	# load-path にする。org-mem はかつて lisp/ を同梱しており、その頃の
+	# 残骸（未追跡ファイル）が worktree に残っているマシンでは、明示が
+	# ないとルートの org-mem.el が load-path から外れてビルドが壊れる。
+	# 全マシンで lib/org-mem/lisp/ が存在しないことを確認できたら、
+	# このセクションごと削除してよい。
 	load-path = .
 [submodule "org-node"]
 	no-maketexi = README.org
