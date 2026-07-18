@@ -12,6 +12,7 @@
 
 - 実装前に計画を提案し、承認を得てから着手すること
 - 回答は簡潔に
+- OpenSpec change（`/opsx:*`）の実装は master へ直接コミットせず、change 名を含むブランチ（例: `change/<change-name>`）で作業し、Pull Request として提出すること。マージはユーザが行う
 
 ## よく使うコマンド
 
