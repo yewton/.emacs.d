@@ -1,6 +1,5 @@
 DRONES_DIR = $(shell git config "borg.drones-directory" || echo "lib")
 INIT_FILES = borg-init.el
-EMACS_ARGUMENTS = -Q --batch
 MAKE = make -f borg.mk
 
 -include $(DRONES_DIR)/borg/borg.mk
@@ -13,8 +12,7 @@ bootstrap-borg:
 
 # up-to-date なら再コンパイルしない build
 build-fast:
-	$(Q)$(EMACS) $(EMACS_ARGUMENTS) $(EMACS_EXTRA) $(SILENCIO) \
-	$(BORG_ARGUMENTS) \
+	$(Q)$(EMACS_BATCH) $(BORG_ARGS) \
     --eval "(setq borg-compile-function (lambda (file) (byte-recompile-file file nil 0)))" \
 	--eval "(advice-add 'borg-clean :around #'ignore)" \
 	--eval "(advice-add 'borg--remove-autoloads :around #'ignore)" \
@@ -26,7 +24,7 @@ bootstrap-fast:
 	$(Q)printf "\n=== Running '$(BORG_DIR)borg.sh clone' ===\n"
 	$(Q)$(BORG_DIR)borg.sh clone
 	$(Q)printf "\n=== Running '$(BORG_DIR)borg.sh checkout' ===\n"
-	$(Q)$(BORG_DIR)borg.sh checkout --reset-hard
+	$(Q)$(BORG_DIR)borg.sh checkout
 	$(Q)printf "\n=== Running 'make rebuild' ===\n\n"
 	$(Q)$(MAKE) build-fast
 	$(Q)printf "\n=== Bootstrapping finished ===\n\n"
