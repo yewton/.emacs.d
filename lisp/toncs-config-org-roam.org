@@ -55,7 +55,6 @@
   (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
   (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
 
-  (add-to-list 'org-node-extra-id-dirs org-roam-directory)
   (org-mem-updater-mode)
   (org-node-cache-mode)
   (org-node-roam-accelerator-mode))
