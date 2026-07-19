@@ -1,0 +1,159 @@
+#+TITLE: org-node
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org-node.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org)
+(require 'org-capture)
+(require 'general)
+(require 'org-node)
+(require 'org-node-seq)
+(require 'org-node-context)
+(require 'org-mem)
+(require 'consult)
+
+(defvar toncs-roam-directory (expand-file-name "roam" org-directory))
+
+(defun toncs-org-node-search ()
+  (interactive)
+  (consult-ripgrep toncs-roam-directory))
+
+(defun toncs-org-node--capture-read-ref ()
+  "capture テンプレート内で ROAM_REFS の値をミニバッファから読み取り、空文字列を返す。
+読み取った値はグローバル変数ではなく capture の plist に保持する。
+capture はネストし得るため、capture ごとに隔離される場所でないと
+外側の capture の値が内側に消費されてしまう。"
+  (org-capture-put :toncs-org-node-ref (read-string "ROAM_REFS: "))
+  "")
+
+(defun toncs-org-node--capture-set-ref ()
+  "\"r\" capture テンプレートの `:before-finalize' フック。
+`toncs-org-node--capture-read-ref' が読み取った値をファイル先頭の
+プロパティドロワーに ROAM_REFS として設定する。"
+  (when-let ((ref (org-capture-get :toncs-org-node-ref 'local)))
+    (org-with-wide-buffer
+     (goto-char (point-min))
+     (org-entry-put nil "ROAM_REFS" ref))))
+
+(defun toncs-org-node--daily-creator (sortstr _key)
+  "デイリーノートの seq `:creator'。SORTSTR は YYYY-MM-DD 形式の日付文字列。
+`org-node-new-file' はヘッダを付けないため、既存デイリーと同じヘッダ構成
+（setupfile・タイトル・Notes 見出し）を自前で組み立てる。"
+  (let ((org-node-file-timestamp-format "")
+        (org-node-file-slug-fn #'identity)
+        (org-node-file-directory-ask (expand-file-name "daily" toncs-roam-directory)))
+    (org-node-pop-to-fresh-file-buffer sortstr)
+    (insert ":PROPERTIES:"
+            "\n:ID:       " (org-id-new)
+            "\n:END:"
+            "\n#+setupfile: ../../roam-setup.org"
+            "\n#+title: " sortstr
+            "\n\n* Notes\n")
+    (push (current-buffer) org-node--new-unsaved-buffers)
+    ;; `org-node-new-file' と同様、見出しへ降りる前の file-level 位置で
+    ;; フックを走らせる。既存の ID ドロワーを検知させて `org-id-get-create'
+    ;; を no-op にし、`* Notes' 見出しに ID/CREATED が付くのを防ぐ。
+    (goto-char (point-min))
+    (run-hooks 'org-node-creation-hook)
+    (goto-char (point-max))))
+
+(defun toncs-org-node--capture-discard-on-abort ()
+  "capture 中断時、このテンプレートが作った新規ノードファイルを削除する。
+org-capture は中断時もバッファを保存してから終了するため、放置すると
+ヘッダだけの残骸ノードがディスクと org-id に残る。`org-roam-capture' が
+中断時に新規ファイルを削除していた挙動の移植。既存ノードへの capture
+中断では何もしない。"
+  (when (and org-note-abort
+             (not (org-capture-get :existing-node)))
+    (when-let* ((id (org-capture-get :id))
+                (file (org-id-find-id-file id)))
+      (when-let ((buf (find-buffer-visiting file)))
+        (with-current-buffer buf
+          (set-buffer-modified-p nil))
+        (kill-buffer buf))
+      (when (file-exists-p file)
+        (delete-file file))
+      (when (hash-table-p org-id-locations)
+        (remhash id org-id-locations)))))
+
+(defun toncs-org-node-capture ()
+  "テンプレート選択を挟まず \"d\" テンプレートでノードを capture する。
+`org-node-creation-fn' としても使う。"
+  (interactive)
+  (org-capture nil "d"))
+
+(defun toncs-org-node-capture-ref ()
+  "テンプレート選択を挟まず \"r\" テンプレートで ROAM_REFS 付きノードを capture する。"
+  (interactive)
+  (org-capture nil "r"))
+
+(defun toncs-org-node-goto-today ()
+  "今日のデイリーノートへ直行する。存在しなければ作成する。"
+  (interactive)
+  (org-node-seq-goto "d" (format-time-string "%Y-%m-%d")))
+
+(defun toncs-org-node-goto-date ()
+  "日付を選んでデイリーノートへ移動する。存在しなければ作成する。
+カレンダーには既存デイリーのある日がマークされる。"
+  (interactive)
+  (org-node-seq-goto "d" (let ((org-node-seq-that-marks-calendar "d"))
+                           (org-read-date))))
+
+(defun toncs-config-org-node-configure ()
+  (setq org-mem-do-sync-with-org-id t)
+  (make-directory toncs-roam-directory t)
+  (setq org-mem-watch-dirs (list toncs-roam-directory))
+  ;; 既存ノートの形式に合わせ、新規ノートに :CREATED: を付けない
+  (remove-hook 'org-node-creation-hook #'org-node-ensure-crtime-property)
+
+  (dolist (template
+           (list '("d" "org-node" plain (function org-node-capture-target)
+                   "#+setupfile: ../roam-setup.org\n\n* Inbox\n%?"
+                   :prepend t
+                   :after-finalize toncs-org-node--capture-discard-on-abort)
+                 '("r" "org-node ref" plain (function org-node-capture-target)
+                   "%(toncs-org-node--capture-read-ref)#+setupfile: ../roam-setup.org\n\n* Inbox\n%?"
+                   :prepend t
+                   :before-finalize toncs-org-node--capture-set-ref
+                   :after-finalize toncs-org-node--capture-discard-on-abort)
+                 '("D" "org-node daily" entry (function org-node-seq-capture-target)
+                   "* %?")))
+    (add-to-list 'org-capture-templates template))
+
+  (general-def org-mode-map
+    "C-c n l" #'org-node-context-dwim)
+
+  (setq org-node-creation-fn #'toncs-org-node-capture)
+  (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
+  (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
+  ;; `org-node-display-sort-fn' はあえて設定しない。display-sort-function
+  ;; メタデータを与えると vertico が自前のソート（ミニバッファ履歴順 =
+  ;; 最近選択したノードが先頭）を使わなくなる。org-roam-node-read も
+  ;; デフォルトではこのメタデータを渡しておらず、履歴順が従来の体感。
+  ;; 空入力で untitled ノードを作るためのヒント候補「(untitled node)」を
+  ;; 出さない（誤選択しやすく、org-roam 時代にもなかった）
+  (setq org-node-blank-input-hint nil)
+
+  ;; capture は "D" テンプレートに直行、jump のプロンプトはカレンダー式の
+  ;; 日付ピッカー（org-roam-dailies-goto-date 相当）
+  (setq org-node-seq-defs
+        (list (let ((def (org-node-seq-def-on-filepath-sort-by-basename
+                          "d" "Daily notes"
+                          (expand-file-name "daily" toncs-roam-directory)
+                          "D" t)))
+                (plist-put (cdr def) :creator #'toncs-org-node--daily-creator)
+                def)))
+
+  (org-mem-updater-mode)
+  (org-node-cache-mode)
+  (org-node-seq-mode)
+  (org-node-context-follow-mode))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org-node)
+;;; toncs-config-org-node.el ends here
+#+end_src

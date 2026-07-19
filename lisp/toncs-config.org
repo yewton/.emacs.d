@@ -100,17 +100,22 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 (toncs-config-prepare org-attach)
 
-(autoload 'toncs-org-roam-search "toncs-config-org-roam")
-(toncs-config-prepare org-roam
-  (defvar org-roam-v2-ack t)
+(autoload 'toncs-org-node-search "toncs-config-org-node")
+(autoload 'toncs-org-node-goto-today "toncs-config-org-node")
+(autoload 'toncs-org-node-goto-date "toncs-config-org-node")
+(autoload 'toncs-org-node-capture "toncs-config-org-node")
+(autoload 'toncs-org-node-capture-ref "toncs-config-org-node")
+(toncs-config-prepare org-node
   (general-def
-    "C-c n f" #'org-roam-node-find
-    "C-c n g" #'org-roam-graph
-    "C-c n t" #'org-roam-dailies-goto-today
-    "C-c n c" #'org-roam-capture
-    "C-c n s" #'toncs-org-roam-search)
+    "C-c n f" #'org-node-find
+    "C-c n t" #'toncs-org-node-goto-today
+    "C-c n d" #'toncs-org-node-goto-date
+    "C-c n T" #'org-node-seq-dispatch
+    "C-c n c" #'toncs-org-node-capture
+    "C-c n r" #'toncs-org-node-capture-ref
+    "C-c n s" #'toncs-org-node-search)
   (general-def org-mode-map
-    "C-c n i" #'org-roam-node-insert))
+    "C-c n i" #'org-node-insert-link))
 
 (toncs-config-prepare org-modern)
 #+end_src
@@ -846,7 +851,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure shackle
   (dolist (rule `((compilation-mode :select nil :align below :size 0.2)
                   (calendar-mode :select t :align below :popup t)
-                  (org-roam-mode :select nil :align right :size 0.33 :popup t)
+                  (org-node-context-mode :select nil :align right :size 0.33 :popup t)
                   (helpful-mode :select t :align right :size 0.33 :popup t)
                   ("*vterm-edit*" :select t :align below :popup t)
                   ("/gemini-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
