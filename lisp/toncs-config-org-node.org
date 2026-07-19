@@ -1,0 +1,109 @@
+#+TITLE: org-node
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-org-node.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'org)
+(require 'org-capture)
+(require 'general)
+(require 'org-node)
+(require 'org-node-seq)
+(require 'org-node-context)
+(require 'org-mem)
+(require 'consult)
+
+(defvar toncs-roam-directory (expand-file-name "roam" org-directory))
+
+(defun toncs-org-node-search ()
+  (interactive)
+  (consult-ripgrep toncs-roam-directory))
+
+(defvar toncs-org-node--capture-ref nil
+  "\"r\" capture テンプレートで読み取った ROAM_REFS の値を一時的に保持する。")
+
+(defun toncs-org-node--capture-read-ref ()
+  "capture テンプレート内で ROAM_REFS の値をミニバッファから読み取り、空文字列を返す。"
+  (setq toncs-org-node--capture-ref (read-string "ROAM_REFS: "))
+  "")
+
+(defun toncs-org-node--capture-set-ref ()
+  "\"r\" capture テンプレートの `:before-finalize' フック。
+`toncs-org-node--capture-read-ref' が読み取った値をファイル先頭の
+プロパティドロワーに ROAM_REFS として設定する。"
+  (when toncs-org-node--capture-ref
+    (org-with-wide-buffer
+     (goto-char (point-min))
+     (org-entry-put nil "ROAM_REFS" toncs-org-node--capture-ref))
+    (setq toncs-org-node--capture-ref nil)))
+
+(defun toncs-org-node--daily-creator (sortstr _key)
+  "デイリーノートの seq `:creator'。SORTSTR は YYYY-MM-DD 形式の日付文字列。
+`org-node-new-file' はヘッダを付けないため、既存デイリーと同じヘッダ構成
+（setupfile・タイトル・Notes 見出し）を自前で組み立てる。"
+  (let ((org-node-file-timestamp-format "")
+        (org-node-file-slug-fn #'identity)
+        (org-node-file-directory-ask (expand-file-name "daily" toncs-roam-directory)))
+    (org-node-pop-to-fresh-file-buffer sortstr)
+    (insert ":PROPERTIES:"
+            "\n:ID:       " (org-id-new)
+            "\n:END:"
+            "\n#+setupfile: ../../roam-setup.org"
+            "\n#+title: " sortstr
+            "\n\n* Notes\n")
+    (push (current-buffer) org-node--new-unsaved-buffers)
+    ;; `org-node-new-file' と同様、見出しへ降りる前の file-level 位置で
+    ;; フックを走らせる。既存の ID ドロワーを検知させて `org-id-get-create'
+    ;; を no-op にし、`* Notes' 見出しに ID/CREATED が付くのを防ぐ。
+    (goto-char (point-min))
+    (run-hooks 'org-node-creation-hook)
+    (goto-char (point-max))))
+
+(defun toncs-org-node-goto-today ()
+  "今日のデイリーノートへ直行する。存在しなければ作成する。"
+  (interactive)
+  (org-node-seq-goto "d" (format-time-string "%Y-%m-%d")))
+
+(defun toncs-config-org-node-configure ()
+  (setq org-mem-do-sync-with-org-id t)
+  (make-directory toncs-roam-directory t)
+  (setq org-mem-watch-dirs (list toncs-roam-directory))
+  ;; 既存ノートの形式に合わせ、新規ノートに :CREATED: を付けない
+  (remove-hook 'org-node-creation-hook #'org-node-ensure-crtime-property)
+
+  (dolist (template
+           (list '("d" "org-node" plain (function org-node-capture-target)
+                   "#+setupfile: ../roam-setup.org\n\n* Inbox\n%?"
+                   :prepend t)
+                 '("r" "org-node ref" plain (function org-node-capture-target)
+                   "%(toncs-org-node--capture-read-ref)#+setupfile: ../roam-setup.org\n\n* Inbox\n%?"
+                   :prepend t
+                   :before-finalize toncs-org-node--capture-set-ref)))
+    (add-to-list 'org-capture-templates template))
+
+  (general-def org-mode-map
+    "C-c n l" #'org-node-context-dwim)
+
+  (setq org-node-creation-fn #'org-capture)
+  (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
+  (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
+
+  (setq org-node-seq-defs
+        (list (let ((def (org-node-seq-def-on-filepath-sort-by-basename
+                          "d" "Daily notes"
+                          (expand-file-name "daily" toncs-roam-directory))))
+                (plist-put (cdr def) :creator #'toncs-org-node--daily-creator)
+                def)))
+
+  (org-mem-updater-mode)
+  (org-node-cache-mode)
+  (org-node-seq-mode)
+  (org-node-context-follow-mode))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-org-node)
+;;; toncs-config-org-node.el ends here
+#+end_src
