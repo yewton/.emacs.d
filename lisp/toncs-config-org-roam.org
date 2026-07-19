@@ -25,6 +25,7 @@
   (setq org-mem-do-sync-with-org-id t)
   (delight 'org-roam-mode nil "org-roam")
   (setq org-roam-directory (expand-file-name "roam" org-directory))
+  (make-directory org-roam-directory t)
   (setq org-roam-db-location (no-littering-expand-var-file-name "org-roam.db"))
   (setq org-mem-watch-dirs (list org-roam-directory))
   ;; Syncthing のバージョン管理用ファイルとコンフリクトファイルを無視したい

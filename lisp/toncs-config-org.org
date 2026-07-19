@@ -257,6 +257,7 @@ restart `org-mode' if necessary."
   ;; UUID の生成を外部コマンドに任せない
   (setq org-id-uuid-program "true")
   (setq org-adapt-indentation nil)
+  (make-directory toncs-org-agenda-directory t)
   (dolist (item (list toncs-org-agenda-directory org-default-notes-file))
     (add-to-list 'org-agenda-files item))
 
