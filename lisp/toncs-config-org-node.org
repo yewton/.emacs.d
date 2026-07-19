@@ -21,23 +21,22 @@
   (interactive)
   (consult-ripgrep toncs-roam-directory))
 
-(defvar toncs-org-node--capture-ref nil
-  "\"r\" capture テンプレートで読み取った ROAM_REFS の値を一時的に保持する。")
-
 (defun toncs-org-node--capture-read-ref ()
-  "capture テンプレート内で ROAM_REFS の値をミニバッファから読み取り、空文字列を返す。"
-  (setq toncs-org-node--capture-ref (read-string "ROAM_REFS: "))
+  "capture テンプレート内で ROAM_REFS の値をミニバッファから読み取り、空文字列を返す。
+読み取った値はグローバル変数ではなく capture の plist に保持する。
+capture はネストし得るため、capture ごとに隔離される場所でないと
+外側の capture の値が内側に消費されてしまう。"
+  (org-capture-put :toncs-org-node-ref (read-string "ROAM_REFS: "))
   "")
 
 (defun toncs-org-node--capture-set-ref ()
   "\"r\" capture テンプレートの `:before-finalize' フック。
 `toncs-org-node--capture-read-ref' が読み取った値をファイル先頭の
 プロパティドロワーに ROAM_REFS として設定する。"
-  (when toncs-org-node--capture-ref
+  (when-let ((ref (org-capture-get :toncs-org-node-ref 'local)))
     (org-with-wide-buffer
      (goto-char (point-min))
-     (org-entry-put nil "ROAM_REFS" toncs-org-node--capture-ref))
-    (setq toncs-org-node--capture-ref nil)))
+     (org-entry-put nil "ROAM_REFS" ref))))
 
 (defun toncs-org-node--daily-creator (sortstr _key)
   "デイリーノートの seq `:creator'。SORTSTR は YYYY-MM-DD 形式の日付文字列。
