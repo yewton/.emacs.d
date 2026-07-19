@@ -61,6 +61,17 @@
     (run-hooks 'org-node-creation-hook)
     (goto-char (point-max))))
 
+(defun toncs-org-node-capture ()
+  "テンプレート選択を挟まず \"d\" テンプレートでノードを capture する。
+`org-node-creation-fn' としても使う。"
+  (interactive)
+  (org-capture nil "d"))
+
+(defun toncs-org-node-capture-ref ()
+  "テンプレート選択を挟まず \"r\" テンプレートで ROAM_REFS 付きノードを capture する。"
+  (interactive)
+  (org-capture nil "r"))
+
 (defun toncs-org-node-goto-today ()
   "今日のデイリーノートへ直行する。存在しなければ作成する。"
   (interactive)
@@ -86,7 +97,7 @@
   (general-def org-mode-map
     "C-c n l" #'org-node-context-dwim)
 
-  (setq org-node-creation-fn #'org-capture)
+  (setq org-node-creation-fn #'toncs-org-node-capture)
   (setq org-node-file-slug-fn #'org-node-slugify-like-roam-default)
   (setq org-node-file-timestamp-format "%Y%m%d%H%M%S-")
 

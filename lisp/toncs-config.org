@@ -102,12 +102,15 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 (autoload 'toncs-org-node-search "toncs-config-org-node")
 (autoload 'toncs-org-node-goto-today "toncs-config-org-node")
+(autoload 'toncs-org-node-capture "toncs-config-org-node")
+(autoload 'toncs-org-node-capture-ref "toncs-config-org-node")
 (toncs-config-prepare org-node
   (general-def
     "C-c n f" #'org-node-find
     "C-c n t" #'toncs-org-node-goto-today
     "C-c n T" #'org-node-seq-dispatch
-    "C-c n c" #'org-capture
+    "C-c n c" #'toncs-org-node-capture
+    "C-c n r" #'toncs-org-node-capture-ref
     "C-c n s" #'toncs-org-node-search)
   (general-def org-mode-map
     "C-c n i" #'org-node-insert-link))
