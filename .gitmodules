@@ -226,9 +226,6 @@
 	path = lib/org-node-ui-lite
 	url = https://github.com/yewton/org-node-ui-lite.git
 	branch = build
-[submodule "org-roam"]
-	path = lib/org-roam
-	url = https://github.com/org-roam/org-roam
 [submodule "org-super-agenda"]
 	path = lib/org-super-agenda
 	url = https://github.com/alphapapa/org-super-agenda
