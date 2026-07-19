@@ -11,6 +11,7 @@ DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
 KAOMOJI_DICT := $(DICT_DIR)kaomoji.skk.utf8
 KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoji.skk.utf8
 ERROR_ON_WARN ?= nil
+TEST_FILES := $(wildcard test/*-test.el)
 
 ifeq ($(OS_NAME),darwin)
 	FIND := gfind
@@ -67,7 +68,7 @@ run: all
 	$(RUNEMACS) --no-init-file --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el >/dev/null 2>&1 &
 
 test: all
-	emacs --batch --load ert --load test/init-test.el -f ert-run-tests-batch-and-exit
+	emacs --batch --load ert $(addprefix --load ,$(TEST_FILES)) -f ert-run-tests-batch-and-exit
 
 run-nw: all
 	emacs --no-init-file --no-window-system --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el
