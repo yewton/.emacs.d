@@ -868,7 +868,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (require 'pulsar)
 
 (toncs-config-configure pulsar
-  (setq pulsar-pulse t)
   (setq pulsar-delay 0.05)
   (setq pulsar-iterations 20)
   (setq pulsar-face 'pulsar-blue)
