@@ -354,7 +354,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
    consult-line
    :add-history (seq-some #'thing-at-point '(region symbol)))
 
-  (setq orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq orderless-component-separator #'orderless-escapable-split)
 
   (setq xref-show-xrefs-function #'consult-xref)
   (setq xref-show-definitions-function #'consult-xref)
