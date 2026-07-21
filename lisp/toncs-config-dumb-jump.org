@@ -1,0 +1,23 @@
+#+TITLE: dumb-jump
+#+setupfile: ../setup.org
+
+専用の xref バックエンド（LSP 等）を持たない言語で ~M-.~ が空振りしないよう、
+dumb-jump を ripgrep ベースのヒューリスティックな探索によるフォールバックとして使う。
+フックの登録（有効化のタイミング）は toncs-config.org 側で行う。
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-config-dumb-jump.el -*- lexical-binding: t -*-
+#+end_src
+
+#+begin_src emacs-lisp
+(require 'dumb-jump)
+
+(defun toncs-config-dumb-jump-configure ()
+  ;; git リポジトリ内では既定で git-grep が選ばれるため、rg 中心の構成に揃える
+  (setq dumb-jump-force-searcher 'rg))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-config-dumb-jump)
+;;; toncs-config-dumb-jump.el ends here
+#+end_src
