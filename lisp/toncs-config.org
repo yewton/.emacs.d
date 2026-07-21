@@ -956,9 +956,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 ~xref-backend-functions~ は ~run-hook-with-args-until-success~ で評価されるため、
 バッファローカルな専用バックエンド（elisp-mode 等）が優先され、dumb-jump は
-それらが対応しない場合にのみ使われる。~add-hook~ の既定（prepend）で登録するのは、
-グローバルに登録される ~etags--xref-backend~（常に非 nil を返す）より前に
-置くため。append にすると dumb-jump が etags に永久に隠れてしまう。
+それらが対応しない場合にのみ使われる。 ~add-hook~ の既定（prepend）で登録するのは、
+グローバルに登録される ~etags--xref-backend~ （常に非 nil を返す）より前に置くため。
+append にすると dumb-jump が etags に永久に隠れてしまう。
 
 #+begin_src emacs-lisp
 (toncs-config-prepare dumb-jump
