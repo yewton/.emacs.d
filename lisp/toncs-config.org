@@ -952,6 +952,13 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (treesit-auto-add-to-auto-mode-alist))
 #+end_src
 
+* dumb-jump
+
+#+begin_src emacs-lisp
+(toncs-config-prepare dumb-jump
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+#+end_src
+
 * 各言語の設定
 
 ** markdown

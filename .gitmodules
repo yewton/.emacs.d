@@ -69,6 +69,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "dumb-jump"]
+	path = lib/dumb-jump
+	url = https://github.com/jacktasia/dumb-jump
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
