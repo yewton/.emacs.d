@@ -3,6 +3,7 @@
 *.elc
 \#*#
 !/test/*.el
+!/etc/borg/config.el
 /eln-cache/
 /epkgs/
 /elpa/
