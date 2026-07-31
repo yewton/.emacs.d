@@ -73,11 +73,5 @@ assimilate 後にビルドや設定で失敗して最初からやり直したい
 コミット前であれば以下でクリーンアップできる:
 
 ```sh
-git submodule deinit -f lib/<name>
-git rm -f lib/<name>
-rm -rf .git/modules/lib/<name> .git/modules/<name>
-git checkout -- .gitmodules
+.claude/skills/add-drone/scripts/abort.sh <name>
 ```
-
-（`.git/modules/` 側のパスは submodule 名によって `lib/<name>` か `<name>` のいずれかになるので
-両方 rm しても無害）
