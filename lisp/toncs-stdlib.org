@@ -24,12 +24,9 @@
 #+end_src
 
 #+begin_src emacs-lisp
-;; https://emacs.stackexchange.com/a/33523/18118
 (defun toncs-current-time-microseconds ()
   "Return the current time formatted to include microseconds."
-  (let* ((nowtime (current-time))
-         (now-ms (nth 2 nowtime)))
-    (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d]" now-ms))))
+  (format-time-string "[%Y-%m-%dT%T.%6N]"))
 
 (defun toncs-init-modifiers ()
   (when (eq window-system 'ns)
