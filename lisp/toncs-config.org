@@ -661,7 +661,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                      ((string-match-p "/gemini-edit-.+/buffer\\.txt\\'" file) 'gemini)
                      ((string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" file) 'copilot)
                      ((string-match-p "/claude-prompt-.+\\.md\\'" file) 'claude)
-                     ((string-match-p "/qwen-edit-.+/buffer\\.txt\\'" file) 'qwen))))
+                     ((string-match-p "/qwen-edit-.+/buffer\\.txt\\'" file) 'qwen)
+                     ((string-match-p "/jetski-prompt-.+\\.txt\\'" file) 'jetski))))
     (general-def 'local
       "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer (current-buffer)))
       "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer (current-buffer))))
@@ -675,8 +676,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
     ;; ファイル名補完をポップアップ元 (プロジェクトルート) 基準にする
     (setq-local cape-file-directory
                 (lambda () (or (toncs-server-prompt-root) default-directory)))
+    (setq-local cape-file-prefix (cons "@" (ensure-list cape-file-prefix)))
     (when (eq kind 'claude)
-      (setq-local cape-file-prefix (cons "@" (ensure-list cape-file-prefix)))
       (add-hook 'completion-at-point-functions #'toncs-claude-command-capf nil t))))
 
 (toncs-config-configure server
@@ -686,6 +687,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
              '("/gemini-edit-.*/buffer\\.txt\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist
              '("/qwen-edit-.*/buffer\\.txt\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist
+             '("/jetski-prompt-.+\\.txt\\'" . markdown-mode))
   (add-hook 'markdown-mode-hook #'toncs-server-prompt-edit-setup)
   (unless (server-running-p) (server-start)))
 #+end_src
@@ -861,6 +864,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   ("/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" :regexp t :select t :align below :popup t)
                   ("/claude-prompt-.+\\.md\\'" :regexp t :select t :align below :popup t)
                   ("/qwen-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
+                  ("/jetski-prompt-.+\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
