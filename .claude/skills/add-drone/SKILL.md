@@ -1,6 +1,7 @@
 ---
 name: add-drone
 description: Borg drone（lib/ 配下の git submodule として管理される Emacs パッケージ）を追加する。「パッケージを導入して」「〜.el を追加して」「drone 追加」等のリクエストで使う。
+disable-model-invocation: true
 ---
 
 新しい Emacs パッケージを Borg drone として追加する手順。

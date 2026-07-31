@@ -1,6 +1,7 @@
 ---
 name: verify
 description: CI と同等の厳密なテストを実行する。バイトコンパイル警告をエラーとして扱い、変更を確認したいときに使う。
+disable-model-invocation: true
 ---
 
 以下のコマンドを実行し、結果を報告してください：
