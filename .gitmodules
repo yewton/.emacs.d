@@ -213,6 +213,7 @@
 [submodule "org-download"]
 	path = lib/org-download
 	url = https://github.com/abo-abo/org-download
+	remote = yewton https://github.com/yewton/org-download
 [submodule "org-mem"]
 	path = lib/org-mem
 	url = https://github.com/meedstrom/org-mem
