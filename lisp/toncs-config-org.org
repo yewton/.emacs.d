@@ -47,10 +47,10 @@
              (boundp 'flycheck-disabled-checkers))
     (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
 
-(defun toncs-org-read-date-backward () (interactive) (org-eval-in-calendar '(calendar-backward-day 1)))
-(defun toncs-org-read-date-next () (interactive) (org-eval-in-calendar '(calendar-forward-week 1)))
-(defun toncs-org-read-date-previous () (interactive) (org-eval-in-calendar '(calendar-backward-week 1)))
-(defun toncs-org-read-date-forward () (interactive) (org-eval-in-calendar '(calendar-forward-day 1)))
+(defun toncs-org-read-date-backward () (interactive) (org-funcall-in-calendar '(calendar-backward-day 1)))
+(defun toncs-org-read-date-next () (interactive) (org-funcall-in-calendar '(calendar-forward-week 1)))
+(defun toncs-org-read-date-previous () (interactive) (org-funcall-in-calendar '(calendar-backward-week 1)))
+(defun toncs-org-read-date-forward () (interactive) (org-funcall-in-calendar '(calendar-forward-day 1)))
 #+end_src
 
 * org-duration
