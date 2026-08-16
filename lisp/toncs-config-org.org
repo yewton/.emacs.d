@@ -134,6 +134,28 @@
 
 #+begin_src emacs-lisp
 (require 'org-download)
+
+(defcustom toncs-org-download-attach-exclude-from-roam nil
+  "非nilなら、org-download が画像添付のために新規に :ID: を作った
+見出しに、org-node の補完候補から外れるよう自動で :ROAM_EXCLUDE: t
+を付与する。呼び出し前に既に :ID: がある見出しに画像を貼る場合は
+その見出しが元々意味のある node である可能性があるため、何もしない。
+
+デフォルトは無効。有効にするには (setq toncs-org-download-attach-exclude-from-roam t)
+を `custom-file'（例: ~/.emacs.local/init.el）に書く。"
+  :type 'boolean
+  :group 'toncs)
+
+(defun toncs-org-download--exclude-new-attach-node (orig-fn &rest args)
+  "`toncs-org-download-attach-exclude-from-roam' が非nilのとき、
+ORIG-FN 呼び出し前に :ID: が無ければ、呼び出し後に :ROAM_EXCLUDE: t を付与する。"
+  (if (not toncs-org-download-attach-exclude-from-roam)
+      (apply orig-fn args)
+    (let ((had-id (org-entry-get nil "ID")))
+      (prog1 (apply orig-fn args)
+        (unless had-id
+          (org-entry-put nil "ROAM_EXCLUDE" "t"))))))
+
 (defun toncs-config-org-org-download-configure ()
   (setq org-download-method 'attach)
   ;; ox-hugo が attachment: link abbrev に対応していないため
@@ -150,7 +172,9 @@
                                          ('gnu/linux
                                           (if toncs-wsl-p
                                               "powershell.exe '(Get-Clipboard -Format Image).Save(\"%s\")'"
-                                              "xclip -selection clipboard -target image/png -o > %s")))))
+                                              "xclip -selection clipboard -target image/png -o > %s"))))
+  (advice-add 'org-download-clipboard :around #'toncs-org-download--exclude-new-attach-node)
+  (advice-add 'org-download-image :around #'toncs-org-download--exclude-new-attach-node))
 #+end_src
 
 * org-expiry
