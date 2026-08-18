@@ -17,6 +17,21 @@
   (borg-initialize)
 
   (require 'toncs-config)
+  (require 'subr-x)
+
+  (defvar toncs-test-configure-function-snapshot
+    (mapcar
+     (lambda (prepare-function)
+       (let* ((feature (intern (string-remove-suffix
+                                 "-prepare"
+                                 (string-remove-prefix "toncs-config-" (symbol-name prepare-function)))))
+              (configure-function (intern (format "toncs-config-%s-configure" feature))))
+         (list feature configure-function (symbol-function configure-function))))
+     toncs-config-prepare-functions)
+    "`toncs-config-install' 実行前、feature がまだ何も require されていない
+時点で記録した (FEATURE CONFIGURE-FUNCTION DEFINITION) のリスト。
+`toncs-config-prepare' の autoload 宣言が別の `toncs-config-configure' に
+上書きされていないかは、feature ロード前のこのタイミングでしか観測できない。")
 
   (toncs-config-install)
 

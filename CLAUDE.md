@@ -60,6 +60,12 @@ PUA 領域（NerdFont 等、U+E000〜U+F8FF や U+F0000〜）の文字を `.org`
 
 **`lisp/` 内の `.el` ファイルは直接編集しない** — 自動生成ファイルです。対応する `.org` ファイルを編集してください。
 
+### 機能ごとの設定（`toncs-config-prepare` / `toncs-config-configure`）
+
+`toncs-config-prepare FEATURE`（`lisp/toncs-config.org` で定義）は、`toncs-config-FEATURE-configure` という関数を専用ファイル `lisp/toncs-config-FEATURE.org`（`toncs-config-FEATURE.el` に tangle される）から **autoload** する契約です。FEATURE の設定を追加・変更する前に、まず `lisp/toncs-config-FEATURE.org` が存在するか確認し、あれば必ずそちらに書いてください。`lisp/toncs-config.org` 内の同名見出しは `(toncs-config-prepare FEATURE)` の呼び出しのみを置くプレースホルダであることがあります。
+
+同じ FEATURE に対して `lisp/toncs-config.org` 側で `toncs-config-configure` を使って別実装を足すと、Emacs の `autoload` は「シンボルに既に非 autoload な関数定義があれば何もしない」仕様のため、専用ファイルの autoload 宣言が黙って握り潰され、専用ファイルの設定が一切読み込まれなくなります（気づきにくい形で regression する。コミット `88e0c8d` はこの不具合の修正）。`test/features-test.el` の `feature-FEATURE-configure-not-shadowed-test` がこれを機械的に検出します。
+
 ### パッケージ管理（Borg）
 
 パッケージは `lib/` 配下の git サブモジュールとして管理されます。Claude Code からの追加は `/add-drone` スキル（`.claude/skills/add-drone`）を使ってください。
