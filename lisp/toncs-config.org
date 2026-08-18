@@ -942,30 +942,10 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 
 * ghostel
 
-marginalia はバッファ一覧の注釈（=buffer= カテゴリ）を自前のものに
-置き換えるため、ghostel のバッファピッカー（=ghostel-list-buffers= 等）が
-表示するターミナルタイトル注釈を隠してしまう。marginalia の注釈にタイトルを
-前置することで両立させる（ghostel README の「Picker annotations」節に
-記載のレシピ）。
-
 #+begin_src emacs-lisp
 (require 'cl-lib)
 
 (toncs-config-prepare ghostel)
-
-(declare-function ghostel-marginalia-annotate-buffer nil)
-
-(toncs-config-configure ghostel
-  (with-eval-after-load 'marginalia
-    (defun ghostel-marginalia-annotate-buffer (cand)
-      "`marginalia-annotate-buffer', prefixed with the ghostel terminal title."
-      (concat (when-let* ((annotation (and (fboundp 'ghostel-annotate-buffer)
-                                           (ghostel-annotate-buffer cand))))
-                (propertize annotation 'face 'marginalia-value))
-              (marginalia-annotate-buffer cand)))
-    (dolist (category '(buffer project-buffer))
-      (cl-pushnew #'ghostel-marginalia-annotate-buffer
-                  (alist-get category marginalia-annotators)))))
 #+end_src
 
 * treesit-auto

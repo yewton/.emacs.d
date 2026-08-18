@@ -5,12 +5,27 @@
 ;;; toncs-config-ghostel.el -*- lexical-binding: t -*-
 #+end_src
 
+marginalia はバッファ一覧の注釈（ =buffer= カテゴリ）を自前のものに
+置き換えるため、ghostel のバッファピッカー（ =ghostel-list-buffers= 等）が
+表示するターミナルタイトル注釈を隠してしまう。marginalia の注釈にタイトルを
+前置することで両立させる（ghostel README の「Picker annotations」節に記載のレシピ）。
+
 #+begin_src emacs-lisp
 (require 'ghostel)
 (require 'spinner)
 (require 'toncs-config-terminal)
 
+(defun ghostel-marginalia-annotate-buffer (cand)
+  "`marginalia-annotate-buffer', prefixed with the ghostel terminal title."
+  (concat (when-let* ((annotation (and (fboundp 'ghostel-annotate-buffer)
+                                       (ghostel-annotate-buffer cand))))
+            (propertize annotation 'face 'marginalia-value))
+          (marginalia-annotate-buffer cand)))
+
 (defun toncs-config-ghostel-configure ()
+  (dolist (category '(buffer project-buffer))
+    (cl-pushnew #'ghostel-marginalia-annotate-buffer
+                (alist-get category marginalia-annotators)))
   (add-hook 'ghostel-mode-hook #'toncs-terminal-mode-setup))
 #+end_src
 
