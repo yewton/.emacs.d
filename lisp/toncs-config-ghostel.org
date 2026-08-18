@@ -12,6 +12,7 @@ marginalia はバッファ一覧の注釈（ =buffer= カテゴリ）を自前�
 
 #+begin_src emacs-lisp
 (require 'ghostel)
+(require 'marginalia)
 (require 'spinner)
 (require 'toncs-config-terminal)
 
