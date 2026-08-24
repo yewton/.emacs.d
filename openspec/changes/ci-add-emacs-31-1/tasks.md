@@ -10,4 +10,4 @@
 ## 3. 提出
 
 - [x] 3.1 変更内容が意図通りか diff を確認する
-- [ ] 3.2 ブランチを push し、Pull Request を作成する
+- [x] 3.2 ブランチを push し、Pull Request を作成する
