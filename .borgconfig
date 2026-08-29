@@ -28,6 +28,8 @@
 	load-path = .
 	load-path = extensions
 [submodule "ghostel"]
+	load-path = lisp
+	load-path = extensions/consult-ghostel
 	build-step = borg-update-autoloads
 	build-step = borg-compile
 	build-step = borg-maketexi
