@@ -5,28 +5,31 @@
 ;;; toncs-config-ghostel.el -*- lexical-binding: t -*-
 #+end_src
 
-marginalia はバッファ一覧の注釈（ =buffer= カテゴリ）を自前のものに
-置き換えるため、ghostel のバッファピッカー（ =ghostel-list-buffers= 等）が
-表示するターミナルタイトル注釈を隠してしまう。marginalia の注釈にタイトルを
-前置することで両立させる（ghostel README の「Picker annotations」節に記載のレシピ）。
+=consult-ghostel= は ghostel リポジトリの =extensions/consult-ghostel/= に
+同梱される拡張で、=.borgconfig= の =submodule.ghostel.load-path= に
+=extensions/consult-ghostel= を追加してロードパスに載せている。ロードすると
+以下が有効になる:
+
+- =consult-ghostel= / =consult-ghostel-project= — ライブプレビュー付きの
+  ターミナルバッファピッカー（名前がヒットしなければその名前で新規作成）
+- =consult-ghostel-history= — シェルのコマンド履歴から選んで端末へ流し込む
+- =consult-buffer= / =consult-project-buffer= の =g= narrow キーで
+  ghostel バッファだけに絞り込み、=consult-bookmark= に「Ghostel」グループ
+- marginalia のバッファ注釈へターミナルタイトルを前置（marginalia の
+  =buffer= / =project-buffer= 注釈が優先されてタイトルが隠れる問題を、
+  拡張側が =marginalia-annotators= 経由で解決する）
+
+marginalia のタイトル前置は =consult-ghostel= のロード時に登録されるので、
+=marginalia= を先に =require= しておく。
 
 #+begin_src emacs-lisp
 (require 'ghostel)
 (require 'marginalia)
+(require 'consult-ghostel)
 (require 'spinner)
 (require 'toncs-config-terminal)
 
-(defun ghostel-marginalia-annotate-buffer (cand)
-  "`marginalia-annotate-buffer', prefixed with the ghostel terminal title."
-  (concat (when-let* ((annotation (and (fboundp 'ghostel-annotate-buffer)
-                                       (ghostel-annotate-buffer cand))))
-            (propertize annotation 'face 'marginalia-value))
-          (marginalia-annotate-buffer cand)))
-
 (defun toncs-config-ghostel-configure ()
-  (dolist (category '(buffer project-buffer))
-    (cl-pushnew #'ghostel-marginalia-annotate-buffer
-                (alist-get category marginalia-annotators)))
   (add-hook 'ghostel-mode-hook #'toncs-terminal-mode-setup))
 #+end_src
 
