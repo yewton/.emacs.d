@@ -662,7 +662,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                      ((string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" file) 'copilot)
                      ((string-match-p "/claude-prompt-.+\\.md\\'" file) 'claude)
                      ((string-match-p "/qwen-edit-.+/buffer\\.txt\\'" file) 'qwen)
-                     ((string-match-p "/jetski-prompt-.+\\.txt\\'" file) 'jetski))))
+                     ((string-match-p "/jetski-prompt-.+\\.txt\\'" file) 'jetski)
+                     ((string-match-p "/kimi-edit-.+/prompt\\.md\\'" file) 'kimi))))
     (general-def 'local
       "C-c C-c" (lambda () (interactive) (save-buffer) (kill-buffer (current-buffer)))
       "C-c C-k" (lambda () (interactive) (set-buffer-modified-p nil) (kill-buffer (current-buffer))))
@@ -865,6 +866,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   ("/claude-prompt-.+\\.md\\'" :regexp t :select t :align below :popup t)
                   ("/qwen-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("/jetski-prompt-.+\\.txt\\'" :regexp t :select t :align below :popup t)
+                  ("/kimi-edit-.+/prompt\\.md\\'" :regexp t :select t :align below :popup t)
                   ("^\*Org Src " :regexp t :select t :align below :popup t)))
     (add-to-list 'shackle-rules rule))
   (add-hook 'emacs-startup-hook #'shackle-mode))
