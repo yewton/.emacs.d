@@ -7,8 +7,8 @@
 
 =consult-ghostel= は ghostel リポジトリの =extensions/consult-ghostel/= に
 同梱される拡張で、=.borgconfig= の =submodule.ghostel.load-path= に
-=extensions/consult-ghostel= を追加してロードパスに載せている。ロードすると
-以下が有効になる:
+=extensions/consult-ghostel= を追加してロードパスに載せている。
+=consult-ghostel-mode= を有効にすると以下が有効になる:
 
 - =consult-ghostel= / =consult-ghostel-project= — ライブプレビュー付きの
   ターミナルバッファピッカー（名前がヒットしなければその名前で新規作成）
@@ -19,13 +19,14 @@
   =buffer= / =project-buffer= 注釈が優先されてタイトルが隠れる問題を、
   拡張側が =marginalia-annotators= 経由で解決する）
 
-marginalia のタイトル前置は =consult-ghostel= のロード時に登録されるので、
-=marginalia= を先に =require= しておく。
+marginalia のタイトル前置は =consult-ghostel-mode= の有効化時に登録されるので、
+=marginalia= を先に =require= し、そのあとでモードを有効にする。
 
 #+begin_src emacs-lisp
 (require 'ghostel)
 (require 'marginalia)
 (require 'consult-ghostel)
+(consult-ghostel-mode 1)
 (require 'spinner)
 (require 'toncs-config-terminal)
 
