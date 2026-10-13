@@ -661,6 +661,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                      ((string-match-p "/gemini-edit-.+/buffer\\.txt\\'" file) 'gemini)
                      ((string-match-p "/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" file) 'copilot)
                      ((string-match-p "/claude-prompt-.+\\.md\\'" file) 'claude)
+                     ((string-match-p "/\\.codex/editor/\\.tmp[^/]+\\.md\\'" file) 'codex)
                      ((string-match-p "/qwen-edit-.+/buffer\\.txt\\'" file) 'qwen)
                      ((string-match-p "/jetski-prompt-.+\\.txt\\'" file) 'jetski)
                      ((string-match-p "/kimi-edit-.+/prompt\\.md\\'" file) 'kimi))))
@@ -688,6 +689,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
              '("/gemini-edit-.*/buffer\\.txt\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist
              '("/qwen-edit-.*/buffer\\.txt\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist
+             '("/\\.codex/editor/\\.tmp[^/]+\\.md\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist
              '("/jetski-prompt-.+\\.txt\\'" . markdown-mode))
   (add-hook 'markdown-mode-hook #'toncs-server-prompt-edit-setup)
@@ -864,6 +867,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
                   ("/gemini-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("/copilot-edit-.+/COPILOT_PROMPT\\.md\\'" :regexp t :select t :align below :popup t)
                   ("/claude-prompt-.+\\.md\\'" :regexp t :select t :align below :popup t)
+                  ("/\\.codex/editor/\\.tmp[^/]+\\.md\\'" :regexp t :select t :align below :popup t)
                   ("/qwen-edit-.+/buffer\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("/jetski-prompt-.+\\.txt\\'" :regexp t :select t :align below :popup t)
                   ("/kimi-edit-.+/prompt\\.md\\'" :regexp t :select t :align below :popup t)
