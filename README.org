@@ -47,6 +47,25 @@ sudo mandb $(gmanpath)
 
 /この場合は ~emacs --no-init-file~ で起動するので、カスタマイズの保存は出来ません。/
 
+*** 警告の検査
+
+CI は自前設定・依存パッケージ・通常起動をそれぞれ検査します。
+
+- ~ERROR_ON_WARN=t make test~ :: ~lisp/*.el~ を毎回全件コンパイルし、obsolete を含むコンパイラ警告とコンパイル失敗を検出します。診断があれば非ゼロ終了し、成功した場合は ERT を実行します。
+- ~make check-drones~ :: bootstrap 完了後に実行します。Borg の load-path と no-byte-compile 設定に従って依存パッケージを全件コンパイルし、警告・失敗を検出します。custom build step の生成物は bootstrap で用意します。
+- ~make check-startup~ :: 非 batch の Emacs を起動し、startup hook と登録済み feature のロードを検査します。生成済み bytecode と、既存 bytecode を古くした状態の２回実行し、auto-compile による再コンパイルも検査します。警告・初期化エラー・タイムアウトを失敗として扱います。
+- ~make check-warning-tests~ :: 意図的な obsolete 警告・コンパイル失敗・起動時警告などを用いて、検査自体の検出能力を確認します。
+
+通常起動の検査は、ビルド済みの専用 checkout / worktree で実行してください。
+bytecode とキャッシュを更新するため、普段使う設定から分離する必要があります。
+一時的な init directory の early-init shim で診断収集を開始し、対象 checkout の early-init.el と init.el を読み込みます。
+~user-emacs-directory~ は対象 checkout に設定し、Custom 設定と server socket は検査専用に分離します。
+Linux の CI では ~xvfb-run -a make check-startup STARTUP_ARGS=--gui~ で GUI 起動も検査します。
+
+起動検査は ~display-warning~ と同期 byte compiler の診断を収集します。
+操作時にだけ実行されるコード、遅れて発火する timer、非同期 native compilation の診断には、追加の操作シナリオや専用の検査が必要です。
+依存パッケージの既知警告も失敗になります。許容する場合は、対象と理由を特定して管理してください。
+
 ** 特徴
 
 *** macOS と Ubuntu(Xubuntu) で使えます
