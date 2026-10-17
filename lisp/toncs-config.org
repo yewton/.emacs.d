@@ -78,9 +78,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (display-time-mode 1)
   (when (boundp 'x-underline-at-descent-line)
     (setq x-underline-at-descent-line t))
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode)
-  (moody-replace-eldoc-minibuffer-message-function)
+  ;; Moody creates XPM images even when rendering a terminal mode line.
+  (when (and (display-graphic-p) (image-type-available-p 'xpm))
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode)
+    (moody-replace-eldoc-minibuffer-message-function))
   (minions-mode 1)
   (recursion-indicator-mode))
 #+end_src

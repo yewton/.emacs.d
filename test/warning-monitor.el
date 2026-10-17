@@ -6,7 +6,8 @@
 (require 'subr-x)
 
 (defconst toncs-check-root
-  (file-name-directory (directory-file-name (file-name-directory load-file-name))))
+  (file-truename
+   (file-name-directory (directory-file-name (file-name-directory load-file-name)))))
 (defconst toncs-check-monitor-file (file-truename load-file-name))
 (defvar toncs-check-diagnostics nil
   "Diagnostic plists with severity, origin, source file, and message.")
@@ -24,7 +25,7 @@
 (defun toncs-check-add (severity file message)
   "Record MESSAGE at SEVERITY and classify its source FILE."
   (let ((entry (list :severity severity :origin (toncs-check-origin file)
-                     :file (and file (file-relative-name file toncs-check-root))
+                     :file (and file (file-relative-name (file-truename file) toncs-check-root))
                      :message message)))
     ;; Emacs can replay the same delayed warning after startup.
     (unless (member entry toncs-check-diagnostics)

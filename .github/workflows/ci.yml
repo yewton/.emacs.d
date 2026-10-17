@@ -36,26 +36,33 @@ jobs:
       run: env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool cmigemo --formula
     - name: Install Homebrew dependencies (on Ubuntu)
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt install cmake libtool libtool-bin cmigemo xvfb xauth -y
+      run: sudo apt install cmake libtool libtool-bin cmigemo libsqlite3-dev pkg-config xvfb xauth -y
+    - name: Configure SQLite module runtime path (Linux)
+      if: runner.os == 'Linux'
+      # setup-emacs uses Nix; its loader does not search the system library
+      # directory used by the host compiler when building sqlite3-api.so.
+      run: echo "SQLITE3_API_BUILD_COMMAND=make all LIB='$(pkg-config --libs sqlite3) -Wl,-rpath,$(pkg-config --variable=libdir sqlite3)'" >> "$GITHUB_ENV"
     - name: Add texinfo path
       if: matrix.os == 'macos-latest'
-      run: echo "/usr/local/opt/texinfo/bin" >> $GITHUB_PATH
+      run: echo "$(brew --prefix texinfo)/bin" >> "$GITHUB_PATH"
     - name: Test warning detection
       run: make check-warning-tests
-    - run: make -f borg.mk bootstrap-fast
+    - name: Bootstrap drones
+      id: bootstrap
+      run: make -f borg.mk bootstrap-fast
     - name: Check drone compilation warnings
       run: make check-drones
     - name: Check configuration compilation and ERT
-      if: ${{ !cancelled() }}
+      if: ${{ !cancelled() && steps.bootstrap.outcome == 'success' }}
       run: make test
       env:
         ERROR_ON_WARN: t
         EL_GET_SKIP_BYTE_COMPILE: t
     - name: Check graphical startup and stale bytecode (Linux)
-      if: ${{ !cancelled() && runner.os == 'Linux' }}
+      if: ${{ !cancelled() && steps.bootstrap.outcome == 'success' && runner.os == 'Linux' }}
       run: xvfb-run -a make check-startup STARTUP_ARGS=--gui
     - name: Check terminal startup and stale bytecode (macOS)
-      if: ${{ !cancelled() && runner.os == 'macOS' }}
+      if: ${{ !cancelled() && steps.bootstrap.outcome == 'success' && runner.os == 'macOS' }}
       run: make check-startup
     - name: Upload warning diagnostics
       if: ${{ !cancelled() }}

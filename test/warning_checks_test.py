@@ -95,6 +95,20 @@ class WarningChecks(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Compilation failed", result.stderr)
 
+    def test_symlinked_root_reports_canonical_relative_paths(self):
+        alias = self.root / "alias"
+        alias.symlink_to(self.root, target_is_directory=True)
+        library = self.root / "lib" / "fixture" / "fixture.el"
+        library.parent.mkdir(parents=True)
+        library.write_text(
+            ";;; -*- lexical-binding: t; -*-\n(defun fixture () unknown-variable)\n"
+        )
+        result = self.emacs("--load", str(alias / "test" / "warning-monitor.el"),
+                            "--eval", f"(byte-compile-file {json.dumps(str(library))})",
+                            "--funcall", "toncs-check-exit", env={"GITHUB_ACTIONS": "true"})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("::warning::[upstream] lib/fixture/fixture.el:", result.stdout)
+
     def runtime(self, library_body, expression, *, upstream=True):
         directory = self.root / "lib" / "fixture" if upstream else self.root / "lisp"
         directory.mkdir(parents=True, exist_ok=True)
