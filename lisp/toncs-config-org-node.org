@@ -33,7 +33,7 @@ capture はネストし得るため、capture ごとに隔離される場所で�
   "\"r\" capture テンプレートの `:before-finalize' フック。
 `toncs-org-node--capture-read-ref' が読み取った値をファイル先頭の
 プロパティドロワーに ROAM_REFS として設定する。"
-  (when-let ((ref (org-capture-get :toncs-org-node-ref 'local)))
+  (when-let* ((ref (org-capture-get :toncs-org-node-ref 'local)))
     (org-with-wide-buffer
      (goto-char (point-min))
      (org-entry-put nil "ROAM_REFS" ref))))
@@ -70,7 +70,7 @@ org-capture は中断時もバッファを保存してから終了するため�
              (not (org-capture-get :existing-node)))
     (when-let* ((id (org-capture-get :id))
                 (file (org-id-find-id-file id)))
-      (when-let ((buf (find-buffer-visiting file)))
+      (when-let* ((buf (find-buffer-visiting file)))
         (with-current-buffer buf
           (set-buffer-modified-p nil))
         (kill-buffer buf))

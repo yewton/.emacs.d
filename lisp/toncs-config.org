@@ -326,7 +326,7 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   "`consult--default-regexp-compiler' の migemo 対応版。"
   (setq input (mapcar #'migemo-get-pattern (consult--split-escaped input)))
   (cons (mapcar (lambda (x) (consult--convert-regexp x type)) input)
-        (when-let (regexps (seq-filter #'consult--valid-regexp-p input))
+        (when-let* ((regexps (seq-filter #'consult--valid-regexp-p input)))
           (lambda (str)
               (consult--highlight-regexps regexps ignore-case str)))))
 
@@ -514,7 +514,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 * diff-hl
 
 #+begin_src emacs-lisp
-(autoload 'diff-hl-magit-pre-refresh "diff-hl")
 (autoload 'diff-hl-magit-post-refresh "diff-hl")
 
 (toncs-config-configure diff-hl
@@ -522,7 +521,6 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
   (add-hook 'emacs-startup-hook #'diff-hl-flydiff-mode)
   (add-hook 'emacs-startup-hook #'global-diff-hl-show-hunk-mouse-mode)
   (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
-  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 #+end_src
 
@@ -564,7 +562,11 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (toncs-config-configure uniquify
   (setq uniquify-buffer-name-style 'forward)
   (setq uniquify-separator "/")
-  (setq uniquify-after-kill-buffer-p t)
+  ;; Emacs 31 renamed this option; retain support for Emacs 30.
+  (set (if (boundp 'uniquify-after-kill-buffer-flag)
+           'uniquify-after-kill-buffer-flag
+         'uniquify-after-kill-buffer-p)
+       t)
   (setq uniquify-ignore-buffers-re "^\\*")
   (setq uniquify-min-dir-content 2))
 #+end_src

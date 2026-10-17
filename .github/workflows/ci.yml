@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      TONCS_CHECK_OUTPUT: ${{ github.workspace }}/var/warning-checks
     strategy:
       fail-fast: false
       matrix:
@@ -31,15 +33,34 @@ jobs:
         version: ${{ matrix.emacs_version }}
     - name: Install Homebrew dependencies (on macOS)
       if: matrix.os == 'macos-latest'
-      run: env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool --formula
+      run: env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool cmigemo --formula
     - name: Install Homebrew dependencies (on Ubuntu)
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt install cmake libtool libtool-bin -y
+      run: sudo apt install cmake libtool libtool-bin cmigemo xvfb xauth -y
     - name: Add texinfo path
       if: matrix.os == 'macos-latest'
       run: echo "/usr/local/opt/texinfo/bin" >> $GITHUB_PATH
+    - name: Test warning detection
+      run: make check-warning-tests
     - run: make -f borg.mk bootstrap-fast
-    - run: make test
+    - name: Check drone compilation warnings
+      run: make check-drones
+    - name: Check configuration compilation and ERT
+      if: ${{ !cancelled() }}
+      run: make test
       env:
         ERROR_ON_WARN: t
         EL_GET_SKIP_BYTE_COMPILE: t
+    - name: Check graphical startup and stale bytecode (Linux)
+      if: ${{ !cancelled() && runner.os == 'Linux' }}
+      run: xvfb-run -a make check-startup STARTUP_ARGS=--gui
+    - name: Check terminal startup and stale bytecode (macOS)
+      if: ${{ !cancelled() && runner.os == 'macOS' }}
+      run: make check-startup
+    - name: Upload warning diagnostics
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: warning-diagnostics-${{ matrix.os }}-${{ matrix.emacs_version }}
+        path: var/warning-checks/
+        if-no-files-found: ignore
