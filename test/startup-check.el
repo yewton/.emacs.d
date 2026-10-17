@@ -37,8 +37,8 @@
   (with-temp-file (getenv "TONCS_CHECK_REPORT")
     (insert (format "Warning check: %d diagnostic(s)\n"
                     (length toncs-check-diagnostics)))
-    (dolist (text (reverse toncs-check-diagnostics))
-      (insert text "\n"))
+    (insert (toncs-check-diagnostic-text) "\n"
+            (toncs-check-annotation-text) "\n")
     (dolist (name '("*Compile-Log*" "*Warnings*" "*Messages*"))
       (when (get-buffer name)
         (insert "\n" name "\n" (with-current-buffer name (buffer-string))))))

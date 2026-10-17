@@ -43,6 +43,7 @@ def run_startup(root, *, stale=False, timeout=180, gui=False):
         )
         env = dict(os.environ, TONCS_CHECK_REPORT=str(report),
                    TONCS_CHECK_ROOT=str(root), TONCS_CHECK_STATE=str(init_dir),
+                   TONCS_CHECK_LABEL="startup-stale" if stale else "startup-built",
                    TERM="xterm-256color")
         command = ["emacs", f"--init-directory={init_dir}", "--no-site-file"]
         if not gui:
@@ -69,6 +70,10 @@ def run_startup(root, *, stale=False, timeout=180, gui=False):
                 status = process.returncode
             if report.exists():
                 print(report.read_text(), flush=True)
+                if env.get("TONCS_CHECK_OUTPUT"):
+                    output_dir = Path(env["TONCS_CHECK_OUTPUT"])
+                    output_dir.mkdir(parents=True, exist_ok=True)
+                    (output_dir / f"{env['TONCS_CHECK_LABEL']}.log").write_text(report.read_text())
             else:
                 print("Startup did not produce a completion report", flush=True)
                 print(output.decode(errors="replace"), flush=True)
