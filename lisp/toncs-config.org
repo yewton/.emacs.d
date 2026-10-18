@@ -918,7 +918,9 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 (defun toncs-side-panel--toggle (side alist)
   "SIDE のサイドウィンドウにカレントバッファを表示／削除する。"
   (let ((win (get-window-with-predicate
-              (lambda (w) (eq (window-parameter w 'window-side) side)))))
+              (lambda (w)
+                (and (eq (window-parameter w 'window-side) side)
+                     (not (window-parameter w 'toncs-ghostel-sidebar)))))))
     (if win
         (delete-window win)
       (let ((buf (current-buffer))
@@ -951,7 +953,8 @@ FEATURE の読み込み前に設定しておきたい変数の初期化処理や
 #+begin_src emacs-lisp
 (require 'cl-lib)
 
-(toncs-config-prepare ghostel)
+(toncs-config-prepare ghostel
+  (autoload 'toncs-ghostel-sidebar "toncs-ghostel-sidebar" nil t))
 #+end_src
 
 * treesit-auto
