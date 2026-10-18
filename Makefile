@@ -68,6 +68,8 @@ run: all
 	$(RUNEMACS) --no-init-file --chdir $(PWD) --debug-init -l $(PWD)/early-init.el -l $(PWD)/init.el >/dev/null 2>&1 &
 
 test: all
+	emacs --batch --load test/ghostel-sidebar-startup-check.el
+	emacs --batch --eval '(setq toncs-test-terminal-first t)' --load test/ghostel-sidebar-startup-check.el
 	emacs --batch --load ert $(addprefix --load ,$(TEST_FILES)) -f ert-run-tests-batch-and-exit
 
 run-nw: all

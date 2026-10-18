@@ -1,0 +1,369 @@
+#+TITLE: Ghostel サイドバー
+#+setupfile: ../setup.org
+
+#+begin_src emacs-lisp :comments no :padline no
+;;; toncs-ghostel-sidebar.el -*- lexical-binding: t -*-
+#+end_src
+
+* サイドバー
+
+=M-x toncs-ghostel-sidebar= で全 ghostel バッファの名前と端末タイトルを
+右側に一覧する。タイトルは全文を折り返し、約1秒ごとに更新する。
+=n= / =p= で項目を移動し、=RET= または左クリックで端末へ移る。
+=g= で即時更新、=q= またはコマンドの再実行で閉じる。
+各端末が設定するタイトルを状況確認の情報源として表示する。
+端末は初回登録順に表示し、再ビルド等のモード切り替え後も順序を維持する。
+表示成功後と =g= で自動更新を開始する。最小化中は表示状態の確認だけを行う。
+=q= やトグルで全ウィンドウを閉じたとき、一覧バッファの削除・モード変更、
+更新エラーでタイマーを終了する。
+
+更新間隔は =toncs-ghostel-sidebar-refresh-interval= で指定する。
+既定は1秒。0.2秒にすると高速に変化するタイトルを毎秒5回取得する。
+設定後は =g= または開き直しで反映する。表示は取得時点のタイトルであり、
+途中のアニメーションは飛ぶ場合がある。更新頻度を上げると再描画の負荷も増える。
+
+#+begin_src emacs-lisp
+(require 'cl-lib)
+;; Load ghostel first so its after-load setup cannot re-enter the config file.
+(require 'ghostel)
+
+(require 'toncs-config-ghostel)
+
+(defgroup toncs-ghostel-sidebar nil
+  "Persistent list of ghostel terminal titles."
+  :group 'terminals)
+
+(defcustom toncs-ghostel-sidebar-refresh-interval 1.0
+  "Seconds between sidebar updates.
+Use 0.2 to sample fast-changing terminal titles more frequently.
+Changes take effect when the sidebar is reopened or refreshed with g."
+  :type 'number
+  :group 'toncs-ghostel-sidebar)
+
+(defvar-local toncs-ghostel-sidebar--snapshot 'uninitialized)
+(defvar-local toncs-ghostel-sidebar--timer nil)
+
+(defun toncs-ghostel-sidebar--check-mode ()
+  "Reject sidebar operations outside the sidebar mode."
+  (unless (derived-mode-p 'toncs-ghostel-sidebar-mode)
+    (user-error "Ghostel サイドバーで実行してください")))
+
+(defun toncs-ghostel-sidebar--item (&optional position)
+  "Return the terminal at POSITION or point."
+  (get-text-property (or position (point)) 'toncs-ghostel-buffer))
+
+(defun toncs-ghostel-sidebar--position (buffer)
+  "Return the start of BUFFER's sidebar entry."
+  (text-property-any (point-min) (point-max) 'toncs-ghostel-buffer buffer))
+
+(defun toncs-ghostel-sidebar--text (text)
+  "Make TEXT safe to display on a logical line."
+  (replace-regexp-in-string "[[:cntrl:]]" " " text))
+
+(defun toncs-ghostel-sidebar--buffers ()
+  "Return the terminal buffers in the last rendered snapshot."
+  (when (listp toncs-ghostel-sidebar--snapshot)
+    (mapcar #'car toncs-ghostel-sidebar--snapshot)))
+
+(defun toncs-ghostel-sidebar--live-buffers ()
+  "Discover and register all ghostel buffers, returning registration order."
+  (let ((known (make-hash-table :test #'eq))
+        (live (make-hash-table :test #'eq)))
+    (dolist (buffer toncs-ghostel-terminal-order)
+      (puthash buffer t known))
+    ;; Inspect major-mode directly to avoid ghostel-buffer-list's per-buffer
+    ;; current-buffer switches and name sorting on every polling tick.
+    (dolist (buffer (buffer-list))
+      (when (provided-mode-derived-p (buffer-local-value 'major-mode buffer)
+                                    'ghostel-mode)
+        (puthash buffer t live)
+        (unless (gethash buffer known)
+          (toncs-ghostel-register-terminal buffer)
+          (puthash buffer t known))))
+    (cl-remove-if-not (lambda (buffer) (gethash buffer live))
+                      toncs-ghostel-terminal-order)))
+
+(defun toncs-ghostel-sidebar-refresh (&optional force)
+  "Refresh terminal entries, preserving selection.  FORCE redraws unchanged data."
+  (interactive (list t) toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar--check-mode)
+  ;; Buffer deletion can bypass kill-buffer-hook; keep discovery resilient.
+  (setq toncs-ghostel-terminal-order
+        (cl-delete-if-not #'buffer-live-p toncs-ghostel-terminal-order))
+  (let* ((live (toncs-ghostel-sidebar--live-buffers))
+         (snapshot
+          (mapcar (lambda (buffer)
+                    (list buffer (buffer-name buffer)
+                          (buffer-local-value 'ghostel-title buffer)))
+                  live)))
+    (when (or force (not (equal snapshot toncs-ghostel-sidebar--snapshot)))
+      (let* ((old-item (toncs-ghostel-sidebar--item))
+             (old-index (or (cl-position old-item (toncs-ghostel-sidebar--buffers)) 0))
+             (positions
+              (mapcar (lambda (window)
+                        (list window
+                              (toncs-ghostel-sidebar--item (window-point window))
+                              (toncs-ghostel-sidebar--item (window-start window))))
+                      (get-buffer-window-list (current-buffer) nil t))))
+        (let ((inhibit-read-only t))
+          (erase-buffer)
+          (if (null snapshot)
+              (insert "ghostel バッファはありません\n")
+            (dolist (entry snapshot)
+              (let ((start (point)))
+                (insert (propertize (toncs-ghostel-sidebar--text (nth 1 entry))
+                                    'face 'font-lock-keyword-face)
+                        "\n  "
+                        (toncs-ghostel-sidebar--text
+                         (or (nth 2 entry) "タイトルなし")) "\n\n")
+                (add-text-properties
+                 start (point)
+                 (list 'toncs-ghostel-buffer (car entry)
+                       'mouse-face 'highlight 'rear-nonsticky t))))))
+        (let* ((fallback (nth (min old-index (max 0 (1- (length snapshot))))
+                              live))
+               (position (or (toncs-ghostel-sidebar--position old-item)
+                             (toncs-ghostel-sidebar--position fallback)
+                             (point-min))))
+          (goto-char position)
+          (dolist (saved positions)
+            (set-window-point (car saved)
+                              (or (toncs-ghostel-sidebar--position (nth 1 saved))
+                                  position))
+            (when-let* ((start (toncs-ghostel-sidebar--position (nth 2 saved))))
+              (set-window-start (car saved) start t))))
+      (setq toncs-ghostel-sidebar--snapshot snapshot)))))
+
+(defun toncs-ghostel-sidebar-update ()
+  "Redraw the sidebar and resume automatic updates."
+  (interactive nil toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar--check-mode)
+  (toncs-ghostel-sidebar--check-interval)
+  (toncs-ghostel-sidebar-refresh t)
+  (toncs-ghostel-sidebar--stop)
+  (toncs-ghostel-sidebar--start))
+
+(defun toncs-ghostel-sidebar--stop ()
+  "Cancel this sidebar's refresh timer."
+  (when (timerp toncs-ghostel-sidebar--timer)
+    (cancel-timer toncs-ghostel-sidebar--timer))
+  (setq toncs-ghostel-sidebar--timer nil))
+
+(defun toncs-ghostel-sidebar--check-interval ()
+  "Validate the polling interval before display or timer changes."
+  (unless (and (numberp toncs-ghostel-sidebar-refresh-interval)
+               (> toncs-ghostel-sidebar-refresh-interval 0))
+    (user-error "更新間隔には正の秒数を指定してください")))
+
+(defun toncs-ghostel-sidebar--start ()
+  "Start one lightweight polling timer for the current sidebar."
+  (unless (timerp toncs-ghostel-sidebar--timer)
+    (let ((buffer (current-buffer))
+          (timer nil))
+      (setq timer
+            (run-at-time toncs-ghostel-sidebar-refresh-interval
+                         toncs-ghostel-sidebar-refresh-interval
+                         (lambda () (toncs-ghostel-sidebar--tick buffer timer))))
+      (setq toncs-ghostel-sidebar--timer timer))))
+
+(defun toncs-ghostel-sidebar--tick (buffer &optional timer)
+  "Refresh visible BUFFER; cancel TIMER if BUFFER has disappeared."
+  (if (not (buffer-live-p buffer))
+      (when (timerp timer) (cancel-timer timer))
+    (with-current-buffer buffer
+      (cond
+       ((and timer (not (eq timer toncs-ghostel-sidebar--timer)))
+        (cancel-timer timer))
+       ((not (get-buffer-window buffer t)) (toncs-ghostel-sidebar--stop))
+       ((get-buffer-window buffer 'visible)
+        (condition-case err
+            (toncs-ghostel-sidebar-refresh)
+          (error
+           (toncs-ghostel-sidebar--stop)
+           (message "Ghostel sidebar: 更新を停止しました: %s"
+                    (error-message-string err)))))))))
+
+(defun toncs-ghostel-sidebar-next (&optional count)
+  "Move COUNT terminal entries forward."
+  (interactive "p" toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar--check-mode)
+  (let* ((buffers (toncs-ghostel-sidebar--buffers))
+         (step (or count 1))
+         (index (or (cl-position (toncs-ghostel-sidebar--item) buffers)
+                    (if (< step 0) 0 -1))))
+    (when (and buffers (not (zerop step)))
+      (goto-char
+       (toncs-ghostel-sidebar--position
+        (nth (mod (+ index step) (length buffers)) buffers))))))
+
+(defun toncs-ghostel-sidebar-previous (&optional count)
+  "Move COUNT terminal entries backward."
+  (interactive "p" toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar-next (- (or count 1))))
+
+(defun toncs-ghostel-sidebar--target-p (window frame)
+  "Whether WINDOW can display a terminal in FRAME."
+  (and (window-live-p window)
+       (eq (window-frame window) frame)
+       (not (window-minibuffer-p window))
+       (not (window-parameter window 'window-side))
+       (not (window-dedicated-p window))
+       (not (with-current-buffer (window-buffer window)
+              (derived-mode-p 'toncs-ghostel-sidebar-mode)))))
+
+(defun toncs-ghostel-sidebar-select ()
+  "Display the terminal at point in the originating main window."
+  (interactive nil toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar--check-mode)
+  (let* ((buffer (toncs-ghostel-sidebar--item))
+         (frame (selected-frame))
+         (origin (window-parameter nil 'toncs-ghostel-sidebar-target))
+         (target (if (toncs-ghostel-sidebar--target-p origin frame)
+                     origin
+                   (cl-find-if (lambda (window)
+                                 (toncs-ghostel-sidebar--target-p window frame))
+                               (window-list frame 'nomini)))))
+    (cond
+     ((null buffer) (user-error "端末を選択してください"))
+     ((not (buffer-live-p buffer))
+      (toncs-ghostel-sidebar-refresh t)
+      (user-error "選択した端末は削除されています"))
+     ((null target) (user-error "表示できる通常ウィンドウがありません"))
+     (t (set-window-buffer target buffer)
+        (select-window target)))))
+
+(defun toncs-ghostel-sidebar-click (event)
+  "Select the terminal clicked in EVENT."
+  (interactive "e" toncs-ghostel-sidebar-mode)
+  (let ((window (and event (posn-window (event-start event)))))
+    (unless (window-live-p window)
+      (user-error "Ghostel サイドバーをクリックしてください"))
+    (with-current-buffer (window-buffer window)
+      (toncs-ghostel-sidebar--check-mode))
+    (mouse-set-point event)
+    (toncs-ghostel-sidebar-select)))
+
+(defun toncs-ghostel-sidebar-quit ()
+  "Close the current sidebar window."
+  (interactive nil toncs-ghostel-sidebar-mode)
+  (toncs-ghostel-sidebar--check-mode)
+  (toncs-ghostel-sidebar--close (selected-window)))
+
+(defvar toncs-ghostel-sidebar-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "n") #'toncs-ghostel-sidebar-next)
+    (define-key map (kbd "p") #'toncs-ghostel-sidebar-previous)
+    (define-key map (kbd "RET") #'toncs-ghostel-sidebar-select)
+    (define-key map [mouse-1] #'toncs-ghostel-sidebar-click)
+    (define-key map (kbd "g") #'toncs-ghostel-sidebar-update)
+    (define-key map (kbd "q") #'toncs-ghostel-sidebar-quit)
+    map))
+
+(define-derived-mode toncs-ghostel-sidebar-mode special-mode "Ghostel Sidebar"
+  "Browse ghostel terminal titles."
+  (setq-local truncate-lines nil
+              word-wrap t)
+  (add-hook 'change-major-mode-hook #'toncs-ghostel-sidebar--stop nil t)
+  (add-hook 'kill-buffer-hook #'toncs-ghostel-sidebar--stop nil t)
+  (toncs-ghostel-sidebar-refresh))
+
+(defun toncs-ghostel-sidebar--create-window (buffer origin)
+  "Create a new right-side window for BUFFER without reusing a panel.
+ORIGIN is the main window to return to when selecting a terminal."
+  (let* ((panels (cl-remove-if-not
+                  (lambda (window)
+                    (eq (window-parameter window 'window-side) 'right))
+                  (window-list)))
+         (limit (nth 2 window-sides-slots))
+         (before (window-list))
+         (window nil)
+         (success nil))
+    (when (cl-some (lambda (panel)
+                     (eq (window-parameter panel 'window-slot) 1)) panels)
+      (user-error "サイドバー用の slot 1 は既に使用されています"))
+    (when (and (numberp limit) (>= (length panels) limit))
+      (user-error "右側のサイドウィンドウ数が上限に達しています"))
+    (unwind-protect
+        (progn
+          (setq window
+                (if panels
+                    ;; Splitting explicitly cannot fall back to reusing a panel.
+                    (let ((window-combination-resize 'side))
+                      (split-window
+                       (car (last (sort panels
+                                        (lambda (a b)
+                                          (< (window-top-line a)
+                                             (window-top-line b))))))
+                       nil 'below))
+                  (display-buffer-in-side-window
+                   buffer '((side . right) (slot . 1) (window-width . 40)))))
+          (unless (window-live-p window)
+            (user-error "Ghostel サイドバーを表示できませんでした"))
+          (set-window-parameter window 'window-slot 1)
+          (set-window-buffer window buffer)
+          (set-window-dedicated-p window t)
+          (set-window-parameter window 'toncs-ghostel-sidebar t)
+          (set-window-parameter window 'toncs-ghostel-sidebar-target origin)
+          (set-window-parameter window 'no-delete-other-windows t)
+          (setq success t)
+          window)
+      (unless success
+        (let ((inhibit-quit t))
+          (dolist (new (window-list))
+            (unless (memq new before) (delete-window new))))))))
+
+(defun toncs-ghostel-sidebar--close (window)
+  "Close WINDOW and stop polling when no list windows remain.
+Only a sidebar-owned side window is deleted.  Normal windows use quit-window."
+  (let ((buffer (window-buffer window)))
+    (if (and (window-parameter window 'toncs-ghostel-sidebar)
+             (window-parameter window 'window-side))
+        (delete-window window)
+      (quit-window nil window))
+    (with-current-buffer buffer
+      (unless (get-buffer-window buffer t)
+        (toncs-ghostel-sidebar--stop)))))
+
+(defun toncs-ghostel-sidebar ()
+  "Toggle the ghostel title sidebar in the current frame.
+If its buffer is already shown in a normal window, select and refresh it."
+  (interactive)
+  (let* ((buffer (get-buffer "*Ghostel Sidebar*"))
+         (windows (and buffer
+                       (get-buffer-window-list buffer nil (selected-frame))))
+         (side (cl-find-if
+                (lambda (window)
+                  (window-parameter window 'toncs-ghostel-sidebar)) windows)))
+    (if side
+        (toncs-ghostel-sidebar--close side)
+      (toncs-ghostel-sidebar--check-interval)
+      (setq buffer (or buffer (get-buffer-create "*Ghostel Sidebar*")))
+      (let ((origin (selected-window))
+            (created nil)
+            (success nil))
+        (unwind-protect
+            (progn
+              (with-current-buffer buffer
+                (if (derived-mode-p 'toncs-ghostel-sidebar-mode)
+                    (toncs-ghostel-sidebar-refresh)
+                  (toncs-ghostel-sidebar-mode)))
+              (if windows
+                  (select-window (car windows))
+                (setq created (toncs-ghostel-sidebar--create-window buffer origin))
+                (select-window created))
+              (with-current-buffer buffer
+                (toncs-ghostel-sidebar--stop)
+                (toncs-ghostel-sidebar--start))
+              (setq success t))
+          (unless success
+            (let ((inhibit-quit t))
+              (when (buffer-live-p buffer)
+                (with-current-buffer buffer (toncs-ghostel-sidebar--stop)))
+              (when (window-live-p created) (delete-window created))
+              (when (window-live-p origin) (select-window origin)))))))))
+#+end_src
+
+#+begin_src emacs-lisp :comments no
+(provide 'toncs-ghostel-sidebar)
+;;; toncs-ghostel-sidebar.el ends here
+#+end_src

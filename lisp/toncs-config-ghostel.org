@@ -30,7 +30,27 @@ marginalia のタイトル前置は =consult-ghostel-mode= の有効化時に登
 (require 'spinner)
 (require 'toncs-config-terminal)
 
+(defvar toncs-ghostel-terminal-order nil
+  "Terminal buffers in first registration order, retained across mode changes.")
+
+(defun toncs-ghostel-unregister-terminal ()
+  "Remove the current buffer from terminal registration order."
+  (setq toncs-ghostel-terminal-order
+        (delq (current-buffer) toncs-ghostel-terminal-order)))
+
+(put 'toncs-ghostel-unregister-terminal 'permanent-local-hook t)
+
+(defun toncs-ghostel-register-terminal (&optional buffer)
+  "Append BUFFER to registration order once and install its cleanup hook.
+BUFFER defaults to the current buffer."
+  (with-current-buffer (or buffer (current-buffer))
+    (unless (memq (current-buffer) toncs-ghostel-terminal-order)
+      (setq toncs-ghostel-terminal-order
+            (append toncs-ghostel-terminal-order (list (current-buffer)))))
+    (add-hook 'kill-buffer-hook #'toncs-ghostel-unregister-terminal nil t)))
+
 (defun toncs-config-ghostel-configure ()
+  (add-hook 'ghostel-mode-hook #'toncs-ghostel-register-terminal)
   (add-hook 'ghostel-mode-hook #'toncs-terminal-mode-setup))
 #+end_src
 
