@@ -11,6 +11,7 @@ DICT_PATHS := $(addsuffix .utf8,$(addprefix $(DICT_DIR),$(DICTS)))
 KAOMOJI_DICT := $(DICT_DIR)kaomoji.skk.utf8
 KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoji.skk.utf8
 ERROR_ON_WARN ?= nil
+STARTUP_ARGS ?=
 TEST_FILES := $(wildcard test/*-test.el)
 
 ifeq ($(OS_NAME),darwin)
@@ -20,7 +21,7 @@ endif
 
 MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
-.PHONY: all gc clean run test borg lisp
+.PHONY: all gc clean run test borg lisp check-drones check-startup check-warning-tests
 
 all: lisp $(DICT_PATHS) $(KAOMOJI_DICT)
 
@@ -45,8 +46,23 @@ borg:
 	fi
 
 lisp: borg $(ELS) toncs-bootstrap.el
+ifeq ($(ERROR_ON_WARN),t)
+	emacs --quick --batch --load test/compile-check.el lisp
+else
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
 	-L lib/borg --load borg --funcall borg-initialize --eval "(batch-byte-recompile-directory 0)" lisp
+endif
+
+# Run after bootstrap-fast; force compilation using Borg's file exclusions.
+check-drones: $(INITS)
+	emacs --quick --batch --load test/compile-check.el drones
+
+# Use a disposable checkout/worktree: startup may write caches and byte code.
+check-startup: $(INITS) $(ELS)
+	python3 test/startup-check.py --root "$(CURDIR)" $(STARTUP_ARGS)
+
+check-warning-tests:
+	python3 -m unittest discover -s test -p 'warning_checks_test.py'
 
 $(DICT_DIR):
 	mkdir -p $@

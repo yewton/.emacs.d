@@ -6,14 +6,20 @@
 #+end_src
 
 #+begin_src emacs-lisp
-(require 'magit)
-
-;; This must be set before forge is loaded.
-;; https://github.com/magit/forge/blob/9fc07458edf446aed1d30a5360b780ba3b42c3c0/docs/forge.org#other-options
+(defvar auto-compile-on-load-mode)
 (defvar forge-database-connector)
-(setq forge-database-connector
-      (if (version< emacs-version "29") 'sqlite-module 'sqlite-builtin))
-(require 'forge)
+
+(eval-and-compile
+  ;; Magit and Forge provide features before finishing their cyclic loads.
+  ;; Recompiling their dependencies at that point sees incomplete EIEIO
+  ;; classes and Transient definitions. Borg builds these packages together;
+  ;; load-prefer-newer still selects updated sources when bytecode is stale.
+  (let ((auto-compile-on-load-mode nil))
+    (require 'magit)
+    ;; Set this before loading Forge, including during byte compilation.
+    (setq forge-database-connector
+          (if (version< emacs-version "29") 'sqlite-module 'sqlite-builtin))
+    (require 'forge)))
 
 (defun toncs-config-magit-configure ()
   (setq magit-diff-refine-hunk 'all)
