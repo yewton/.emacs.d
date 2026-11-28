@@ -37,7 +37,7 @@ toolchain_key() {
     if [ "${EMACS_MATRIX:-}" = snapshot ]; then
       readlink -f "$(command -v emacs)"
     fi
-    cat borg.mk etc/borg/config.el
+    cat borg.mk etc/borg/config.el etc/borg/build-fast.el
   } | hash_stdin
 }
 
