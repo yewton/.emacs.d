@@ -10,13 +10,17 @@ bootstrap-borg:
 	@cd $(DRONES_DIR)/borg; git symbolic-ref HEAD refs/heads/main
 	@cd $(DRONES_DIR)/borg; git reset --hard HEAD
 
-# up-to-date なら再コンパイルしない build
+# up-to-date なら再コンパイルしない build。drone ごとに別プロセスでビルドする
+# (理由は etc/borg/build-fast.el を参照)
 build-fast:
-	$(Q)$(EMACS_BATCH) $(BORG_ARGS) \
-    --eval "(setq borg-compile-function (lambda (file) (byte-recompile-file file nil 0)))" \
-	--eval "(advice-add 'borg-clean :around #'ignore)" \
-	--eval "(advice-add 'borg--remove-autoloads :around #'ignore)" \
-	--funcall borg-batch-rebuild $(INIT_FILES) 2>&1
+	$(Q)$(EMACS_BATCH) $(BORG_ARGS) --load etc/borg/build-fast.el \
+	--eval '(setq toncs-borg-build-fast-make "$(MAKE)")' \
+	--funcall toncs-borg-build-fast $(INIT_FILES) 2>&1
+
+# build-fast から drone ごとに呼ばれる
+build-fast/%: .FORCE
+	$(Q)$(EMACS_BATCH) $(BORG_ARGS) --load etc/borg/build-fast.el \
+	--eval '(borg-build "$*")' 2>&1
 
 bootstrap-fast:
 	$(Q)printf "\n=== Running 'git submodule init' ===\n\n"

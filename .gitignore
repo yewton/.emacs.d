@@ -4,6 +4,7 @@
 \#*#
 !/test/*.el
 !/etc/borg/config.el
+!/etc/borg/build-fast.el
 /eln-cache/
 /epkgs/
 /elpa/
