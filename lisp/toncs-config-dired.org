@@ -12,6 +12,7 @@
 (require 'general)
 (require 'dirvish)
 (require 'dirvish-subtree)
+(require 'dirvish-peek)
 (require 'embark)
 
 (defun toncs-dired-add-entry (oldfun &rest args)
