@@ -23,6 +23,9 @@ jobs:
     steps:
     # submodule (drone) はキャッシュから復元し、足りない分だけ ci-drones.sh sync で取得する
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        # 認証情報を残さなければ、後処理で全 submodule の設定を掃除する手間 (macOS で十数秒) もかからない
+        persist-credentials: false
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
