@@ -12,6 +12,15 @@ KAOMOJI_DICT := $(DICT_DIR)kaomoji.skk.utf8
 KAOMOJI_DICT_URL := https://raw.githubusercontent.com/yewton/dicts/master/kaomoji.skk.utf8
 ERROR_ON_WARN ?= nil
 TEST_FILES := $(wildcard test/*-test.el)
+# lisp/*.el のうち .elc がないか古いものをバイトコンパイルし、1 つでも失敗したら非 0 で終了する。
+# batch-byte-recompile-directory はコンパイルに失敗しても終了コード 0 を返すため使わない
+COMPILE_LISP := (let (failed) \
+  (dolist (el (file-expand-wildcards "lisp/*.el")) \
+    (when (file-newer-than-file-p el (byte-compile-dest-file el)) \
+      (unless (byte-compile-file el) (push el failed)))) \
+  (when failed \
+    (message "Failed to compile: %s" (string-join (nreverse failed) " ")) \
+    (kill-emacs 1)))
 
 ifeq ($(OS_NAME),darwin)
 	FIND := gfind
@@ -46,7 +55,7 @@ borg:
 
 lisp: borg $(ELS) toncs-bootstrap.el
 	emacs --quick --batch --load toncs-bootstrap.el --eval "(setq byte-compile-error-on-warn $(ERROR_ON_WARN))" \
-	-L lib/borg --load borg --funcall borg-initialize --eval "(batch-byte-recompile-directory 0)" lisp
+	-L lib/borg --load borg --funcall borg-initialize --eval '$(COMPILE_LISP)'
 
 $(DICT_DIR):
 	mkdir -p $@
