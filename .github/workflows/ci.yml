@@ -42,8 +42,9 @@ jobs:
     - name: Compute drone cache key
       id: key
       run: .github/scripts/ci-drones.sh key
-    # ビルド済み drone を復元する。完全一致しなくても前回分を土台にし、
-    # どこまで作り直すかは ci-drones.sh plan が判断する
+    # ビルド済み drone を復元する。キャッシュは同じキーで上書きできないため
+    # 保存のたびに実行 ID 付きの新しいキーを使い、復元は前方一致で最新のものを拾う。
+    # 完全一致しなくても前回分を土台にし、どこまで作り直すかは ci-drones.sh plan が判断する
     - name: Restore drones
       uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
@@ -51,8 +52,9 @@ jobs:
           lib
           .git/modules
           .git/ci-drones-state
-        key: drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}
+        key: drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}-${{ github.run_id }}-${{ github.run_attempt }}
         restore-keys: |
+          drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}-
           drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-
           drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-
     - name: Plan drone build
@@ -83,7 +85,7 @@ jobs:
           lib
           .git/modules
           .git/ci-drones-state
-        key: drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}
+        key: drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}-${{ github.run_id }}-${{ github.run_attempt }}
     # tangle や辞書の取得は互いに独立しているので並列に走らせる
     - run: make -j"$(getconf _NPROCESSORS_ONLN)" test
       env:
