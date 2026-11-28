@@ -11,7 +11,9 @@
 #             drones     各 drone の commit と .gitmodules。変われば差分ビルド
 #   plan    ビルド方式を GITHUB_OUTPUT の mode に書き出す
 #             none         前回と同じ。fetch もビルドも不要
-#             incremental  drone だけ変わった。差分を fetch して build-fast
+#             incremental  drone だけ変わった。commit が変わった drone だけを
+#                          borg-build で作り直す。.gitmodules が変わったときは
+#                          build-step 等の設定変更に備えて build-fast で全 drone を回す
 #             full         toolchain が変わった・復元物がない・FORCE_FULL=true。
 #                          生成物を消して全 drone をビルドし直す
 #   sync    submodule を index に記録された commit に揃える
@@ -43,11 +45,19 @@ drones_key() {
   { git ls-tree HEAD lib/; cat .gitmodules; } | hash_stdin
 }
 
+# STATE_FILE の形式: toolchain=・gitmodules= の行に続けて git ls-tree HEAD lib/ の出力
 current_state() {
-  printf 'toolchain=%s\ndrones=%s\n' "$(toolchain_key)" "$(drones_key)"
+  printf 'toolchain=%s\ngitmodules=%s\n' "$(toolchain_key)" "$(git hash-object .gitmodules)"
+  git ls-tree HEAD lib/
 }
 
 state_field() { sed -n "s/^$1=//p" "$2"; }
+
+# 前回から commit が変わった・新しく増えた drone の名前
+changed_drones() {
+  comm -13 <(grep -v = "$1" | sort) <(grep -v = "$2" | sort) |
+    awk -F'\t' '{sub(/^lib\//, "", $2); print $2}'
+}
 
 cmd_key() {
   echo "toolchain=$(toolchain_key)" >> "$GITHUB_OUTPUT"
@@ -55,21 +65,26 @@ cmd_key() {
 }
 
 cmd_plan() {
-  local mode now
+  local mode now changed=
   now=$(mktemp)
   current_state > "$now"
   if [ "${FORCE_FULL:-}" = true ] || [ ! -f "$STATE_FILE" ]; then
     mode=full
   elif [ "$(state_field toolchain "$STATE_FILE")" != "$(state_field toolchain "$now")" ]; then
     mode=full
-  elif [ "$(state_field drones "$STATE_FILE")" != "$(state_field drones "$now")" ]; then
+  elif [ "$(state_field gitmodules "$STATE_FILE")" != "$(state_field gitmodules "$now")" ]; then
     mode=incremental
+    changed=all
+  elif ! cmp -s "$STATE_FILE" "$now"; then
+    mode=incremental
+    changed=$(changed_drones "$STATE_FILE" "$now" | xargs)
   else
     mode=none
   fi
   rm -f "$now"
-  echo "mode: $mode"
+  echo "mode: $mode${changed:+ ($changed)}"
   echo "mode=$mode" >> "$GITHUB_OUTPUT"
+  echo "changed=${changed:-}" >> "$GITHUB_OUTPUT"
 }
 
 cmd_sync() {
@@ -91,9 +106,16 @@ cmd_sync() {
 }
 
 cmd_build() {
+  local d
   case "${1:?mode required}" in
     none) echo "drones are up to date" ;;
-    incremental) make -f borg.mk build-fast ;;
+    incremental)
+      if [ "${2:-all}" = all ]; then
+        make -f borg.mk build-fast
+      else
+        for d in $2; do make -f borg.mk "lib/$d"; done
+      fi
+      ;;
     full)
       find lib \( -name '*.elc' -o -name '*-autoloads.el' \) -delete
       make -f borg.mk build-fast
@@ -108,5 +130,5 @@ case "${1:-}" in
   plan) cmd_plan ;;
   sync) cmd_sync ;;
   build) shift; cmd_build "$@" ;;
-  *) echo "usage: $0 {key|plan|sync|build MODE}" >&2; exit 2 ;;
+  *) echo "usage: $0 {key|plan|sync|build MODE [DRONES]}" >&2; exit 2 ;;
 esac

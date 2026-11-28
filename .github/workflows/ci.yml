@@ -24,8 +24,18 @@ jobs:
     # submodule (drone) はキャッシュから復元し、足りない分だけ ci-drones.sh sync で取得する
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        # 認証情報を残さなければ、後処理で全 submodule の設定を掃除する手間 (macOS で十数秒) もかからない
+        # CI 中に push はしないので認証情報は残さない
         persist-credentials: false
+    # drone のビルドに使う依存パッケージを setup-emacs と並行して入れておく。
+    # 待つのは drone をビルドするときだけ (Wait for build dependencies)
+    - name: Install build dependencies in background
+      run: |
+        if [ "$RUNNER_OS" = macOS ]; then
+          cmd='env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool --formula'
+        else
+          cmd='sudo apt-get install -y cmake libtool libtool-bin'
+        fi
+        nohup bash -c "$cmd > '$RUNNER_TEMP/deps.log' 2>&1; echo \$? > '$RUNNER_TEMP/deps.status'" > /dev/null 2>&1 &
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
@@ -53,16 +63,18 @@ jobs:
         FORCE_FULL: ${{ github.event_name == 'schedule' }}
     - name: Sync drones
       run: .github/scripts/ci-drones.sh sync
-    - name: Install Homebrew dependencies (on macOS)
-      if: matrix.os == 'macos-latest' && steps.plan.outputs.mode != 'none'
+    - name: Wait for build dependencies
+      if: steps.plan.outputs.mode != 'none'
+      timeout-minutes: 10
       run: |
-        env HOMEBREW_NO_AUTO_UPDATE=1 brew install texinfo libtool --formula
-        echo "$(brew --prefix texinfo)/bin" >> "$GITHUB_PATH"
-    - name: Install apt dependencies (on Ubuntu)
-      if: matrix.os == 'ubuntu-latest' && steps.plan.outputs.mode != 'none'
-      run: sudo apt install cmake libtool libtool-bin -y
+        while [ ! -f "$RUNNER_TEMP/deps.status" ]; do sleep 1; done
+        cat "$RUNNER_TEMP/deps.log"
+        [ "$(cat "$RUNNER_TEMP/deps.status")" = 0 ]
+        if [ "$RUNNER_OS" = macOS ]; then
+          echo "$(brew --prefix texinfo)/bin" >> "$GITHUB_PATH"
+        fi
     - name: Build drones
-      run: .github/scripts/ci-drones.sh build ${{ steps.plan.outputs.mode }}
+      run: .github/scripts/ci-drones.sh build ${{ steps.plan.outputs.mode }} "${{ steps.plan.outputs.changed }}"
     - name: Save drones
       if: steps.plan.outputs.mode != 'none'
       uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -72,7 +84,8 @@ jobs:
           .git/modules
           .git/ci-drones-state
         key: drones-${{ runner.os }}-${{ runner.arch }}-${{ matrix.emacs_version }}-${{ steps.key.outputs.toolchain }}-${{ steps.key.outputs.drones }}
-    - run: make test
+    # tangle や辞書の取得は互いに独立しているので並列に走らせる
+    - run: make -j"$(getconf _NPROCESSORS_ONLN)" test
       env:
         ERROR_ON_WARN: t
         EL_GET_SKIP_BYTE_COMPILE: t
